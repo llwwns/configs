@@ -91,7 +91,6 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 if filereadable("settings.vim")
     source settings.vim
 endif
-set tabline=
 autocmd Filetype * set formatoptions-=c
 autocmd Filetype * set formatoptions-=r
 autocmd Filetype * set formatoptions-=o
