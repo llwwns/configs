@@ -4,6 +4,10 @@ if has("win32")
   set guioptions-=m
   set langmenu=none 
   set lines=35 columns=118
+    "enable mouse for all mode
+    if has('mouse')
+      set mouse=a
+    endif
 else
   set guifont=CodeM\ 14
   map <silent> sy :call YanktmpYank()<CR>
@@ -23,10 +27,6 @@ colo lucius
 set background=dark
 LuciusBlackLowContrast
 "set size for gvim
-"enable mouse for all mode
-if has('mouse')
-  set mouse=a
-endif
 "config for lightline
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
@@ -43,7 +43,8 @@ let g:lightline = {
   \   'readonly': '(&filetype!="help"&& &readonly)',
   \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
   \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-  \ }
+  \ },
+  \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
 set laststatus=2
 
@@ -87,9 +88,10 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-    exec "imap " . k . " " . k . "<C-N><C-P>"
-endfor
-imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
+if filereadable("settings.vim")
+    source settings.vim
+endif
+set tabline=
+autocmd Filetype * set formatoptions-=c
+autocmd Filetype * set formatoptions-=r
+autocmd Filetype * set formatoptions-=o
