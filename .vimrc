@@ -88,9 +88,10 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-if filereadable("settings.vim")
-    source settings.vim
-endif
+
 autocmd Filetype * set formatoptions-=c
 autocmd Filetype * set formatoptions-=r
 autocmd Filetype * set formatoptions-=o
+autocmd Filetype * set fdm=indent
+autocmd Filetype * set fdl=2
+runtime! settings.vim
