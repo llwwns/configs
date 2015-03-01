@@ -96,8 +96,10 @@ nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap zo zO
 
-"set completeopt=menuone
-"for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-"    exec "imap " . k . " " . k . "<C-N><C-P>"
-"endfor
-"imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
+autocmd Filetype * set formatoptions-=c
+autocmd Filetype * set formatoptions-=r
+autocmd Filetype * set formatoptions-=o
+autocmd Filetype * set fdm=indent
+autocmd Filetype * set fdl=2
+runtime! settings.vim
+
