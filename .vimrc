@@ -76,7 +76,7 @@ map <c-h> :tabp<CR>
 map <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
-nnoremap / /\v
+nnoremap <leader>/ :call eregex#toggle()<CR>
 cmap <c-p> <c-r>"
 nmap <c-f> yiw/<c-r>"<CR>
 nnoremap Y y$
@@ -85,6 +85,7 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nmap zo zO
 
 autocmd Filetype * set formatoptions-=c
 autocmd Filetype * set formatoptions-=r
