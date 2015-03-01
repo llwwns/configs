@@ -1,18 +1,23 @@
+"plugin manager
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'Yggdroot/indentLine'
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'justinmk/vim-sneak'
+Plugin 'othree/eregex.vim'
+call vundle#end()
 if has("win32")
   set guifont=CodeM:h14
   set guioptions-=T
   set guioptions-=m
   set langmenu=none 
   set lines=35 columns=118
-    "enable mouse for all mode
-    if has('mouse')
-      set mouse=a
-    endif
 else
   set guifont=CodeM\ 14
 endif
-"plugin manager
-execute pathogen#infect()
 "set language to english
 if has("multi_lang")
   language C
@@ -24,6 +29,11 @@ colo lucius
 set background=dark
 LuciusBlackLowContrast
 "set size for gvim
+"enable mouse for all mode
+if has('mouse')
+  set mouse=a
+  map<RightMouse> y
+endif
 "config for lightline
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
@@ -40,8 +50,7 @@ let g:lightline = {
   \   'readonly': '(&filetype!="help"&& &readonly)',
   \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
   \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-  \ },
-  \'enable': { 'statusline': 1, 'tabline': 0 }
+  \ }
   \ }
 set laststatus=2
 
@@ -76,7 +85,7 @@ map <c-h> :tabp<CR>
 map <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
-nnoremap / /\v
+nnoremap <leader>/ :call eregex#toggle()<CR>
 cmap <c-p> <c-r>"
 nmap <c-f> yiw/<c-r>"<CR>
 nnoremap Y y$
@@ -86,9 +95,8 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
-autocmd Filetype * set formatoptions-=c
-autocmd Filetype * set formatoptions-=r
-autocmd Filetype * set formatoptions-=o
-autocmd Filetype * set fdm=indent
-autocmd Filetype * set fdl=2
-runtime! settings.vim
+"set completeopt=menuone
+"for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+"    exec "imap " . k . " " . k . "<C-N><C-P>"
+"endfor
+"imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
