@@ -8,6 +8,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'justinmk/vim-sneak'
 Plugin 'othree/eregex.vim'
+runtime! plugins.vim
 call vundle#end()
 if has("win32")
   set guifont=CodeM:h14
@@ -15,6 +16,10 @@ if has("win32")
   set guioptions-=m
   set langmenu=none 
   set lines=35 columns=118
+  if has('mouse')
+    set mouse=a
+    map<RightMouse> y
+  endif
 else
   set guifont=CodeM\ 14
 endif
@@ -30,10 +35,6 @@ set background=dark
 LuciusBlackLowContrast
 "set size for gvim
 "enable mouse for all mode
-if has('mouse')
-  set mouse=a
-  map<RightMouse> y
-endif
 "config for lightline
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
@@ -102,4 +103,3 @@ autocmd Filetype * set formatoptions-=o
 autocmd Filetype * set fdm=indent
 autocmd Filetype * set fdl=2
 runtime! settings.vim
-
