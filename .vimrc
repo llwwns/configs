@@ -1,6 +1,7 @@
 "plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Yggdroot/indentLine'
 Plugin 'itchyny/lightline.vim'
