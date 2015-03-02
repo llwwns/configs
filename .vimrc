@@ -102,4 +102,5 @@ autocmd Filetype * set formatoptions-=r
 autocmd Filetype * set formatoptions-=o
 autocmd Filetype * set fdm=indent
 autocmd Filetype * set fdl=2
+autocmd BufReadPost fugitive://* set bufhidden=delete
 runtime! settings.vim
