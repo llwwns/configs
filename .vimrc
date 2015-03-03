@@ -69,17 +69,17 @@ set encoding=utf-8
 "set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set ambiwidth=double
 "setting for indent
-set sw=4
-set ts=4
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
 set autoindent
-set et
 "set smarttab
 "set spell
 filetype plugin indent on
 set completeopt=longest,menu
 syntax on
 set clipboard+=unnamed
-
 "mappings
 nmap qq :q<CR>
 map <c-e> :tabe<space>
@@ -97,11 +97,54 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap zo zO
+vmap < <gv
+vmap > >gv
 
-autocmd Filetype * set formatoptions-=c
-autocmd Filetype * set formatoptions-=r
-autocmd Filetype * set formatoptions-=o
-autocmd Filetype * set fdm=indent
-autocmd Filetype * set fdl=2
-autocmd BufReadPost fugitive://* set bufhidden=delete
+set list
+set listchars=eol:¬
+if has("autocmd")
+  " Enable file type detection
+  filetype on
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd Filetype * set formatoptions-=c
+  autocmd Filetype * set formatoptions-=r
+  autocmd Filetype * set formatoptions-=o
+  autocmd Filetype * set fdm=indent
+  autocmd Filetype * set fdl=2
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+endif
+" Set tabstop, softtabstop and shiftwidth to the same value
+command! -nargs=* Stab call Stab()
+function! Stab()
+  let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+  endif
+  call SummarizeTabs()
+endfunction
+
+function! SummarizeTabs()
+  try
+    echohl ModeMsg
+    echon 'tabstop='.&l:ts
+    echon ' shiftwidth='.&l:sw
+    echon ' softtabstop='.&l:sts
+    if &l:et
+      echon ' expandtab'
+    else
+      echon ' noexpandtab'
+    endif
+  finally
+    echohl None
+  endtry
+endfunction
 runtime! settings.vim
