@@ -9,6 +9,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'justinmk/vim-sneak'
 Plugin 'othree/eregex.vim'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'godlygeek/tabular'
+Plugin 'mbbill/undotree'
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
@@ -19,7 +22,8 @@ if has("win32")
   set lines=35 columns=118
   if has('mouse')
     set mouse=a
-    map<RightMouse> y
+    vmap <RightMouse> y
+    nmap <RightMouse> p
   endif
 else
   set guifont=CodeM\ 14
@@ -52,7 +56,8 @@ let g:lightline = {
   \   'readonly': '(&filetype!="help"&& &readonly)',
   \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
   \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-  \ }
+  \ },
+  \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
 set laststatus=2
 
@@ -88,7 +93,7 @@ map <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
 nnoremap <leader>/ :call eregex#toggle()<CR>
-cmap <c-p> <c-r>"
+cmap <c-v> <c-r>"
 nmap <c-f> yiw/<c-r>"<CR>
 nnoremap Y y$
 set display=lastline
@@ -96,12 +101,45 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-nmap zo zO
-vmap < <gv
-vmap > >gv
 
 set list
-set listchars=eol:¬
+set listchars=tab:\¦\ ,eol:¬
+
+function! BraceFold()
+  let thisline = getline(v:lnum)
+  if match(thisline, '\v^[^\}]*\{[^\}]*$') >= 0
+    return "a1"
+  elseif match(thisline, '\v^[^\{]*\}[^\{]*$') >= 0
+    return "s1"
+  elseif match(thisline, '\v^[^\)]*\([^\)]*$') >= 0
+    return "a1"
+  elseif match(thisline, '\v^[^\(]*\)[^\(]*$') >= 0
+    return "s1"
+  else
+    return "="
+  endif
+endfunction
+
+function! SmartyFold()
+  let thisline = getline(v:lnum)
+  if match(thisline, '\v^[^\}]*\{[^\}]*$') >= 0
+    return "a1"
+  elseif match(thisline, '\v^[^\{]*\}[^\{]*$') >= 0
+    return "s1"
+  elseif match(thisline, '\v(\s|^)\{\/(if|foreach|capture|function).*\}(\s|$)') >= 0
+    return "s1"
+  elseif match(thisline, '\v(\s|^)\{(if|foreach|capture|function).*\}(\s|$)') >= 0
+    return "a1"
+  else
+    return "="
+  endif
+endfunction
+
+function! FoldText()
+  return getline(v:foldstart)."------[".(v:foldend-v:foldstart+1)." lines]------"
+endfunction
+
+
 if has("autocmd")
   " Enable file type detection
   filetype on
@@ -116,10 +154,23 @@ if has("autocmd")
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
   autocmd Filetype * set formatoptions-=o
-  autocmd Filetype * set fdm=indent
+  autocmd Filetype php setlocal fdm=expr
+  autocmd Filetype php setlocal foldexpr=BraceFold()
+  autocmd Filetype php setlocal foldcolumn=3
+  autocmd Filetype javascript setlocal fdm=expr
+  autocmd Filetype javascript setlocal foldexpr=BraceFold()
+  autocmd Filetype javascript setlocal foldcolumn=3
+  autocmd Filetype css setlocal fdm=expr
+  autocmd Filetype css setlocal foldexpr=BraceFold()
+  autocmd Filetype css setlocal foldcolumn=3
+  autocmd Filetype smarty setlocal fdm=expr
+  autocmd Filetype smarty setlocal foldexpr=SmartyFold()
+  autocmd Filetype smarty setlocal foldcolumn=3
   autocmd Filetype * set fdl=2
+  autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
 endif
+
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
 function! Stab()
