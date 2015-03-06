@@ -12,6 +12,7 @@ Plugin 'othree/eregex.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'godlygeek/tabular'
 Plugin 'mbbill/undotree'
+Plugin 'maksimr/vim-jsbeautify'
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
@@ -87,33 +88,32 @@ syntax on
 set clipboard+=unnamed
 "mappings
 nmap qq :q<CR>
-map <c-e> :tabe<space>
+nmap <c-e> :tabe<space>
+vmap <c-e> y:tabe<CR>p
 map <c-h> :tabp<CR>
 map <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
 nnoremap <leader>/ :call eregex#toggle()<CR>
 cmap <c-v> <c-r>"
-nmap <c-f> yiw/<c-r>"<CR>
 nnoremap Y y$
 set display=lastline
 set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
 set list
 set listchars=tab:\¦\ ,eol:¬
 
 function! BraceFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v^[^\}]*\{[^\}]*$') >= 0
+  if match(thisline, '\v^[^\{^\}]*\{[^\{^\}]*$') >= 0
     return "a1"
-  elseif match(thisline, '\v^[^\{]*\}[^\{]*$') >= 0
+  elseif match(thisline, '\v^[^\{^\}]*\}[^\{^\}]*$') >= 0
     return "s1"
-  elseif match(thisline, '\v^[^\)]*\([^\)]*$') >= 0
+  elseif match(thisline, '\v^[^\(^\)]*\([^\(^\)]*$') >= 0
     return "a1"
-  elseif match(thisline, '\v^[^\(]*\)[^\(]*$') >= 0
+  elseif match(thisline, '\v^[^\(^\)]*\)[^\(^\)]*$') >= 0
     return "s1"
   else
     return "="
@@ -122,13 +122,9 @@ endfunction
 
 function! SmartyFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v^[^\}]*\{[^\}]*$') >= 0
-    return "a1"
-  elseif match(thisline, '\v^[^\{]*\}[^\{]*$') >= 0
+  if match(thisline, '\v(\s|^)\{\/(if|foreach|capture|function)[^\}]*\}(\s|$)') >= 0
     return "s1"
-  elseif match(thisline, '\v(\s|^)\{\/(if|foreach|capture|function).*\}(\s|$)') >= 0
-    return "s1"
-  elseif match(thisline, '\v(\s|^)\{(if|foreach|capture|function).*\}(\s|$)') >= 0
+  elseif match(thisline, '\v(\s|^)\{(if|foreach|capture|function)[^\}]*\}(\s|$)') >= 0
     return "a1"
   else
     return "="
