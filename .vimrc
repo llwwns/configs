@@ -102,6 +102,7 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
 set listchars=tab:\¦\ ,eol:¬
 
@@ -168,6 +169,16 @@ if has("autocmd")
   autocmd Filetype * set fdl=2
   autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
+  augroup foldmethod-expr
+    autocmd!
+    autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+    \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+    \                   |   setlocal foldmethod=manual foldexpr=0
+    \                   | endif
+    autocmd InsertLeave * if exists('b:foldinfo')
+    \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+    \                   | endif
+  augroup END
 endif
 
 " Set tabstop, softtabstop and shiftwidth to the same value
