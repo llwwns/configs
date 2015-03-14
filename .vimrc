@@ -105,19 +105,18 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
 set listchars=tab:\¦\ ,eol:¬
-
 function! BraceFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v^[^\{^\}]*\{[^\{^\}]*$') >= 0
-    return "a1"
-  elseif match(thisline, '\v^[^\{^\}]*\}[^\{^\}]*$') >= 0
-    return "s1"
-  elseif match(thisline, '\v^[^\(^\)]*\([^\(^\)]*$') >= 0
-    return "a1"
-  elseif match(thisline, '\v^[^\(^\)]*\)[^\(^\)]*$') >= 0
-    return "s1"
+  if match(thisline, '\v^\s*\}.*\{\s*$') >= 0
+    return '='
+  elseif match(thisline, '\v(^\s*\/\/)|\{\{\{|\}\}\}') >= 0
+    return '='
+  elseif match(thisline, '\v\{\s*$') >= 0
+    return 'a1'
+  elseif match(thisline, '\v^\s*\}') >= 0
+    return 's1'
   else
-    return "="
+    return '='
   endif
 endfunction
 
