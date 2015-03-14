@@ -13,6 +13,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'godlygeek/tabular'
 Plugin 'mbbill/undotree'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'digitaltoad/vim-jade'
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
@@ -144,6 +145,7 @@ if has("autocmd")
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType jade setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
