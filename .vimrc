@@ -92,6 +92,7 @@ nmap qq :q<CR>
 nmap <c-e> :tabe<space>
 vmap <c-e> y:tabe<CR>p
 map <c-h> :tabp<CR>
+map <BS> :tabp<CR>
 map <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
