@@ -20,6 +20,7 @@ if has("win32")
   set guifont=CodeM:h14
   set guioptions-=T
   set guioptions-=m
+  set guioptions-=r
   set langmenu=none 
   set lines=35 columns=118
   if has('mouse')
