@@ -167,7 +167,7 @@ if has("autocmd")
   autocmd Filetype smarty setlocal fdm=expr
   autocmd Filetype smarty setlocal foldexpr=SmartyFold()
   autocmd Filetype ruby setlocal fdm=indent
-  autocmd Filetype * set fdl=2
+  autocmd Filetype * set fdl=10
   autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   augroup foldmethod-expr
