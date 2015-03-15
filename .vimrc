@@ -40,8 +40,7 @@ colorscheme lucius
 colo lucius
 set background=dark
 LuciusBlackLowContrast
-"set size for gvim
-"enable mouse for all mode
+
 "config for lightline
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
