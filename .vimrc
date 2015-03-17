@@ -124,9 +124,11 @@ endfunction
 
 function! SmartyFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v(\s|^)\{\/(if|foreach|capture|function)[^\}]*\}(\s|$)') >= 0
+  if match(thisline, '\v\{(if|foreach|capture|function)[^\w]+.*\{\/\1') >= 0
+    return "="
+  elseif match(thisline, '\v\{\/(if|foreach|capture|function)[^\w]+.*') >= 0
     return "s1"
-  elseif match(thisline, '\v(\s|^)\{(if|foreach|capture|function)[^\}]*\}(\s|$)') >= 0
+  elseif match(thisline, '\v\{(if|foreach|capture|function)[^\w]+.*') >= 0
     return "a1"
   else
     return "="
