@@ -14,6 +14,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'mbbill/undotree'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/syntastic'
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
@@ -47,17 +49,19 @@ let g:lightline = {
   \ 'colorscheme': 'jellybeans',
   \'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'fugitive', 'readonly', 'filename', 'modified', 'syntastic'] ]
   \ },
   \ 'component': {
   \   'readonly': '%{&filetype=="help"?"":&readonly?"RO":""}',
   \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-  \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+  \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+  \   'syntastic': '%{SyntasticStatuslineFlag()}'
   \ },
   \'component_visible_condition': {
   \   'readonly': '(&filetype!="help"&& &readonly)',
   \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+  \   'syntastic': '(SyntasticStatuslineFlag()!="")'
   \ },
   \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
@@ -107,6 +111,8 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
 set listchars=tab:\¦\ ,eol:¬
+let g:ConqueTerm_CWInsert = 1
+let g:ConqueTerm_InsertOnEnter = 1
 function! BraceFold()
   let thisline = getline(v:lnum)
   if match(thisline, '\v^\s*\}.*\{\s*$') >= 0
@@ -124,11 +130,11 @@ endfunction
 
 function! SmartyFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v\{(if|foreach|capture|function)[^\w]+.*\{\/\1') >= 0
+  if match(thisline, '\v\{(if|foreach|capture|function)>+.*\{\/\1') >= 0
     return "="
-  elseif match(thisline, '\v\{\/(if|foreach|capture|function)[^\w]+.*') >= 0
+  elseif match(thisline, '\v\{\/(if|foreach|capture|function)>+.*') >= 0
     return "s1"
-  elseif match(thisline, '\v\{(if|foreach|capture|function)[^\w]+.*') >= 0
+  elseif match(thisline, '\v\{(if|foreach|capture|function)>+.*') >= 0
     return "a1"
   else
     return "="

@@ -1,0 +1,4 @@
+bind status F !@git checkout %(file)
+bind status D !git difftool %(file)
+bind status P !@git daily push
+#set vertical-split = yes
