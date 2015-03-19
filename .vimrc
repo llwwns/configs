@@ -16,6 +16,7 @@ Plugin 'maksimr/vim-jsbeautify'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-abolish'
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
