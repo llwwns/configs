@@ -1,6 +1,5 @@
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="mh_m"
-plugins=(git tmux themes)
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=~/.histfile
