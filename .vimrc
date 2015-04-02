@@ -69,6 +69,7 @@ let g:lightline = {
   \ },
   \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
+let g:syntastic_cpp_compiler_options="-std=c++11"
 set laststatus=2
 
 "Highlight all search pattern matches
