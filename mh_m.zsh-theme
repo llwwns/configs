@@ -1,4 +1,4 @@
-# mh theme
+# mh theme modified
 # preview: http://cl.ly/1y2x0W0E3t2C0F29043z
 
 # features:
@@ -12,12 +12,6 @@ if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="white"; fi
 # prompt
 PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[red]%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
 RPROMPT='%{$fg_no_bold[green]%}%B$(  git rev-parse --abbrev-ref HEAD 2> /dev/null || echo ""  )%{$reset_color%}[$HOST]'
-
-# git theming
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[yellow]%}%B"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[gray]%})%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✱"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
