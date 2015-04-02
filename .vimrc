@@ -14,9 +14,12 @@ Plugin 'godlygeek/tabular'
 Plugin 'mbbill/undotree'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'digitaltoad/vim-jade'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-abolish'
+Plugin 'vim-scripts/confluencewiki.vim'
+if !has("win32")
+  Plugin 'airblade/vim-gitgutter'
+endif
 runtime! plugins.vim
 call vundle#end()
 if has("win32")
