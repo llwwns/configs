@@ -23,7 +23,8 @@ function extract() {
 }
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s rb=ruby
-alias -s php=php
+alias -s php=vim
+alias -s tpl=vim
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi
