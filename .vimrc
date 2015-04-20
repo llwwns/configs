@@ -17,6 +17,7 @@ Plugin 'digitaltoad/vim-jade'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-abolish'
 Plugin 'vim-scripts/confluencewiki.vim'
+Plugin 'rust-lang/rust.vim'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
