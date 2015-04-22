@@ -101,13 +101,14 @@ set clipboard+=unnamed
 nmap qq :q<CR>
 nmap <c-e> :tabe<space>
 vmap <c-e> y:tabe<CR>p
-map <c-h> :tabp<CR>
-map <BS> :tabp<CR>
-map <c-l> :tabn<CR>
+nmap <c-h> :tabp<CR>
+nmap <BS> :tabp<CR>
+nmap <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
 nnoremap <leader>/ :call eregex#toggle()<CR>
-cmap <c-v> <c-r>"
+nnoremap <c-f> :Sub/
+"cmap <c-v> <c-r>"
 nnoremap Y y$
 set display=lastline
 set pumheight=10
@@ -136,11 +137,11 @@ endfunction
 
 function! SmartyFold()
   let thisline = getline(v:lnum)
-  if match(thisline, '\v\{(if|foreach|capture|function)>+.*\{\/\1') >= 0
+  if match(thisline, '\v\{(if|foreach|capture|function|section)>+.*\{\/\1') >= 0
     return "="
-  elseif match(thisline, '\v\{\/(if|foreach|capture|function)>+.*') >= 0
+  elseif match(thisline, '\v\{\/(if|foreach|capture|function|section)>+.*') >= 0
     return "s1"
-  elseif match(thisline, '\v\{(if|foreach|capture|function)>+.*') >= 0
+  elseif match(thisline, '\v\{(if|foreach|capture|function|section)>+.*') >= 0
     return "a1"
   else
     return "="
@@ -177,6 +178,8 @@ if has("autocmd")
   autocmd Filetype c setlocal foldexpr=BraceFold()
   autocmd Filetype javascript setlocal fdm=expr
   autocmd Filetype javascript setlocal foldexpr=BraceFold()
+  autocmd Filetype json setlocal fdm=expr
+  autocmd Filetype json setlocal foldexpr=BraceFold()
   autocmd Filetype css setlocal fdm=expr
   autocmd Filetype css setlocal foldexpr=BraceFold()
   autocmd Filetype smarty setlocal fdm=expr
