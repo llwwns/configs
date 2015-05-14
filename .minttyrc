@@ -1,6 +1,6 @@
 BoldAsFont=no
 Font=Source Code Pro
-FontHeight=14
+FontHeight=13
 Scrollbar=none
 Term=xterm-256color
 Transparency=low
@@ -14,7 +14,7 @@ Locale=en_US
 Charset=UTF-8
 ForegroundColour=208,208,208
 BackgroundColour=21,21,21
-CursorColour=185,255,185
+CursorColour=252,232,214
 Black=21,21,21
 BoldBlack=80,80,80
 Red=172,65,66

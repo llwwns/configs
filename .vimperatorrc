@@ -1,0 +1,9 @@
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+map <c-h> :tabp<CR>
+map <c-l> :tabn<CR>
+inoremap <C-a> <Ins><C-a><Ins>
+noremap <C-a> <Ins><C-a><Ins>
+set editor=gvim
+autocmd LocationChange .* :js modes.passAllKeys = /mail\.google\.(com|ca|fr)|www\.bazqux\.com\/|www\.google\.com\/(reader|calendar)/.test(buffer.URL)
+nnoremap j 8j
+nnoremap k 8k
