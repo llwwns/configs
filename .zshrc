@@ -25,8 +25,9 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s rb=ruby
 alias -s php=vim
 alias -s tpl=vim
-alias -g c_branch=$(git rev-parse --abbrev-ref HEAD)
-alias -g oc_branch=origin/$(git rev-parse --abbrev-ref HEAD)
+alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
+alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

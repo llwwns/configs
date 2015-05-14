@@ -22,6 +22,7 @@ if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
 runtime! plugins.vim
+set rtp+=~/fzf
 call vundle#end()
 if has("win32")
   set guifont=CodeM:h14
@@ -99,7 +100,7 @@ syntax on
 set clipboard+=unnamed
 "mappings
 nmap qq :q<CR>
-nmap <c-e> :tabe<space>
+nmap <c-e> :tabe<CR>:FZF<space>
 vmap <c-e> y:tabe<CR>p
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
