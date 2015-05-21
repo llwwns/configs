@@ -2,7 +2,7 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'jonathanfilip/vim-lucius'
+"Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Yggdroot/indentLine'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-fugitive'
@@ -18,6 +18,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-abolish'
 Plugin 'vim-scripts/confluencewiki.vim'
 Plugin 'rust-lang/rust.vim'
+Plugin 'morhetz/gruvbox'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -45,10 +46,10 @@ if has("multi_lang")
 endif
 "set colorscheme
 set t_Co=256
-colorscheme lucius
-colo lucius
+colorscheme gruvbox
+colo gruvbox
 set background=dark
-LuciusBlackLowContrast
+"LuciusBlackLowContrast
 
 "config for lightline
 let g:lightline = {
