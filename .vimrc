@@ -19,6 +19,7 @@ Plugin 'tpope/vim-abolish'
 Plugin 'vim-scripts/confluencewiki.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-surround'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
