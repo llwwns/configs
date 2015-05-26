@@ -108,6 +108,10 @@ nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
+nnoremap <up> <c-y>
+nnoremap <down> <c-e>
+nnoremap <left> zh
+nnoremap <right> zl
 nnoremap <leader>/ :call eregex#toggle()<CR>
 nnoremap <c-f> :Sub/
 "cmap <c-v> <c-r>"
