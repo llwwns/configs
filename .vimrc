@@ -86,7 +86,7 @@ set backspace=indent,eol,start
 set whichwrap=b,s,<,>,[,]
 set encoding=utf-8
 "set encoding=shift-jis
-"set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set ambiwidth=double
 "setting for indent
 set shiftwidth=4
@@ -100,6 +100,7 @@ filetype plugin indent on
 set completeopt=longest,menu
 syntax on
 set clipboard+=unnamed
+set grepprg=git\ grep\ --no-index\ -I\ --line-number\ --no-color\ -E
 "mappings
 nmap qq :q<CR>
 nmap <c-e> :tabe<CR>:FZF<space>
@@ -124,7 +125,7 @@ nnoremap - <C-x>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
-set listchars=tab:\¦\ ,eol:¬
+set listchars=tab:\¦\ ,eol:\
 let g:ConqueTerm_CWInsert = 1
 let g:ConqueTerm_InsertOnEnter = 1
 function! BraceFold()
