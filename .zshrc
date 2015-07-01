@@ -27,6 +27,7 @@ alias -s php=vim
 alias -s tpl=vim
 alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
 alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
+alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"
 alias -g dcb="develop...\$(git rev-parse --abbrev-ref HEAD)"
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
