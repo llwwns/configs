@@ -13,6 +13,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'godlygeek/tabular'
 Plugin 'mbbill/undotree'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-abolish'
@@ -156,6 +157,17 @@ function! SmartyFold()
   endif
 endfunction
 
+function! ConfluFold()
+  let thisline = getline(v:lnum)
+  if match(thisline, '\v\{code:') >= 0
+    return "a1"
+  elseif match(thisline, '\v\{code') >= 0
+    return "s1"
+  else
+    return "="
+  endif
+endfunction
+
 function! FoldText()
   return getline(v:foldstart)."------[".(v:foldend-v:foldstart+1)." lines]------"
 endfunction
@@ -193,10 +205,15 @@ if has("autocmd")
   autocmd Filetype css setlocal foldexpr=BraceFold()
   autocmd Filetype smarty setlocal fdm=expr
   autocmd Filetype smarty setlocal foldexpr=SmartyFold()
-  autocmd Filetype ruby setlocal fdm=indent
   autocmd Filetype * set fdl=10
+  autocmd Filetype confluencewiki setlocal fdm=expr
+  autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
+  autocmd Filetype confluencewiki setlocal fdl=0
+  autocmd Filetype confluencewiki setlocal fdc=1
+  autocmd Filetype ruby setlocal fdm=indent
   autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
+  autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
   augroup foldmethod-expr
     autocmd!
     autocmd InsertEnter * if &l:foldmethod ==# 'expr'
