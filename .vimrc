@@ -27,21 +27,6 @@ endif
 runtime! plugins.vim
 set rtp+=~/fzf
 call vundle#end()
-if has("win32")
-  set guifont=CodeM:h14
-  set guioptions-=T
-  set guioptions-=m
-  set guioptions-=r
-  set langmenu=none 
-  set lines=35 columns=118
-  if has('mouse')
-    set mouse=a
-    vmap <RightMouse> y
-    nmap <RightMouse> p
-  endif
-else
-  set guifont=CodeM\ 14
-endif
 "set language to english
 if has("multi_lang")
   language C
