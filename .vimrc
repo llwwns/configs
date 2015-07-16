@@ -21,6 +21,7 @@ Plugin 'vim-scripts/confluencewiki.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-surround'
+Plugin 'xuhdev/SingleCompile'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -239,3 +240,5 @@ function! SummarizeTabs()
   endtry
 endfunction
 runtime! settings.vim
+autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++11 <CR>
+autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++11 <CR>
