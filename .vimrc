@@ -97,6 +97,8 @@ nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
 nmap j gj
 nmap k gk
+vmap j gj
+vmap k gk
 nnoremap <up> <c-y>
 nnoremap <down> <c-e>
 nnoremap <left> zh
