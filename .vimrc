@@ -22,6 +22,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-surround'
 Plugin 'xuhdev/SingleCompile'
+Plugin 'kien/ctrlp.vim'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -90,7 +91,7 @@ set clipboard+=unnamed
 set grepprg=git\ grep\ --no-index\ -I\ --line-number\ --no-color\ -E
 "mappings
 nmap qq :q<CR>
-nmap <c-e> :tabe<CR>:FZF<space>
+nmap <c-e> :tabe<CR>:CtrlP<space>
 vmap <c-e> y:tabe<CR>p
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
