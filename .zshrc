@@ -25,6 +25,7 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s rb=ruby
 alias -s php=vim
 alias -s tpl=vim
+alias -s coffee=coffee
 alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
 alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"

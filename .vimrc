@@ -25,6 +25,7 @@ Plugin 'xuhdev/SingleCompile'
 "Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'kchmck/vim-coffee-script'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -173,6 +174,7 @@ if has("autocmd")
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType jade setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
@@ -204,6 +206,7 @@ if has("autocmd")
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
   autocmd Filetype ruby setlocal fdm=indent
+  autocmd Filetype coffee setlocal fdm=indent
   autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
@@ -249,3 +252,4 @@ endfunction
 runtime! settings.vim
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++11 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++11 <CR>
+nmap <buffer> <F8> :SCCompileRun<CR>
