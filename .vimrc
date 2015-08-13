@@ -22,7 +22,8 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-surround'
 Plugin 'xuhdev/SingleCompile'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -88,10 +89,10 @@ filetype plugin indent on
 set completeopt=longest,menu
 syntax on
 set clipboard+=unnamed
-set grepprg=git\ grep\ --no-index\ -I\ --line-number\ --no-color\ -E
-"mappings
+set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
-nmap <c-e> :tabe<CR>:CtrlP<space>
+nmap <c-e> :tabe<CR>:FZF<space>
+nmap <c-p> :FZF<CR>
 vmap <c-e> y:tabe<CR>p
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
@@ -100,6 +101,7 @@ nmap j gj
 nmap k gk
 vmap j gj
 vmap k gk
+
 nnoremap <up> <c-y>
 nnoremap <down> <c-e>
 nnoremap <left> zh
