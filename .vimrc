@@ -24,6 +24,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'xuhdev/SingleCompile'
 "Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
+Plugin 'majutsushi/tagbar'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -93,10 +94,11 @@ set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
 nmap <c-e> :tabe<CR>:FZF<space>
 nmap <c-p> :FZF<CR>
-vmap <c-e> y:tabe<CR>p
+vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
+nmap <Tab> :TagbarToggle<CR>
 nmap j gj
 nmap k gk
 vmap j gj
