@@ -64,7 +64,7 @@ let g:lightline = {
   \ },
   \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
-let g:syntastic_cpp_compiler_options="-std=c++11"
+let g:syntastic_cpp_compiler_options="-std=c++14"
 set laststatus=2
 
 "Highlight all search pattern matches
@@ -107,8 +107,8 @@ vmap k gk
 
 nnoremap <up> <c-y>
 nnoremap <down> <c-e>
-nnoremap <left> zh
-nnoremap <right> zl
+nnoremap <left> 5zh
+nnoremap <right> 5zl
 nnoremap <leader>/ :call eregex#toggle()<CR>
 nnoremap <c-f> :Sub/
 "cmap <c-v> <c-r>"
@@ -250,6 +250,6 @@ function! SummarizeTabs()
   endtry
 endfunction
 runtime! settings.vim
-autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++11 <CR>
-autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++11 <CR>
+autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
+autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 nmap <buffer> <F8> :SCCompileRun<CR>
