@@ -26,6 +26,7 @@ Plugin 'xuhdev/SingleCompile'
 Plugin 'rking/ag.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'fatih/vim-go'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -37,7 +38,7 @@ if has("multi_lang")
   language C
 endif
 "set colorscheme
-set t_Co=256
+"set t_Co=256
 colorscheme gruvbox
 colo gruvbox
 set background=dark
