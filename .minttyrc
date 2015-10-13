@@ -1,5 +1,5 @@
 BoldAsFont=no
-Font=CodeM
+Font=Monaco
 FontHeight=13
 Scrollbar=none
 Term=xterm-256color

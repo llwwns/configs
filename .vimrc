@@ -106,10 +106,10 @@ nmap k gk
 vmap j gj
 vmap k gk
 
-nnoremap <up> <c-y>
-nnoremap <down> <c-e>
-nnoremap <left> 5zh
-nnoremap <right> 5zl
+nnoremap <up> <c-u>
+nnoremap <down> <c-d>
+nnoremap <left> zH
+nnoremap <right> zL
 nnoremap <leader>/ :call eregex#toggle()<CR>
 nnoremap <c-f> :Sub/
 "cmap <c-v> <c-r>"
