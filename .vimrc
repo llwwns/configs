@@ -118,7 +118,7 @@ set display=lastline
 set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
 set listchars=tab:\¦\ ,eol:\
