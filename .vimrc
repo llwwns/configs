@@ -106,8 +106,8 @@ nmap k gk
 vmap j gj
 vmap k gk
 
-nnoremap <up> <c-u>
-nnoremap <down> <c-d>
+nnoremap <up> <c-y>
+nnoremap <down> <c-e>
 nnoremap <left> zH
 nnoremap <right> zL
 nnoremap <leader>/ :call eregex#toggle()<CR>
@@ -176,7 +176,7 @@ if has("autocmd")
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType jade setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
