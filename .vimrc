@@ -7,7 +7,8 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'justinmk/vim-sneak'
+"Plugin 'justinmk/vim-sneak'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'othree/eregex.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'godlygeek/tabular'
@@ -255,3 +256,4 @@ runtime! settings.vim
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 nmap <buffer> <F8> :SCCompileRun<CR>
+map <Leader> <Plug>(easymotion-prefix)
