@@ -126,15 +126,26 @@ set list
 set listchars=tab:\¦\ ,eol:\
 let g:ConqueTerm_CWInsert = 1
 let g:ConqueTerm_InsertOnEnter = 1
+function! IndentFold()
+  let line = getline(v:lnum)
+  let next = getline(v:lnum + 1)
+  let cl = strlen(substitute(line, '\v^\s*\zs.*', '', ''))
+  let cn = strlen(substitute(next, '\v^\s*\zs.*', '', ''))
+  if cn > cl
+    return ">".(cn / &shiftwidth)
+  endif
+  return cl / &shiftwidth
+endfunction
+
 function! BraceFold()
-  let thisline = getline(v:lnum)
-  if match(thisline, '\v^\s*\}.*\{\s*$') >= 0
+  let line = getline(v:lnum)
+  if line =~ '\v^\s*\}.*\{\s*$'
     return '='
-  elseif match(thisline, '\v(^\s*\/\/)|\{\{\{|\}\}\}') >= 0
+  elseif line =~ '\v(^\s*\/\/)|\{\{\{|\}\}\}'
     return '='
-  elseif match(thisline, '\v\{\s*$') >= 0
+  elseif line =~ '\v\{\s*$'
     return 'a1'
-  elseif match(thisline, '\v^\s*\}') >= 0
+  elseif line =~ '\v^\s*\}'
     return 's1'
   else
     return '='
@@ -142,12 +153,12 @@ function! BraceFold()
 endfunction
 
 function! SmartyFold()
-  let thisline = getline(v:lnum)
-  if match(thisline, '\v\{(if|foreach|capture|function|section)>+.*\{\/\1') >= 0
+  let line = getline(v:lnum)
+  if line =~ '\v\{(if|foreach|capture|function|section)>+.*\{\/\1'
     return "="
-  elseif match(thisline, '\v\{\/(if|foreach|capture|function|section)>+.*') >= 0
+  elseif line =~ '\v\{\/(if|foreach|capture|function|section)>+.*'
     return "s1"
-  elseif match(thisline, '\v\{(if|foreach|capture|function|section)>+.*') >= 0
+  elseif line =~ '\v\{(if|foreach|capture|function|section)>+.*'
     return "a1"
   else
     return "="
@@ -155,10 +166,10 @@ function! SmartyFold()
 endfunction
 
 function! ConfluFold()
-  let thisline = getline(v:lnum)
-  if match(thisline, '\v\{code:') >= 0
+  let line = getline(v:lnum)
+  if stridx(line, '{code:') >= 0
     return "a1"
-  elseif match(thisline, '\v\{code') >= 0
+  elseif stridx(line, '{code') >= 0
     return "s1"
   else
     return "="
@@ -203,16 +214,27 @@ if has("autocmd")
   autocmd Filetype css setlocal foldexpr=BraceFold()
   autocmd Filetype smarty setlocal fdm=expr
   autocmd Filetype smarty setlocal foldexpr=SmartyFold()
+  autocmd Filetype python setlocal fdm=expr
+  autocmd Filetype python setlocal foldexpr=IndentFold()
+  autocmd Filetype haskell setlocal fdm=expr
+  autocmd Filetype haskell setlocal foldexpr=IndentFold()
+  autocmd Filetype coffee setlocal fdm=expr
+  autocmd Filetype coffee setlocal foldexpr=IndentFold()
+  autocmd Filetype vim setlocal fdm=expr
+  autocmd Filetype vim setlocal foldexpr=IndentFold()
+  autocmd Filetype ruby setlocal fdm=expr
+  autocmd Filetype ruby setlocal foldexpr=IndentFold()
+  autocmd Filetype jade setlocal fdm=expr
+  autocmd Filetype jade setlocal foldexpr=IndentFold()
   autocmd Filetype * set fdl=10
   autocmd Filetype confluencewiki setlocal fdm=expr
   autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
-  autocmd Filetype ruby setlocal fdm=indent
-  autocmd Filetype coffee setlocal fdm=indent
   autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
+  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
   augroup foldmethod-expr
     autocmd!
     autocmd InsertEnter * if &l:foldmethod ==# 'expr'
