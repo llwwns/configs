@@ -107,6 +107,7 @@ nmap j gj
 nmap k gk
 vmap j gj
 vmap k gk
+set nowrap
 
 nnoremap <up> <c-y>
 nnoremap <down> <c-e>
@@ -279,3 +280,7 @@ autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 nmap <buffer> <F8> :SCCompileRun<CR>
 map <Leader> <Plug>(easymotion-prefix)
+nmap s <Plug>(easymotion-s2)
+vmap s <Plug>(easymotion-s2)
+omap z <Plug>(easymotion-s2)
+set ambiwidth=double
