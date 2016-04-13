@@ -1,6 +1,6 @@
 "plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+        call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 "Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Yggdroot/indentLine'
@@ -81,7 +81,6 @@ set whichwrap=b,s,<,>,[,]
 set encoding=utf-8
 "set encoding=shift-jis
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
-set ambiwidth=double
 "setting for indent
 set shiftwidth=4
 set tabstop=4
@@ -124,7 +123,7 @@ nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
-set listchars=tab:\¦\ ,eol:\
+set listchars=tab:▸\ ,eol:¬
 let g:ConqueTerm_CWInsert = 1
 let g:ConqueTerm_InsertOnEnter = 1
 function! IndentFold()
@@ -283,4 +282,3 @@ map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
-set ambiwidth=double
