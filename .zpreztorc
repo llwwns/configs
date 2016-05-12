@@ -10,6 +10,7 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'git' \
   'syntax-highlighting' \
+  'autosuggestions' \
   'prompt'
 zstyle ':prezto:module:syntax-highlighting' color 'yes'
 
@@ -30,3 +31,4 @@ zstyle ':prezto:module:utility:diff' color 'yes'
 zstyle ':prezto:module:utility:wdiff' color 'yes'
 zstyle ':prezto:module:utility:make' color 'yes'
 
+zstyle ':prezto:module:autosuggestions' color 'yes'

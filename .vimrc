@@ -29,6 +29,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'fatih/vim-go'
 Plugin 'wellle/targets.vim'
+Plugin 'mattn/emmet-vim'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif

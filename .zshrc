@@ -56,3 +56,4 @@ zstyle ':prezto:module:git:info:stashed' format ' %%B%F{6}s%f%%b'
 zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}u%f%%b'
 zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}*%f%%b'
 
+bindkey '^ ' autosuggest-accept
