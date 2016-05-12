@@ -43,17 +43,11 @@ function weather() {
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{1}$%f%b'
 zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%F{3}$%f'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{2}$%f%b'
-zstyle ':prezto:module:git:info:added' format ' %%B%F{2}+%f%%b'
-zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}->%f%%b'
-zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}<-%f%%b'
-zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
-zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
-zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}x%f%%b'
-zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}m%f%%b'
-zstyle ':prezto:module:git:info:position' format ' %%B%F{13}%p%f%%b'
-zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}r%f%%b'
-zstyle ':prezto:module:git:info:stashed' format ' %%B%F{6}s%f%%b'
-zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}u%f%%b'
-zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}*%f%%b'
-
 bindkey '^ ' autosuggest-accept
+
+function prompt_sorin_precmd {
+    setopt LOCAL_OPTIONS
+    unsetopt XTRACE KSH_ARRAYS
+    prompt_sorin_pwd
+    RPROMPT='$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo "")'
+}
