@@ -192,7 +192,7 @@ if has("autocmd")
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType jade setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
@@ -226,8 +226,8 @@ if has("autocmd")
   autocmd Filetype vim setlocal foldexpr=IndentFold()
   autocmd Filetype ruby setlocal fdm=expr
   autocmd Filetype ruby setlocal foldexpr=IndentFold()
-  autocmd Filetype jade setlocal fdm=expr
-  autocmd Filetype jade setlocal foldexpr=IndentFold()
+  autocmd Filetype pug setlocal fdm=expr
+  autocmd Filetype pug setlocal foldexpr=IndentFold()
   autocmd Filetype * set fdl=10
   autocmd Filetype confluencewiki setlocal fdm=expr
   autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
