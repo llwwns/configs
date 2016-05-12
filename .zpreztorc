@@ -1,4 +1,5 @@
 #vim: set ft=sh
+zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -8,7 +9,6 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'git' \
   'syntax-highlighting' \
   'autosuggestions' \
   'prompt'
@@ -26,9 +26,5 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 
 zstyle ':prezto:module:terminal' auto-title 'yes'
 
-zstyle ':prezto:module:utility:ls' color 'yes'
-zstyle ':prezto:module:utility:diff' color 'yes'
-zstyle ':prezto:module:utility:wdiff' color 'yes'
-zstyle ':prezto:module:utility:make' color 'yes'
 
 zstyle ':prezto:module:autosuggestions' color 'yes'
