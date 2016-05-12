@@ -1,0 +1,32 @@
+#vim: set ft=sh
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'git' \
+  'syntax-highlighting' \
+  'prompt'
+zstyle ':prezto:module:syntax-highlighting' color 'yes'
+
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+  'main' \
+  'brackets' \
+  'pattern' \
+  'root'
+
+zstyle ':prezto:module:prompt' theme 'sorin'
+
+zstyle ':prezto:module:editor' key-bindings 'vi'
+
+zstyle ':prezto:module:terminal' auto-title 'yes'
+
+zstyle ':prezto:module:utility:ls' color 'yes'
+zstyle ':prezto:module:utility:diff' color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make' color 'yes'
+

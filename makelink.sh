@@ -9,4 +9,5 @@ makelink .tmux.conf .tmux.conf
 makelink .vimrc     .vimrc
 makelink .zshrc     .zshrc
 makelink .inputrc   .inputrc
-makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme
+makelink .zpreztorc .zpreztorc
+#makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme

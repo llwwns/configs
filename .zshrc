@@ -1,6 +1,7 @@
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="mh_m"
-source $ZSH/oh-my-zsh.sh
+#export ZSH=$HOME/.oh-my-zsh
+#ZSH_THEME="mh_m"
+#source $ZSH/oh-my-zsh.sh
+source "$HOME/.zprezto/init.zsh"
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
