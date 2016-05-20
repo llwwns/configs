@@ -31,6 +31,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'fatih/vim-go'
 Plugin 'wellle/targets.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'FooSoft/vim-argwrap'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
@@ -286,3 +287,4 @@ map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
+nnoremap <silent> <leader>a :ArgWrap<CR>

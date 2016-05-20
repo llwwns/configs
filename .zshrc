@@ -52,3 +52,4 @@ function prompt_sorin_precmd {
     RPROMPT='$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo "")'
 }
 setopt clobber
+unsetopt CORRECT
