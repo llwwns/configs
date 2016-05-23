@@ -289,3 +289,4 @@ nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
 nnoremap <silent> <leader>a :ArgWrap<CR>
+cmap w!! w !sudo tee > /dev/null %
