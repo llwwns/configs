@@ -33,6 +33,7 @@ Plugin 'wellle/targets.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'udalov/kotlin-vim'
+Plugin 'evidens/vim-twig'
 if !has("win32")
   Plugin 'airblade/vim-gitgutter'
 endif
