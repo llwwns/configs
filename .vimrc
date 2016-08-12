@@ -98,7 +98,7 @@ set autoindent
 filetype plugin indent on
 set completeopt=longest,menu
 syntax on
-set clipboard+=unnamed
+"set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
 nmap <c-e> :tabe<CR>:FZF<space>
