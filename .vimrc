@@ -283,7 +283,7 @@ endfunction
 runtime! settings.vim
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
-let mapleader=";"
+let mapleader="'"
 nmap <buffer> <F8> :SCCompileRun<CR>
 map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
