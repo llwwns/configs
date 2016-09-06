@@ -67,3 +67,4 @@ function killp {
     echo $args
     eval exec 'ps' $args | fzf | perl -pe 's/^\s*(\d+)\s.*$/\1/g' | xargs kill -7
 }
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
