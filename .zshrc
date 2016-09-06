@@ -55,3 +55,15 @@ function prompt_sorin_precmd {
 }
 setopt clobber
 unsetopt CORRECT
+alias tree=tree\ -N
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+function killp {
+    args=
+    for arg in "$@";
+    do
+      args="$args '$arg'"
+    done
+    echo $args
+    eval exec 'ps' $args | fzf | perl -pe 's/^\s*(\d+)\s.*$/\1/g' | xargs kill -7
+}
