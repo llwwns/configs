@@ -12,7 +12,7 @@ Plug 'godlygeek/tabular'
 Plug 'mbbill/undotree'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
-Plug 'digitaltoad/vim-jade'
+Plug 'digitaltoad/vim-pug'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/confluencewiki.vim'
@@ -31,6 +31,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
+Plug 'othree/yajs.vim'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
