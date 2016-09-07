@@ -37,7 +37,7 @@ if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/.vim/bundle/gruvbox/gruvbox_256palette.sh
+source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 function weather() {
     curl "wttr.in/$1"
 }
