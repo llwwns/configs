@@ -32,6 +32,7 @@ Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'othree/yajs.vim'
+Plug 'junegunn/vim-easy-align'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -51,15 +52,15 @@ set background=dark
 
 "config for lightline
 let g:lightline = {
-  \ 'colorscheme': 'jellybeans',
+  \ 'colorscheme': 'seoul256',
   \'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'fugitive', 'readonly', 'filename', 'modified', 'syntastic'] ]
   \ },
   \ 'component': {
-  \   'readonly': '%{&filetype=="help"?"":&readonly?"RO":""}',
+  \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
   \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-  \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+  \   'fugitive': '%{exists("*fugitive#head")&&fugitive#head()!=""?("".fugitive#head()):""}',
   \   'syntastic': '%{SyntasticStatuslineFlag()}'
   \ },
   \'component_visible_condition': {
@@ -68,6 +69,8 @@ let g:lightline = {
   \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
   \   'syntastic': '(SyntasticStatuslineFlag()!="")'
   \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' },
   \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
 let g:syntastic_cpp_compiler_options="-std=c++14"
@@ -288,3 +291,5 @@ vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
 nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w !sudo tee > /dev/null %
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)

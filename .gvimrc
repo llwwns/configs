@@ -1,5 +1,5 @@
 if has("win32")
-  set guifont=CodeM:h14
+  set guifont=Fira\ Code:h14
   set guioptions-=T
   set guioptions-=m
   set guioptions-=r
@@ -10,11 +10,12 @@ elseif has("gui_macvim")
 "  set showtabline=2
   set imdisable
   set antialias
-  set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h14
+  set guifont=Fira\ Code:h14
   set lines=35 columns=118
   set guioptions-=r
+  set macligatures
 else
-  set guifont=CodeM\ 14
+  set guifont=Fira\ Code\ 14
 endif
 if has('mouse')
   set mouse=a
