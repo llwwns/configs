@@ -33,6 +33,14 @@ Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+\ | Plug 'zchee/deoplete-jedi'
+\ | Plug 'awetzel/elixir.nvim'
+\ | Plug 'eagletmt/neco-ghc'
+\ | Plug 'Rip-Rip/clang_complete'
+\ | Plug 'fishbullet/deoplete-ruby'
+\ | Plug 'carlitux/deoplete-ternjs'
+
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -208,6 +216,8 @@ if has("autocmd")
   autocmd Filetype * set formatoptions-=o
   autocmd Filetype php setlocal fdm=expr
   autocmd Filetype php setlocal foldexpr=BraceFold()
+  autocmd Filetype java setlocal fdm=expr
+  autocmd Filetype java setlocal foldexpr=BraceFold()
   autocmd Filetype cpp setlocal fdm=expr
   autocmd Filetype cpp setlocal foldexpr=BraceFold()
   autocmd Filetype c setlocal fdm=expr
@@ -230,6 +240,8 @@ if has("autocmd")
   autocmd Filetype vim setlocal foldexpr=IndentFold()
   autocmd Filetype ruby setlocal fdm=expr
   autocmd Filetype ruby setlocal foldexpr=IndentFold()
+  autocmd Filetype elixir setlocal fdm=expr
+  autocmd Filetype elixir setlocal foldexpr=IndentFold()
   autocmd Filetype pug setlocal fdm=expr
   autocmd Filetype pug setlocal foldexpr=IndentFold()
   autocmd Filetype * set fdl=10
@@ -293,3 +305,18 @@ nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w !sudo tee > /dev/null %
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+let g:deoplete#enable_at_startup=1
+let g:deoplete#enable_ignore_case=1
+let g:deoplete#enable_smart_case=1
+
+function g:Multiple_cursors_before()
+  let g:deoplete#disable_auto_complete = 1
+endfunction
+function g:Multiple_cursors_after()
+  let g:deoplete#disable_auto_complete = 0
+endfunction
+inoremap <silent><expr> <Tab>
+\ pumvisible() ? "\<C-n>" :
+\ deoplete#mappings#manual_complete()
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
