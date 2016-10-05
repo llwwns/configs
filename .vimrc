@@ -40,6 +40,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'Rip-Rip/clang_complete'
 \ | Plug 'fishbullet/deoplete-ruby'
 \ | Plug 'carlitux/deoplete-ternjs'
+\ | Plug 'pbogut/deoplete-padawan'
 
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
