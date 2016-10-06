@@ -35,9 +35,9 @@ Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'zchee/deoplete-jedi'
-\ | Plug 'awetzel/elixir.nvim'
+\ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
 \ | Plug 'eagletmt/neco-ghc'
-\ | Plug 'Rip-Rip/clang_complete'
+\ | Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
 \ | Plug 'fishbullet/deoplete-ruby'
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
