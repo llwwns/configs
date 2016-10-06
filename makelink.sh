@@ -1,6 +1,8 @@
 makelink() {
-  if [ -f "$HOME/$1" ]; then
-    `mv $HOME/$1 $HOME/$1_old`
+  if [ -f "$HOME/$1" ] ; then
+    mv $HOME/$1 $HOME/$1_old
+  elif [ -L "$HOME/$1" ] ; then
+    rm "$HOME/$1"
   fi
   `ln -s $(pwd)/$2 $HOME/$1`
 }

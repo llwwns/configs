@@ -42,6 +42,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
 
+Plug 'elixir-lang/vim-elixir'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
