@@ -43,6 +43,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'pbogut/deoplete-padawan'
 
 Plug 'elixir-lang/vim-elixir'
+Plug 'thinca/vim-ref'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -318,7 +319,8 @@ endfunction
 function g:Multiple_cursors_after()
   let g:deoplete#disable_auto_complete = 0
 endfunction
-inoremap <silent><expr> <Tab>
-\ pumvisible() ? "\<C-n>" :
-\ deoplete#mappings#manual_complete()
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
