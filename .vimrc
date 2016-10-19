@@ -41,6 +41,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'fishbullet/deoplete-ruby'
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
+Plug 'mhinz/vim-startify'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
