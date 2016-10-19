@@ -18,6 +18,7 @@ Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/confluencewiki.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'morhetz/gruvbox'
+Plug 'mkarmona/colorsbox'
 Plug 'tpope/vim-surround'
 Plug 'xuhdev/SingleCompile'
 Plug 'rking/ag.vim'
@@ -56,9 +57,9 @@ if has("multi_lang")
 endif
 "set colorscheme
 "set t_Co=256
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox
-colo gruvbox
+"colorscheme gruvbox
+colorscheme colorsbox-stbright
+set termguicolors
 set background=dark
 "LuciusBlackLowContrast
 
