@@ -12,4 +12,5 @@ makelink .vimrc     .vimrc
 makelink .zshrc     .zshrc
 makelink .inputrc   .inputrc
 makelink .zpreztorc .zpreztorc
+makelink .zprofile  .zprofile
 #makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme

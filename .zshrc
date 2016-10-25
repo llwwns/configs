@@ -37,7 +37,6 @@ if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 function weather() {
     curl "wttr.in/$1"
 }
@@ -68,3 +67,4 @@ function killp {
     eval exec 'ps' $args | fzf | perl -pe 's/^\s*(\d+)\s.*$/\1/g' | xargs kill -7
 }
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source ~/.zsh-nvm/zsh-nvm.plugin.zsh
