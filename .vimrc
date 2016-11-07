@@ -32,6 +32,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -114,8 +115,8 @@ syntax on
 "set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
-nmap <c-e> :tabe<CR>:FZF<space>
-nmap <c-p> :FZF<CR>
+nmap <c-e> :tabe<CR>:Files<space>
+nmap <c-p> :Files<CR>
 vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
