@@ -44,6 +44,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
 Plug 'mhinz/vim-startify'
+Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
@@ -259,16 +260,18 @@ if has("autocmd")
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-  augroup foldmethod-expr
-    autocmd!
-    autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-    \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-    \                   |   setlocal foldmethod=manual foldexpr=0
-    \                   | endif
-    autocmd InsertLeave * if exists('b:foldinfo')
-    \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-    \                   | endif
-  augroup END
+  if (!has("nvim"))
+    augroup foldmethod-expr
+      autocmd!
+      autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+      \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+      \                   |   setlocal foldmethod=manual foldexpr=0
+      \                   | endif
+      autocmd InsertLeave * if exists('b:foldinfo')
+      \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+      \                   | endif
+    augroup END
+  endif
 endif
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -322,8 +325,12 @@ endfunction
 function g:Multiple_cursors_after()
   let g:deoplete#disable_auto_complete = 0
 endfunction
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+let g:asyncrun_auto="asyncrun"
+autocmd QuickFixCmdPost asyncrun botright copen 8
