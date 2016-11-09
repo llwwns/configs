@@ -20,9 +20,10 @@ function extract() {
     *.Z) uncompress $1;;
     *.tar) tar xvf $1;;
     *.arj) unarj $1;;
+    *.7z) 7z e $1;;
   esac
 }
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
 alias -s rb=ruby
 alias -s php=vim
 alias -s tpl=vim
@@ -63,8 +64,11 @@ function killp {
     do
       args="$args '$arg'"
     done
-    echo $args
-    eval exec 'ps' $args | fzf | perl -pe 's/^\s*(\d+)\s.*$/\1/g' | xargs kill -7
+    lst=(`eval exec 'ps' $args | fzf -m | perl -pe 's/^\s*(\d+)\s.*$/\1/g'`)
+    for i in $lst[*]
+    do
+        echo $i  | xargs kill -7
+    done
 }
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 source ~/.zsh-nvm/zsh-nvm.plugin.zsh
