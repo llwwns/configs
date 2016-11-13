@@ -23,7 +23,7 @@ Plug 'tpope/vim-surround'
 Plug 'xuhdev/SingleCompile'
 Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim'
 Plug 'FooSoft/vim-argwrap'
@@ -43,6 +43,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
 \ | Plug 'racer-rust/vim-racer'
+\ | Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'mhinz/vim-startify'
 Plug 'skywind3000/asyncrun.vim'
 
@@ -334,3 +335,4 @@ command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
+let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
