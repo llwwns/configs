@@ -72,3 +72,4 @@ function killp {
 }
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 source ~/.zsh-nvm/zsh-nvm.plugin.zsh
+zstyle ':completion:*' hosts off

@@ -44,7 +44,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'pbogut/deoplete-padawan'
 \ | Plug 'racer-rust/vim-racer'
 \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'mhinz/vim-startify'
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
