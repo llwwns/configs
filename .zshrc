@@ -4,7 +4,7 @@
 #source "$HOME/.zprezto/init.zsh"
 source $HOME/.antigen/bin/antigen.zsh
 antigen-use oh-my-zsh
-antigen-theme norm
+antigen-theme daveverwer
 antigen-bundle zsh-users/zsh-completions
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle zsh-users/zsh-autosuggestions
