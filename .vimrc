@@ -48,6 +48,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
+Plug 'pseewald/vim-anyfold'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -238,25 +239,25 @@ if has("autocmd")
   autocmd Filetype smarty setlocal fdm=expr
   autocmd Filetype smarty setlocal foldexpr=SmartyFold()
   autocmd Filetype python setlocal fdm=expr
-  autocmd Filetype python setlocal foldexpr=IndentFold()
+  "autocmd Filetype python setlocal foldexpr=IndentFold()
   autocmd Filetype haskell setlocal fdm=expr
-  autocmd Filetype haskell setlocal foldexpr=IndentFold()
+  "autocmd Filetype haskell setlocal foldexpr=IndentFold()
   autocmd Filetype coffee setlocal fdm=expr
-  autocmd Filetype coffee setlocal foldexpr=IndentFold()
+  "autocmd Filetype coffee setlocal foldexpr=IndentFold()
   autocmd Filetype vim setlocal fdm=expr
-  autocmd Filetype vim setlocal foldexpr=IndentFold()
+  "autocmd Filetype vim setlocal foldexpr=IndentFold()
   autocmd Filetype ruby setlocal fdm=expr
-  autocmd Filetype ruby setlocal foldexpr=IndentFold()
+  "autocmd Filetype ruby setlocal foldexpr=IndentFold()
   autocmd Filetype elixir setlocal fdm=expr
-  autocmd Filetype elixir setlocal foldexpr=IndentFold()
+  "autocmd Filetype elixir setlocal foldexpr=IndentFold()
   autocmd Filetype pug setlocal fdm=expr
-  autocmd Filetype pug setlocal foldexpr=IndentFold()
+  "autocmd Filetype pug setlocal foldexpr=IndentFold()
   autocmd Filetype * set fdl=10
   autocmd Filetype confluencewiki setlocal fdm=expr
   autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
-  autocmd Filetype * set foldtext=FoldText()
+  "autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -335,3 +336,4 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
+let anyfold_activate=1
