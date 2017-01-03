@@ -38,12 +38,13 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 \ | Plug 'zchee/deoplete-jedi'
 \ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
 \ | Plug 'eagletmt/neco-ghc'
-\ | Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
 \ | Plug 'fishbullet/deoplete-ruby'
 \ | Plug 'carlitux/deoplete-ternjs'
 \ | Plug 'pbogut/deoplete-padawan'
 \ | Plug 'racer-rust/vim-racer'
 \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
+\ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
+"\ | Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
@@ -206,6 +207,7 @@ endfunction
 if has("autocmd")
   " Enable file type detection
   filetype on
+  autocmd FileType * setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
@@ -215,10 +217,6 @@ if has("autocmd")
   autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType c setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
   autocmd Filetype * set formatoptions-=o
