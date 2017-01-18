@@ -1,5 +1,6 @@
 "plugin manager
 set rtp+=~/.vim
+runtime! settings.vim
 call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
@@ -34,17 +35,21 @@ Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-\ | Plug 'zchee/deoplete-jedi'
-\ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
-\ | Plug 'eagletmt/neco-ghc'
-\ | Plug 'fishbullet/deoplete-ruby'
-\ | Plug 'carlitux/deoplete-ternjs'
-\ | Plug 'pbogut/deoplete-padawan'
-\ | Plug 'racer-rust/vim-racer'
-\ | Plug 'zchee/deoplete-go', { 'do': 'make'}
-\ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
-"\ | Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  \ | Plug 'zchee/deoplete-jedi'
+  \ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
+  \ | Plug 'eagletmt/neco-ghc'
+  \ | Plug 'fishbullet/deoplete-ruby'
+  \ | Plug 'carlitux/deoplete-ternjs'
+  \ | Plug 'pbogut/deoplete-padawan'
+  \ | Plug 'racer-rust/vim-racer'
+  \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
+  \ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
+  if exists('g:clang_library_path') && g:clang_library_path != ''
+    Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
+  endif
+endif
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
@@ -300,7 +305,6 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
-runtime! settings.vim
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 let mapleader="'"
