@@ -9,6 +9,9 @@ antigen-bundle zsh-users/zsh-completions
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle zsh-users/zsh-autosuggestions
 antigen-bundle lukechilds/zsh-nvm
+antigen-bundle z
+antigen-bundle npm
+antigen-bundle adb
 antigen-apply
 
 HISTFILE=~/.histfile
