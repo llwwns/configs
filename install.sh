@@ -17,4 +17,5 @@ git config --global alias.fh fetch
 git config --global alias.mg merge
 git config --global alias.ck checkout
 git config --global oh-my-zsh.hide-dirty 1
-
+mkdir -p ~/.config/nvim/
+echo "source ~/.vimrc" > ~/.config/nvim/init.vim

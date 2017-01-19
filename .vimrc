@@ -209,6 +209,7 @@ function! FoldText()
 endfunction
 
 
+let anyfold_activate=1
 if has("autocmd")
   " Enable file type detection
   filetype on
@@ -241,6 +242,7 @@ if has("autocmd")
   autocmd Filetype css setlocal foldexpr=BraceFold()
   autocmd Filetype smarty setlocal fdm=expr
   autocmd Filetype smarty setlocal foldexpr=SmartyFold()
+  autocmd Filetype smarty let anyfold_activate=0
   autocmd Filetype python setlocal fdm=expr
   "autocmd Filetype python setlocal foldexpr=IndentFold()
   autocmd Filetype haskell setlocal fdm=expr
@@ -260,6 +262,8 @@ if has("autocmd")
   autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
+  autocmd Filetype confluencewiki let anyfold_activate=0
+  
   "autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
@@ -338,4 +342,3 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
-let anyfold_activate=1
