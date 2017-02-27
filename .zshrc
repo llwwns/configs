@@ -1,18 +1,19 @@
-#export ZSH=$HOME/.oh-my-zsh
-#ZSH_THEME="mh_m"
-#source $ZSH/oh-my-zsh.sh
-#source "$HOME/.zprezto/init.zsh"
-source $HOME/.antigen/bin/antigen.zsh
-antigen-use oh-my-zsh
-antigen-theme daveverwer
-antigen-bundle zsh-users/zsh-completions
-antigen-bundle zsh-users/zsh-syntax-highlighting
-antigen-bundle zsh-users/zsh-autosuggestions
-antigen-bundle lukechilds/zsh-nvm
-antigen-bundle z
-antigen-bundle npm
-antigen-bundle adb
-antigen-apply
+source "${HOME}/.zplug/init.zsh"
+zplug "themes/daveverwer", from:oh-my-zsh
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "lukechilds/zsh-nvm", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+zplug "plugins/npm", from:oh-my-zsh
+zplug "plugins/adb", from:oh-my-zsh
+if ! zplug check; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
