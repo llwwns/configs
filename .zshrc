@@ -1,9 +1,8 @@
+zstyle ':completion:*' hosts off
 source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
-    zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-autosuggestions
-    zgen load lukechilds/zsh-nvm
     zgen oh-my-zsh
     zgen oh-my-zsh themes/daveverwer
     zgen oh-my-zsh plugins/z
@@ -69,6 +68,3 @@ function killp {
         echo $i  | xargs kill -7
     done
 }
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-source ~/.zsh-nvm/zsh-nvm.plugin.zsh
-zstyle ':completion:*' hosts off
