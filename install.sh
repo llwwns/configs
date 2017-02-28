@@ -1,4 +1,4 @@
-git clone https://github.com/zplug/zplug ~/.zplug --depth=1
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen" --depth=1
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 git clone https://github.com/yyuu/pyenv.git ~/.pyenv --depth=1
 git config --global core.editor nvim

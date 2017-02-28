@@ -1,19 +1,16 @@
-source "${HOME}/.zplug/init.zsh"
-zplug "themes/daveverwer", from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "lukechilds/zsh-nvm", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-zplug "plugins/npm", from:oh-my-zsh
-zplug "plugins/adb", from:oh-my-zsh
-if ! zplug check; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+    zgen load zsh-users/zsh-completions
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-autosuggestions
+    zgen load lukechilds/zsh-nvm
+    zgen oh-my-zsh
+    zgen oh-my-zsh themes/daveverwer
+    zgen oh-my-zsh plugins/z
+    zgen oh-my-zsh plugins/npm
+    zgen oh-my-zsh plugins/adb
+    zgen save
 fi
-zplug load
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
