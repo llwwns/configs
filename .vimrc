@@ -14,7 +14,7 @@ Plug 'mbbill/undotree'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
 Plug 'digitaltoad/vim-pug'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/confluencewiki.vim'
 Plug 'rust-lang/rust.vim'
@@ -35,6 +35,7 @@ Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'w0rp/ale'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   \ | Plug 'zchee/deoplete-jedi'
@@ -55,6 +56,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'pseewald/vim-anyfold'
+Plug 'moll/vim-node'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -83,19 +85,21 @@ let g:lightline = {
   \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
   \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
   \   'fugitive': '%{exists("*fugitive#head")&&fugitive#head()!=""?("".fugitive#head()):""}',
-  \   'syntastic': '%{SyntasticStatuslineFlag()}'
+  \   'syntastic': '%{ALEGetStatusLine()}'
   \ },
   \'component_visible_condition': {
   \   'readonly': '(&filetype!="help"&& &readonly)',
   \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
-  \   'syntastic': '(SyntasticStatuslineFlag()!="")'
+  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' },
   \'enable': { 'statusline': 1, 'tabline': 0 }
   \ }
 let g:syntastic_cpp_compiler_options="-std=c++14"
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_lint_on_text_changed = 'never'
+
 set laststatus=2
 
 "Highlight all search pattern matches
@@ -223,6 +227,8 @@ if has("autocmd")
   autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
   autocmd Filetype * set formatoptions-=o
@@ -321,15 +327,17 @@ nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w !sudo tee > /dev/null %
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+nmap L <Plug>(easymotion-overwin-line)
+vmap L <Plug>(easymotion-overwin-line)
 
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_ignore_case=1
 let g:deoplete#enable_smart_case=1
 
-function g:Multiple_cursors_before()
+function! g:Multiple_cursors_before()
   let g:deoplete#disable_auto_complete = 1
 endfunction
-function g:Multiple_cursors_after()
+function! g:Multiple_cursors_after()
   let g:deoplete#disable_auto_complete = 0
 endfunction
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -342,3 +350,7 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
+
+command! Lcd lcd %:h
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)

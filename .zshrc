@@ -34,9 +34,10 @@ function extract() {
 }
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
 alias -s rb=ruby
-alias -s php=vim
-alias -s tpl=vim
+alias -s php=nvim
+alias -s tpl=nvim
 alias -s coffee=coffee
+alias -s js=nvim
 alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
 alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"
@@ -56,15 +57,14 @@ setopt clobber
 unsetopt CORRECT
 alias tree=tree\ -N
 
-function killp {
-    args=
-    for arg in "$@";
-    do
-      args="$args '$arg'"
-    done
-    lst=(`eval exec 'ps' $args | fzf -m | perl -pe 's/^\s*(\d+)\s.*$/\1/g'`)
+function kps {
+    if [ "$1" = 'a' ]; then
+        lst=(`ps aux | fzf -m | awk '{print $2;}'`)
+    else
+        lst=(`ps au | fzf -m | awk '{print $2;}'`)
+    fi
     for i in $lst[*]
     do
-        echo $i  | xargs kill -7
+        kill $i
     done
 }
