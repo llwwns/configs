@@ -3,7 +3,7 @@ set rtp+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
@@ -36,6 +36,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-airline/vim-airline'
+Plug 'joshdick/onedark.vim'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   \ | Plug 'zchee/deoplete-jedi'
@@ -69,33 +73,32 @@ endif
 "set colorscheme
 "set t_Co=256
 "colorscheme gruvbox
-colorscheme colorsbox-stbright
 set termguicolors
-set background=dark
+colorscheme onedark
 "LuciusBlackLowContrast
 
 "config for lightline
-let g:lightline = {
-  \ 'colorscheme': 'seoul256',
-  \'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'readonly', 'filename', 'modified', 'syntastic'] ]
-  \ },
-  \ 'component': {
-  \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
-  \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-  \   'fugitive': '%{exists("*fugitive#head")&&fugitive#head()!=""?("".fugitive#head()):""}',
-  \   'syntastic': '%{ALEGetStatusLine()}'
-  \ },
-  \'component_visible_condition': {
-  \   'readonly': '(&filetype!="help"&& &readonly)',
-  \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' },
-  \'enable': { 'statusline': 1, 'tabline': 0 }
-  \ }
+"let g:lightline = {
+"  \ 'colorscheme': 'seoul256',
+"  \'active': {
+"  \   'left': [ [ 'mode', 'paste' ],
+"  \             [ 'fugitive', 'readonly', 'filename', 'modified', 'syntastic'] ]
+"  \ },
+"  \ 'component': {
+"  \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
+"  \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"  \   'fugitive': '%{exists("*fugitive#head")&&fugitive#head()!=""?("".fugitive#head()):""}',
+"  \   'syntastic': '%{ALEGetStatusLine()}'
+"  \ },
+"  \'component_visible_condition': {
+"  \   'readonly': '(&filetype!="help"&& &readonly)',
+"  \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"  \ },
+"  \ 'separator': { 'left': '', 'right': '' },
+"  \ 'subseparator': { 'left': '', 'right': '' },
+"  \'enable': { 'statusline': 1, 'tabline': 0 }
+"  \ }
 let g:syntastic_cpp_compiler_options="-std=c++14"
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
@@ -350,7 +353,11 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'onedark'
 
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+set t_8b=^[[48;2;%lu;%lu;%lum
+set t_8f=^[[38;2;%lu;%lu;%lum
