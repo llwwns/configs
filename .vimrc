@@ -3,7 +3,6 @@ set rtp+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
-"Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
@@ -14,7 +13,6 @@ Plug 'mbbill/undotree'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
 Plug 'digitaltoad/vim-pug'
-"Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/confluencewiki.vim'
 Plug 'rust-lang/rust.vim'
@@ -39,7 +37,7 @@ Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'joshdick/onedark.vim'
-
+Plug 'ElmCast/elm-vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   \ | Plug 'zchee/deoplete-jedi'
@@ -59,7 +57,6 @@ Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
-Plug 'pseewald/vim-anyfold'
 Plug 'moll/vim-node'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
@@ -77,31 +74,11 @@ set termguicolors
 colorscheme onedark
 "LuciusBlackLowContrast
 
-"config for lightline
-"let g:lightline = {
-"  \ 'colorscheme': 'seoul256',
-"  \'active': {
-"  \   'left': [ [ 'mode', 'paste' ],
-"  \             [ 'fugitive', 'readonly', 'filename', 'modified', 'syntastic'] ]
-"  \ },
-"  \ 'component': {
-"  \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
-"  \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-"  \   'fugitive': '%{exists("*fugitive#head")&&fugitive#head()!=""?("".fugitive#head()):""}',
-"  \   'syntastic': '%{ALEGetStatusLine()}'
-"  \ },
-"  \'component_visible_condition': {
-"  \   'readonly': '(&filetype!="help"&& &readonly)',
-"  \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-"  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-"  \ },
-"  \ 'separator': { 'left': '', 'right': '' },
-"  \ 'subseparator': { 'left': '', 'right': '' },
-"  \'enable': { 'statusline': 1, 'tabline': 0 }
-"  \ }
 let g:syntastic_cpp_compiler_options="-std=c++14"
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
+let g:airline_powerline_fonts = 1
+let g:airline_theme= 'onedark'
 
 set laststatus=2
 
@@ -216,7 +193,6 @@ function! FoldText()
 endfunction
 
 
-let anyfold_activate=1
 if has("autocmd")
   " Enable file type detection
   filetype on
@@ -235,45 +211,13 @@ if has("autocmd")
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
   autocmd Filetype * set formatoptions-=o
-  autocmd Filetype php setlocal fdm=expr
-  autocmd Filetype php setlocal foldexpr=BraceFold()
-  autocmd Filetype java setlocal fdm=expr
-  autocmd Filetype java setlocal foldexpr=BraceFold()
-  autocmd Filetype cpp setlocal fdm=expr
-  autocmd Filetype cpp setlocal foldexpr=BraceFold()
-  autocmd Filetype c setlocal fdm=expr
-  autocmd Filetype c setlocal foldexpr=BraceFold()
-  autocmd Filetype javascript setlocal fdm=expr
-  autocmd Filetype javascript setlocal foldexpr=BraceFold()
-  autocmd Filetype json setlocal fdm=expr
-  autocmd Filetype json setlocal foldexpr=BraceFold()
-  autocmd Filetype css setlocal fdm=expr
-  autocmd Filetype css setlocal foldexpr=BraceFold()
-  autocmd Filetype smarty setlocal fdm=expr
-  autocmd Filetype smarty setlocal foldexpr=SmartyFold()
-  autocmd Filetype smarty let anyfold_activate=0
-  autocmd Filetype python setlocal fdm=expr
-  "autocmd Filetype python setlocal foldexpr=IndentFold()
-  autocmd Filetype haskell setlocal fdm=expr
-  "autocmd Filetype haskell setlocal foldexpr=IndentFold()
-  autocmd Filetype coffee setlocal fdm=expr
-  "autocmd Filetype coffee setlocal foldexpr=IndentFold()
-  autocmd Filetype vim setlocal fdm=expr
-  "autocmd Filetype vim setlocal foldexpr=IndentFold()
-  autocmd Filetype ruby setlocal fdm=expr
-  "autocmd Filetype ruby setlocal foldexpr=IndentFold()
-  autocmd Filetype elixir setlocal fdm=expr
-  "autocmd Filetype elixir setlocal foldexpr=IndentFold()
-  autocmd Filetype pug setlocal fdm=expr
-  "autocmd Filetype pug setlocal foldexpr=IndentFold()
   autocmd Filetype * set fdl=10
+  autocmd Filetype * set fdm=indent
+  autocmd Filetype * set foldtext=FoldText()
   autocmd Filetype confluencewiki setlocal fdm=expr
-  autocmd Filetype confluencewiki setlocal foldexpr=ConfluFold()
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
-  autocmd Filetype confluencewiki let anyfold_activate=0
   
-  "autocmd Filetype * set foldtext=FoldText()
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
