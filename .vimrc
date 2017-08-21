@@ -20,7 +20,7 @@ Plug 'morhetz/gruvbox'
 Plug 'mkarmona/colorsbox'
 Plug 'tpope/vim-surround'
 Plug 'xuhdev/SingleCompile'
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
 "Plug 'fatih/vim-go'
 Plug 'wellle/targets.vim'
@@ -31,13 +31,16 @@ Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'othree/yajs.vim'
+"Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
+Plug 'AndrewRadev/deleft.vim'
+Plug 'lambdalisue/gina.vim'
+"Plug 'chrisbra/changesPlugin'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   \ | Plug 'zchee/deoplete-jedi'
@@ -107,7 +110,8 @@ syntax on
 "set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
-nmap <c-e> :tabe<CR>:Files<space>
+"nmap <c-e> :tabe<CR>:Files<space>
+nmap <c-e> :Buffers<CR>
 nmap <c-p> :Files<CR>
 vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
@@ -149,44 +153,43 @@ function! IndentFold()
   return cl / &shiftwidth
 endfunction
 
-function! BraceFold()
-  let line = getline(v:lnum)
-  if line =~ '\v^\s*\}.*\{\s*$'
-    return '='
-  elseif line =~ '\v(^\s*\/\/)|\{\{\{|\}\}\}'
-    return '='
-  elseif line =~ '\v\{\s*$'
-    return 'a1'
-  elseif line =~ '\v^\s*\}'
-    return 's1'
-  else
-    return '='
-  endif
-endfunction
-
-function! SmartyFold()
-  let line = getline(v:lnum)
-  if line =~ '\v\{(if|foreach|capture|function|section)>+.*\{\/\1'
-    return "="
-  elseif line =~ '\v\{\/(if|foreach|capture|function|section)>+.*'
-    return "s1"
-  elseif line =~ '\v\{(if|foreach|capture|function|section)>+.*'
-    return "a1"
-  else
-    return "="
-  endif
-endfunction
-
-function! ConfluFold()
-  let line = getline(v:lnum)
-  if stridx(line, '{code:') >= 0
-    return "a1"
-  elseif stridx(line, '{code') >= 0
-    return "s1"
-  else
-    return "="
-  endif
-endfunction
+"function! BraceFold()
+"  let line = getline(v:lnum)
+"  if line =~ '\v^\s*\}.*\{\s*$'
+"    return '='
+"  elseif line =~ '\v(^\s*\/\/)|\{\{\{|\}\}\}'
+"    return '='
+"  elseif line =~ '\v\{\s*$'
+"    return 'a1'
+"  elseif line =~ '\v^\s*\}'
+"    return 's1'
+"  else
+"    return '='
+"  endif
+"endfunction
+"
+"function! SmartyFold()
+"  let line = getline(v:lnum)
+"  if line =~ '\v\{(if|foreach|capture|function|section)>+.*\{\/\1'
+"    return "="
+"  elseif line =~ '\v\{\/(if|foreach|capture|function|section)>+.*'
+"    return "s1"
+"  elseif line =~ '\v\{(if|foreach|capture|function|section)>+.*'
+"    return "a1"
+"  else
+"    return "="
+"  endif
+"endfunction
+"function! ConfluFold()
+"  let line = getline(v:lnum)
+"  if stridx(line, '{code:') >= 0
+"    return "a1"
+"  elseif stridx(line, '{code') >= 0
+"    return "s1"
+"  else
+"    return "="
+"  endif
+"endfunction
 
 function! FoldText()
   return getline(v:foldstart)."------[".(v:foldend-v:foldstart+1)." lines]------"
@@ -305,3 +308,18 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 set t_8b=^[[48;2;%lu;%lu;%lum
 set t_8f=^[[38;2;%lu;%lu;%lum
+
+tnoremap <C-[><C-[> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+set hidden
+command! -range -nargs=* SS <line1>,<line2>!perl -pe "s<q-args>"
+command! -range Prettier <line1>,<line2>!prettier --stdin --no-semi --single-quote --jsx-bracket-same-line --print-width 120
+command! -nargs=* MY !echo "s<q-args>"
+set tags=./tags,tags;/
