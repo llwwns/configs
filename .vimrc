@@ -40,22 +40,23 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
+Plug 'Valloric/YouCompleteMe'
 "Plug 'chrisbra/changesPlugin'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  \ | Plug 'zchee/deoplete-jedi'
-  \ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
-  \ | Plug 'eagletmt/neco-ghc'
-  \ | Plug 'fishbullet/deoplete-ruby'
-  \ | Plug 'carlitux/deoplete-ternjs'
-  \ | Plug 'pbogut/deoplete-padawan'
-  \ | Plug 'racer-rust/vim-racer'
-  \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
-  \ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
-  if exists('g:clang_library_path') && g:clang_library_path != ''
-    Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
-  endif
-endif
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"  \ | Plug 'zchee/deoplete-jedi'
+"  \ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
+"  \ | Plug 'eagletmt/neco-ghc'
+"  \ | Plug 'fishbullet/deoplete-ruby'
+"  \ | Plug 'carlitux/deoplete-ternjs'
+"  \ | Plug 'pbogut/deoplete-padawan'
+"  \ | Plug 'racer-rust/vim-racer'
+"  \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
+"  \ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
+"  if exists('g:clang_library_path') && g:clang_library_path != ''
+"    Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
+"  endif
+"endif
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
