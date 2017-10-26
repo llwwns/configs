@@ -33,7 +33,7 @@ function extract() {
     *.rar) unrar e $1;;
   esac
 }
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z,rar}=extract
 alias -s rb=ruby
 alias -s php=nvim
 alias -s tpl=nvim
