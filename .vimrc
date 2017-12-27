@@ -69,6 +69,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
+Plug 'tyru/eskk.vim'
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -370,3 +371,5 @@ set tags=./tags,tags;/
 "\  }))
 let $LC_CTYPE = "UTF-8"
 let g:disable_key_mappings=1
+let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+let g:eskk#enable_completion = 1

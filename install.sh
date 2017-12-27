@@ -18,3 +18,5 @@ git config --global oh-my-zsh.hide-dirty 1
 git config --global core.mergeoptions --no-edit
 mkdir -p ~/.config/nvim/
 echo "source ~/.vimrc" > ~/.config/nvim/init.vim
+wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
+gzip -d SKK-JISYO.L.gz
