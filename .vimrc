@@ -40,16 +40,16 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'vimlab/split-term.vim'
-Plug 'baabelfish/nvim-nim'
 Plug 'tpope/vim-db'
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'yami-beta/asyncomplete-omni.vim'
+"Plug 'baabelfish/nvim-nim'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'yami-beta/asyncomplete-omni.vim'
 
 "Plug 'chrisbra/changesPlugin'
 "if has('nvim')
@@ -343,30 +343,30 @@ set tags=./tags,tags;/
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 "imap <c-space> <Plug>(asyncomplete_force_refresh)
-if executable('flow-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'flow-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx'],
-        \ })
-endif
-
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-if executable('hie')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'hie',
-        \ 'cmd': {server_info->['hie', '--lsp']},
-        \ 'whitelist': ['haskell'],
-        \ })
-endif
+"if executable('flow-language-server')
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'flow-language-server',
+"        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
+"        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
+"        \ 'whitelist': ['javascript', 'javascript.jsx'],
+"        \ })
+"endif
+"
+"if executable('pyls')
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'pyls',
+"        \ 'cmd': {server_info->['pyls']},
+"        \ 'whitelist': ['python'],
+"        \ })
+"endif
+"
+"if executable('hie')
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'hie',
+"        \ 'cmd': {server_info->['hie', '--lsp']},
+"        \ 'whitelist': ['haskell'],
+"        \ })
+"endif
 "
 "call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
 "\ 'name': 'omni',

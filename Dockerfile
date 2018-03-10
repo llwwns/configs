@@ -18,7 +18,6 @@ ADD . /root/configs
 WORKDIR /root/configs
 RUN ./install.sh
 RUN ./makelink.sh
-RUN vi --headless +PlugInstall +qa
 RUN zsh ~/.zshrc
 WORKDIR /tmp
 RUN wget https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
@@ -30,5 +29,7 @@ RUN rm -rf fd-musl_6.3.0_amd64.deb
 RUN wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.10.linux-amd64.tar.gz
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin:/usr/local/go/bin:/root/go/bin
-#WORKDIR /root/.vim/plugged/YouCompleteMe
-#RUN ./install.py --go-completer --js-completer --clang-completer
+RUN vi --headless +PlugInstall +qa
+WORKDIR /root/.vim/plugged/YouCompleteMe
+RUN ./install.py --go-completer --js-completer --clang-completer
+WORKDIR /root
