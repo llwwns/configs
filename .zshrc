@@ -43,7 +43,7 @@ alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
 alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"
 alias -g dcb="develop...\$(git rev-parse --abbrev-ref HEAD)"
-alias -g fb='$(git branch | fzf)'
+#alias -g fb='$(git branch | fzf)'
 alias -g fba='$(git branch -a | fzf | perl -pe '"'"'s/remotes\/\w+\///g'"'"')'
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
@@ -69,3 +69,5 @@ function kps {
         kill $i
     done
 }
+export FZF_DEFAULT_COMMAND='rg . -l'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

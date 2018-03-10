@@ -40,13 +40,16 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'vimlab/split-term.vim'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'yami-beta/asyncomplete-omni.vim'
+Plug 'baabelfish/nvim-nim'
+Plug 'tpope/vim-db'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'yami-beta/asyncomplete-omni.vim'
 
 "Plug 'chrisbra/changesPlugin'
 "if has('nvim')
@@ -83,7 +86,7 @@ endif
 "set t_Co=256
 "colorscheme gruvbox
 set termguicolors
-colorscheme onedark
+silent! colorscheme onedark
 "LuciusBlackLowContrast
 
 let g:syntastic_cpp_compiler_options="-std=c++14"
@@ -104,7 +107,7 @@ set backspace=indent,eol,start
 set whichwrap=b,s,<,>,[,]
 set encoding=utf-8
 "set encoding=shift-jis
-set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312
 "setting for indent
 set shiftwidth=4
 set tabstop=4
@@ -218,6 +221,7 @@ if has("autocmd")
   autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType nim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
@@ -316,8 +320,8 @@ let g:airline_theme = 'onedark'
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-set t_8b=[48;2;%lu;%lu;%lum
-set t_8f=[38;2;%lu;%lu;%lum
+"set t_8b=[48;2;%lu;%lu;%lum
+"set t_8f=[38;2;%lu;%lu;%lum
 
 tnoremap <C-[><C-[> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
@@ -339,30 +343,30 @@ set tags=./tags,tags;/
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 "imap <c-space> <Plug>(asyncomplete_force_refresh)
-"if executable('flow-language-server')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'flow-language-server',
-"        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
-"        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-"        \ 'whitelist': ['javascript', 'javascript.jsx'],
-"        \ })
-"endif
+if executable('flow-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'flow-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx'],
+        \ })
+endif
 
-"if executable('pyls')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'pyls',
-"        \ 'cmd': {server_info->['pyls']},
-"        \ 'whitelist': ['python'],
-"        \ })
-"endif
-"
-"if executable('hie')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'hie',
-"        \ 'cmd': {server_info->['hie', '--lsp']},
-"        \ 'whitelist': ['haskell'],
-"        \ })
-"endif
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+if executable('hie')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'hie',
+        \ 'cmd': {server_info->['hie', '--lsp']},
+        \ 'whitelist': ['haskell'],
+        \ })
+endif
 "
 "call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
 "\ 'name': 'omni',
@@ -373,3 +377,8 @@ let $LC_CTYPE = "UTF-8"
 let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_options = '--no-semi --single-quote --jsx-bracket-same-line --print-width 120'
+"let g:ale_javascript_prettier_use_local_config = 1
