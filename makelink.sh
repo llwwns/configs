@@ -13,4 +13,6 @@ makelink .zshrc     .zshrc
 makelink .inputrc   .inputrc
 makelink .zpreztorc .zpreztorc
 makelink .zprofile  .zprofile
+makelink .tern-config .tern-config
+makelink .ycm_extra_conf.py .ycm_extra_conf.py
 #makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme
