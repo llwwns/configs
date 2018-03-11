@@ -8,12 +8,15 @@ RUN add-apt-repository ppa:neovim-ppa/stable -y
 RUN add-apt-repository ppa:git-core/ppa -y
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
 RUN apt-get install neovim nodejs ghc git -y
+RUN apt-get install locales
 RUN apt-get clean
 RUN npm install --global yarn
 RUN pip3 install neovim
 RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 RUN update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+RUN locale-gen en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 ADD . /root/configs
 WORKDIR /root/configs
 RUN ./install.sh
