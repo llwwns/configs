@@ -40,7 +40,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
 
@@ -50,11 +50,6 @@ Plug 'tpope/vim-db'
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "Plug 'yami-beta/asyncomplete-omni.vim'
-Plug 'roxma/nvim-completion-manager'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 "Plug 'chrisbra/changesPlugin'
 "if has('nvim')
@@ -343,15 +338,7 @@ command! -range Prettier <line1>,<line2>!prettier --stdin --no-semi --single-quo
 command! -nargs=* MY !echo "s<q-args>"
 set tags=./tags,tags;/
 
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-      \ })
-endif
-
+"
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
@@ -372,7 +359,7 @@ endif
 "        \ 'whitelist': ['python'],
 "        \ })
 "endif
-
+"
 "if executable('hie')
 "    au User lsp_setup call lsp#register_server({
 "        \ 'name': 'hie',
@@ -386,8 +373,6 @@ endif
 "\ 'whitelist': ['*'],
 "\ 'completor': function('asyncomplete#sources#omni#completor')
 "\  }))
-
-
 let $LC_CTYPE = "UTF-8"
 let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
@@ -397,16 +382,3 @@ let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_options = '--no-semi --single-quote --jsx-bracket-same-line --print-width 120'
 "let g:ale_javascript_prettier_use_local_config = 1
-
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'css': ['css-languageserver', '--stdio'],
-    \ 'scss': ['css-languageserver', '--stdio'],
-    \ 'less': ['css-languageserver', '--stdio'],
-    \ 'python': ['pyls']
-    \ }
-"    \ 'go': ['go-langserver', '-gocodecompletion', '-logfile', '/tmp/go'],
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-"nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>

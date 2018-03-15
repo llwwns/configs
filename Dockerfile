@@ -1,6 +1,4 @@
 From ubuntu:17.10
-RUN sed -i -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.riken.go.jp/Linux/ubuntu/%g" /etc/apt/sources.list
-RUN sed -i -e "s%http://security.ubuntu.com/ubuntu%http://ftp.riken.go.jp/Linux/ubuntu/%g" /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install curl software-properties-common python-dev python-pip\
     python3-dev python3-pip zsh wget tmux tree tig build-essential cmake -y
@@ -17,8 +15,6 @@ RUN update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-RUN yarn global add vscode-css-languageserver-bin javascript-typescript-langserver prettier
-RUN pip3 install python-language-server
 ADD . /root/configs
 WORKDIR /root/configs
 RUN ./install.sh
@@ -35,6 +31,6 @@ RUN wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.10.linux-amd64.tar.gz
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin:/usr/local/go/bin:/root/go/bin
 RUN vi --headless +PlugInstall +qa
-#WORKDIR /root/.vim/plugged/YouCompleteMe
-#RUN ./install.py --go-completer --js-completer --clang-completer
+WORKDIR /root/.vim/plugged/YouCompleteMe
+RUN ./install.py --go-completer --js-completer --clang-completer
 WORKDIR /root
