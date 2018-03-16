@@ -43,6 +43,8 @@ Plug 'lambdalisue/gina.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
+Plug 'equalsraf/neovim-gui-shim'
+Plug 'sodapopcan/vim-twiggy'
 
 "Plug 'baabelfish/nvim-nim'
 "Plug 'prabirshrestha/asyncomplete.vim'
