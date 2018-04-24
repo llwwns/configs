@@ -45,7 +45,8 @@ Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
-
+Plug 'chrisbra/csv.vim'
+Plug 'scrooloose/nerdtree'
 "Plug 'baabelfish/nvim-nim'
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/async.vim'
@@ -131,7 +132,7 @@ vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
-nmap <Tab> :TagbarToggle<CR>
+nmap <Tab> :NERDTreeToggle<CR>
 nmap j gj
 nmap k gk
 vmap j gj
@@ -222,10 +223,12 @@ if has("autocmd")
   autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType nim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
@@ -380,7 +383,7 @@ let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_options = '--no-semi --single-quote --jsx-bracket-same-line --print-width 120'
-"let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '!'
