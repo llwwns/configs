@@ -47,6 +47,10 @@ Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'chrisbra/csv.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'mattsacks/vim-eddie'
+Plug 'aradunovic/perun.vim'
+Plug 'vim-scripts/BufOnly.vim'
+
 "Plug 'baabelfish/nvim-nim'
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/async.vim'
@@ -89,10 +93,10 @@ endif
 "set t_Co=256
 "colorscheme gruvbox
 set termguicolors
-silent! colorscheme onedark
+"silent! colorscheme onedark
+silent! colorscheme perun
 "LuciusBlackLowContrast
 
-let g:syntastic_cpp_compiler_options="-std=c++14"
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
