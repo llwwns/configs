@@ -329,8 +329,8 @@ let g:airline_theme = 'onedark'
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"set t_8b=[48;2;%lu;%lu;%lum
-"set t_8f=[38;2;%lu;%lu;%lum
+set t_8b=[48;2;%lu;%lu;%lum
+set t_8f=[38;2;%lu;%lu;%lum
 
 tnoremap <C-[><C-[> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
@@ -391,3 +391,17 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
+
+if exists('g:gui_oni')
+  set number
+  set noswapfile
+  set smartcase
+  " Turn off statusbar, because it is externalized
+  set noshowmode
+  set noruler
+  set laststatus=0
+  set noshowcmd
+  " Enable GUI mouse behavior
+  set mouse=a
+endif
+set fillchars+=vert:│
