@@ -43,8 +43,14 @@ alias -g cb="\$(git rev-parse --abbrev-ref HEAD)"
 alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"
 alias -g dcb="develop...\$(git rev-parse --abbrev-ref HEAD)"
-#alias -g fb='$(git branch | fzf)'
-alias -g fba='$(git branch -a | fzf | perl -pe '"'"'s/remotes\/\w+\///g'"'"')'
+function geti() {
+  cat - | perl -ne '@a=split(/\s+/);print(@a['$1']."\n")'
+}
+function tails() {
+  cat - | perl -ne 'if($.>1){print}'
+}
+alias -g dck="\$(docker ps | geti -1 | tails | fzf)"
+alias de="docker exec -it \$(docker ps | geti -1 | tails | fzf)"
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi

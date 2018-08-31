@@ -116,9 +116,9 @@ set encoding=utf-8
 "set encoding=shift-jis
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312
 "setting for indent
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 set expandtab
 set autoindent
 "set smarttab
@@ -218,7 +218,7 @@ endfunction
 if has("autocmd")
   " Enable file type detection
   filetype on
-  autocmd FileType * setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType * setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
@@ -403,5 +403,8 @@ if exists('g:gui_oni')
   set noshowcmd
   " Enable GUI mouse behavior
   set mouse=a
+else
+  hi Normal guibg=NONE ctermbg=NONE
 endif
 set fillchars+=vert:│
+let $FZF_DEFAULT_COMMAND = 'fd'
