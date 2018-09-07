@@ -51,7 +51,9 @@ function tails() {
   cat - | perl -ne 'if($.>1){print}'
 }
 alias -g dck="\$(docker ps | geti -1 | tails | fzf)"
-alias de="docker exec -it \$(docker ps | geti -1 | tails | fzf)"
+alias de="docker exec -it \$(docker ps --format \"{{.Names}}\" | fzf)"
+alias da="docker attach \$(docker ps --format \"{{.Names}}\" | fzf)"
+alias dk="docker kill \$(docker ps --format \"{{.Names}}\" | fzf)"
 if [ -f "$HOME/.zshrc_ex" ]; then
   source $HOME/.zshrc_ex
 fi
@@ -76,5 +78,5 @@ function kps {
         kill $i
     done
 }
-export FZF_DEFAULT_COMMAND='rg . -l'
+export FZF_DEFAULT_COMMAND='fd'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

@@ -11,6 +11,7 @@ import qualified XMonad.StackSet as W
 import Data.Ratio
 import Graphics.X11 (Rectangle(..))
 import Control.Arrow ((***), second)
+import XMonad.ManageHook
 --  modMask = mod4Mask -- use the Windows button as mod
 main = xmonad $ desktopConfig
     {
@@ -21,9 +22,11 @@ main = xmonad $ desktopConfig
     , manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
     }
     `additionalKeys` [
-    ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3")]
+    ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
+    ((mod1Mask, xK_p), spawn "j4-dmenu-desktop --dmenu=\"(cat ; (stest -flx $(echo $PATH | tr : ' ') | sort -u)) | rofi -dmenu -i -matching fuzzy\""),
+    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run")]
  
-myLayoutHook = avoidStruts $ Responsive MFocus ||| Responsive MDouble ||| Full
+myLayoutHook = avoidStruts $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
 
 data MFocus a = MFocus deriving ( Read, Show )
 
@@ -56,25 +59,31 @@ instance LayoutClass MFocus Window where
        tops    = if ups /= [] then splitVertically (length ups) top    else []
        bottoms = if dns /= [] then splitVertically (length dns) bottom else []
 
-data MDouble a = MDouble deriving ( Read, Show )
+data SplitD = SHorizontally | SVertically deriving ( Read, Show )
+
+data MDouble a = MDouble SplitD deriving ( Read, Show )
 
 -- Display first two window in mainarea and others on right side
 instance LayoutClass MDouble Window where
-    pureLayout _ sc ws = zip all rts
+  pureLayout (MDouble sd) sc ws = zip all rts
      where
        ups    = reverse $ W.up ws
        dns    = W.down ws
        all    = ups ++ [W.focus ws] ++ dns
+       split  = case sd of
+                  SHorizontally -> splitHorizontally 2
+                  SVertically -> splitVertically 2
        rts    = case all of
                   []        -> []
                   [_]       -> [sc]
-                  [_, _]    -> splitHorizontally 2 sc
-                  otherwise -> (splitHorizontally 2 x) ++ (splitVertically (length all - 2) y)
+                  [_, _]    -> split sc
+                  otherwise -> (split x) ++ (splitVertically (length all - 2) y)
                       where
-                          (x, y) = splitHorizontallyBy (7%8) sc
+                        (x, y) = splitHorizontallyBy (7%8) sc
 
 myManageHook = composeAll  
-  [ className =? "plasmashell" --> doFloat  
+  [ className =? "plasmashell" --> doIgnore
+  , className =? "urxvt"       --> doFloat
   , className =? "deadbeef"    --> doF (W.shift "1")
   , className =? "slack"       --> doF (W.shift "2")
   ]  
