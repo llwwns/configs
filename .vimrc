@@ -50,6 +50,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'dbeniamine/todo.txt-vim'
 
 "Plug 'baabelfish/nvim-nim'
 "Plug 'prabirshrestha/asyncomplete.vim'
@@ -292,6 +293,7 @@ endfunction
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 let mapleader="'"
+let maplocalleader="'"
 nmap <buffer> <F8> :SCCompileRun<CR>
 map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
@@ -344,8 +346,12 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 set hidden
 command! -range -nargs=* SS <line1>,<line2>!perl -pe "s<q-args>"
+command! -range -nargs=* Yml <line1>,<line2>!yq.v2 r -
+command! -range -nargs=* Jq <line1>,<line2>!jq .
+command! -range -nargs=* Json <line1>,<line2>!yq.v2  r -j - | jq .
 command! -range Prettier <line1>,<line2>!prettier --stdin --no-semi --single-quote --jsx-bracket-same-line --print-width 120
 command! -nargs=* MY !echo "s<q-args>"
+command! Todo e ~/todo.txt
 set tags=./tags,tags;/
 
 "
