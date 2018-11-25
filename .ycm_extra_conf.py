@@ -42,6 +42,7 @@ flags = [
 '-Werror',
 '-Wno-long-long',
 '-Wno-variadic-macros',
+'-Wno-sign-compare',
 '-fexceptions',
 '-DNDEBUG',
 # You 100% do NOT need -DUSE_CLANG_COMPLETER and/or -DYCM_EXPORT in your flags;
@@ -76,6 +77,7 @@ get_python_inc(),
 './tests/gmock/include',
 '-isystem',
 './benchmarks/benchmark/include',
+'-lstdc++fs'
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
