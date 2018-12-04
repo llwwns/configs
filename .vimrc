@@ -52,6 +52,7 @@ Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'b4b4r07/vim-hcl'
+Plug 'reasonml-editor/vim-reason-plus'
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
