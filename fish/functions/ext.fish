@@ -1,4 +1,4 @@
-function extract
+function ext
   switch $argv[1]
   case '*.tar.gz' '*.tgz'
     tar xzvf $argv[1]
