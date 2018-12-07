@@ -44,6 +44,7 @@ alias -g ocb="origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias -g oocb="origin \$(git rev-parse --abbrev-ref HEAD)"
 alias -g dcb="develop...\$(git rev-parse --abbrev-ref HEAD)"
 alias autoremove="sudo pacman -Rns \$(pacman -Qtdq)"
+alias sshkey="ssh-keygen -t ed25519"
 function geti() {
   cat - | perl -ne '@a=split(/\s+/);print(@a['$1']."\n")'
 }

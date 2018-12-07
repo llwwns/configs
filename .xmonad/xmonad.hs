@@ -23,7 +23,7 @@ main = xmonad $ desktopConfig
     }
     `additionalKeys` [
     ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
-    ((mod1Mask, xK_p), spawn "j4-dmenu-desktop --dmenu=\"(cat ; (stest -flx $(echo $PATH | tr : ' ') | sort -u)) | rofi -dmenu -i -matching fuzzy\""),
+    ((mod1Mask, xK_p), spawn "rofi -combi-modi drun,run -show combi -modi combi -i -matching fuzzy"),
     ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run")]
  
 myLayoutHook = avoidStruts $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full

@@ -51,6 +51,10 @@ Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'dbeniamine/todo.txt-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'houtsnip/vim-emacscommandline'
+Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
 "Plug 'zxqfl/tabnine-vim'
@@ -222,6 +226,7 @@ endfunction
 if has("autocmd")
   " Enable file type detection
   filetype on
+  autocmd Filetype calendar IndentLinesDisable
   autocmd FileType * setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -296,7 +301,7 @@ endfunction
 autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
 autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 let mapleader="'"
-let maplocalleader = "'"
+let maplocalleader="'"
 nmap <buffer> <F8> :SCCompileRun<CR>
 map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
@@ -398,6 +403,8 @@ let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'e
 let g:eskk#enable_completion = 1
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_linters = {}
+let g:ale_linters['javascript'] = ['eslint']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
@@ -419,5 +426,3 @@ else
 endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-
