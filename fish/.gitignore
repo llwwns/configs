@@ -1,3 +1,4 @@
-__*.fish
+__*.*
 fishd.*
 conf.d/
+bass.fish
