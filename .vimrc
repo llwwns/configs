@@ -57,6 +57,7 @@ Plug 'houtsnip/vim-emacscommandline'
 Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
+Plug 'dominickng/fzf-session.vim'
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
@@ -139,6 +140,7 @@ set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
 "nmap <c-e> :tabe<CR>:Files<space>
 nmap <c-e> :Buffers<CR>
+nmap <c-s> :Sessions<CR>
 nmap <c-p> :Files<CR>
 vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
@@ -426,3 +428,4 @@ else
 endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
+let g:fzf_session_path = $HOME . '/.vim/sessions'
