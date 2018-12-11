@@ -20,6 +20,7 @@ main = xmonad $ desktopConfig
     , clickJustFocuses = True
     , layoutHook = myLayoutHook
     , manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
+    , focusedBorderColor = "#009cb5"
     }
     `additionalKeys` [
     ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
