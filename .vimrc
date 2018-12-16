@@ -58,6 +58,7 @@ Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'dominickng/fzf-session.vim'
+Plug 'lilydjwg/colorizer'
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
@@ -89,6 +90,9 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
+Plug 'itchyny/vim-cursorword'
+
+
 if !has("win32")
   Plug 'airblade/vim-gitgutter'
 endif
@@ -142,6 +146,7 @@ nmap qq :q<CR>
 nmap <c-e> :Buffers<CR>
 nmap <c-s> :Sessions<CR>
 nmap <c-p> :Files<CR>
+nmap <c-s> :Sessions<CR>
 vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
@@ -429,3 +434,4 @@ endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
 let g:fzf_session_path = $HOME . '/.vim/sessions'
+let g:airline#extensions#tabline#enabled = 1
