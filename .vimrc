@@ -40,7 +40,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
@@ -91,10 +91,11 @@ Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
 Plug 'itchyny/vim-cursorword'
-
+Plug 'AndrewRadev/splitjoin.vim'
 
 if !has("win32")
-  Plug 'airblade/vim-gitgutter'
+  "Plug 'airblade/vim-gitgutter'
+  Plug 'mhinz/vim-signify'
 endif
 runtime! plugins.vim
 call plug#end()
@@ -435,3 +436,4 @@ set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
 let g:fzf_session_path = $HOME . '/.vim/sessions'
 let g:airline#extensions#tabline#enabled = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
