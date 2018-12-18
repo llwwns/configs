@@ -3,6 +3,6 @@ function fish_prompt --description 'Write out the prompt'
   if set -l branch (__fish_git_prompt)
     echo -n (set_color blue)$branch
   end
-  
-  echo -n (set_color normal) '$ '
+  set_color normal
+  echo -n (set_color yellow) 'λ '(set_color normal)
 end
