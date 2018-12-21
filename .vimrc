@@ -59,6 +59,7 @@ Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'dominickng/fzf-session.vim'
 Plug 'lilydjwg/colorizer'
+Plug 'RRethy/vim-illuminate'
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
@@ -90,7 +91,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
-Plug 'itchyny/vim-cursorword'
+"Plug 'itchyny/vim-cursorword'
 Plug 'AndrewRadev/splitjoin.vim'
 
 if !has("win32")
@@ -435,5 +436,6 @@ endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
 let g:fzf_session_path = $HOME . '/.vim/sessions'
-let g:airline#extensions#tabline#enabled = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:airline#extensions#tabline#enabled = 1
+let g:Illuminate_delay = 0
+let g:signify_sign_change = '~'
