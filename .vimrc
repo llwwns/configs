@@ -93,6 +93,7 @@ Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
 "Plug 'itchyny/vim-cursorword'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'rhysd/reply.vim'
 
 if !has("win32")
   "Plug 'airblade/vim-gitgutter'
