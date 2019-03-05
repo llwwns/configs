@@ -60,6 +60,7 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'dominickng/fzf-session.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
+Plug 'christoomey/vim-tmux-navigator'
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
