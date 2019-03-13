@@ -46,7 +46,7 @@ Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'chrisbra/csv.vim'
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
@@ -61,6 +61,10 @@ Plug 'dominickng/fzf-session.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'racer-rust/vim-racer'
+Plug 'cocopon/vaffle.vim'
+Plug 'junegunn/gv.vim'
+
 "Plug 'zxqfl/tabnine-vim'
 
 "Plug 'baabelfish/nvim-nim'
@@ -441,3 +445,7 @@ let g:fzf_session_path = $HOME . '/.vim/sessions'
 "let g:airline#extensions#tabline#enabled = 1
 let g:Illuminate_delay = 0
 let g:signify_sign_change = '~'
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
