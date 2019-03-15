@@ -45,7 +45,7 @@ Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
-Plug 'chrisbra/csv.vim'
+"Plug 'chrisbra/csv.vim'
 "Plug 'scrooloose/nerdtree'
 Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
@@ -83,7 +83,6 @@ Plug 'junegunn/gv.vim'
 "  \ | Plug 'fishbullet/deoplete-ruby'
 "  \ | Plug 'carlitux/deoplete-ternjs'
 "  \ | Plug 'pbogut/deoplete-padawan'
-"  \ | Plug 'racer-rust/vim-racer'
 "  \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
 "  \ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
 "  if exists('g:clang_library_path') && g:clang_library_path != ''
@@ -98,7 +97,9 @@ Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
 "Plug 'itchyny/vim-cursorword'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/reply.vim'
+Plug 'rhysd/git-messenger.vim'
 
 if !has("win32")
   "Plug 'airblade/vim-gitgutter'
@@ -121,7 +122,11 @@ silent! colorscheme perun
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
-let g:airline_theme= 'onedark'
+let g:airline_theme = 'onedark'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 set laststatus=2
 
@@ -159,7 +164,7 @@ vmap <c-e> y:tabe <c-r>"<CR>
 nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
-nmap <Tab> :NERDTreeToggle<CR>
+"nmap <Tab> :NERDTreeToggle<CR>
 nmap j gj
 nmap k gk
 vmap j gj
