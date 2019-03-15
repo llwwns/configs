@@ -15,5 +15,5 @@ RUN git fetch && git checkout master
 WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/
 RUN perl -i -pe "s/cargo, 'build'/cargo, '+nightly', 'build', '--release'/g" build.py
 WORKDIR /root/.vim/plugged/YouCompleteMe
-RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
+#RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
 WORKDIR /root
