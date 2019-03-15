@@ -1,36 +1,18 @@
-From ubuntu:17.10
-RUN apt-get update
-RUN apt-get install curl software-properties-common python-dev python-pip\
-    python3-dev python3-pip zsh wget tmux tree tig build-essential cmake -y
-RUN add-apt-repository ppa:neovim-ppa/stable -y
-RUN add-apt-repository ppa:git-core/ppa -y
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
-RUN apt-get install neovim nodejs ghc git -y
-RUN apt-get install locales
-RUN apt-get clean
-RUN npm install --global yarn
-RUN pip3 install neovim
-RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-RUN update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+From archlinux/base
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm neovim python python-neovim fish wget curl tmux tig fd ripgrep git nodejs rustup cmake ninja base-devel && rm -rf /var/cache/pacman/pkg
+RUN rustup install stable  && rustup default stable && rustup component add rust-src && rustup toolchain add nightly && cargo +nightly install racer
 ADD . /root/configs
 WORKDIR /root/configs
 RUN ./install.sh
 RUN ./makelink.sh
-RUN zsh ~/.zshrc
-WORKDIR /tmp
-RUN wget https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
-RUN wget https://github.com/sharkdp/fd/releases/download/v6.3.0/fd-musl_6.3.0_amd64.deb
-RUN dpkg -i ripgrep_0.8.1_amd64.deb
-RUN rm -rf ripgrep_0.8.1_amd64.deb
-RUN dpkg -i fd-musl_6.3.0_amd64.deb
-RUN rm -rf fd-musl_6.3.0_amd64.deb
-RUN wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
-RUN tar -C /usr/local -xzf go1.10.linux-amd64.tar.gz
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin:/usr/local/go/bin:/root/go/bin
-RUN vi --headless +PlugInstall +qa
+RUN fish -l -c fisher
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin
+RUN nvim --headless +PlugInstall +qa
+WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/racerd/
+RUN git fetch && git checkout master && perl -i -pe "s/cargo, 'build'/cargo, '+nightly', 'build'/g" build.py
 WORKDIR /root/.vim/plugged/YouCompleteMe
-RUN ./install.py --go-completer --js-completer --clang-completer
+RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
 WORKDIR /root
