@@ -64,6 +64,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'racer-rust/vim-racer'
 Plug 'cocopon/vaffle.vim'
 Plug 'junegunn/gv.vim'
+Plug 'rhysd/git-messenger.vim'
+Plug 'lambdalisue/suda.vim'
+
 
 "Plug 'zxqfl/tabnine-vim'
 
@@ -328,11 +331,12 @@ nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
 nnoremap <silent> <leader>a :ArgWrap<CR>
-cmap w!! w !sudo tee > /dev/null %
+cmap w!! w suda://%
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap L <Plug>(easymotion-overwin-line)
 vmap L <Plug>(easymotion-overwin-line)
+nmap <Leader>m <Plug>(git-messenger)
 
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_ignore_case=1
