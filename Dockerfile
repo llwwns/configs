@@ -8,12 +8,13 @@ WORKDIR /root/configs
 RUN ./install.sh
 RUN ./makelink.sh
 RUN fish -l -c fisher
+RUN fish -l -c "source ./fish/setup.fish"
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin
 RUN nvim --headless +PlugInstall +qa
 WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/racerd/
-RUN git fetch && git checkout master
+RUN git fetch && git checkout master && rm Cargo.lock
 WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/
-RUN perl -i -pe "s/cargo, 'build'/cargo, '+nightly', 'build', '--release'/g" build.py
+RUN perl -i -pe "s/cargo, 'build'/cargo, '+nightly', 'build'/g" build.py
 WORKDIR /root/.vim/plugged/YouCompleteMe
-#RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
+RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
 WORKDIR /root
