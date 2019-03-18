@@ -7,8 +7,8 @@ ADD . /root/configs
 WORKDIR /root/configs
 RUN ./install.sh
 RUN ./makelink.sh
-RUN fish -l -c fisher
 RUN fish -l -c "source ./fish/setup.fish"
+RUN fish -l -c fisher
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin
 RUN nvim --headless +PlugInstall +qa
 WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/racerd/
