@@ -40,7 +40,9 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
+" Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
@@ -460,3 +462,16 @@ au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
