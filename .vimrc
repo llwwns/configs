@@ -454,6 +454,8 @@ let g:fzf_session_path = $HOME . '/.vim/sessions'
 "let g:airline#extensions#tabline#enabled = 1
 let g:Illuminate_delay = 0
 let g:signify_sign_change = '~'
+set shortmess=atToOFcA
+
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
