@@ -121,7 +121,6 @@ endif
 "colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
-silent! colorscheme perun
 "LuciusBlackLowContrast
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
@@ -436,6 +435,10 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare'
 
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 if exists('g:gui_oni')
   set number
   set noswapfile
@@ -447,7 +450,56 @@ if exists('g:gui_oni')
   set noshowcmd
   " Enable GUI mouse behavior
   set mouse=a
+  silent! colorscheme perun
+elseif exists('veonim')
+  let g:vscode_extensions = [
+    \'vscode.typescript-language-features',
+    \'vscode.css-language-features',
+    \'vscode.html-language-features',
+  \]
+  " multiple nvim instances
+  nno <silent> <c-t>c :Veonim vim-create<cr>
+  nno <silent> <c-g> :Veonim vim-switch<cr>
+  nno <silent> <c-t>, :Veonim vim-rename<cr>
+
+  " workspace functions
+  nno <silent> ,f :Veonim files<cr>
+  nno <silent> ,e :Veonim explorer<cr>
+  nno <silent> ,b :Veonim buffers<cr>
+  nno <silent> ,d :Veonim change-dir<cr>
+  nno <silent> <c-p> :Veonim files<cr>
+  nno <silent> <c-e> :Veonim buffers<cr>
+  "or with a starting dir: nno <silent> ,d :Veonim change-dir ~/proj<cr>
+
+  " searching text
+  nno <silent> <space>fw :Veonim grep-word<cr>
+  vno <silent> <space>fw :Veonim grep-selection<cr>
+  nno <silent> <space>fa :Veonim grep<cr>
+  nno <silent> <space>ff :Veonim grep-resume<cr>
+  nno <silent> <space>fb :Veonim buffer-search<cr>
+
+  " language features
+  nno <silent> sr :Veonim rename<cr>
+  nno <silent> sd :Veonim definition<cr>
+  nno <silent> si :Veonim implementation<cr>
+  nno <silent> st :Veonim type-definition<cr>
+  nno <silent> sf :Veonim references<cr>
+  nno <silent> sh :Veonim hover<cr>
+  nno <silent> sl :Veonim symbols<cr>
+  nno <silent> so :Veonim workspace-symbols<cr>
+  nno <silent> sq :Veonim code-action<cr>
+  nno <silent> sk :Veonim highlight<cr>
+  nno <silent> sK :Veonim highlight-clear<cr>
+  nno <silent> ,n :Veonim next-usage<cr>
+  nno <silent> ,p :Veonim prev-usage<cr>
+  nno <silent> sp :Veonim show-problem<cr>
+  nno <silent> <c-j> :Veonim next-problem<cr>
+  set guifont=Iosevka\ Term:h14
+elseif exists('gnvim')
+  set guifont=Iosevka\ Term:h14
+  silent! colorscheme perun
 else
+  silent! colorscheme perun
   hi Normal guibg=NONE ctermbg=NONE
 endif
 set fillchars+=vert:│
@@ -467,11 +519,32 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
+endfunction
+
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 4
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
 endfunction

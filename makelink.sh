@@ -20,4 +20,5 @@ makelink .xmonad .xmonad
 mkdir -p "$HOME/.config/"
 makelink .config/fish fish
 makelink .config/rofi rofi
+makelink .config/alacritty alacritty
 #makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme
