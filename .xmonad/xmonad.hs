@@ -15,7 +15,7 @@ import XMonad.ManageHook
 --  modMask = mod4Mask -- use the Windows button as mod
 main = xmonad $ desktopConfig
     {
-      terminal = "xfce4-terminal"
+      terminal = "konsole"
     , focusFollowsMouse = False
     , clickJustFocuses = True
     , layoutHook = myLayoutHook
@@ -83,7 +83,7 @@ instance LayoutClass MDouble Window where
                         (x, y) = splitHorizontallyBy (7%8) sc
 
 myManageHook = composeAll  
-  [ className =? "plasmashell" --> doIgnore
+  [ className =? "plasmashell" --> doFloat -- doIgnore
   , className =? "urxvt"       --> doFloat
   , className =? "deadbeef"    --> doF (W.shift "1")
   , className =? "slack"       --> doF (W.shift "2")

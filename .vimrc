@@ -2,6 +2,7 @@
 set rtp+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
+Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-multiple-cursors'
@@ -29,6 +30,7 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'udalov/kotlin-vim'
 Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'othree/yajs.vim'
@@ -68,46 +70,18 @@ Plug 'cocopon/vaffle.vim'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'lambdalisue/suda.vim'
-
-
-"Plug 'zxqfl/tabnine-vim'
-
-"Plug 'baabelfish/nvim-nim'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'yami-beta/asyncomplete-omni.vim'
-
-"Plug 'chrisbra/changesPlugin'
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"  \ | Plug 'zchee/deoplete-jedi'
-"  \ | Plug 'awetzel/elixir.nvim' , { 'do': 'yes \| ./install.sh' }
-"  \ | Plug 'eagletmt/neco-ghc'
-"  \ | Plug 'fishbullet/deoplete-ruby'
-"  \ | Plug 'carlitux/deoplete-ternjs'
-"  \ | Plug 'pbogut/deoplete-padawan'
-"  \ | Plug 'zchee/deoplete-go', { 'do': 'make'}
-"  \ | Plug 'c9s/perlomni.vim', { 'do': 'make install'}
-"  if exists('g:clang_library_path') && g:clang_library_path != ''
-"    Plug 'Rip-Rip/clang_complete', { 'do': 'make install' }
-"  endif
-"endif
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
-"Plug 'itchyny/vim-cursorword'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/reply.vim'
 Plug 'rhysd/git-messenger.vim'
 
 if !has("win32")
-  "Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
 endif
 runtime! plugins.vim
@@ -122,16 +96,18 @@ endif
 set termguicolors
 "silent! colorscheme onedark
 "LuciusBlackLowContrast
+let g:nord_uniform_diff_background = 1
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'onedark'
+let g:airline_theme = 'nord'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
+let g:gruvbox_contrast_dark='hard'
 set laststatus=2
 
 "Highlight all search pattern matches
@@ -274,6 +250,7 @@ if has("autocmd")
   autocmd Filetype * set fdl=10
   autocmd Filetype * set fdm=indent
   autocmd Filetype * set foldtext=FoldText()
+  autocmd Filetype * set shortmess=atToOFcA
   autocmd Filetype confluencewiki setlocal fdm=expr
   autocmd Filetype confluencewiki setlocal fdl=0
   autocmd Filetype confluencewiki setlocal fdc=1
@@ -359,8 +336,6 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 let g:asyncrun_auto="asyncrun"
 autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'onedark'
 
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -391,45 +366,17 @@ set tags=./tags,tags;/
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-"imap <c-space> <Plug>(asyncomplete_force_refresh)
-"if executable('flow-language-server')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'flow-language-server',
-"        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
-"        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-"        \ 'whitelist': ['javascript', 'javascript.jsx'],
-"        \ })
-"endif
-"
-"if executable('pyls')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'pyls',
-"        \ 'cmd': {server_info->['pyls']},
-"        \ 'whitelist': ['python'],
-"        \ })
-"endif
-"
-"if executable('hie')
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'hie',
-"        \ 'cmd': {server_info->['hie', '--lsp']},
-"        \ 'whitelist': ['haskell'],
-"        \ })
-"endif
-"
-"call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-"\ 'name': 'omni',
-"\ 'whitelist': ['*'],
-"\ 'completor': function('asyncomplete#sources#omni#completor')
-"\  }))
 let $LC_CTYPE = "UTF-8"
 let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fixers['typescript'] = ['eslint']
+let g:ale_fixers['ruby'] = ['rubocop']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
+let g:ale_linters['typescript'] = ['eslint']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
@@ -450,7 +397,7 @@ if exists('g:gui_oni')
   set noshowcmd
   " Enable GUI mouse behavior
   set mouse=a
-  silent! colorscheme perun
+  " silent! colorscheme onedark
 elseif exists('veonim')
   let g:vscode_extensions = [
     \'vscode.typescript-language-features',
@@ -467,8 +414,8 @@ elseif exists('veonim')
   nno <silent> ,e :Veonim explorer<cr>
   nno <silent> ,b :Veonim buffers<cr>
   nno <silent> ,d :Veonim change-dir<cr>
-  nno <silent> <c-p> :Veonim files<cr>
-  nno <silent> <c-e> :Veonim buffers<cr>
+  "nno <silent> <c-p> :Veonim files<cr>
+  "nno <silent> <c-e> :Veonim buffers<cr>
   "or with a starting dir: nno <silent> ,d :Veonim change-dir ~/proj<cr>
 
   " searching text
@@ -497,10 +444,10 @@ elseif exists('veonim')
   set guifont=Iosevka\ Term:h14
 elseif exists('gnvim')
   set guifont=Iosevka\ Term:h14
-  silent! colorscheme perun
+  silent! colorscheme nord
 else
-  silent! colorscheme perun
-  hi Normal guibg=NONE ctermbg=NONE
+  silent! colorscheme nord
+  "hi Normal guibg=NONE ctermbg=NONE
 endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
@@ -509,6 +456,7 @@ let g:fzf_session_path = $HOME . '/.vim/sessions'
 let g:Illuminate_delay = 0
 let g:signify_sign_change = '~'
 set shortmess=atToOFcA
+set sessionoptions=blank,curdir,folds,tabpages
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
