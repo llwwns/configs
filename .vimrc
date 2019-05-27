@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'easymotion/vim-easymotion'
 Plug 'othree/eregex.vim'
 Plug 'tpope/vim-unimpaired'
@@ -95,6 +95,7 @@ endif
 "colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
+silent! colorscheme nord
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
@@ -316,16 +317,6 @@ nmap L <Plug>(easymotion-overwin-line)
 vmap L <Plug>(easymotion-overwin-line)
 nmap <Leader>m <Plug>(git-messenger)
 
-let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_ignore_case=1
-let g:deoplete#enable_smart_case=1
-
-function! g:Multiple_cursors_before()
-  let g:deoplete#disable_auto_complete = 1
-endfunction
-function! g:Multiple_cursors_after()
-  let g:deoplete#disable_auto_complete = 0
-endfunction
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -395,58 +386,11 @@ if exists('g:gui_oni')
   set noruler
   set laststatus=0
   set noshowcmd
-  " Enable GUI mouse behavior
   set mouse=a
-  " silent! colorscheme onedark
-elseif exists('veonim')
-  let g:vscode_extensions = [
-    \'vscode.typescript-language-features',
-    \'vscode.css-language-features',
-    \'vscode.html-language-features',
-  \]
-  " multiple nvim instances
-  nno <silent> <c-t>c :Veonim vim-create<cr>
-  nno <silent> <c-g> :Veonim vim-switch<cr>
-  nno <silent> <c-t>, :Veonim vim-rename<cr>
-
-  " workspace functions
-  nno <silent> ,f :Veonim files<cr>
-  nno <silent> ,e :Veonim explorer<cr>
-  nno <silent> ,b :Veonim buffers<cr>
-  nno <silent> ,d :Veonim change-dir<cr>
-  "nno <silent> <c-p> :Veonim files<cr>
-  "nno <silent> <c-e> :Veonim buffers<cr>
-  "or with a starting dir: nno <silent> ,d :Veonim change-dir ~/proj<cr>
-
-  " searching text
-  nno <silent> <space>fw :Veonim grep-word<cr>
-  vno <silent> <space>fw :Veonim grep-selection<cr>
-  nno <silent> <space>fa :Veonim grep<cr>
-  nno <silent> <space>ff :Veonim grep-resume<cr>
-  nno <silent> <space>fb :Veonim buffer-search<cr>
-
-  " language features
-  nno <silent> sr :Veonim rename<cr>
-  nno <silent> sd :Veonim definition<cr>
-  nno <silent> si :Veonim implementation<cr>
-  nno <silent> st :Veonim type-definition<cr>
-  nno <silent> sf :Veonim references<cr>
-  nno <silent> sh :Veonim hover<cr>
-  nno <silent> sl :Veonim symbols<cr>
-  nno <silent> so :Veonim workspace-symbols<cr>
-  nno <silent> sq :Veonim code-action<cr>
-  nno <silent> sk :Veonim highlight<cr>
-  nno <silent> sK :Veonim highlight-clear<cr>
-  nno <silent> ,n :Veonim next-usage<cr>
-  nno <silent> ,p :Veonim prev-usage<cr>
-  nno <silent> sp :Veonim show-problem<cr>
-  nno <silent> <c-j> :Veonim next-problem<cr>
-  set guifont=Iosevka\ Term:h14
 elseif exists('gnvim')
-  set guifont=Iosevka\ Term:h14
-  silent! colorscheme nord
+  set guifont=Iosevka\ Term:h13
+  set guicursor+=a:blinkon0
 else
-  silent! colorscheme nord
   "hi Normal guibg=NONE ctermbg=NONE
 endif
 set fillchars+=vert:│

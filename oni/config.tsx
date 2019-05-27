@@ -27,7 +27,7 @@ export const configuration = {
     //add custom config here, such as    "oni.hideMenu": true, // Hide default menu, can be opened with <alt>
     activate,
     "oni.loadInitVim": true,
-    "oni.useDefaultConfig": true,
+    "oni.useDefaultConfig": false,
     "ui.colorscheme": "n/a",
     "autoClosingPairs.enabled": false, // disable autoclosing pairs
     "commandline.mode": false, // Do not override commandline UI
@@ -40,9 +40,9 @@ export const configuration = {
     //"oni.bookmarks": ["~/Documents"],
     "editor.fontSize": "17px",
     "editor.fontFamily": "Iosevka Term",
-    "editor.backgroundImageUrl": "file:///home/li/.config/bg.png",
-    "editor.backgroundImageSize": "initial",
-    "editor.backgroundOpacity": "0",
+    //"editor.backgroundImageUrl": "file:///home/li/.config/bg.png",
+    //"editor.backgroundImageSize": "initial",
+    "editor.backgroundOpacity": 1,
     // UI customizations
     "ui.animations.enabled": false,
     "ui.fontSmoothing": "auto",
@@ -54,10 +54,4 @@ export const configuration = {
     "colors.tabs.background": "rgba(255,255,255,0.1)",
     "tabs.height": "1.5em",
     "tabs.showFileIcon": false
-
-    /*"language.ruby.languageServer.command": "docker",
-    "language.ruby.languageServer.arguments": [
-      "run",
-      "mtsmfm/language_server-ruby",
-    ],*/
 }
