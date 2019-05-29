@@ -22,4 +22,6 @@ makelink .config/fish fish
 makelink .config/rofi rofi
 makelink .config/alacritty alacritty
 makelink .config/oni oni
+mkdir -p "$HOME/.vim/autoload/crystalline/theme"
+makelink ".vim/autoload/crystalline/theme/nord.vim" nord.vim
 #makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme
