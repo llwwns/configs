@@ -15,20 +15,17 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-abolish'
-Plug 'vim-scripts/confluencewiki.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'morhetz/gruvbox'
 Plug 'mkarmona/colorsbox'
 Plug 'tpope/vim-surround'
 Plug 'xuhdev/SingleCompile'
 "Plug 'majutsushi/tagbar'
-Plug 'kchmck/vim-coffee-script'
 "Plug 'fatih/vim-go'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'udalov/kotlin-vim'
-Plug 'evidens/vim-twig'
 Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
@@ -41,7 +38,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
-Plug 'lambdalisue/gina.vim'
+" Plug 'lambdalisue/gina.vim'
 " Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
@@ -51,6 +48,7 @@ Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
 "Plug 'chrisbra/csv.vim'
 "Plug 'scrooloose/nerdtree'
+Plug 'lambdalisue/fila.vim'
 Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
@@ -66,7 +64,6 @@ Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'racer-rust/vim-racer'
-Plug 'cocopon/vaffle.vim'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'lambdalisue/suda.vim'
@@ -79,7 +76,6 @@ Plug 'tyru/eskk.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/reply.vim'
-Plug 'rhysd/git-messenger.vim'
 
 if !has("win32")
   Plug 'mhinz/vim-signify'
@@ -103,10 +99,10 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'nord'
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
 
 let g:gruvbox_contrast_dark='hard'
 set laststatus=2
@@ -146,6 +142,7 @@ nmap <c-h> :tabp<CR>
 nmap <BS> :tabp<CR>
 nmap <c-l> :tabn<CR>
 "nmap <Tab> :NERDTreeToggle<CR>
+nmap <Tab> :execute "Fila" getcwd() "-drawer" "-toggle"<CR>
 nmap j gj
 nmap k gk
 vmap j gj
@@ -165,7 +162,6 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-imap <expr> <TAB> pumvisible() ? "<Down>" : "<Tab>"
 set list
 set listchars=tab:▸\ ,eol:¬
 let g:ConqueTerm_CWInsert = 1
@@ -235,7 +231,7 @@ if has("autocmd")
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
@@ -312,8 +308,6 @@ omap z <Plug>(easymotion-s2)
 nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w suda://%
 xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-nmap L <Plug>(easymotion-overwin-line)
 vmap L <Plug>(easymotion-overwin-line)
 nmap <Leader>m <Plug>(git-messenger)
 
@@ -329,6 +323,7 @@ autocmd QuickFixCmdPost asyncrun botright copen 8
 let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
 
 command! Lcd lcd %:h
+let g:tmux_navigator_no_mappings = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 set t_8b=[48;2;%lu;%lu;%lum
@@ -348,7 +343,7 @@ command! -range -nargs=* SS <line1>,<line2>!perl -pe "s<q-args>"
 command! -range -nargs=* Yml <line1>,<line2>!yq.v2 r -
 command! -range -nargs=* Jq <line1>,<line2>!jq .
 command! -range -nargs=* Json <line1>,<line2>!yq.v2  r -j - | jq .
-command! -range Prettier <line1>,<line2>!prettier --stdin --no-semi --single-quote --jsx-bracket-same-line --print-width 120
+command! -range Prettier <line1>,<line2>!prettier --stdin --semi --single-quote --jsx-bracket-same-line --print-width 120
 command! -nargs=* MY !echo "s<q-args>"
 command! Todo e ~/todo.txt
 set tags=./tags,tags;/
@@ -440,3 +435,10 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
+"let g:NERDTreeDirArrows = 1
+"let g:NERDTreeDirArrowExpandable  = '▶'
+"let g:NERDTreeDirArrowCollapsible = '▼'
+let g:fila#node#renderer#default#expanded_symbol = '|▼ '
+let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
+let g:fila#node#renderer#default#leaf_symbol = '|  '
+let g:polyglot_disabled = ['markdown']
