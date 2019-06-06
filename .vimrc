@@ -459,7 +459,9 @@ function! StatusLine(current, width)
   let l:s = ''
 
   if a:current
-    let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+    let l:s .= crystalline#mode() 
+    let l:s .= '%{&paste ?"[PASTE] ":""}%{&spell?"[SPELL] ":""}'
+    let l:s .= crystalline#right_mode_sep('')
   else
     let l:s .= '%#CrystallineInactive#'
   endif
@@ -471,11 +473,11 @@ function! StatusLine(current, width)
   let l:s .= '%='
   if a:current
   let l:s .= '%{LinterStatus()} %{coc#status()} '
-    let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+    let l:s .= crystalline#left_sep('', 'Fill') . ' %{&ft} '
     let l:s .= crystalline#left_mode_sep('')
   endif
   if a:width > 80
-    let l:s .= ' %{&ft}[%{&enc}][%{&ff}] %l/%L %c%V %P '
+    let l:s .= ' [%{&enc}][%{&ff}] %l/%L %c %P '
   else
     let l:s .= ' '
   endif
