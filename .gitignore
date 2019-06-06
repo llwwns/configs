@@ -6,3 +6,5 @@ SKK-JISYO.L
 node_modules
 db.json
 history.json
+nvim/.netrwhist
+fish/fish_variables
