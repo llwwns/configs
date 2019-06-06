@@ -443,6 +443,20 @@ let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
 let g:fila#node#renderer#default#leaf_symbol = '|  '
 let g:polyglot_disabled = ['markdown']
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
 function! StatusLine(current, width)
   let l:s = ''
 
@@ -458,7 +472,7 @@ function! StatusLine(current, width)
 
   let l:s .= '%='
   if a:current
-  let l:s .= '%{coc#status()} '
+  let l:s .= '%{LinterStatus()} %{coc#status()} '
     let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
     let l:s .= crystalline#left_mode_sep('')
   endif
