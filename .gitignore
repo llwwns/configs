@@ -3,3 +3,6 @@
 *.errors
 xmonad-*
 SKK-JISYO.L
+node_modules
+db.json
+history.json

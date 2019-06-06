@@ -443,8 +443,6 @@ let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
 let g:fila#node#renderer#default#leaf_symbol = '|  '
 let g:polyglot_disabled = ['markdown']
 
-let g:crystalline_separators = ['', '']
-
 function! StatusLine(current, width)
   let l:s = ''
 
@@ -455,11 +453,12 @@ function! StatusLine(current, width)
   endif
   let l:s .= ' %f%h%w%m%r '
   if a:current
-    let l:s .= crystalline#right_sep('', 'Fill') . ' %{fugitive#head()}'
+    let l:s .= crystalline#right_sep('', 'Fill') . " %{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
   endif
 
   let l:s .= '%='
   if a:current
+  let l:s .= '%{coc#status()} '
     let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
     let l:s .= crystalline#left_mode_sep('')
   endif
