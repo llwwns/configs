@@ -75,6 +75,8 @@ Plug 'tyru/eskk.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/reply.vim'
+Plug 'tpope/vim-endwise'
+Plug 'tomtom/tcomment_vim'
 
 if !has("win32")
   Plug 'mhinz/vim-signify'
