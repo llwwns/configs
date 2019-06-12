@@ -12,6 +12,9 @@ import Data.Ratio
 import Graphics.X11 (Rectangle(..))
 import Control.Arrow ((***), second)
 import XMonad.ManageHook
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
+import XMonad.Layout.BoringWindows
 --  modMask = mod4Mask -- use the Windows button as mod
 main = xmonad $ desktopConfig
     {
@@ -25,9 +28,17 @@ main = xmonad $ desktopConfig
     `additionalKeys` [
     ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
     ((mod1Mask, xK_p), spawn "rofi -combi-modi drun,run -show combi -modi combi -i -matching fuzzy"),
-    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run")]
+    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run"),
+    ((mod1Mask .|. controlMask, xK_j), withFocused (sendMessage . mergeDir W.focusDown')),
+    ((mod1Mask .|. controlMask, xK_k), withFocused (sendMessage . mergeDir W.focusUp')),
+    ((mod1Mask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll)),
+    ((mod1Mask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge)),
+    ((mod1Mask, xK_bracketleft), onGroup W.focusUp'),
+    ((mod1Mask, xK_bracketright), onGroup W.focusDown'),
+    ((mod1Mask, xK_j), focusDown),
+    ((mod1Mask, xK_k), focusUp)]
  
-myLayoutHook = avoidStruts $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
+myLayoutHook = avoidStruts $ windowNavigation $ subTabbed $ boringWindows $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
 
 data MFocus a = MFocus deriving ( Read, Show )
 
