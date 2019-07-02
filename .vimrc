@@ -77,6 +77,9 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/reply.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tomtom/tcomment_vim'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'tpope/vim-sensible'
+Plug 'machakann/vim-swap'
 
 if !has("win32")
   Plug 'mhinz/vim-signify'
@@ -140,9 +143,9 @@ nmap <c-s> :Sessions<CR>
 nmap <c-p> :Files<CR>
 nmap <c-s> :Sessions<CR>
 vmap <c-e> y:tabe <c-r>"<CR>
-nmap <c-h> :tabp<CR>
-nmap <BS> :tabp<CR>
-nmap <c-l> :tabn<CR>
+" nmap <c-h> :tabp<CR>
+" nmap <BS> :tabp<CR>
+" nmap <c-l> :tabn<CR>
 "nmap <Tab> :NERDTreeToggle<CR>
 nmap <Tab> :execute "Fila" getcwd() "-drawer" "-toggle"<CR>
 nmap j gj
@@ -242,6 +245,7 @@ if has("autocmd")
   autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd Filetype * set formatoptions-=c
   autocmd Filetype * set formatoptions-=r
@@ -358,7 +362,7 @@ let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['eslint']
 let g:ale_fixers['ruby'] = ['rubocop']
 let g:ale_linters = {}
@@ -416,7 +420,7 @@ function! s:show_documentation()
 endfunction
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
