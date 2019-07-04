@@ -261,6 +261,7 @@ if has("autocmd")
   autocmd BufReadPost fugitive://* set bufhidden=delete
   autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
   if (!has("nvim"))
     augroup foldmethod-expr
       autocmd!
@@ -357,7 +358,6 @@ set tags=./tags,tags;/
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let $LC_CTYPE = "UTF-8"
 let g:disable_key_mappings=1
 let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
@@ -388,7 +388,7 @@ if exists('g:gui_oni')
   set noshowcmd
   set mouse=a
 elseif exists('gnvim')
-  set guifont=Iosevka\ Term:h13
+  set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
 else
   "hi Normal guibg=NONE ctermbg=NONE

@@ -20,10 +20,16 @@
         ".hg/"
       ],
       "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
+         "cache": {
+           "directory": "/tmp/ccls"
+         }
+       }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     }
   }
 }

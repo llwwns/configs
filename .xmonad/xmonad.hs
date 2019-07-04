@@ -24,21 +24,21 @@ main = xmonad $ desktopConfig
     , layoutHook = myLayoutHook
     , manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
     , focusedBorderColor = "#009cb5"
+    , normalBorderColor = "#000"
     }
     `additionalKeys` [
     ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
     ((mod1Mask, xK_p), spawn "rofi -combi-modi drun,run -show combi -modi combi -i -matching fuzzy"),
-    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run"),
-    ((mod1Mask .|. controlMask, xK_j), withFocused (sendMessage . mergeDir W.focusDown')),
-    ((mod1Mask .|. controlMask, xK_k), withFocused (sendMessage . mergeDir W.focusUp')),
-    ((mod1Mask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll)),
-    ((mod1Mask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge)),
-    ((mod1Mask, xK_bracketleft), onGroup W.focusUp'),
-    ((mod1Mask, xK_bracketright), onGroup W.focusDown'),
-    ((mod1Mask, xK_j), focusDown),
-    ((mod1Mask, xK_k), focusUp)]
+    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run")]
+    -- ((mod1Mask .|. controlMask, xK_j), withFocused (sendMessage . mergeDir W.focusDown')),
+    -- ((mod1Mask .|. controlMask, xK_k), withFocused (sendMessage . mergeDir W.focusUp')),
+    -- ((mod1Mask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll)),
+    -- ((mod1Mask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge)),
+    -- ((mod1Mask, xK_bracketleft), onGroup W.focusUp'),
+    -- ((mod1Mask, xK_bracketright), onGroup W.focusDown')]
  
-myLayoutHook = avoidStruts $ windowNavigation $ subTabbed $ boringWindows $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
+myLayoutHook = avoidStruts  $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
+-- myLayoutHook = avoidStruts $ windowNavigation $ subTabbed $ boringWindows $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
 
 data MFocus a = MFocus deriving ( Read, Show )
 
