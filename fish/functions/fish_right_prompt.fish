@@ -6,6 +6,7 @@ function fish_right_prompt
   set -l color_error (set_color $fish_color_error)
   set -l color "$color_normal"
 
+	echo (set_color cyan)$current_docker$color_normal" "
   switch "$status_copy"
       case 0 "$__mono_status_last"
         set status_code

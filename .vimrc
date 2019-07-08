@@ -365,6 +365,7 @@ let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['eslint']
 let g:ale_fixers['ruby'] = ['rubocop']
+let g:ale_fixers['go'] = ['gofmt']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_linters['typescript'] = ['eslint']
