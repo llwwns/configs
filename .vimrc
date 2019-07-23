@@ -1,7 +1,9 @@
-"plugin manager
-set rtp+=~/.vim
+set encoding=utf-8
+scriptencoding utf-8
+set runtimepath+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
+Plug 'ryanoasis/vim-devicons'
 Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
@@ -47,8 +49,8 @@ Plug 'tpope/vim-db'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'sodapopcan/vim-twiggy'
 "Plug 'chrisbra/csv.vim'
-"Plug 'scrooloose/nerdtree'
-Plug 'lambdalisue/fila.vim'
+Plug 'scrooloose/nerdtree'
+"Plug 'lambdalisue/fila.vim'
 Plug 'mattsacks/vim-eddie'
 Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
@@ -80,14 +82,15 @@ Plug 'tomtom/tcomment_vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-sensible'
 Plug 'machakann/vim-swap'
+Plug 'tpope/vim-rails'
 
-if !has("win32")
-  Plug 'mhinz/vim-signify'
-endif
+" if !has("win32")
+"   Plug 'mhinz/vim-signify'
+" endif
 runtime! plugins.vim
 call plug#end()
 "set language to english
-if has("multi_lang")
+if has('multi_lang')
   language C
 endif
 "set colorscheme
@@ -104,6 +107,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'nord'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
+let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
 "let g:airline_left_alt_sep = ''
 "let g:airline_right_sep = ''
@@ -113,14 +117,13 @@ let g:gruvbox_contrast_dark='hard'
 set laststatus=2
 
 "Highlight all search pattern matches
-set hls
+set hlsearch
 "show line number
-set nu
+set number
 "set backspace to delete indent, endo of line and before insert start
 set backspace=indent,eol,start
 "allow cursor go to next line
 set whichwrap=b,s,<,>,[,]
-set encoding=utf-8
 "set encoding=shift-jis
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312
 "setting for indent
@@ -146,8 +149,8 @@ vmap <c-e> y:tabe <c-r>"<CR>
 " nmap <c-h> :tabp<CR>
 " nmap <BS> :tabp<CR>
 " nmap <c-l> :tabn<CR>
-"nmap <Tab> :NERDTreeToggle<CR>
-nmap <Tab> :execute "Fila" getcwd() "-drawer" "-toggle"<CR>
+nmap <Tab> :NERDTreeToggle<CR>
+"nmap <Tab> :execute "Fila" getcwd() "-drawer" "-toggle"<CR>
 nmap j gj
 nmap k gk
 vmap j gj
@@ -169,18 +172,16 @@ nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 set list
 set listchars=tab:▸\ ,eol:¬
-let g:ConqueTerm_CWInsert = 1
-let g:ConqueTerm_InsertOnEnter = 1
-function! IndentFold()
-  let line = getline(v:lnum)
-  let next = getline(v:lnum + 1)
-  let cl = strlen(substitute(line, '\v^\s*\zs.*', '', ''))
-  let cn = strlen(substitute(next, '\v^\s*\zs.*', '', ''))
-  if cn > cl
-    return ">".(cn / &shiftwidth)
-  endif
-  return cl / &shiftwidth
-endfunction
+" function! IndentFold()
+"   let line = getline(v:lnum)
+"   let next = getline(v:lnum + 1)
+"   let cl = strlen(substitute(line, '\v^\s*\zs.*', '', ''))
+"   let cn = strlen(substitute(next, '\v^\s*\zs.*', '', ''))
+"   if cn > cl
+"     return '>'.(cn / &shiftwidth)
+"   endif
+"   return cl / &shiftwidth
+" endfunction
 
 "function! BraceFold()
 "  let line = getline(v:lnum)
@@ -221,48 +222,58 @@ endfunction
 "endfunction
 
 function! FoldText()
-  return getline(v:foldstart)."------[".(v:foldend-v:foldstart+1)." lines]------"
+  return getline(v:foldstart).'------[".(v:foldend-v:foldstart+1)." lines]------'
 endfunction
 
 
-if has("autocmd")
+if has('autocmd')
   " Enable file type detection
   filetype on
-  autocmd Filetype calendar IndentLinesDisable
-  autocmd FileType * setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType nim setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
-  autocmd Filetype * set formatoptions-=c
-  autocmd Filetype * set formatoptions-=r
-  autocmd Filetype * set formatoptions-=o
-  autocmd Filetype * set fdl=10
-  autocmd Filetype * set fdm=indent
-  autocmd Filetype * set foldtext=FoldText()
-  autocmd Filetype * set shortmess=atToOFcA
-  autocmd Filetype confluencewiki setlocal fdm=expr
-  autocmd Filetype confluencewiki setlocal fdl=0
-  autocmd Filetype confluencewiki setlocal fdc=1
-  
-  autocmd BufReadPost fugitive://* set bufhidden=delete
-  autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
-  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
-  if (!has("nvim"))
+  augroup filetypes
+    autocmd Filetype calendar IndentLinesDisable
+    autocmd FileType * setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType nim setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
+    autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
+    autocmd Filetype * set formatoptions-=c
+    autocmd Filetype * set formatoptions-=r
+    autocmd Filetype * set formatoptions-=o
+    autocmd Filetype * set fdl=10
+    autocmd Filetype * set fdm=indent
+    autocmd Filetype * set foldtext=FoldText()
+    autocmd Filetype * set shortmess=atToOFcA
+    autocmd Filetype confluencewiki setlocal fdm=expr
+    autocmd Filetype confluencewiki setlocal fdl=0
+    autocmd Filetype confluencewiki setlocal fdc=1
+    autocmd BufReadPost fugitive://* set bufhidden=delete
+    autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
+    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+    autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
+    autocmd FileType rust nmap gd <Plug>(rust-def)
+    autocmd FileType rust nmap gs <Plug>(rust-def-split)
+    autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+    autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
+    autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
+  augroup END
+  augroup asyncrun
+    autocmd QuickFixCmdPost asyncrun botright copen 8
+  augroup END
+  if (!has('nvim'))
     augroup foldmethod-expr
       autocmd!
       autocmd InsertEnter * if &l:foldmethod ==# 'expr'
@@ -303,8 +314,6 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
-autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
-autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
 let mapleader="'"
 let maplocalleader="'"
 nmap <buffer> <F8> :SCCompileRun<CR>
@@ -325,10 +334,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-let g:asyncrun_auto="asyncrun"
-autocmd QuickFixCmdPost asyncrun botright copen 8
-let g:deoplete#sources#go#gocode_binary = '~/goprojects/bin/gocode'
-
+let g:asyncrun_auto='asyncrun'
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -359,7 +365,7 @@ set tags=./tags,tags;/
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 let g:disable_key_mappings=1
-let g:eskk#large_dictionary = { 'path': "~/configs/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+let g:eskk#large_dictionary = { 'path': '~/configs/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp', }
 let g:eskk#enable_completion = 1
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
@@ -374,10 +380,6 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare'
 
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
 if exists('g:gui_oni')
   set number
   set noswapfile
@@ -403,17 +405,13 @@ let g:signify_sign_change = '~'
 set shortmess=atToOFcA
 set sessionoptions=blank,curdir,folds,tabpages
 
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -441,13 +439,15 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
-"let g:NERDTreeDirArrows = 1
-"let g:NERDTreeDirArrowExpandable  = '▶'
-"let g:NERDTreeDirArrowCollapsible = '▼'
-let g:fila#node#renderer#default#expanded_symbol = '|▼ '
-let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
-let g:fila#node#renderer#default#leaf_symbol = '|  '
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable  = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
+" let g:fila#node#renderer#default#expanded_symbol = '|▼ '
+" let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
+" let g:fila#node#renderer#default#leaf_symbol = '|  '
 let g:polyglot_disabled = ['markdown']
 
 set guioptions-=e
 set laststatus=2
+let g:extra_whitespace_ignored_filetypes = ['calendar']
+let g:calendar_google_calendar = 1
