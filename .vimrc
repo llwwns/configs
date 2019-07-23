@@ -119,7 +119,13 @@ set laststatus=2
 "Highlight all search pattern matches
 set hlsearch
 "show line number
-set number
+set number relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 "set backspace to delete indent, endo of line and before insert start
 set backspace=indent,eol,start
 "allow cursor go to next line
@@ -222,7 +228,7 @@ set listchars=tab:▸\ ,eol:¬
 "endfunction
 
 function! FoldText()
-  return getline(v:foldstart).'------[".(v:foldend-v:foldstart+1)." lines]------'
+  return getline(v:foldstart).'------['.(v:foldend-v:foldstart+1).' lines]------'
 endfunction
 
 
@@ -325,6 +331,7 @@ nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w suda://%
 xmap ga <Plug>(EasyAlign)
 vmap L <Plug>(easymotion-overwin-line)
+nmap L <Plug>(easymotion-overwin-line)
 nmap <Leader>m <Plug>(git-messenger)
 
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
