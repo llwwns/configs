@@ -83,6 +83,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-sensible'
 Plug 'machakann/vim-swap'
 Plug 'tpope/vim-rails'
+Plug 'mechatroner/rainbow_csv'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -255,6 +256,8 @@ if has('autocmd')
     autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
     autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
+    autocmd FileType csv nmap [c :RainbowAlign <CR>
+    autocmd FileType csv nmap ]c :RainbowShrink <CR>
     autocmd Filetype * set formatoptions-=c
     autocmd Filetype * set formatoptions-=r
     autocmd Filetype * set formatoptions-=o
@@ -458,3 +461,4 @@ set guioptions-=e
 set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
+" let g:polyglot_disabled = ['csv']
