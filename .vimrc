@@ -84,6 +84,8 @@ Plug 'tpope/vim-sensible'
 Plug 'machakann/vim-swap'
 Plug 'tpope/vim-rails'
 Plug 'mechatroner/rainbow_csv'
+Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim-airline'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -99,14 +101,15 @@ endif
 "colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
-silent! colorscheme nord
+let ayucolor="mirage"
+silent! colorscheme ayu
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'nord'
+let g:airline_theme = 'ayu'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
@@ -461,4 +464,4 @@ set guioptions-=e
 set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
-" let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv']
