@@ -101,7 +101,7 @@ endif
 "colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
-let ayucolor="mirage"
+let ayucolor='mirage'
 silent! colorscheme ayu
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
@@ -335,6 +335,7 @@ vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
 nnoremap <silent> <leader>a :ArgWrap<CR>
 cmap w!! w suda://%
+nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 vmap L <Plug>(easymotion-overwin-line)
 nmap L <Plug>(easymotion-overwin-line)
@@ -464,4 +465,4 @@ set guioptions-=e
 set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
-let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv', 'ruby']
