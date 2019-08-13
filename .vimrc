@@ -86,6 +86,8 @@ Plug 'tpope/vim-rails'
 Plug 'mechatroner/rainbow_csv'
 Plug 'ayu-theme/ayu-vim'
 Plug 'ayu-theme/ayu-vim-airline'
+Plug 'Shougo/deol.nvim'
+Plug 'tyrannicaltoucan/vim-quantum'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -101,15 +103,18 @@ endif
 "colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
-let ayucolor='mirage'
-silent! colorscheme ayu
+" let ayucolor='mirage'
+" silent! colorscheme ayu
+let g:quantum_black=1
+silent! colorscheme quantum
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'ayu'
+" let g:airline_theme = 'ayu'
+let g:airline_theme = 'quantum'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
