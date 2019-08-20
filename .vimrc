@@ -266,6 +266,7 @@ if has('autocmd')
     autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
     autocmd FileType csv nmap [c :RainbowAlign <CR>
     autocmd FileType csv nmap ]c :RainbowShrink <CR>
+    autocmd FileType json nmap [j :call JsonBeautify() <CR>
     autocmd Filetype * set formatoptions-=c
     autocmd Filetype * set formatoptions-=r
     autocmd Filetype * set formatoptions-=o
@@ -345,6 +346,8 @@ xmap ga <Plug>(EasyAlign)
 vmap L <Plug>(easymotion-overwin-line)
 nmap L <Plug>(easymotion-overwin-line)
 nmap <Leader>m <Plug>(git-messenger)
+nmap [, :Tab /,<CR>
+vmap [, :'<,'>Tab /,<CR>
 
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
