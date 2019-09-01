@@ -89,6 +89,7 @@ Plug 'ayu-theme/ayu-vim-airline'
 Plug 'Shougo/deol.nvim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'lifepillar/vim-gruvbox8'
+Plug 'google/vim-searchindex'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -107,6 +108,7 @@ set termguicolors
 " let ayucolor='mirage'
 " silent! colorscheme ayu
 " let g:quantum_black=1
+set background=dark
 silent! colorscheme gruvbox8_hard
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
@@ -475,3 +477,4 @@ set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
 let g:polyglot_disabled = ['csv', 'ruby']
+let g:EmacsCommandLineSearchCommandLineDisable = 1
