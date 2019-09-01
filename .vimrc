@@ -418,6 +418,30 @@ if exists('g:gui_oni')
 elseif exists('gnvim')
   set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
+  function! ReturnHighlightTerm(group, term)
+       " Store output of group to variable
+          let output = execute('hi ' . a:group)
+             " Find the term we're looking for
+                return matchstr(output, a:term.'\v\=\zs[#0-9a-z]*')
+  endfunction
+  call rpcnotify(g:gnvim_channel_id, 'Gnvim', 'SetGuiColors', {
+        \ "pmenu_bg": ReturnHighlightTerm('Pmenu', 'guibg'),
+        \ "pmenu_fg": ReturnHighlightTerm('Pmenu', 'guifg'),
+        \ "pmenusel_bg": ReturnHighlightTerm('PmenuSel', 'guibg'),
+        \ "pmenusel_fg": ReturnHighlightTerm('PmenuSel', 'guifg'),
+        \ "wildmenu_bg": ReturnHighlightTerm('Pmenu', 'guibg'),
+        \ "wildmenu_fg": ReturnHighlightTerm('Pmenu', 'guifg'),
+        \ "wildmenusel_bg": ReturnHighlightTerm('PmenuSel', 'guibg'),
+        \ "wildmenusel_fg": ReturnHighlightTerm('PmenuSel', 'guifg'),
+        \ "cmdline_bg": ReturnHighlightTerm('Normal', 'guibg'),
+        \ "cmdline_fg": ReturnHighlightTerm('Normal', 'guifg'),
+        \ "tabline_fg": ReturnHighlightTerm('TabLine', 'guifg'),
+        \ "tabline_bg": ReturnHighlightTerm('TabLine', 'guibg'),
+        \ "tablinefill_fg": ReturnHighlightTerm('TabLineFill', 'guifg'),
+        \ "tablinefill_bg": ReturnHighlightTerm('TabLineFill', 'guibg'),
+        \ "tablinesel_fg": ReturnHighlightTerm('TabLineSel', 'guifg'),
+        \ "tablinesel_bg": ReturnHighlightTerm('TabLineSel', 'guibg')
+        \ })
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
