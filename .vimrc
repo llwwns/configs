@@ -90,6 +90,7 @@ Plug 'Shougo/deol.nvim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
+Plug 'christoomey/vim-tmux-navigator'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -102,14 +103,13 @@ if has('multi_lang')
 endif
 "set colorscheme
 "set t_Co=256
-"colorscheme gruvbox
 set termguicolors
 "silent! colorscheme onedark
 " let ayucolor='mirage'
 " silent! colorscheme ayu
 " let g:quantum_black=1
 set background=dark
-silent! colorscheme gruvbox8_hard
+silent! colorscheme gruvbox8
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
@@ -416,32 +416,8 @@ if exists('g:gui_oni')
   set noshowcmd
   set mouse=a
 elseif exists('gnvim')
-  set guifont=Iosevka\ Term:h12
+  set guifont=Iosevka\ Term:h13
   set guicursor+=a:blinkon0
-  function! ReturnHighlightTerm(group, term)
-       " Store output of group to variable
-          let output = execute('hi ' . a:group)
-             " Find the term we're looking for
-                return matchstr(output, a:term.'\v\=\zs[#0-9a-z]*')
-  endfunction
-  call rpcnotify(g:gnvim_channel_id, 'Gnvim', 'SetGuiColors', {
-        \ "pmenu_bg": ReturnHighlightTerm('Pmenu', 'guibg'),
-        \ "pmenu_fg": ReturnHighlightTerm('Pmenu', 'guifg'),
-        \ "pmenusel_bg": ReturnHighlightTerm('PmenuSel', 'guibg'),
-        \ "pmenusel_fg": ReturnHighlightTerm('PmenuSel', 'guifg'),
-        \ "wildmenu_bg": ReturnHighlightTerm('Pmenu', 'guibg'),
-        \ "wildmenu_fg": ReturnHighlightTerm('Pmenu', 'guifg'),
-        \ "wildmenusel_bg": ReturnHighlightTerm('PmenuSel', 'guibg'),
-        \ "wildmenusel_fg": ReturnHighlightTerm('PmenuSel', 'guifg'),
-        \ "cmdline_bg": ReturnHighlightTerm('Normal', 'guibg'),
-        \ "cmdline_fg": ReturnHighlightTerm('Normal', 'guifg'),
-        \ "tabline_fg": ReturnHighlightTerm('TabLine', 'guifg'),
-        \ "tabline_bg": ReturnHighlightTerm('TabLine', 'guibg'),
-        \ "tablinefill_fg": ReturnHighlightTerm('TabLineFill', 'guifg'),
-        \ "tablinefill_bg": ReturnHighlightTerm('TabLineFill', 'guibg'),
-        \ "tablinesel_fg": ReturnHighlightTerm('TabLineSel', 'guifg'),
-        \ "tablinesel_bg": ReturnHighlightTerm('TabLineSel', 'guibg')
-        \ })
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
@@ -502,3 +478,9 @@ let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
 let g:polyglot_disabled = ['csv', 'ruby']
 let g:EmacsCommandLineSearchCommandLineDisable = 1
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-F1> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-F2> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-F3> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-F4> :TmuxNavigateRight<cr>

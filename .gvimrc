@@ -16,9 +16,16 @@ elseif has("gui_macvim")
   set macligatures
 else
   set guifont=Iosevka\ 14
+  set guioptions-=T
+  set guioptions-=m
+  set guioptions-=r
+  set langmenu=none 
 endif
 if has('mouse')
   set mouse=a
   vmap <RightMouse> y
   nmap <RightMouse> p
 endif
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
