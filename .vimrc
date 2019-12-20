@@ -30,8 +30,6 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'udalov/kotlin-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
-Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 "Plug 'othree/yajs.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
@@ -61,10 +59,8 @@ Plug 'houtsnip/vim-emacscommandline'
 Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'dominickng/fzf-session.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
-Plug 'racer-rust/vim-racer'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'lambdalisue/suda.vim'
@@ -91,6 +87,7 @@ Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -158,12 +155,8 @@ syntax on
 "set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
-"nmap <c-e> :tabe<CR>:Files<space>
-nmap <c-e> :Buffers<CR>
-nmap <c-s> :Sessions<CR>
-nmap <c-p> :Files<CR>
-nmap <c-s> :Sessions<CR>
-vmap <c-e> y:tabe <c-r>"<CR>
+nmap <c-e> :Clap buffers<CR>
+nmap <c-p> :Clap files<CR>
 " nmap <c-h> :tabp<CR>
 " nmap <BS> :tabp<CR>
 " nmap <c-l> :tabn<CR>
@@ -284,10 +277,6 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
     autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
-    autocmd FileType rust nmap gd <Plug>(rust-def)
-    autocmd FileType rust nmap gs <Plug>(rust-def-split)
-    autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
     autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
     autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
   augroup END
@@ -423,7 +412,6 @@ else
 endif
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
-let g:fzf_session_path = $HOME . '/.vim/sessions'
 "let g:airline#extensions#tabline#enabled = 1
 let g:Illuminate_delay = 0
 let g:signify_sign_change = '~'
@@ -444,39 +432,19 @@ function! s:show_documentation()
 endfunction
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = &lines - 4
-  let width = float2nr(&columns - (&columns * 2 / 10))
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 1,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable  = '▶'
 let g:NERDTreeDirArrowCollapsible = '▼'
 " let g:fila#node#renderer#default#expanded_symbol = '|▼ '
 " let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
 " let g:fila#node#renderer#default#leaf_symbol = '|  '
-let g:polyglot_disabled = ['markdown']
+let g:polyglot_disabled = ['markdown', 'csv', 'ruby']
 
 set guioptions-=e
 set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
-let g:polyglot_disabled = ['csv', 'ruby']
 let g:EmacsCommandLineSearchCommandLineDisable = 1
 let g:tmux_navigator_no_mappings = 1
 
