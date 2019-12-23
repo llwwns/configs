@@ -11,11 +11,4 @@ RUN fish -l -c "source ./fish/setup.fish"
 RUN fish -l -c fisher
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/fzf/bin
 RUN nvim --headless +PlugInstall +qa
-RUN nvim --headless +CocInstall\ coc-json\ coc-css\ coc-solargraph\ coc-eslint\ coc-tsserver\ coc-pyls\ coc-yaml\ coc-rls\ coc-ccls +qa
-#WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/racerd/
-#RUN git fetch && git checkout master && rm Cargo.lock
-#WORKDIR /root/.vim/plugged/YouCompleteMe/third_party/ycmd/
-#RUN perl -i -pe "s/cargo, 'build'/cargo, '+nightly', 'build'/g" build.py
-#WORKDIR /root/.vim/plugged/YouCompleteMe
-#RUN ./install.py --rust-completer --js-completer --clang-completer --ninja
 WORKDIR /root
