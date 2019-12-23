@@ -4,42 +4,40 @@ import XMonad
 import XMonad.Config.Desktop (desktopConfig)
 import qualified XMonad.StackSet as W -- to shift and float windows
 import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Hooks.DynamicLog (xmobar)
-import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
+import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, docksStartupHook)
 -- import XMonad.Layout.MouseResizableTile
 import qualified XMonad.StackSet as W
 import Data.Ratio
 import Graphics.X11 (Rectangle(..))
 import Control.Arrow ((***), second)
 import XMonad.ManageHook
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.WindowNavigation
-import XMonad.Layout.BoringWindows
 import XMonad.Layout.Dwindle
+import XMonad.Util.Paste
+import qualified XMonad.Hooks.ManageHelpers as Helper
 --  modMask = mod4Mask -- use the Windows button as mod
 main = xmonad $ desktopConfig
     {
       terminal = "konsole"
-    , focusFollowsMouse = True
+    , focusFollowsMouse = False
     , clickJustFocuses = False
     , layoutHook = myLayoutHook
     , manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
     , focusedBorderColor = "#009cb5"
     , normalBorderColor = "#000"
+    , startupHook = docksStartupHook <+> startup
     }
     `additionalKeys` [
     ((mod1Mask .|. shiftMask, xK_q), spawn "qdbus org.kde.ksmserver /KSMServer logout 1 3 3"),
     ((mod1Mask, xK_p), spawn "rofi -combi-modi drun,run -show combi -modi combi -i -matching fuzzy"),
-    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run")]
-    -- ((mod1Mask .|. controlMask, xK_j), withFocused (sendMessage . mergeDir W.focusDown')),
-    -- ((mod1Mask .|. controlMask, xK_k), withFocused (sendMessage . mergeDir W.focusUp')),
-    -- ((mod1Mask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll)),
-    -- ((mod1Mask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge)),
-    -- ((mod1Mask, xK_bracketleft), onGroup W.focusUp'),
-    -- ((mod1Mask, xK_bracketright), onGroup W.focusDown')]
-myLayoutHook = avoidStruts $ Responsive(Dwindle R CW (5/2) (11/10)) ||| Full
--- myLayoutHook = avoidStruts  $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Responsive emptyBSP ||| Full
--- myLayoutHook = avoidStruts $ windowNavigation $ subTabbed $ boringWindows $ Responsive MFocus ||| Responsive (MDouble SHorizontally) ||| Responsive (MDouble SVertically) ||| Full
+    ((mod1Mask .|. shiftMask, xK_p), spawn "dmenu_run"),
+    ((mod1Mask .|. shiftMask .|. controlMask, xK_j), sendKey (mod1Mask .|. shiftMask) xK_Down),
+    ((mod1Mask .|. shiftMask .|. controlMask, xK_k), sendKey (mod1Mask .|. shiftMask) xK_Up)
+                     ]
+myLayoutHook = avoidStruts $ Responsive(Dwindle R CW (7/4) (11/10)) ||| Full
+
+startup = do
+   spawn "picom --config /home/li/.config/compton/compton.conf"
+   spawn "dunst"
 
 data MFocus a = MFocus deriving ( Read, Show )
 
@@ -57,46 +55,12 @@ instance LayoutClass l a => LayoutClass (Responsive l) a where
     handleMessage (Responsive l) = fmap (fmap Responsive) . handleMessage l
     description (Responsive l) = "Responsive "++ description l
 
--- -- Display focus window in main area and others on right side
--- instance LayoutClass MFocus Window where
---     pureLayout _ sc ws = zip ups tops ++ [(W.focus ws, mainPane)] ++ zip dns bottoms
---      where
---        ups    = reverse $ W.up ws
---        dns    = W.down ws
---        count  = (length ups) + (length dns)
---        (mainArea,  subArea) = splitHorizontallyBy (7%8) sc
---        (top, other)         = splitVerticallyBy   ((8*length ups)%(count*8 + 1)) subArea
---        (_, bottom)          = splitVerticallyBy   (1%(length dns*8 + 1)) other
---        mainPane | ups /= [] || dns /= [] = mainArea
---                 | otherwise              = sc
---        tops    = if ups /= [] then splitVertically (length ups) top    else []
---        bottoms = if dns /= [] then splitVertically (length dns) bottom else []
---
--- data SplitD = SHorizontally | SVertically deriving ( Read, Show )
---
--- data MDouble a = MDouble SplitD deriving ( Read, Show )
---
--- -- Display first two window in mainarea and others on right side
--- instance LayoutClass MDouble Window where
---   pureLayout (MDouble sd) sc ws = zip all rts
---      where
---        ups    = reverse $ W.up ws
---        dns    = W.down ws
---        all    = ups ++ [W.focus ws] ++ dns
---        split  = case sd of
---                   SHorizontally -> splitHorizontally 2
---                   SVertically -> splitVertically 2
---        rts    = case all of
---                   []        -> []
---                   [_]       -> [sc]
---                   [_, _]    -> split sc
---                   otherwise -> (split x) ++ (splitVertically (length all - 2) y)
---                       where
---                         (x, y) = splitHorizontallyBy (7%8) sc
+myManageHook = composeAll
+  [ className =? "plasmashell" --> doFloat
+  , fmap not Helper.isDialog   --> doF avoidMaster
+  ]
 
-myManageHook = composeAll  
-  [ className =? "plasmashell" --> doFloat -- doIgnore
-  , className =? "urxvt"       --> doFloat
-  , className =? "deadbeef"    --> doF (W.shift "1")
-  , className =? "slack"       --> doF (W.shift "2")
-  ]  
+avoidMaster :: W.StackSet i l a s sd -> W.StackSet i l a s sd
+avoidMaster = W.modify' $ \c -> case c of
+     W.Stack t [] (r:rs) ->  W.Stack t [r] rs
+     otherwise           -> c
