@@ -422,6 +422,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if &filetype ==? 'vim'
