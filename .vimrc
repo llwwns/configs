@@ -457,3 +457,22 @@ nnoremap <silent> <C-F1> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-F2> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-F3> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-F4> :TmuxNavigateRight<cr>
+
+let g:coc_global_extensions = [
+\   'coc-css',
+\   'coc-eslint',
+\   'coc-git',
+\   'coc-go',
+\   'coc-json',
+\   'coc-python',
+\   'coc-rls',
+\   'coc-tsserver',
+\   'coc-yaml',
+\   'coc-marketplace',
+\   'coc-vimlsp',
+\   'coc-fish',
+\   'coc-pyls',
+\   'coc-ccls',
+\   'coc-html',
+\   'coc-sql',
+\ ]
