@@ -13,7 +13,8 @@ git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.fh fetch
 git config --global alias.mg merge
-git config --global alias.ck checkout
+git config --global alias.re restore
+git config --global alias.sw switch
 git config --global oh-my-zsh.hide-dirty 1
 git config --global core.mergeoptions --no-edit
 mkdir -p ~/.config/nvim/
