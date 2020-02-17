@@ -88,6 +88,8 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+Plug 'skywind3000/vim-quickui'
+Plug 'sainnhe/edge'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -99,6 +101,7 @@ if has('multi_lang')
   language C
 endif
 "set colorscheme
+silent! colorscheme edge
 "set t_Co=256
 set termguicolors
 "silent! colorscheme onedark
@@ -114,7 +117,8 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'ayu'
-let g:airline_theme = 'gruvbox'
+" let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'edge'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
@@ -183,6 +187,13 @@ nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 set list
 set listchars=tab:▸\ ,eol:¬
+function! TOMLFold()
+  let line = getline(v:lnum)
+  if line =~? '\v^($|[)'
+    return '0'
+  endif
+  return '1'
+endfunction
 " function! IndentFold()
 "   let line = getline(v:lnum)
 "   let next = getline(v:lnum + 1)
@@ -288,6 +299,8 @@ if has('autocmd')
     autocmd Filetype * set fdm=indent
     autocmd Filetype * set foldtext=FoldText()
     autocmd Filetype * set shortmess=atToOFcA
+    autocmd Filetype toml set fdm=expr
+    autocmd Filetype toml set foldexpr=TOMLFold()
     autocmd Filetype confluencewiki setlocal fdm=expr
     autocmd Filetype confluencewiki setlocal fdl=0
     autocmd Filetype confluencewiki setlocal fdc=1
@@ -411,6 +424,7 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare'
+let g:ale_go_gofmt_options = '-s'
 
 if exists('g:gui_oni')
   set number
@@ -423,7 +437,7 @@ if exists('g:gui_oni')
   set noshowcmd
   set mouse=a
 elseif exists('gnvim')
-  set guifont=Iosevka\ Term:h13
+  set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
 else
   "hi Normal guibg=NONE ctermbg=NONE
