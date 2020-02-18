@@ -90,6 +90,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 Plug 'skywind3000/vim-quickui'
 Plug 'sainnhe/edge'
+Plug 'Rigellute/rigel'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -109,7 +110,7 @@ set termguicolors
 " silent! colorscheme ayu
 " let g:quantum_black=1
 set background=dark
-silent! colorscheme gruvbox8
+silent! colorscheme rigel
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
@@ -118,7 +119,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'ayu'
 " let g:airline_theme = 'gruvbox'
-let g:airline_theme = 'edge'
+let g:airline_theme = 'rigel'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
