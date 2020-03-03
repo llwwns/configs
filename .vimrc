@@ -87,10 +87,9 @@ Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'skywind3000/vim-quickui'
-Plug 'sainnhe/edge'
-Plug 'Rigellute/rigel'
+Plug 'whatyouhide/vim-gotham'
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -101,16 +100,18 @@ call plug#end()
 if has('multi_lang')
   language C
 endif
-"set colorscheme
-silent! colorscheme edge
 "set t_Co=256
-set termguicolors
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 "silent! colorscheme onedark
 " let ayucolor='mirage'
 " silent! colorscheme ayu
 " let g:quantum_black=1
 set background=dark
-silent! colorscheme rigel
+silent! colorscheme gotham
 "LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
@@ -119,7 +120,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'ayu'
 " let g:airline_theme = 'gruvbox'
-let g:airline_theme = 'rigel'
+let g:airline_theme = 'gotham'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_left_sep = ''
