@@ -25,6 +25,7 @@ makelink .config/rofi rofi
 makelink .config/alacritty alacritty
 makelink .config/oni oni
 makelink .config/nvim nvim
+makelink .config/topgrade.toml topgrade.toml
 mkdir -p "$HOME/.vim/autoload/crystalline/theme"
 makelink ".vim/autoload/crystalline/theme/nord.vim" nord.vim
 #makelink .oh-my-zsh/custom/mh_m.zsh-theme mh_m.zsh-theme
