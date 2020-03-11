@@ -509,6 +509,8 @@ let g:coc_global_extensions = [
 
 let g:clap_insert_mode_only = v:true
 
+let g:airline#extensions#tmuxline#snapshot_file = "~/configs/.tmuxline"
+
 let g:tmuxline_preset = {
       \ 'a': '[#S]',
       \ 'win': '#I:#W#F',
