@@ -9,6 +9,10 @@ Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
 Plug 'mg979/vim-visual-multi'
 Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/vim-easyoperator-line'
+if $TMUXLINE ==# '1'
+  Plug 'edkolev/tmuxline.vim'
+endif
 Plug 'othree/eregex.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'godlygeek/tabular'
@@ -86,8 +90,7 @@ Plug 'Shougo/deol.nvim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'liuchengxu/vim-clap' " , { 'do': ':Clap install-binary' }
 Plug 'skywind3000/vim-quickui'
 Plug 'whatyouhide/vim-gotham'
 
@@ -485,12 +488,6 @@ set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
 let g:EmacsCommandLineSearchCommandLineDisable = 1
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <C-F1> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-F2> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-F3> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-F4> :TmuxNavigateRight<cr>
 
 let g:coc_global_extensions = [
 \   'coc-css',
@@ -506,7 +503,18 @@ let g:coc_global_extensions = [
 \   'coc-vimlsp',
 \   'coc-fish',
 \   'coc-pyls',
-\   'coc-ccls',
 \   'coc-html',
 \   'coc-sql',
 \ ]
+
+let g:clap_insert_mode_only = v:true
+
+let g:tmuxline_preset = {
+      \ 'a': '[#S]',
+      \ 'win': '#I:#W#F',
+      \ 'cwin': '#I:#W#F',
+      \'x'    : '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
+      \'y'    : '%m/%d %H:%M:%S',
+      \'z'    : '#H',
+        \ 'options': {
+        \'status-justify': 'left'} }
