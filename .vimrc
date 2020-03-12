@@ -44,7 +44,7 @@ Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
 " Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
@@ -505,6 +505,7 @@ let g:coc_global_extensions = [
 \   'coc-pyls',
 \   'coc-html',
 \   'coc-sql',
+\   'coc-clangd',
 \ ]
 
 let g:clap_insert_mode_only = v:true
@@ -520,3 +521,5 @@ let g:tmuxline_preset = {
       \'z'    : '#H',
         \ 'options': {
         \'status-justify': 'left'} }
+set updatetime=300
+set signcolumn=yes
