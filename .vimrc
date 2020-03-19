@@ -156,6 +156,8 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 set autoindent
+set updatetime=1000
+set signcolumn=yes
 "set smarttab
 "set spell
 filetype plugin indent on
@@ -425,6 +427,8 @@ let g:ale_fixers['go'] = ['gofmt']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_linters['typescript'] = ['eslint']
+let g:ale_linters['c'] = ['clangd']
+let g:ale_linters['cpp'] = ['clangd']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
@@ -433,6 +437,7 @@ let g:ale_go_gofmt_options = '-s'
 
 if exists('g:gui_oni')
   set number
+  set nobackup
   set noswapfile
   set smartcase
   " Turn off statusbar, because it is externalized
@@ -521,5 +526,3 @@ let g:tmuxline_preset = {
       \'z'    : '#H',
         \ 'options': {
         \'status-justify': 'left'} }
-set updatetime=300
-set signcolumn=yes
