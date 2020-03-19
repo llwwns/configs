@@ -28,3 +28,4 @@ cargo install cargo-update
 cargo install chit
 cargo install procs
 cargo install zoxide
+cargo install lsd
