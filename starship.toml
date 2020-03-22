@@ -1,0 +1,27 @@
+add_newline = false
+[character]      # The name of the module we are configuring is "character"
+symbol = "λ"     # The "symbol" segment is being set to "➜"
+style_success = "yellow"
+style_failue = "red"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[line_break]
+disabled = true
+
+[git_status]
+disabled = true
+
+[directory]
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+prefix = ""
+truncation_length = 1
+
+[hostname]
+ssh_only = false
+
+[git_branch]
+symbol = ""
