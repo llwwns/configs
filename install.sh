@@ -1,3 +1,4 @@
+#! /bin/bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 git config --global core.editor nvim
 git config --global gui.encoding utf-8

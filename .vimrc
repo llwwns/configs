@@ -22,8 +22,6 @@ Plug 'einars/js-beautify'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-abolish'
 Plug 'rust-lang/rust.vim'
-Plug 'morhetz/gruvbox'
-Plug 'mkarmona/colorsbox'
 Plug 'tpope/vim-surround'
 Plug 'xuhdev/SingleCompile'
 "Plug 'majutsushi/tagbar'
@@ -63,7 +61,6 @@ Plug 'houtsnip/vim-emacscommandline'
 Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
@@ -88,7 +85,6 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'ayu-theme/ayu-vim-airline'
 Plug 'Shougo/deol.nvim'
 Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'lifepillar/vim-gruvbox8'
 Plug 'google/vim-searchindex'
 Plug 'liuchengxu/vim-clap' " , { 'do': ':Clap install-binary' }
 Plug 'skywind3000/vim-quickui'
@@ -109,9 +105,6 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-"silent! colorscheme onedark
-" let ayucolor='mirage'
-" silent! colorscheme ayu
 " let g:quantum_black=1
 set background=dark
 silent! colorscheme gotham
@@ -123,6 +116,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'ayu'
 " let g:airline_theme = 'gruvbox'
+let g:gotham_airline_emphasised_insert = 0
 let g:airline_theme = 'gotham'
 let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
@@ -511,6 +505,7 @@ let g:coc_global_extensions = [
 \   'coc-html',
 \   'coc-sql',
 \   'coc-clangd',
+\   'coc-solargraph',
 \ ]
 
 let g:clap_insert_mode_only = v:true
@@ -524,5 +519,5 @@ let g:tmuxline_preset = {
       \'x'    : '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
       \'y'    : '%m/%d %H:%M:%S',
       \'z'    : '#H',
-        \ 'options': {
-        \'status-justify': 'left'} }
+      \ 'options': {
+      \'status-justify': 'left'} }
