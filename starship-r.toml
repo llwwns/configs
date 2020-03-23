@@ -1,0 +1,13 @@
+add_newline = false
+prompt_order=["jobs", "cmd_duration", "env_var", "aws"]
+
+[aws]
+displayed_items = "profile"
+prefix = ""
+
+[cmd_duration]
+prefix = ""
+style = "red"
+
+[env_var]
+variable = "current_docker"

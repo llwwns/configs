@@ -3,6 +3,7 @@
   "diagnostic.displayByAle": true,
   "javascript.validate.enable": false,
   "go.enable": true,
+  "css.colorDecorators.enable": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

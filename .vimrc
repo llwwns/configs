@@ -89,6 +89,7 @@ Plug 'google/vim-searchindex'
 Plug 'liuchengxu/vim-clap' " , { 'do': ':Clap install-binary' }
 Plug 'skywind3000/vim-quickui'
 Plug 'whatyouhide/vim-gotham'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " if !has("win32")
 "   Plug 'mhinz/vim-signify'
@@ -521,3 +522,5 @@ let g:tmuxline_preset = {
       \'z'    : '#H',
       \ 'options': {
       \'status-justify': 'left'} }
+
+let g:Hexokinase_highlighters = ['backgroundfull']
