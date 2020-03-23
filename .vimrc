@@ -524,3 +524,4 @@ let g:tmuxline_preset = {
       \'status-justify': 'left'} }
 
 let g:Hexokinase_highlighters = ['backgroundfull']
+let g:clap_search_box_border_style = 'nil'
