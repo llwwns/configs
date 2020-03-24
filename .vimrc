@@ -4,7 +4,6 @@ set runtimepath+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
 Plug 'ryanoasis/vim-devicons'
-Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
 Plug 'mg979/vim-visual-multi'
@@ -23,9 +22,6 @@ Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-abolish'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
-Plug 'xuhdev/SingleCompile'
-"Plug 'majutsushi/tagbar'
-"Plug 'fatih/vim-go'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim'
 Plug 'FooSoft/vim-argwrap'
@@ -51,14 +47,11 @@ Plug 'sodapopcan/vim-twiggy'
 "Plug 'chrisbra/csv.vim'
 Plug 'scrooloose/nerdtree'
 "Plug 'lambdalisue/fila.vim'
-Plug 'mattsacks/vim-eddie'
-Plug 'aradunovic/perun.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'houtsnip/vim-emacscommandline'
-Plug 'itchyny/calendar.vim'
 Plug 'b4b4r07/vim-hcl'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'RRethy/vim-illuminate'
@@ -68,7 +61,6 @@ Plug 'lambdalisue/suda.vim'
 Plug 'skywind3000/asyncrun.vim'
 
 Plug 'elixir-lang/vim-elixir'
-Plug 'thinca/vim-ref'
 Plug 'moll/vim-node'
 Plug 'tyru/eskk.vim'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -81,13 +73,11 @@ Plug 'tpope/vim-sensible'
 Plug 'machakann/vim-swap'
 Plug 'tpope/vim-rails'
 Plug 'mechatroner/rainbow_csv'
-Plug 'ayu-theme/ayu-vim'
-Plug 'ayu-theme/ayu-vim-airline'
 Plug 'Shougo/deol.nvim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'google/vim-searchindex'
-Plug 'liuchengxu/vim-clap' " , { 'do': ':Clap install-binary' }
-Plug 'skywind3000/vim-quickui'
+Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'whatyouhide/vim-gotham'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
@@ -161,8 +151,8 @@ syntax on
 "set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 nmap qq :q<CR>
-nmap <c-e> :Clap buffers<CR>
-nmap <c-p> :Clap files<CR>
+nmap <c-e> :Buffers<CR>
+nmap <c-p> :Files<CR>
 " nmap <c-h> :tabp<CR>
 " nmap <BS> :tabp<CR>
 " nmap <c-l> :tabn<CR>
@@ -525,3 +515,21 @@ let g:tmuxline_preset = {
 
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:clap_search_box_border_style = 'nil'
+
+if has('nvim-0.4.0')
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+    \ 'row': (&lines - height) / 2,
+    \ 'col': (&columns - width) / 2,
+    \ 'width': width,
+    \ 'height': height,
+    \ 'style': 'minimal'
+    \}
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:TabLine')
+  endfunction
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
