@@ -434,6 +434,8 @@ if exists('g:gui_oni')
 elseif exists('gnvim')
   set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
+elseif exists('neovide')
+  set guifont=Iosevka\ Term:h16
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
