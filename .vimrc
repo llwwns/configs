@@ -69,7 +69,6 @@ Plug 'rhysd/reply.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tomtom/tcomment_vim'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'tpope/vim-sensible'
 Plug 'machakann/vim-swap'
 Plug 'tpope/vim-rails'
 Plug 'mechatroner/rainbow_csv'
@@ -284,6 +283,7 @@ if has('autocmd')
     autocmd FileType csv nmap [c :RainbowAlign <CR>
     autocmd FileType csv nmap ]c :RainbowShrink <CR>
     autocmd FileType json nmap [j :call JsonBeautify() <CR>
+    autocmd FileType rust setlocal ts=4 sts=4 sw=4 expandtab
     autocmd Filetype * set formatoptions-=c
     autocmd Filetype * set formatoptions-=r
     autocmd Filetype * set formatoptions-=o
@@ -332,6 +332,7 @@ function! Stab()
   call SummarizeTabs()
 endfunction
 
+
 function! SummarizeTabs()
   try
     echohl ModeMsg
@@ -371,6 +372,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+command! -nargs=1 Z execute("cd ".system('zoxide query <args> | cut -c 8-'))
 let g:asyncrun_auto='asyncrun'
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -436,6 +438,8 @@ elseif exists('gnvim')
   set guicursor+=a:blinkon0
 elseif exists('neovide')
   set guifont=Iosevka\ Term:h16
+  let g:neovide_cursor_animation_length=0.05
+  let g:neovide_cursor_trail_length=0.1
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
