@@ -372,7 +372,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-command! -nargs=1 Z execute("cd ".system('zoxide query <args> | cut -c 8-'))
+command! -nargs=1 Z execute("cd ".system('zoxide query <args>'))
 let g:asyncrun_auto='asyncrun'
 command! Lcd lcd %:h
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
