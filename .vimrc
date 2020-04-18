@@ -37,8 +37,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-" Plug 'Valloric/YouCompleteMe' " ./install.py --go-completer --js-completer --clang-completer --ninja
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lsp'
+Plug 'haorenW1025/completion-nvim'
 
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
@@ -79,41 +79,33 @@ Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'whatyouhide/vim-gotham'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-
-" if !has("win32")
-"   Plug 'mhinz/vim-signify'
-" endif
+Plug 'franbach/miramare'
+Plug 'sainnhe/gruvbox-material'
+Plug 'rhysd/try-colorscheme.vim'
+if !has("win32")
+  Plug 'mhinz/vim-signify'
+endif
 runtime! plugins.vim
 call plug#end()
 "set language to english
 if has('multi_lang')
   language C
 endif
-"set t_Co=256
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-" let g:quantum_black=1
 set background=dark
 silent! colorscheme gotham
-"LuciusBlackLowContrast
 let g:nord_uniform_diff_background = 1
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'ayu'
-" let g:airline_theme = 'gruvbox'
 let g:gotham_airline_emphasised_insert = 0
 let g:airline_theme = 'gotham'
-let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
 
 let g:gruvbox_contrast_dark='hard'
 set laststatus=2
@@ -147,16 +139,11 @@ set signcolumn=yes
 filetype plugin indent on
 set completeopt=longest,menu
 syntax on
-"set clipboard+=unnamed
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
-nmap qq :q<CR>
+map <c-q> :q<CR>
 nmap <c-e> :Buffers<CR>
 nmap <c-p> :Files<CR>
-" nmap <c-h> :tabp<CR>
-" nmap <BS> :tabp<CR>
-" nmap <c-l> :tabn<CR>
 nmap <Tab> :NERDTreeToggle<CR>
-"nmap <Tab> :execute "Fila" getcwd() "-drawer" "-toggle"<CR>
 nmap j gj
 nmap k gk
 vmap j gj
@@ -185,54 +172,6 @@ function! TOMLFold()
   endif
   return '1'
 endfunction
-" function! IndentFold()
-"   let line = getline(v:lnum)
-"   let next = getline(v:lnum + 1)
-"   let cl = strlen(substitute(line, '\v^\s*\zs.*', '', ''))
-"   let cn = strlen(substitute(next, '\v^\s*\zs.*', '', ''))
-"   if cn > cl
-"     return '>'.(cn / &shiftwidth)
-"   endif
-"   return cl / &shiftwidth
-" endfunction
-
-"function! BraceFold()
-"  let line = getline(v:lnum)
-"  if line =~ '\v^\s*\}.*\{\s*$'
-"    return '='
-"  elseif line =~ '\v(^\s*\/\/)|\{\{\{|\}\}\}'
-"    return '='
-"  elseif line =~ '\v\{\s*$'
-"    return 'a1'
-"  elseif line =~ '\v^\s*\}'
-"    return 's1'
-"  else
-"    return '='
-"  endif
-"endfunction
-"
-"function! SmartyFold()
-"  let line = getline(v:lnum)
-"  if line =~ '\v\{(if|foreach|capture|function|section)>+.*\{\/\1'
-"    return "="
-"  elseif line =~ '\v\{\/(if|foreach|capture|function|section)>+.*'
-"    return "s1"
-"  elseif line =~ '\v\{(if|foreach|capture|function|section)>+.*'
-"    return "a1"
-"  else
-"    return "="
-"  endif
-"endfunction
-"function! ConfluFold()
-"  let line = getline(v:lnum)
-"  if stridx(line, '{code:') >= 0
-"    return "a1"
-"  elseif stridx(line, '{code') >= 0
-"    return "s1"
-"  else
-"    return "="
-"  endif
-"endfunction
 function! BufWidth()
   let width = winwidth(0)
   let numwidth = (&number || &relativenumber) ? &numberwidth : 0
@@ -365,7 +304,6 @@ nmap <Leader>m <Plug>(git-messenger)
 nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
 
-"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
@@ -411,11 +349,13 @@ let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['eslint']
 let g:ale_fixers['ruby'] = ['rubocop']
 let g:ale_fixers['go'] = ['gofmt']
+let g:ale_fixers['rust'] = ['rustfmt']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_linters['typescript'] = ['eslint']
 let g:ale_linters['c'] = ['clangd']
 let g:ale_linters['cpp'] = ['clangd']
+let g:ale_linters['go'] = ['gopls']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
@@ -451,21 +391,19 @@ let g:signify_sign_change = '~'
 set shortmess=atToOFcA
 set sessionoptions=blank,curdir,folds,tabpages
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    lua vim.lsp.buf.hover()
   endif
 endfunction
 
@@ -474,9 +412,6 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable  = '▶'
 let g:NERDTreeDirArrowCollapsible = '▼'
-" let g:fila#node#renderer#default#expanded_symbol = '|▼ '
-" let g:fila#node#renderer#default#collapsed_symbol = '|▶ '
-" let g:fila#node#renderer#default#leaf_symbol = '|  '
 let g:polyglot_disabled = ['markdown', 'csv', 'ruby']
 
 set guioptions-=e
@@ -484,26 +419,6 @@ set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
 let g:EmacsCommandLineSearchCommandLineDisable = 1
-
-let g:coc_global_extensions = [
-\   'coc-css',
-\   'coc-eslint',
-\   'coc-git',
-\   'coc-go',
-\   'coc-json',
-\   'coc-python',
-\   'coc-rls',
-\   'coc-tsserver',
-\   'coc-yaml',
-\   'coc-marketplace',
-\   'coc-vimlsp',
-\   'coc-fish',
-\   'coc-pyls',
-\   'coc-html',
-\   'coc-sql',
-\   'coc-clangd',
-\   'coc-solargraph',
-\ ]
 
 let g:clap_insert_mode_only = v:true
 
@@ -539,3 +454,18 @@ if has('nvim-0.4.0')
   endfunction
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
+
+lua require'nvim_lsp'.clangd.setup{}
+lua require'nvim_lsp'.gopls.setup{}
+lua require'nvim_lsp'.rls.setup{}
+lua require'nvim_lsp'.solargraph.setup{}
+lua require'nvim_lsp'.tsserver.setup{}
+lua require'nvim_lsp'.vimls.setup{}
+lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
+lua require'nvim_lsp'.jsonls.setup{}
+autocmd BufEnter * lua require'completion'.on_attach()
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
