@@ -82,9 +82,7 @@ Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'franbach/miramare'
 Plug 'sainnhe/gruvbox-material'
 Plug 'rhysd/try-colorscheme.vim'
-if !has("win32")
-  Plug 'mhinz/vim-signify'
-endif
+Plug 'airblade/vim-gitgutter'
 runtime! plugins.vim
 call plug#end()
 "set language to english
