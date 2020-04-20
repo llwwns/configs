@@ -37,8 +37,10 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-Plug 'neovim/nvim-lsp'
-Plug 'haorenW1025/completion-nvim'
+if has('nvim-0.5.0')
+  Plug 'neovim/nvim-lsp'
+  Plug 'haorenW1025/completion-nvim'
+end
 
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
@@ -83,6 +85,8 @@ Plug 'franbach/miramare'
 Plug 'sainnhe/gruvbox-material'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 runtime! plugins.vim
 call plug#end()
 "set language to english
@@ -239,6 +243,9 @@ if has('autocmd')
     autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
     autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
     autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
+    if has('nvim-0.5.0')
+      autocmd BufEnter * silent! lua require'completion'.on_attach()
+    end
   augroup END
   augroup asyncrun
     autocmd QuickFixCmdPost asyncrun botright copen 8
@@ -453,15 +460,18 @@ if has('nvim-0.4.0')
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 
-lua require'nvim_lsp'.clangd.setup{}
-lua require'nvim_lsp'.gopls.setup{}
-lua require'nvim_lsp'.rls.setup{}
-lua require'nvim_lsp'.solargraph.setup{}
-lua require'nvim_lsp'.tsserver.setup{}
-lua require'nvim_lsp'.vimls.setup{}
-lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
-lua require'nvim_lsp'.jsonls.setup{}
-autocmd BufEnter * lua require'completion'.on_attach()
+if has('nvim-0.5.0')
+  silent! lua require'nvim_lsp'.clangd.setup{}
+  lua require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" } }
+  silent! lua require'nvim_lsp'.rls.setup{}
+  silent! lua require'nvim_lsp'.solargraph.setup{}
+  silent! lua require'nvim_lsp'.tsserver.setup{}
+  silent! lua require'nvim_lsp'.vimls.setup{}
+  silent! lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
+  silent! lua require'nvim_lsp'.jsonls.setup{}
+  silent! lua require'nvim_lsp'.yamlls.setup{}
+end
+let g:completion_trigger_character = ['.', '::', '->']
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
