@@ -37,10 +37,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'AndrewRadev/deleft.vim'
 Plug 'lambdalisue/gina.vim'
-if has('nvim-0.5.0')
-  Plug 'neovim/nvim-lsp'
-  Plug 'haorenW1025/completion-nvim'
-end
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'vimlab/split-term.vim'
 Plug 'tpope/vim-db'
@@ -81,12 +78,10 @@ Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'whatyouhide/vim-gotham'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'franbach/miramare'
-Plug 'sainnhe/gruvbox-material'
 Plug 'rhysd/try-colorscheme.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'norcalli/nvim-colorizer.lua'
 runtime! plugins.vim
 call plug#end()
 "set language to english
@@ -107,6 +102,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:airline_powerline_fonts = 1
 let g:gotham_airline_emphasised_insert = 0
 let g:airline_theme = 'gotham'
+let g:airline_section_b = airline#section#create(["%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"])
 let g:airline#extensions#tabline#enabled = 1
 
 let g:gruvbox_contrast_dark='hard'
@@ -243,9 +239,6 @@ if has('autocmd')
     autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
     autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
     autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
-    if has('nvim-0.5.0')
-      autocmd BufEnter * silent! lua require'completion'.on_attach()
-    end
   augroup END
   augroup asyncrun
     autocmd QuickFixCmdPost asyncrun botright copen 8
@@ -385,6 +378,8 @@ elseif exists('neovide')
   set guifont=Iosevka\ Term:h16
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
+elseif exists('g:fvim_loaded')
+  set guifont=Iosevka\ Term:h20
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
@@ -396,19 +391,22 @@ let g:signify_sign_change = '~'
 set shortmess=atToOFcA
 set sessionoptions=blank,curdir,folds,tabpages
 
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nmap <silent> <c-]> <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-declaration)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
   else
-    lua vim.lsp.buf.hover()
+    call CocAction('doHover')
   endif
 endfunction
 
@@ -424,6 +422,26 @@ set laststatus=2
 let g:extra_whitespace_ignored_filetypes = ['calendar']
 let g:calendar_google_calendar = 1
 let g:EmacsCommandLineSearchCommandLineDisable = 1
+
+let g:coc_global_extensions = [
+\   'coc-css',
+\   'coc-eslint',
+\   'coc-git',
+\   'coc-go',
+\   'coc-json',
+\   'coc-python',
+\   'coc-rust-analyzer',
+\   'coc-tsserver',
+\   'coc-yaml',
+\   'coc-marketplace',
+\   'coc-vimlsp',
+\   'coc-fish',
+\   'coc-pyls',
+\   'coc-html',
+\   'coc-sql',
+\   'coc-clangd',
+\   'coc-solargraph',
+\ ]
 
 let g:clap_insert_mode_only = v:true
 
@@ -459,21 +477,4 @@ if has('nvim-0.4.0')
   endfunction
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
-
-if has('nvim-0.5.0')
-  silent! lua require'nvim_lsp'.clangd.setup{}
-  lua require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" } }
-  silent! lua require'nvim_lsp'.rls.setup{}
-  silent! lua require'nvim_lsp'.solargraph.setup{}
-  silent! lua require'nvim_lsp'.tsserver.setup{}
-  silent! lua require'nvim_lsp'.vimls.setup{}
-  silent! lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
-  silent! lua require'nvim_lsp'.jsonls.setup{}
-  silent! lua require'nvim_lsp'.yamlls.setup{}
-end
-let g:completion_trigger_character = ['.', '::', '->']
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
+silent! lua require'colorizer'.setup()
