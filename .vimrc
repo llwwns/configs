@@ -80,13 +80,11 @@ Plug 'google/vim-searchindex'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'whatyouhide/vim-gotham'
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'franbach/miramare'
-Plug 'sainnhe/gruvbox-material'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 runtime! plugins.vim
 call plug#end()
 "set language to english
@@ -108,6 +106,7 @@ let g:airline_powerline_fonts = 1
 let g:gotham_airline_emphasised_insert = 0
 let g:airline_theme = 'gotham'
 let g:airline#extensions#tabline#enabled = 1
+let g:ale_linters_explicit = 1
 
 let g:gruvbox_contrast_dark='hard'
 set laststatus=2
@@ -358,9 +357,9 @@ let g:ale_fixers['rust'] = ['rustfmt']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_linters['typescript'] = ['eslint']
-let g:ale_linters['c'] = ['clangd']
-let g:ale_linters['cpp'] = ['clangd']
-let g:ale_linters['go'] = ['gopls']
+" let g:ale_linters['c'] = ['clangd']
+" let g:ale_linters['cpp'] = ['clangd']
+" let g:ale_linters['go'] = ['gopls']
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '!'
@@ -385,6 +384,9 @@ elseif exists('neovide')
   set guifont=Iosevka\ Term:h16
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
+elseif exists('g:fvim_loaded')
+  set guifont=Iosevka\ Term:h20
+  nnoremap <A-CR> :FVimToggleFullScreen<CR>
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
@@ -462,7 +464,7 @@ endif
 
 if has('nvim-0.5.0')
   silent! lua require'nvim_lsp'.clangd.setup{}
-  lua require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" } }
+  silent! lua require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" } }
   silent! lua require'nvim_lsp'.rls.setup{}
   silent! lua require'nvim_lsp'.solargraph.setup{}
   silent! lua require'nvim_lsp'.tsserver.setup{}
