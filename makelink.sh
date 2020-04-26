@@ -11,7 +11,6 @@ makelink() {
 }
 makelink .tigrc     .tigrc
 makelink .tmux.conf .tmux.conf
-makelink .vimrc     .vimrc
 makelink .inputrc   .inputrc
 makelink .tern-config .tern-config
 makelink .ycm_extra_conf.py .ycm_extra_conf.py
@@ -26,3 +25,4 @@ makelink .config/alacritty alacritty
 makelink .config/oni/config.tsx oni/config.tsx
 makelink .config/nvim nvim
 makelink .config/topgrade.toml topgrade.toml
+makelink .config/starship.toml starship.toml
