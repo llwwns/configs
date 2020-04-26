@@ -85,6 +85,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'norcalli/nvim-colorizer.lua'
 runtime! plugins.vim
 call plug#end()
 "set language to english
@@ -173,29 +174,48 @@ function! TOMLFold()
   endif
   return '1'
 endfunction
-function! BufWidth()
-  let width = winwidth(0)
-  let numwidth = (&number || &relativenumber) ? &numberwidth : 0
-  let foldwidth = &foldcolumn
-  if &signcolumn == 'yes'
-    let signwidth = 2
-  elseif &signcolumn == 'auto'
-    let signs = execute(printf('sign place buffer=%d', bufnr('')))
-    let signs = split(signs, "\n")
-    let signwidth = len(signs) > 2 ? 2: 0
-  else
-    let signwidth = 0
-  endif
+
+lua <<EOF
+function xxx()
+  local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
+  ls = vim.fn.split(signs, "\n")
+  local x = select(2, signs:gsub(".$", ""))
+  -- print(string.format("%d %d", #ls, x))
+  print(string.gsub("xyz\nyz", ".$", "x"))
+end
+local bufwidth = function()
+  local width = vim.fn.winwidth(0)
+  local numwidth = 0
+  local go = vim.api.nvim_win_get_option
+  if go(0, "number") or go(0, "relativenumber") then
+    numwidth = go(0, "numberwidth")
+  end
+  local foldwidth = go(0, "foldcolumn")
+  local sc = go(0, "signcolumn")
+  local signwidth = 0
+  if sc == 'yes' then
+    signwidth = 2
+  elseif sc == 'auto' then
+    local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
+    signs = vim.fn.split(signs, "\n")
+    if #signs > 2 then
+      signwidth = 2
+    else
+      signwidth = 0
+    end
+  end
   return width - numwidth - foldwidth - signwidth
-endfunction
+end
 
-function! FoldText()
-  let line = substitute(getline(v:foldstart), "\t", repeat(' ', &shiftwidth), 'g')
-  let winsize = BufWidth()
-  let lineCount = '['.(v:foldend-v:foldstart+1).' lines]-----'
-  return line.repeat('-', winsize - strdisplaywidth(line) - strdisplaywidth(lineCount)).lineCount
-endfunction
-
+function foldtext()
+  local fs = vim.api.nvim_get_vvar("foldstart")
+  local fe = vim.api.nvim_get_vvar("foldend")
+  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.api.nvim_buf_get_option(0, "shiftwidth")), 'g')
+  local winSize = bufwidth()
+  local lineCount = string.format("[%d lines]-----", fe-fs+1)
+  return line..string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount))..lineCount
+end
+EOF
 
 if has('autocmd')
   " Enable file type detection
@@ -229,7 +249,7 @@ if has('autocmd')
     autocmd Filetype * set formatoptions-=o
     autocmd Filetype * set fdl=10
     autocmd Filetype * set fdm=indent
-    autocmd Filetype * set foldtext=FoldText()
+    autocmd Filetype * set foldtext=v:lua.foldtext()
     autocmd Filetype * set shortmess=atToOFcA
     autocmd Filetype toml set fdm=expr
     autocmd Filetype toml set foldexpr=TOMLFold()
@@ -242,9 +262,6 @@ if has('autocmd')
     autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
     autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
     autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
-    if has('nvim-0.5.0')
-      autocmd BufEnter * silent! lua require'completion'.on_attach()
-    end
   augroup END
   augroup asyncrun
     autocmd QuickFixCmdPost asyncrun botright copen 8
@@ -385,7 +402,7 @@ elseif exists('neovide')
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
 elseif exists('g:fvim_loaded')
-  set guifont=Iosevka\ Term:h20
+  set guifont=Sarasa\ Nerd\ Font:h18
   nnoremap <A-CR> :FVimToggleFullScreen<CR>
 else
   "hi Normal guibg=NONE ctermbg=NONE
@@ -397,22 +414,6 @@ let g:Illuminate_delay = 0
 let g:signify_sign_change = '~'
 set shortmess=atToOFcA
 set sessionoptions=blank,curdir,folds,tabpages
-
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if &filetype ==? 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    lua vim.lsp.buf.hover()
-  endif
-endfunction
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 
@@ -463,19 +464,48 @@ if has('nvim-0.4.0')
 endif
 
 if has('nvim-0.5.0')
-  silent! lua require'nvim_lsp'.clangd.setup{}
-  silent! lua require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" } }
-  silent! lua require'nvim_lsp'.rls.setup{}
-  silent! lua require'nvim_lsp'.solargraph.setup{}
-  silent! lua require'nvim_lsp'.tsserver.setup{}
-  silent! lua require'nvim_lsp'.vimls.setup{}
-  silent! lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
-  silent! lua require'nvim_lsp'.jsonls.setup{}
-  silent! lua require'nvim_lsp'.yamlls.setup{}
+lua <<EOF
+function lsp_rename()
+  local w = vim.fn.expand("<cword>")
+  vim.fn.inputsave()
+  r = vim.fn.input("Rename: ", w)
+  if r ~= "" then
+    vim.lsp.buf.rename(r)
+  end
 end
+local on_attach = require'completion'.on_attach
+require'nvim_lsp'.clangd.setup{on_attach=on_attach}
+require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" }, on_attach=on_attach }
+require'nvim_lsp'.rust_analyzer.setup{on_attach=on_attach}
+require'nvim_lsp'.solargraph.setup{on_attach=on_attach}
+require'nvim_lsp'.tsserver.setup{on_attach=on_attach}
+require'nvim_lsp'.vimls.setup{on_attach=on_attach}
+require'nvim_lsp'.pyls.setup{on_attach=on_attach}
+require'nvim_lsp'.jsonls.setup{on_attach=on_attach}
+require'nvim_lsp'.yamlls.setup{on_attach=on_attach}
+EOF
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>
+function! s:show_documentation()
+  if &filetype ==? 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    lua vim.lsp.buf.hover()
+  endif
+endfunction
+endif
 let g:completion_trigger_character = ['.', '::', '->']
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
