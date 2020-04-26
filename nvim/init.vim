@@ -1,6 +1,5 @@
 set encoding=utf-8
 scriptencoding utf-8
-set runtimepath+=~/.vim
 runtime! settings.vim
 call plug#begin('~/.vim/plugged')
 Plug 'ryanoasis/vim-devicons'
@@ -176,13 +175,6 @@ function! TOMLFold()
 endfunction
 
 lua <<EOF
-function xxx()
-  local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
-  ls = vim.fn.split(signs, "\n")
-  local x = select(2, signs:gsub(".$", ""))
-  -- print(string.format("%d %d", #ls, x))
-  print(string.gsub("xyz\nyz", ".$", "x"))
-end
 local bufwidth = function()
   local width = vim.fn.winwidth(0)
   local numwidth = 0
