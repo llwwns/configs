@@ -1,126 +1,27 @@
 set encoding=utf-8
+let g:vim_json_conceal=0
 scriptencoding utf-8
-runtime! settings.vim
-call plug#begin('~/.vim/plugged')
-Plug 'ryanoasis/vim-devicons'
-Plug 'Yggdroot/indentLine'
-Plug 'tpope/vim-fugitive'
-Plug 'mg979/vim-visual-multi'
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/vim-easyoperator-line'
-if $TMUXLINE ==# '1'
-  Plug 'edkolev/tmuxline.vim'
-endif
-Plug 'othree/eregex.vim'
-Plug 'tpope/vim-unimpaired'
-Plug 'godlygeek/tabular'
-Plug 'mbbill/undotree'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'einars/js-beautify'
-Plug 'digitaltoad/vim-pug'
-Plug 'tpope/vim-abolish'
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
-Plug 'mattn/emmet-vim'
-Plug 'FooSoft/vim-argwrap'
-Plug 'udalov/kotlin-vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'ianks/vim-tsx'
-"Plug 'othree/yajs.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'w0rp/ale'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-airline/vim-airline'
-Plug 'joshdick/onedark.vim'
-Plug 'ElmCast/elm-vim'
-Plug 'AndrewRadev/deleft.vim'
-Plug 'lambdalisue/gina.vim'
-if has('nvim-0.5.0')
-  Plug 'neovim/nvim-lsp'
-  Plug 'haorenW1025/completion-nvim'
-end
+let s:config_path=stdpath("config")
+execute("luafile " . s:config_path."/plug.lua")
+execute("luafile " . s:config_path."/setting.lua")
 
-Plug 'vimlab/split-term.vim'
-Plug 'tpope/vim-db'
-Plug 'equalsraf/neovim-gui-shim'
-Plug 'sodapopcan/vim-twiggy'
-"Plug 'chrisbra/csv.vim'
-Plug 'scrooloose/nerdtree'
-"Plug 'lambdalisue/fila.vim'
-Plug 'vim-scripts/BufOnly.vim'
-Plug 'dbeniamine/todo.txt-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'houtsnip/vim-emacscommandline'
-Plug 'b4b4r07/vim-hcl'
-Plug 'reasonml-editor/vim-reason-plus'
-Plug 'RRethy/vim-illuminate'
-Plug 'junegunn/gv.vim'
-Plug 'rhysd/git-messenger.vim'
-Plug 'lambdalisue/suda.vim'
-Plug 'skywind3000/asyncrun.vim'
-
-Plug 'elixir-lang/vim-elixir'
-Plug 'moll/vim-node'
-Plug 'tyru/eskk.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'rhysd/reply.vim'
-Plug 'tpope/vim-endwise'
-Plug 'tomtom/tcomment_vim'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'machakann/vim-swap'
-Plug 'tpope/vim-rails'
-Plug 'mechatroner/rainbow_csv'
-Plug 'Shougo/deol.nvim'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'google/vim-searchindex'
-Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'whatyouhide/vim-gotham'
-Plug 'rhysd/try-colorscheme.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'norcalli/nvim-colorizer.lua'
-runtime! plugins.vim
-call plug#end()
-"set language to english
-if has('multi_lang')
-  language C
-endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 set background=dark
-silent! colorscheme gotham
-let g:nord_uniform_diff_background = 1
 
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_lint_on_text_changed = 'never'
-let g:airline_powerline_fonts = 1
-let g:gotham_airline_emphasised_insert = 0
-let g:airline_theme = 'gotham'
-let g:airline#extensions#tabline#enabled = 1
-let g:ale_linters_explicit = 1
 
-let g:gruvbox_contrast_dark='hard'
 set laststatus=2
+set winblend=20
+set pumblend=20
 
 "Highlight all search pattern matches
 set hlsearch
 "show line number
 set number relativenumber
 
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
 "set backspace to delete indent, endo of line and before insert start
 set backspace=indent,eol,start
 "allow cursor go to next line
@@ -139,16 +40,15 @@ set signcolumn=yes
 "set spell
 filetype plugin indent on
 set completeopt=longest,menu
-syntax on
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 map <c-q> :q<CR>
 nmap <c-e> :Buffers<CR>
 nmap <c-p> :Files<CR>
 nmap <Tab> :NERDTreeToggle<CR>
-nmap j gj
-nmap k gk
-vmap j gj
-vmap k gk
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+vnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+vnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 set nowrap
 
 nnoremap <up> <c-y>
@@ -173,104 +73,6 @@ function! TOMLFold()
   endif
   return '1'
 endfunction
-
-lua <<EOF
-local bufwidth = function()
-  local width = vim.fn.winwidth(0)
-  local numwidth = 0
-  local go = vim.api.nvim_win_get_option
-  if go(0, "number") or go(0, "relativenumber") then
-    numwidth = go(0, "numberwidth")
-  end
-  local foldwidth = go(0, "foldcolumn")
-  local sc = go(0, "signcolumn")
-  local signwidth = 0
-  if sc == 'yes' then
-    signwidth = 2
-  elseif sc == 'auto' then
-    local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
-    signs = vim.fn.split(signs, "\n")
-    if #signs > 2 then
-      signwidth = 2
-    else
-      signwidth = 0
-    end
-  end
-  return width - numwidth - foldwidth - signwidth
-end
-
-function foldtext()
-  local fs = vim.api.nvim_get_vvar("foldstart")
-  local fe = vim.api.nvim_get_vvar("foldend")
-  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.api.nvim_buf_get_option(0, "shiftwidth")), 'g')
-  local winSize = bufwidth()
-  local lineCount = string.format("[%d lines]-----", fe-fs+1)
-  return line..string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount))..lineCount
-end
-EOF
-
-if has('autocmd')
-  " Enable file type detection
-  filetype on
-  augroup filetypes
-    autocmd Filetype calendar IndentLinesDisable
-    autocmd FileType * setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType cpp setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType vim setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType coffee setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType pug setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType lisp setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType nim setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType slim setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType go setlocal ts=2 sts=2 sw=2 noexpandtab
-    autocmd FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab
-    autocmd FileType csv nmap [c :RainbowAlign <CR>
-    autocmd FileType csv nmap ]c :RainbowShrink <CR>
-    autocmd FileType json nmap [j :call JsonBeautify() <CR>
-    autocmd FileType rust setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd Filetype * set formatoptions-=c
-    autocmd Filetype * set formatoptions-=r
-    autocmd Filetype * set formatoptions-=o
-    autocmd Filetype * set fdl=10
-    autocmd Filetype * set fdm=indent
-    autocmd Filetype * set foldtext=v:lua.foldtext()
-    autocmd Filetype * set shortmess=atToOFcA
-    autocmd Filetype toml set fdm=expr
-    autocmd Filetype toml set foldexpr=TOMLFold()
-    autocmd Filetype confluencewiki setlocal fdm=expr
-    autocmd Filetype confluencewiki setlocal fdl=0
-    autocmd Filetype confluencewiki setlocal fdc=1
-    autocmd BufReadPost fugitive://* set bufhidden=delete
-    autocmd BufNewFile,BufRead *.cwk set filetype=confluencewiki
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-    autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
-    autocmd Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>
-    autocmd Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>
-  augroup END
-  augroup asyncrun
-    autocmd QuickFixCmdPost asyncrun botright copen 8
-  augroup END
-  if (!has('nvim'))
-    augroup foldmethod-expr
-      autocmd!
-      autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-      \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-      \                   |   setlocal foldmethod=manual foldexpr=0
-      \                   | endif
-      autocmd InsertLeave * if exists('b:foldinfo')
-      \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-      \                   | endif
-    augroup END
-  endif
-endif
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
@@ -326,8 +128,13 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 command! -nargs=1 Z execute("cd ".system('zoxide query <args>'))
 let g:asyncrun_auto='asyncrun'
 command! Lcd lcd %:h
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <C-k> :PrevDiagnosticCycle<CR>
+nmap <C-j> :NextDiagnosticCycle<CR>
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_auto_popup_while_jump = 0
+let g:diagnostic_insert_delay = 1
 set t_8b=[48;2;%lu;%lu;%lum
 set t_8f=[38;2;%lu;%lu;%lum
 
@@ -366,6 +173,7 @@ let g:ale_fixers['rust'] = ['rustfmt']
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_linters['typescript'] = ['eslint']
+let g:ale_linters['rust'] = ['rls']
 " let g:ale_linters['c'] = ['clangd']
 " let g:ale_linters['cpp'] = ['clangd']
 " let g:ale_linters['go'] = ['gopls']
@@ -375,30 +183,22 @@ let g:ale_sign_warning = '!'
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare'
 let g:ale_go_gofmt_options = '-s'
 
-if exists('g:gui_oni')
-  set number
-  set nobackup
-  set noswapfile
-  set smartcase
-  " Turn off statusbar, because it is externalized
-  set noshowmode
-  set noruler
-  set laststatus=0
-  set noshowcmd
-  set mouse=a
-elseif exists('gnvim')
+if exists('gnvim')
   set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
 elseif exists('neovide')
-  set guifont=Iosevka\ Term:h16
+  set guifont=Sarasa\ Nerd\ Font:h17
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
+  nnoremap <A-CR> :execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>
 elseif exists('g:fvim_loaded')
+  FVimBackgroundOpacity 0.7
   set guifont=Sarasa\ Nerd\ Font:h18
   nnoremap <A-CR> :FVimToggleFullScreen<CR>
 else
   "hi Normal guibg=NONE ctermbg=NONE
 endif
+
 set fillchars+=vert:│
 let $FZF_DEFAULT_COMMAND = 'fd'
 "let g:airline#extensions#tabline#enabled = 1
@@ -412,7 +212,7 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable  = '▶'
 let g:NERDTreeDirArrowCollapsible = '▼'
-let g:polyglot_disabled = ['markdown', 'csv', 'ruby']
+let g:polyglot_disabled = ['markdown', 'csv', 'ruby', 'json']
 
 set guioptions-=e
 set laststatus=2
@@ -437,45 +237,20 @@ let g:tmuxline_preset = {
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:clap_search_box_border_style = 'nil'
 
-if has('nvim-0.4.0')
-  function! FloatingFZF()
-    let width = float2nr(&columns * 0.9)
-    let height = float2nr(&lines * 0.6)
-    let opts = { 'relative': 'editor',
-    \ 'row': (&lines - height) / 2,
-    \ 'col': (&columns - width) / 2,
-    \ 'width': width,
-    \ 'height': height,
-    \ 'style': 'minimal'
-    \}
-
-    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    call setwinvar(win, '&winhighlight', 'NormalFloat:TabLine')
-  endfunction
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-endif
 
 if has('nvim-0.5.0')
-lua <<EOF
-function lsp_rename()
-  local w = vim.fn.expand("<cword>")
-  vim.fn.inputsave()
-  r = vim.fn.input("Rename: ", w)
-  if r ~= "" then
-    vim.lsp.buf.rename(r)
-  end
-end
-local on_attach = require'completion'.on_attach
-require'nvim_lsp'.clangd.setup{on_attach=on_attach}
-require'nvim_lsp'.gopls.setup{ cmd_env = { GOFLAGS = "-tags=test_mysql" }, on_attach=on_attach }
-require'nvim_lsp'.rust_analyzer.setup{on_attach=on_attach}
-require'nvim_lsp'.solargraph.setup{on_attach=on_attach}
-require'nvim_lsp'.tsserver.setup{on_attach=on_attach}
-require'nvim_lsp'.vimls.setup{on_attach=on_attach}
-require'nvim_lsp'.pyls.setup{on_attach=on_attach}
-require'nvim_lsp'.jsonls.setup{on_attach=on_attach}
-require'nvim_lsp'.yamlls.setup{on_attach=on_attach}
-EOF
+  execute("luafile " . stdpath("config")."/lsp.lua")
+endif
+
+sign define LspDiagnosticsErrorSign text=✗ texthl=ALEErrorSign linehl= numhl=
+sign define LspDiagnosticsWarningSign text=! texthl=ALEWarningSign linehl= numhl=
+sign define LspDiagnosticsInformationSign text=i texthl=ALEInfoSign linehl= numhl=
+sign define LspDiagnosticsHintSign text=💡 texthl=Label linehl= numhl=
+
+highlight!   link   LspDiagnosticsWarning  ALEVirtualTextWarning
+highlight!   link   LspDiagnosticsError    ALEVirtualTextError
+highlight!   link   LspDiagnosticsInfo     ALEVirtualTextInfo
+highlight!   link   LspDiagnosticsHint     ALEVirtualTextInfo
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -493,11 +268,18 @@ function! s:show_documentation()
     lua vim.lsp.buf.hover()
   endif
 endfunction
-endif
-let g:completion_trigger_character = ['.', '::', '->']
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+set exrc
+set secure
+" hi illuminatedWord cterm=underline ctermbg=0 guibg=#07242c
+" imap <c-j> <cmd>lua require'source'.prevCompletion()<CR> "use <c-j> to switch to previous completion
+" imap <c-k> <cmd>lua require'source'.nextCompletion()<CR> "use <c-k> to switch to next completion
 
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Visual", 200)
+augroup END
