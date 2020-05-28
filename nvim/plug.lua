@@ -38,9 +38,6 @@ if vim.fn.has('nvim-0.5.0') then
   plug('neovim/nvim-lsp')
   plug('haorenW1025/completion-nvim')
 end
-
-
-plug('vimlab/split-term.vim')
 plug('equalsraf/neovim-gui-shim')
 plug('sodapopcan/vim-twiggy')
 plug('scrooloose/nerdtree')
@@ -86,4 +83,5 @@ plug('nvim-treesitter/nvim-treesitter')
 plug('sainnhe/sonokai')
 plug('elzr/vim-json')
 plug('rhysd/git-messenger.vim')
+plug('kassio/neoterm')
 vim.fn["plug#end"]()

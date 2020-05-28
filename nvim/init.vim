@@ -118,6 +118,7 @@ nmap L <Plug>(easymotion-overwin-line)
 nmap <Leader>m <Plug>(git-messenger)
 nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
+nmap <Leader>t :Ttoggle<CR>
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
