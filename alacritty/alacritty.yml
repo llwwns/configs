@@ -3,14 +3,14 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use 'alacritty' if it is
   # available, otherwise 'xterm-256color' is used.
-  #TERM: xterm-256color
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -45,18 +45,10 @@ scrolling:
   # scrollback is enabled (history > 0).
   multiplier: 3
 
-  # Scroll to the bottom when new text is written to the terminal.
-  auto_scroll: false
-
 # Spaces per Tab (changes require restart)
 #
 # This setting defines the width of a tab in cells.
 #
-# Some applications, like Emacs, rely on knowing about the width of a tab.
-# To prevent unexpected behavior in these applications, it's also required to
-# change the `it` value in terminfo when altering this setting.
-tabspaces: 8
-
 # Font configuration (changes require restart)
 #
 # Important font attributes like antialiasing, subpixel aa, and hinting can be
@@ -181,32 +173,29 @@ draw_bold_text_with_bright_colors: true
 #    white:   '0xdddddd'
 # Colors (Gotham)
 colors:
-  # Default colors
   primary:
-    background: '0x0a0f14'
-    foreground: '0x98d1ce'
+    background: "0x273136"
+    foreground: "0xe1e2e3"
 
-  # Normal colors
   normal:
-    black: '0x093748'
-    red: '0xd26939'
-    green: '0x26a98b'
-    yellow: '0xedb54b'
-    blue: '0x33859d'
-    magenta: '0x888ba5'
-    cyan: '0x195465'
-    white: '0xd3ebe9'
+    black: "0x848089"
+    red: "0xf76c7c"
+    green: "0x9cd57b"
+    yellow: "0xe3d367"
+    blue: "0x78cee9"
+    magenta: "0xbaa0f8"
+    cyan: "0xf3a96a"
+    white: "0xe1e2e3"
 
-  # Bright colors
   bright:
-    black: '0x093748'
-    red: '0xd26939'
-    green: '0x26a98b'
-    yellow: '0xedb54b'
-    blue: '0x33859d'
-    magenta: '0x888ba5'
-    cyan: '0x195465'
-    white: '0xd3ebe9'
+    black: "0x848089"
+    red: "0xf76c7c"
+    green: "0x9cd57b"
+    yellow: "0xe3d367"
+    blue: "0x78cee9"
+    magenta: "0xbaa0f8"
+    cyan: "0xf3a96a"
+    white: "0xe1e2e3"
 
   cursor:
     text: "0x002635"
@@ -248,7 +237,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 1.0
 
 # Mouse bindings
 #

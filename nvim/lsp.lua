@@ -38,5 +38,4 @@ if s1 and s2 and s3 then
     deepCompletion = false,
     on_attach = on_attach,
   }
-  lsp.solargraph.setup{on_attach=on_attach}
 end
