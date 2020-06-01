@@ -41,10 +41,21 @@ set signcolumn=yes
 filetype plugin indent on
 set completeopt=longest,menu
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
+function! ToggleNERDTree()
+    if !g:NERDTree.ExistsForTab() || !g:NERDTree.IsOpen()
+      if empty(expand('%:p'))
+        NERDTreeToggle
+      else
+        NERDTreeFind
+      end
+    else
+      NERDTreeToggle
+    end
+endfunction
 map <c-q> :q<CR>
-nmap <c-e> :Buffers<CR>
-nmap <c-p> :Files<CR>
-nmap <Tab> :NERDTreeToggle<CR>
+nmap <silent> <c-e> :Buffers<CR>
+nmap <silent> <c-p> :Files<CR>
+nmap <silent> <Tab> :call ToggleNERDTree()<CR>
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 vnoremap <expr> k v:count == 0 ? 'gk' : 'k'
@@ -66,6 +77,7 @@ nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 set list
 set listchars=tab:▸\ ,eol:¬
+
 function! TOMLFold()
   let line = getline(v:lnum)
   if line =~? '\v^($|[)'
@@ -119,6 +131,7 @@ nmap <Leader>m <Plug>(git-messenger)
 nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
 nmap <Leader>t :Ttoggle<CR>
+vmap <Leader>r :TREPLSendSelection<CR>
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -284,3 +297,17 @@ augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Visual", 200)
 augroup END
+
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'never',
+        \ },
+    \ }
+\ }
