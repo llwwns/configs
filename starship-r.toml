@@ -11,3 +11,4 @@ style = "red"
 
 [env_var]
 variable = "current_docker"
+style = "blue"
