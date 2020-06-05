@@ -123,6 +123,9 @@ augroups{
     "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
     "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
   },
+  highlight_yank = {
+    'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'
+  },
 }
 
 set_var('fzf_layout', {
@@ -165,3 +168,71 @@ set_var('sonokai_transparent_background', 0)
 command('silent! colorscheme sonokai')
 set_var('neoterm_default_mod', 'belowright')
 set_var('neoterm_size', '13')
+
+set_var('disable_key_mappings', 1)
+set_var('eskk#large_dictionary', { path = '~/configs/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' })
+set_var('eskk#enable_completion', 1)
+set_var('ale_fixers', {
+    javascript = { 'prettier' },
+    typescript = { 'eslint' },
+    ruby = { 'rubocop' },
+    go = { 'gofmt' },
+    rust = { 'rustfmt' },
+  })
+
+set_var('ale_linters', {
+    javascript = { 'eslint' },
+    typescript = { 'eslint' },
+    ruby = { 'rubocop' },
+    go = { 'gopls' },
+    c = { 'clangd' },
+    cpp = { 'clangd' },
+    rust = { 'rls' },
+  })
+
+set_var('ale_fix_on_save', 1)
+set_var('ale_sign_error', '✗')
+set_var('ale_sign_warning', '!')
+set_var('ale_cpp_gcc_options', '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare')
+set_var('ale_go_gofmt_options', '-s')
+
+set_var('NERDTreeDirArrows', 1)
+set_var('NERDTreeDirArrowExpandable', '▶')
+set_var('NERDTreeDirArrowCollapsible', '▼')
+set_var('polyglot_disabled', {'markdown', 'csv', 'ruby', 'json'})
+
+set_var('extra_whitespace_ignored_filetypes', {'calendar'})
+set_var('calendar_google_calendar', 1)
+set_var('EmacsCommandLineSearchCommandLineDisable', 1)
+
+set_var('airline#extensions#tmuxline#snapshot_file', "~/configs/.tmuxline")
+
+set_var('tmuxline_preset', {
+      a    = '[#S]',
+      win  = '#I:#W#F',
+      cwin = '#I:#W#F',
+      x    = '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
+      y    = '%m/%d %H:%M:%S',
+      z    = '#H',
+      options = {
+        ['status-justify'] = 'left'
+      }
+    })
+
+set_var('Hexokinase_highlighters', {'backgroundfull'})
+
+set_var('firenvim_config', {
+    globalSettings = {
+      alt = 'all',
+    },
+    localSettings = {
+      ['.*'] = {
+        cmdline = 'neovim',
+        priority = 0,
+        selector = 'textarea',
+        takeover = 'never',
+      },
+    },
+  })
+
+set_var('asyncrun_auto', 'asyncrun')

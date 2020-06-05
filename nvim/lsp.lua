@@ -8,7 +8,7 @@ if s1 and s2 and s3 and s4 then
   })
   lsp_status.register_progress()
   local set_var = vim.api.nvim_set_var
-  set_var("airline_section_c", "%{StatuslineLsp()}")
+  set_var("airline_section_x", '%{StatuslineLsp()}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}')
   function lsp_rename()
     local w = vim.fn.expand("<cword>")
     vim.fn.inputsave()

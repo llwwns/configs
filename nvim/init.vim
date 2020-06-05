@@ -41,6 +41,7 @@ set signcolumn=yes
 filetype plugin indent on
 set completeopt=longest,menu
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
+
 function! ToggleNERDTree()
     if !g:NERDTree.ExistsForTab() || !g:NERDTree.IsOpen()
       if empty(expand('%:p'))
@@ -52,6 +53,7 @@ function! ToggleNERDTree()
       NERDTreeToggle
     end
 endfunction
+
 map <c-q> :q<CR>
 nmap <silent> <c-e> :Buffers<CR>
 nmap <silent> <c-p> :Files<CR>
@@ -88,6 +90,7 @@ endfunction
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
+
 function! Stab()
   let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
   if l:tabstop > 0
@@ -114,8 +117,10 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
+
 let mapleader="'"
 let maplocalleader="'"
+
 nmap <buffer> <F8> :SCCompileRun<CR>
 map <Leader> <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-s2)
@@ -140,7 +145,6 @@ inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 command! -nargs=1 Z execute("cd ".system('zoxide query <args>'))
-let g:asyncrun_auto='asyncrun'
 command! Lcd lcd %:h
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -149,8 +153,6 @@ nmap <C-j> :NextDiagnosticCycle<CR>
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_auto_popup_while_jump = 0
 let g:diagnostic_insert_delay = 1
-set t_8b=[48;2;%lu;%lu;%lum
-set t_8f=[38;2;%lu;%lu;%lum
 
 tnoremap <C-[><C-[> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
@@ -175,27 +177,6 @@ set tags=./tags,tags;/
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let g:disable_key_mappings=1
-let g:eskk#large_dictionary = { 'path': '~/configs/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp', }
-let g:eskk#enable_completion = 1
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['typescript'] = ['eslint']
-let g:ale_fixers['ruby'] = ['rubocop']
-let g:ale_fixers['go'] = ['gofmt']
-let g:ale_fixers['rust'] = ['rustfmt']
-let g:ale_linters = {}
-let g:ale_linters['javascript'] = ['eslint']
-let g:ale_linters['typescript'] = ['eslint']
-let g:ale_linters['rust'] = ['rls']
-" let g:ale_linters['c'] = ['clangd']
-" let g:ale_linters['cpp'] = ['clangd']
-let g:ale_linters['go'] = ['gopls']
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '!'
-let g:ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare'
-let g:ale_go_gofmt_options = '-s'
 
 if exists('gnvim')
   set guifont=Iosevka\ Term:h12
@@ -223,33 +204,9 @@ set sessionoptions=blank,curdir,folds,tabpages
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable  = '▶'
-let g:NERDTreeDirArrowCollapsible = '▼'
-let g:polyglot_disabled = ['markdown', 'csv', 'ruby', 'json']
 
 set guioptions-=e
 set laststatus=2
-let g:extra_whitespace_ignored_filetypes = ['calendar']
-let g:calendar_google_calendar = 1
-let g:EmacsCommandLineSearchCommandLineDisable = 1
-
-let g:clap_insert_mode_only = v:true
-
-let g:airline#extensions#tmuxline#snapshot_file = "~/configs/.tmuxline"
-
-let g:tmuxline_preset = {
-      \ 'a': '[#S]',
-      \ 'win': '#I:#W#F',
-      \ 'cwin': '#I:#W#F',
-      \'x'    : '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
-      \'y'    : '%m/%d %H:%M:%S',
-      \'z'    : '#H',
-      \ 'options': {
-      \'status-justify': 'left'} }
-
-let g:Hexokinase_highlighters = ['backgroundfull']
-let g:clap_search_box_border_style = 'nil'
 
 
 if has('nvim-0.5.0')
@@ -292,25 +249,6 @@ set secure
 " hi illuminatedWord cterm=underline ctermbg=0 guibg=#07242c
 " imap <c-j> <cmd>lua require'source'.prevCompletion()<CR> "use <c-j> to switch to previous completion
 " imap <c-k> <cmd>lua require'source'.nextCompletion()<CR> "use <c-k> to switch to next completion
-
-augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Visual", 200)
-augroup END
-
-let g:firenvim_config = {
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'never',
-        \ },
-    \ }
-\ }
 
 function! StatuslineLsp() abort
   return luaeval("require('lsp-status').status()")
