@@ -315,3 +315,4 @@ let g:firenvim_config = {
 function! StatuslineLsp() abort
   return luaeval("require('lsp-status').status()")
 endfunction
+let g:context_presenter="preview"
