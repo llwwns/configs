@@ -1,15 +1,11 @@
 local set_var = vim.api.nvim_set_var
 local get_var = vim.api.nvim_get_var
 local command = vim.api.nvim_command
-set_var('ale_statusline_format', {'⨉ %d', '⚠ %d', '⬥ ok'})
-set_var('ale_lint_on_text_changed', 'never')
-set_var('airline_powerline_fonts', 1)
-set_var('gotham_airline_emphasised_insert', 0)
-set_var('airline_theme', 'sonokai')
-set_var('airline#extensions#tabline#enabled',  1)
-set_var('ale_linters_explicit', 1)
-set_var('gruvbox_contrast_dark', 'hard')
-
+local gset_var = function(tbl)
+  for key, val in pairs(tbl) do
+    set_var(key, val)
+  end
+end
 if vim.fn.has('multi_lang') then
   command("language C")
 end
@@ -43,13 +39,14 @@ function foldtext()
   local fe = vim.api.nvim_get_vvar("foldend")
   local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.shiftwidth), 'g')
   local winSize = bufwidth()
-  local lineCount = string.format("[%d lines]-----", fe-fs+1)
-  return line..string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount))..lineCount
+  local lineCount = string.format("[%d lines]-----", fe - fs + 1)
+  return line .. string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount)) ..
+           lineCount
 end
 
 function augroups(definitions)
   for group_name, definition in pairs(definitions) do
-    command('augroup '..group_name)
+    command('augroup ' .. group_name)
     command('autocmd!')
     for _, def in ipairs(definition) do
       local cmd = 'autocmd ' .. def
@@ -59,7 +56,7 @@ function augroups(definitions)
   end
 end
 
-augroups{
+augroups {
   numbertoggle = {
     "BufEnter,FocusGained,InsertLeave * set relativenumber",
     "BufLeave,FocusLost,InsertEnter * set norelativenumber",
@@ -128,111 +125,116 @@ augroups{
   },
 }
 
-set_var('fzf_layout', {
-  up = '~90%',
-  window = {
-    width = 0.8,
-    height = 0.8,
-    yoffset = 0.5,
-    xoffset = 0.5,
-    highlight = 'Todo',
-    border = 'sharp'
-  }
-})
+gset_var {
+  ale_statusline_format = {'⨉ %d', '⚠ %d', '⬥ ok'},
+  ale_lint_on_text_changed = 'never',
+  airline_powerline_fonts = 1,
+  gotham_airline_emphasised_insert = 0,
+  sonokai_style = 'maia',
+  sonokai_transparent_background = 0,
+  airline_theme = 'sonokai',
+  ['airline#extensions#tabline#enabled'] = 1,
+  ale_linters_explicit = 1,
+  gruvbox_contrast_dark = 'hard',
+  fzf_layout = {
+    up = '~90%',
+    window = {
+      width = 0.8,
+      height = 0.8,
+      yoffset = 0.5,
+      xoffset = 0.5,
+      highlight = 'Todo',
+      border = 'sharp'
+    },
+  },
+  fzf_colors = {
+    fg = {'fg', 'Normal'},
+    bg = {'bg', 'Normal'},
+    hl = {'fg', 'Comment'},
+    ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
+    ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
+    ['hl+'] = {'fg', 'Statement'},
+    info = {'fg', 'PreProc'},
+    border = {'fg', 'Ignore'},
+    prompt = {'fg', 'Conditional'},
+    pointer = {'fg', 'Exception'},
+    marker = {'fg', 'Keyword'},
+    spinner = {'fg', 'Label'},
+    header = {'fg', 'Comment'},
+  },
+
+  completion_auto_change_source = 1,
+  vim_json_syntax_conceal = 0,
+  ['eskk#large_dictionary'] = {path = '~/configs/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp'},
+  ['eskk#enable_completion'] = 1,
+
+  completion_trigger_character = {'.', '::', '->'},
 
 
-set_var('fzf_colors', {
-  fg      = { 'fg', 'Normal' },
-  bg      = { 'bg', 'Normal' },
-  hl      = { 'fg', 'Comment' },
-  ['fg+'] = { 'fg', 'CursorLine', 'CursorColumn', 'Normal' },
-  ['bg+'] = { 'bg', 'CursorLine', 'CursorColumn' },
-  ['hl+'] = { 'fg', 'Statement' },
-  info    = { 'fg', 'PreProc' },
-  border  = { 'fg', 'Ignore' },
-  prompt  = { 'fg', 'Conditional' },
-  pointer = { 'fg', 'Exception' },
-  marker  = { 'fg', 'Keyword' },
-  spinner = { 'fg', 'Label' },
-  header  = { 'fg', 'Comment' },
-})
+  neoterm_default_mod = 'belowright',
+  neoterm_size = '13',
 
-set_var('completion_auto_change_source', 1)
-set_var('vim_json_syntax_conceal', 0)
-set_var('eskk#enable_completion', 0)
+  disable_key_mappings = 1,
 
-set_var('completion_trigger_character', {'.', '::', '->'})
+  ale_fixers = {
+    javascript = {'prettier'},
+    typescript = {'eslint'},
+    ruby = {'rubocop'},
+    go = {'gofmt'},
+    rust = {'rustfmt'}
+  },
+  ale_linters = {
+    javascript = {'eslint'},
+    typescript = {'eslint'},
+    ruby = {'rubocop'},
+    go = {'gopls'},
+    c = {'clangd'},
+    cpp = {'clangd'},
+    rust = {'rls'},
+    lua = {'luacheck'},
+  },
+  ale_fix_on_save = 1,
+  ale_sign_error = '✗',
+  ale_sign_warning = '!',
+  ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare',
+  ale_go_gofmt_options = '-s',
 
-set_var('sonokai_style', 'maia')
-set_var('sonokai_transparent_background', 0)
+  NERDTreeDirArrows = 1,
+  NERDTreeDirArrowExpandable = '▶',
+  NERDTreeDirArrowCollapsible = '▼',
+  polyglot_disabled = {'markdown', 'csv', 'ruby', 'json'},
+
+  extra_whitespace_ignored_filetypes = {'calendar'},
+  calendar_google_calendar = 1,
+  EmacsCommandLineSearchCommandLineDisable = 1,
+
+  ['airline#extensions#tmuxline#snapshot_file'] = "~/configs/.tmuxline",
+
+  tmuxline_preset = {
+    a = '[#S]',
+    win = '#I:#W#F',
+    cwin = '#I:#W#F',
+    x = '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
+    y = '%m/%d %H:%M:%S',
+    z = '#H',
+    options = {
+      ['status-justify'] = 'left',
+    },
+  },
+
+  Hexokinase_highlighters = {'backgroundfull'},
+
+  firenvim_config = {
+    globalSettings = {alt = 'all'},
+    localSettings = {['.*'] = {cmdline = 'neovim', priority = 0, selector = 'textarea', takeover = 'never'}},
+  },
+
+  asyncrun_auto = 'asyncrun',
+  context_presenter = 'preview',
+}
+
 command('silent! colorscheme sonokai')
-set_var('neoterm_default_mod', 'belowright')
-set_var('neoterm_size', '13')
-
-set_var('disable_key_mappings', 1)
-set_var('eskk#large_dictionary', { path = '~/configs/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' })
-set_var('eskk#enable_completion', 1)
-set_var('ale_fixers', {
-    javascript = { 'prettier' },
-    typescript = { 'eslint' },
-    ruby = { 'rubocop' },
-    go = { 'gofmt' },
-    rust = { 'rustfmt' },
-  })
-
-set_var('ale_linters', {
-    javascript = { 'eslint' },
-    typescript = { 'eslint' },
-    ruby = { 'rubocop' },
-    go = { 'gopls' },
-    c = { 'clangd' },
-    cpp = { 'clangd' },
-    rust = { 'rls' },
-  })
-
-set_var('ale_fix_on_save', 1)
-set_var('ale_sign_error', '✗')
-set_var('ale_sign_warning', '!')
-set_var('ale_cpp_gcc_options', '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare')
-set_var('ale_go_gofmt_options', '-s')
-
-set_var('NERDTreeDirArrows', 1)
-set_var('NERDTreeDirArrowExpandable', '▶')
-set_var('NERDTreeDirArrowCollapsible', '▼')
-set_var('polyglot_disabled', {'markdown', 'csv', 'ruby', 'json'})
-
-set_var('extra_whitespace_ignored_filetypes', {'calendar'})
-set_var('calendar_google_calendar', 1)
-set_var('EmacsCommandLineSearchCommandLineDisable', 1)
-
-set_var('airline#extensions#tmuxline#snapshot_file', "~/configs/.tmuxline")
-
-set_var('tmuxline_preset', {
-      a    = '[#S]',
-      win  = '#I:#W#F',
-      cwin = '#I:#W#F',
-      x    = '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
-      y    = '%m/%d %H:%M:%S',
-      z    = '#H',
-      options = {
-        ['status-justify'] = 'left'
-      }
-    })
-
-set_var('Hexokinase_highlighters', {'backgroundfull'})
-
-set_var('firenvim_config', {
-    globalSettings = {
-      alt = 'all',
-    },
-    localSettings = {
-      ['.*'] = {
-        cmdline = 'neovim',
-        priority = 0,
-        selector = 'textarea',
-        takeover = 'never',
-      },
-    },
-  })
-
-set_var('asyncrun_auto', 'asyncrun')
+local ok, colorizer = pcall(require, 'colorizer')
+if ok then
+  colorizer.setup()
+end

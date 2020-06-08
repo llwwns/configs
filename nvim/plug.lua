@@ -10,7 +10,6 @@ if os.getenv("TMUXLINE") == '1' then
   plug('edkolev/tmuxline.vim')
 end
 
-plug('othree/eregex.vim')
 plug('tpope/vim-unimpaired')
 plug('godlygeek/tabular')
 plug('mbbill/undotree')

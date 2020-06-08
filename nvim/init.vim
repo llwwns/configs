@@ -2,8 +2,6 @@ set encoding=utf-8
 let g:vim_json_conceal=0
 scriptencoding utf-8
 let s:config_path=stdpath("config")
-execute("luafile " . s:config_path."/plug.lua")
-execute("luafile " . s:config_path."/setting.lua")
 
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -11,6 +9,8 @@ if exists('+termguicolors')
   set termguicolors
 endif
 set background=dark
+execute("luafile " . s:config_path."/plug.lua")
+execute("luafile " . s:config_path."/setting.lua")
 
 
 set laststatus=2
@@ -36,6 +36,7 @@ set expandtab
 set autoindent
 set updatetime=1000
 set signcolumn=yes
+set noincsearch
 "set smarttab
 "set spell
 filetype plugin indent on
@@ -68,7 +69,6 @@ nnoremap <up> <c-y>
 nnoremap <down> <c-e>
 nnoremap <left> zH
 nnoremap <right> zL
-nnoremap <leader>/ :call eregex#toggle()<CR>
 nnoremap <c-f> :Sub/
 "cmap <c-v> <c-r>"
 nnoremap Y y$
@@ -232,6 +232,9 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>
+nnoremap <silent> <leader>rp <cmd>call Replace()<CR>
+nnoremap <silent> / /\v
+nnoremap <silent> ? ?\v
 function! s:show_documentation()
   if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
@@ -253,4 +256,8 @@ set secure
 function! StatuslineLsp() abort
   return luaeval("require('lsp-status').status()")
 endfunction
-let g:context_presenter="preview"
+
+function! Replace()
+  let s:w = expand("<cword>")
+  call feedkeys(":%s/".s:w."//g\<Left>\<Left>")
+endfunction
