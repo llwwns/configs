@@ -1,5 +1,4 @@
 set encoding=utf-8
-let g:vim_json_conceal=0
 scriptencoding utf-8
 let s:config_path=stdpath("config")
 

@@ -15,6 +15,8 @@ git config --global alias.re restore
 git config --global alias.sw switch
 git config --global oh-my-zsh.hide-dirty 1
 git config --global core.mergeoptions --no-edit
+git config --global stash.showPatch true
+git config --global pull.ff only
 mkdir -p ~/.config/nvim/
 echo "source ~/.vimrc" > ~/.config/nvim/init.vim
 wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
@@ -30,3 +32,4 @@ cargo install chit
 cargo install procs
 cargo install zoxide
 cargo install lsd
+cargo install-update-config ripgrep -f pcre2
