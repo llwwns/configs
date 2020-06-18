@@ -35,7 +35,7 @@ set expandtab
 set autoindent
 set updatetime=1000
 set signcolumn=yes
-set noincsearch
+set inccommand=split
 "set smarttab
 "set spell
 filetype plugin indent on
@@ -222,16 +222,7 @@ highlight!   link   LspDiagnosticsError    ALEVirtualTextError
 highlight!   link   LspDiagnosticsInfo     ALEVirtualTextInfo
 highlight!   link   LspDiagnosticsHint     ALEVirtualTextInfo
 
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>
-nnoremap <silent> <leader>rp <cmd>call Replace()<CR>
 nnoremap <silent> / /\v
 nnoremap <silent> ? ?\v
 function! s:show_documentation()
