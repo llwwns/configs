@@ -244,8 +244,6 @@ highlight!   link   LspDiagnosticsHint     ALEVirtualTextInfo
 
 nnoremap <silent> <leader> :WhichKey "'"<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> / /\v
-nnoremap <silent> ? ?\v
 function! s:show_documentation()
   if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
