@@ -15,6 +15,7 @@ execute("luafile " . s:config_path."/setting.lua")
 set laststatus=2
 set winblend=20
 set pumblend=20
+set timeoutlen=500
 
 "Highlight all search pattern matches
 set hlsearch
@@ -77,7 +78,7 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 nmap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:¦\ ,eol:¬,extends:»,precedes:«
 
 function! TOMLFold()
   let line = getline(v:lnum)
@@ -121,7 +122,24 @@ let mapleader="'"
 let maplocalleader="'"
 
 nmap <buffer> <F8> :SCCompileRun<CR>
-map <Leader> <Plug>(easymotion-prefix)
+map <leader>f  <Plug>(easymotion-f)
+map <leader>F  <Plug>(easymotion-F)
+map <leader>s  <Plug>(easymotion-s)
+map <leader>t  <Plug>(easymotion-t)
+map <leader>T  <Plug>(easymotion-T)
+map <leader>w  <Plug>(easymotion-w)
+map <leader>W  <Plug>(easymotion-W)
+map <leader>b  <Plug>(easymotion-b)
+map <leader>B  <Plug>(easymotion-B)
+map <leader>e  <Plug>(easymotion-e)
+map <leader>E  <Plug>(easymotion-E)
+map <leader>ge <Plug>(easymotion-ge)
+map <leader>gE <Plug>(easymotion-gE)
+map <leader>j  <Plug>(easymotion-j)
+map <leader>k  <Plug>(easymotion-k)
+map <leader>n  <Plug>(easymotion-n)
+map <leader>N  <Plug>(easymotion-N)
+map <leader>w  <Plug>(easymotion-w)
 nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
 omap z <Plug>(easymotion-s2)
@@ -136,6 +154,7 @@ nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
 nmap <Leader>t :Ttoggle<CR>
 vmap <Leader>r :TREPLSendSelection<CR>
+nmap <Leader>z <Plug>(spelunker-correct-feeling-lucky)
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -182,6 +201,7 @@ if exists('gnvim')
   set guicursor+=a:blinkon0
 elseif exists('neovide')
   set guifont=Sarasa\ Nerd\ Font:h17
+  " set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
   nnoremap <A-CR> :execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>
@@ -222,6 +242,7 @@ highlight!   link   LspDiagnosticsError    ALEVirtualTextError
 highlight!   link   LspDiagnosticsInfo     ALEVirtualTextInfo
 highlight!   link   LspDiagnosticsHint     ALEVirtualTextInfo
 
+nnoremap <silent> <leader> :WhichKey "'"<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> / /\v
 nnoremap <silent> ? ?\v
@@ -239,15 +260,10 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set exrc
 set secure
-" hi illuminatedWord cterm=underline ctermbg=0 guibg=#07242c
-" imap <c-j> <cmd>lua require'source'.prevCompletion()<CR> "use <c-j> to switch to previous completion
-" imap <c-k> <cmd>lua require'source'.nextCompletion()<CR> "use <c-k> to switch to next completion
-
-function! StatuslineLsp() abort
-  return luaeval("require('lsp-status').status()")
-endfunction
 
 function! Replace()
   let s:w = expand("<cword>")
   call feedkeys(":%s/".s:w."//g\<Left>\<Left>")
 endfunction
+
+highlight SpelunkerSpellBad cterm=underline ctermfg=NONE gui=underline guifg=NONE

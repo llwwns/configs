@@ -1,14 +1,26 @@
-local s1, lsp = pcall(require, 'nvim_lsp')
-local s2, completion = pcall(require, 'completion')
-local s3, diagnostic = pcall(require, 'diagnostic')
-local s4, lsp_status = pcall(require, 'lsp-status')
-if s1 and s2 and s3 and s4 then
+function try_require(tbl, func)
+  res = {}
+  for i, pkg in ipairs(tbl) do
+    local s, r = pcall(require, pkg)
+    if s then
+      res[i] = r
+    else
+      return
+    end
+  end
+  func(unpack(res))
+end
+
+try_require({'nvim_lsp', 'completion', 'diagnostic', 'lsp-status'}, function(lsp, completion, diagnostic, lsp_status)
   lsp_status.config({
     kind_labels = vim.g.completion_customize_lsp_label
   })
   lsp_status.register_progress()
   local set_var = vim.api.nvim_set_var
-  set_var("airline_section_x", '%{StatuslineLsp()}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}')
+  function statusline_lsp()
+    return lsp_status.status()
+  end
+  set_var("airline_section_x", '%{v:lua.statusline_lsp()}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}')
   function lsp_rename()
     local w = vim.fn.expand("<cword>")
     vim.fn.inputsave()
@@ -59,4 +71,4 @@ if s1 and s2 and s3 and s4 then
     deepCompletion = false,
     on_attach = on_attach,
   }
-end
+end)

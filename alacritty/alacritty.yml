@@ -34,7 +34,7 @@ window:
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
-  decorations: full
+  decorations: none
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -101,112 +101,44 @@ font:
     x: 0
     y: 0
 
-  # Scale the font size based on the monitor's DPI. This will lead to bigger text on HiDPI
-  # screens and make reading text a little easier.
-  # On X11 it is possible to change the DPI for each instance of alacritty by using
-  # `WINIT_HIDPI_FACTOR=1.0 alacritty` to scale the font.
-  #  scale_with_dpi: true
-
-# Display the time it takes to redraw each frame.
-# render_timer: false
-
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night Bright)
-# colors:
-#  # Default colors
-#  primary:
-#    background: '0x151515'
-#    foreground: '0xeaeaea'
-#
-#    # Bright and dim foreground colors
-#    #
-#    # The dimmed foreground color is calculated automatically if it is not present.
-#    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-#    # is `false`, the normal foreground color will be used.
-#    #dim_foreground: '0x9a9a9a'
-#    #bright_foreground: '0xffffff'
-#
-#  # Cursor colors
-#  #
-#  # Colors which should be used to draw the terminal cursor. If these are unset,
-#  # the cursor color will be the inverse of the cell color.
-#  #cursor:
-#  #  text: '0x000000'
-#  #  cursor: '0xffffff'
-#
-#  # Normal colors
-#  normal:
-#    black:   '0x000000'
-#    red:     '0xd54e53'
-#    green:   '0xb9ca4a'
-#    yellow:  '0xe6c547'
-#    blue:    '0x7aa6da'
-#    magenta: '0xc397d8'
-#    cyan:    '0x70c0ba'
-#    white:   '0xffffff'
-#
-#  # Bright colors
-#  bright:
-#    black:   '0x666666'
-#    red:     '0xff3334'
-#    green:   '0x9ec400'
-#    yellow:  '0xe7c547'
-#    blue:    '0x7aa6da'
-#    magenta: '0xb77ee0'
-#    cyan:    '0x54ced6'
-#    white:   '0xffffff'
-#
-#  # Dim colors
-#  #
-#  # If the dim colors are not set, they will be calculated automatically based
-#  # on the `normal` colors.
-#  dim:
-#    black:   '0x333333'
-#    red:     '0xf2777a'
-#    green:   '0x99cc99'
-#    yellow:  '0xffcc66'
-#    blue:    '0x6699cc'
-#    magenta: '0xcc99cc'
-#    cyan:    '0x66cccc'
-#    white:   '0xdddddd'
-# Colors (Gotham)
 colors:
   primary:
-    background: "0x273136"
-    foreground: "0xe1e2e3"
+    background: "0x273136" # #273136
+    foreground: "0xe1e2e3" # #e1e2e3
 
   normal:
-    black: "0x1c1e1f"
-    red: "0xf76c7c"
-    green: "0x9cd57b"
-    yellow: "0xe3d367"
-    blue: "0x78cee9"
-    magenta: "0xbaa0f8"
-    cyan: "0xf3a96a"
-    white: "0xe1e2e3"
+    black: "0x1c1e1f"   #  #3a444b
+    red: "0xf76c7c"     #  #f76c7c
+    green: "0x9cd57b"   #  #9cd57b
+    yellow: "0xe3d367"  #  #e3d367
+    blue: "0x78cee9"    #  #78cee9
+    magenta: "0xbaa0f8" #  #baa0f8
+    cyan: "0xf3a96a"    #  #f3a96a
+    white: "0xe1e2e3"   #  #e1e2e3
 
   bright:
-    black: "0x1c1e1f"
-    red: "0xf76c7c"
-    green: "0x9cd57b"
-    yellow: "0xe3d367"
-    blue: "0x78cee9"
-    magenta: "0xbaa0f8"
-    cyan: "0xf3a96a"
-    white: "0xe1e2e3"
+    black: "0x1c1e1f"   #  #3a444b
+    red: "0xf76c7c"     #  #f76c7c
+    green: "0x9cd57b"   #  #9cd57b
+    yellow: "0xe3d367"  #  #e3d367
+    blue: "0x78cee9"    #  #78cee9
+    magenta: "0xbaa0f8" #  #baa0f8
+    cyan: "0xf3a96a"    #  #f3a96a
+    white: "0xe1e2e3"   #  #e1e2e3
 
   cursor:
-    text: "0x002635"
-    cursor: "0xffcc1b"
+    text: "0x002635" # #002635
+    cursor: "0xffcc1b" # #ffcc1b
 
   # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.
   # When these are not set, they're filled with sensible defaults.
   #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
+  #  - { index: 16, color: '0x000000' } # #000000
 
 # Visual Bell
 #
@@ -237,7 +169,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+background_opacity: 1
 
 # Mouse bindings
 #
@@ -254,8 +186,8 @@ background_opacity: 1.0
 #
 # All available `mods` and `action` values are documented in the key binding
 # section.
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
+# mouse_bindings:
+#   - { mouse: Middle, action: PasteSelection }
 
 mouse:
   # Click settings

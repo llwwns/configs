@@ -233,6 +233,8 @@ gset_var {
   vim_json_conceal = 0,
   vim_markdown_conceal = 0,
   vim_markdown_conceal_code_blocks = 0,
+
+  gitgutter_highlight_linenrs = 1,
 }
 
 command('silent! colorscheme sonokai')

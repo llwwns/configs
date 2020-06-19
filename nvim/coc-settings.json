@@ -3,6 +3,15 @@
   "diagnostic.displayByAle": true,
   "javascript.validate.enable": false,
   "go.enable": true,
+  "go.tags": {
+    "tags": "wireinject,test_system"
+  },
+  "go.goplsPath": "~/go/bin/gopls",
+  "go.goplsOptions": {
+    "env": {
+      "GOFLAGS": "-tags=wireinject,test_system"
+    }
+  },
   "css.colorDecorators.enable": false,
   "languageserver": {
     "bash": {
