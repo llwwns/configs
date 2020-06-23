@@ -16,6 +16,7 @@ set laststatus=2
 set winblend=20
 set pumblend=20
 set timeoutlen=500
+set spell
 
 "Highlight all search pattern matches
 set hlsearch
@@ -44,7 +45,7 @@ set completeopt=longest,menu
 set grepprg=git\ grep\ -I\ --line-number\ --no-color\ -E
 
 function! ToggleNERDTree()
-    if !g:NERDTree.ExistsForTab() || !g:NERDTree.IsOpen()
+    if !exists('g:NERDTree') || !g:NERDTree.ExistsForTab() || !g:NERDTree.IsOpen()
       if empty(expand('%:p'))
         NERDTreeToggle
       else
@@ -154,7 +155,6 @@ nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
 nmap <Leader>t :Ttoggle<CR>
 vmap <Leader>r :TREPLSendSelection<CR>
-nmap <Leader>z <Plug>(spelunker-correct-feeling-lucky)
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
