@@ -10,6 +10,8 @@ endif
 set background=dark
 execute("luafile " . s:config_path."/plug.lua")
 execute("luafile " . s:config_path."/setting.lua")
+execute("luafile " . s:config_path."/lsp.lua")
+execute("set spellfile=".s:config_path."/spell/en.utf-8.add")
 
 
 set laststatus=2
@@ -155,6 +157,7 @@ nmap [, :Tab /,<CR>
 vmap [, :'<,'>Tab /,<CR>
 nmap <Leader>t :Ttoggle<CR>
 vmap <Leader>r :TREPLSendSelection<CR>
+nmap <leader>ql :call v:lua.stop_lsp()<CR>
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -228,9 +231,6 @@ set guioptions-=e
 set laststatus=2
 
 
-if has('nvim-0.5.0')
-  execute("luafile " . stdpath("config")."/lsp.lua")
-endif
 
 sign define LspDiagnosticsErrorSign text=✗ texthl=ALEErrorSign linehl= numhl=
 sign define LspDiagnosticsWarningSign text=! texthl=ALEWarningSign linehl= numhl=

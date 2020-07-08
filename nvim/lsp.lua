@@ -5,6 +5,7 @@ function try_require(tbl, func)
     if s then
       res[i] = r
     else
+      print("failed require "..pkg)
       return
     end
   end
@@ -29,21 +30,21 @@ try_require({'nvim_lsp', 'completion', 'diagnostic', 'lsp-status'}, function(lsp
       vim.lsp.buf.rename(r)
     end
   end
+  local command = vim.api.nvim_command
 
   local on_attach = function(client)
     lsp_status.on_attach(client)
     completion.on_attach()
-    diagnostic.on_attach()
-    local command = vim.api.nvim_command
-    command("nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>")
-    command("nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>")
-    command("nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>")
-    command("nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>")
-    command("nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>")
-    command("nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>")
-    command("nnoremap <buffer> <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>")
-    command("nnoremap <buffer> <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>")
-    command("nnoremap <buffer> <silent> <leader>rp <cmd>call Replace()<CR>")
+    -- diagnostic.on_attach()
+    command [[nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>]]
+    command [[nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>]]
+    command [[nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>]]
+    command [[nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>]]
+    command [[nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>]]
+    command [[nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>]]
+    command [[nnoremap <buffer> <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>]]
+    command [[nnoremap <buffer> <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>]]
+    command [[nnoremap <buffer> <silent> <leader>rp <cmd>call Replace()<CR>]]
   end
   lsp.clangd.setup{
     on_attach=on_attach,
@@ -71,4 +72,7 @@ try_require({'nvim_lsp', 'completion', 'diagnostic', 'lsp-status'}, function(lsp
     deepCompletion = false,
     on_attach = on_attach,
   }
+  function stop_lsp()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+  end
 end)

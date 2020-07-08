@@ -64,4 +64,7 @@ plug('kassio/neoterm', { on = {'Ttoggle'} })
 plug('wbthomason/lsp-status.nvim')
 plug('AndrewRadev/bufferize.vim')
 plug('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
+plug('hrsh7th/vim-vsnip')
+plug('hrsh7th/vim-vsnip-integ')
+
 vim.fn["plug#end"]()

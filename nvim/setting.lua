@@ -132,7 +132,7 @@ gset_var {
   sonokai_style = 'maia',
   sonokai_transparent_background = 0,
   airline_theme = 'sonokai',
-  ['airline#extensions#tabline#enabled'] = 1,
+  ['airline#extensions#tabline#enabled'] = 0,
   ale_linters_explicit = 1,
   gruvbox_contrast_dark = 'hard',
   fzf_layout = {
