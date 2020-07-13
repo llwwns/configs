@@ -66,5 +66,6 @@ plug('AndrewRadev/bufferize.vim')
 plug('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
 plug('hrsh7th/vim-vsnip')
 plug('hrsh7th/vim-vsnip-integ')
+plug('luochen1990/rainbow')
 
 vim.fn["plug#end"]()

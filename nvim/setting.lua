@@ -235,6 +235,7 @@ gset_var {
   vim_markdown_conceal_code_blocks = 0,
 
   gitgutter_highlight_linenrs = 1,
+  rainbow_active = 1,
 }
 
 command('silent! colorscheme sonokai')
