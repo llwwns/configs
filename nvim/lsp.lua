@@ -76,3 +76,75 @@ try_require({'nvim_lsp', 'completion', 'diagnostic', 'lsp-status'}, function(lsp
     vim.lsp.stop_client(vim.lsp.get_active_clients())
   end
 end)
+
+try_require({'nvim-treesitter.configs'}, function(cfg)
+  cfg.setup {
+    highlight = {
+        enable = true,
+    },
+    refactor = {
+      smart_rename = {
+        enable = true,
+        keymaps = {
+          smart_rename = "grr"
+        }
+      },
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition = "gnd",
+          list_definitions = "gnD"
+        }
+      }
+    },
+    textobjects = {
+      enable = true,
+      keymaps = {
+          ["iL"] = { -- you can define your own textobjects directly here
+            python = "(function_definition) @function",
+            cpp = "(function_definition) @function",
+            c = "(function_definition) @function",
+            java = "(method_declaration) @function"
+          },
+          -- or you use the queries from supported languages with textobjects.scm
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["aC"] = "@class.outer",
+          ["iC"] = "@class.inner",
+          ["ac"] = "@conditional.outer",
+          ["ic"] = "@conditional.inner",
+          ["ae"] = "@block.outer",
+          ["ie"] = "@block.inner",
+          ["al"] = "@loop.outer",
+          ["il"] = "@loop.inner",
+          ["is"] = "@statement.inner",
+          ["as"] = "@statement.outer",
+          ["ad"] = "@comment.outer",
+          ["am"] = "@call.outer",
+          ["im"] = "@call.inner"
+      }
+    },
+    ensure_installed = {
+      "html",
+      "typescript",
+      "regex",
+      "c",
+      "python",
+      "yaml",
+      "cpp",
+      "toml",
+      "lua",
+      "ruby",
+      "go",
+      "haskell",
+      "rust",
+      "json",
+      "markdown",
+      "javascript",
+      "css",
+      "c_sharp",
+      "bash",
+      "tsx",
+    }
+  }
+end)
