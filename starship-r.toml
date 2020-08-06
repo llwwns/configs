@@ -1,14 +1,15 @@
-add_newline = false
-prompt_order=["jobs", "cmd_duration", "env_var", "aws"]
+format="""
+$cmd_duration\
+$env_var\
+$aws\
+"""
 
 [aws]
-displayed_items = "profile"
-prefix = ""
+format="([$symbol$profile](yellow) )"
 
 [cmd_duration]
-prefix = ""
-style = "red"
+format = "([$duration](red) )"
 
 [env_var]
 variable = "current_docker"
-style = "blue"
+format = "([$env_value](blue) )"

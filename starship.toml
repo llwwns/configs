@@ -1,22 +1,26 @@
-add_newline = false
-prompt_order=["hostname", "directory", "git_branch", "character"]
+format="""
+$hostname\
+$directory\
+$git_branch\
+$character\
+"""
 
-[character]      # The name of the module we are configuring is "character"
-symbol = "λ"     # The "symbol" segment is being set to "➜"
-style_success = "yellow"
-style_failue = "red"
+[character]
+success_symbol = " [λ](yellow)"
+error_symbol = " [λ](red)"
+vicmd_symbol = " [λ](green)"
 
 [directory]
 truncate_to_repo = false
 fish_style_pwd_dir_length = 1
-prefix = ""
 truncation_length = 1
 style = "green"
+format = "[$path](green)"
 
 [hostname]
-ssh_only = false
-style = "red"
+ssh_only = true
+format = "[$hostname](red) "
 
 [git_branch]
 symbol = ""
-style = "blue"
+format = "( [$symbol$branch](blue))"
