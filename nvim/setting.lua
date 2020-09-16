@@ -129,7 +129,7 @@ gset_var {
   ale_statusline_format = {'⨉ %d', '⚠ %d', '⬥ ok'},
   ale_lint_on_text_changed = 'never',
   airline_powerline_fonts = 1,
-  sonokai_style = 'atlantis',
+  -- sonokai_style = 'shusia',
   sonokai_transparent_background = 0,
   airline_theme = 'sonokai',
   ['airline#extensions#tabline#enabled'] = 0,
@@ -178,6 +178,7 @@ gset_var {
   ale_fixers = {
     javascript = {'prettier'},
     typescript = {'eslint'},
+    typescriptreact = {'eslint'},
     ruby = {'rubocop'},
     go = {'gofmt'},
     rust = {'rustfmt'}
@@ -189,13 +190,13 @@ gset_var {
     -- go = {'gopls'},
     c = {'clangd'},
     cpp = {'clangd'},
-    rust = {'rls'},
+    -- rust = {'analyzer'},
     lua = {'luacheck'},
   },
   ale_fix_on_save = 1,
   ale_sign_error = '✗',
   ale_sign_warning = '!',
-  ale_cpp_gcc_options = '-std=c++14 -Wall -Wno-long-long -Wno-sign-compare',
+  ale_cpp_gcc_options = '-std=c++17 -Wall -Wno-long-long -Wno-sign-compare',
   ale_go_gofmt_options = '-s',
 
   NERDTreeDirArrows = 1,

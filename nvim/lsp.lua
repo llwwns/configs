@@ -35,7 +35,7 @@ try_require({'nvim_lsp', 'completion', 'diagnostic', 'lsp-status'}, function(lsp
   local on_attach = function(client)
     lsp_status.on_attach(client)
     completion.on_attach()
-    -- diagnostic.on_attach()
+    diagnostic.on_attach()
     command [[nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>]]
     command [[nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>]]
     command [[nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>]]
