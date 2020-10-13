@@ -148,3 +148,11 @@ try_require({'nvim-treesitter.configs'}, function(cfg)
     }
   }
 end)
+
+try_require({"nvim-treesitter.highlight"}, function(_)
+  local hlmap = vim.treesitter.highlighter.hl_map
+  --Misc
+  hlmap.error = nil
+  hlmap["punctuation.delimiter"] = "Delimiter"
+  hlmap["punctuation.bracket"] = nil
+end)

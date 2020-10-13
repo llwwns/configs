@@ -19,6 +19,8 @@ set winblend=20
 set pumblend=20
 set timeoutlen=500
 set spell
+set spelloptions=camel
+set spellcapcheck=
 
 "Highlight all search pattern matches
 set hlsearch
@@ -32,14 +34,14 @@ set whichwrap=b,s,<,>,[,]
 "set encoding=shift-jis
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312
 "setting for indent
-set shiftwidth=2
+set shiftwidth=0
 set tabstop=2
-set softtabstop=2
+set softtabstop=-1
 set expandtab
 set autoindent
 set updatetime=1000
 set signcolumn=yes
-set inccommand=split
+" set inccommand=split
 "set smarttab
 "set spell
 filetype plugin indent on
@@ -68,6 +70,8 @@ vnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 vnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 set nowrap
 
+nnoremap <PageUp> <c-u>
+nnoremap <PageDown> <c-d>
 nnoremap <up> <c-y>
 nnoremap <down> <c-e>
 nnoremap <left> zH
@@ -89,36 +93,6 @@ function! TOMLFold()
     return '0'
   endif
   return '1'
-endfunction
-
-" Set tabstop, softtabstop and shiftwidth to the same value
-command! -nargs=* Stab call Stab()
-
-function! Stab()
-  let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call SummarizeTabs()
-endfunction
-
-
-function! SummarizeTabs()
-  try
-    echohl ModeMsg
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
-    if &l:et
-      echon ' expandtab'
-    else
-      echon ' noexpandtab'
-    endif
-  finally
-    echohl None
-  endtry
 endfunction
 
 let mapleader="'"
@@ -203,13 +177,13 @@ if exists('gnvim')
   set guifont=Iosevka\ Term:h12
   set guicursor+=a:blinkon0
 elseif exists('neovide')
-  set guifont=Sarasa\ Nerd\ Font:h17
+  set guifont=Sarasa\ Nerd\ Font:h18
   " set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0.1
   nnoremap <A-CR> :execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>
 elseif exists('g:fvim_loaded')
-  FVimBackgroundOpacity 0.7
+  " FVimBackgroundOpacity 0.7
   set guifont=Sarasa\ Nerd\ Font:h18
   nnoremap <A-CR> :FVimToggleFullScreen<CR>
 else
@@ -263,7 +237,3 @@ function! Replace()
   let s:w = expand("<cword>")
   call feedkeys(":%s/".s:w."//g\<Left>\<Left>")
 endfunction
-
-highlight SpelunkerSpellBad cterm=underline ctermfg=NONE gui=underline guifg=NONE
-
-hi SpellBad gui=underline guifg=None guibg=None guisp=#848089

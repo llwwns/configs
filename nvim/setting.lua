@@ -37,7 +37,7 @@ end
 function foldtext()
   local fs = vim.api.nvim_get_vvar("foldstart")
   local fe = vim.api.nvim_get_vvar("foldend")
-  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.shiftwidth), 'g')
+  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.tabstop), 'g')
   local winSize = bufwidth()
   local lineCount = string.format("[%d lines]-----", fe - fs + 1)
   return line .. string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount)) ..
@@ -63,40 +63,52 @@ augroups {
   },
   filetypes = {
     "Filetype calendar IndentLinesDisable",
-    "FileType * setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType make setlocal ts=8 sts=8 sw=8 noexpandtab",
-    "FileType yaml setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType cpp setlocal ts=4 sts=4 sw=4 expandtab",
-    "FileType vim setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType ruby setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType coffee setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType html setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType pug setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType css setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType scss setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType lisp setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType nim setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType javascript setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType javascript.jsx setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType slim setlocal ts=2 sts=2 sw=2 expandtab",
-    "FileType go setlocal ts=2 sts=2 sw=2 noexpandtab",
-    "FileType nginx setlocal ts=4 sts=4 sw=4 noexpandtab",
+    "FileType * setlocal tabstop=2 expandtab",
+    "FileType make setlocal tabstop=8 noexpandtab",
+    "FileType yaml setlocal tabstop=2 expandtab",
+    "FileType cpp setlocal tabstop=4 expandtab",
+    "FileType vim setlocal tabstop=2 expandtab",
+    "FileType ruby setlocal tabstop=2 expandtab",
+    "FileType coffee setlocal tabstop=2 expandtab",
+    "FileType html setlocal tabstop=2 expandtab",
+    "FileType pug setlocal tabstop=2 expandtab",
+    "FileType css setlocal tabstop=2 expandtab",
+    "FileType scss setlocal tabstop=2 expandtab",
+    "FileType lisp setlocal tabstop=2 expandtab",
+    "FileType nim setlocal tabstop=2 expandtab",
+    "FileType javascript setlocal tabstop=2 expandtab",
+    "FileType javascript.jsx setlocal tabstop=2 expandtab",
+    "FileType slim setlocal tabstop=2 expandtab",
+    "FileType go setlocal tabstop=2 noexpandtab",
+    "FileType nginx setlocal tabstop=4 noexpandtab",
     "FileType csv nmap [c :RainbowAlign <CR>",
     "FileType csv nmap ]c :RainbowShrink <CR>",
     "FileType json nmap [j :call JsonBeautify() <CR>",
-    "FileType rust setlocal ts=4 sts=4 sw=4 expandtab",
+    "FileType rust setlocal tabstop=4 expandtab",
     "FileType * set formatoptions-=c",
     "FileType * set formatoptions-=r",
     "FileType * set formatoptions-=o",
     "FileType * set fdl=18",
     "FileType * set fdm=indent",
     "FileType * set fdm=indent",
-    "FileType rust set foldmethod=indent",
-    "FileType go set foldmethod=indent",
-    "FileType lua set foldmethod=indent",
-    "FileType cpp set foldmethod=indent",
-    "FileType c set foldmethod=indent",
-    "FileType json set foldmethod=indent",
+    "FileType rust set foldmethod=expr",
+    "FileType rust set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType go set foldmethod=expr",
+    "FileType go set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType lua set foldmethod=expr",
+    "FileType lua set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType cpp set foldmethod=expr",
+    "FileType cpp set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType c set foldmethod=expr",
+    "FileType c set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType javascript set foldmethod=expr",
+    "FileType javascript set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType typescript set foldmethod=expr",
+    "FileType typescript set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType typescriptreact set foldmethod=expr",
+    "FileType typescriptreact set foldexpr=nvim_treesitter#foldexpr()",
+    "FileType json set foldmethod=expr",
+    "FileType json set foldexpr=nvim_treesitter#foldexpr()",
     "FileType * set foldtext=v:lua.foldtext()",
     "FileType * set shortmess=atToOFcA",
     "FileType toml set fdm=expr",
@@ -123,6 +135,16 @@ augroups {
   highlight_yank = {
     'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'
   },
+  scrollbar_nvim = {
+    'BufEnter    * silent! lua require("scrollbar").show()',
+    'BufLeave    * silent! lua require("scrollbar").clear()',
+
+    'CursorMoved * silent! lua require("scrollbar").show()',
+    'VimResized  * silent! lua require("scrollbar").show()',
+
+    'FocusGained * silent! lua require("scrollbar").show()',
+    'FocusLost   * silent! lua require("scrollbar").clear()',
+  },
 }
 
 gset_var {
@@ -131,7 +153,8 @@ gset_var {
   airline_powerline_fonts = 1,
   -- sonokai_style = 'shusia',
   sonokai_transparent_background = 0,
-  airline_theme = 'sonokai',
+  -- airline_theme = 'sonokai',
+  airline_theme = 'moonfly',
   ['airline#extensions#tabline#enabled'] = 0,
   ale_linters_explicit = 1,
   gruvbox_contrast_dark = 'hard',
@@ -240,7 +263,8 @@ gset_var {
   rainbow_active = 1,
 }
 
-command('silent! colorscheme sonokai')
+command('silent! colorscheme moonfly')
+-- command('silent! colorscheme embark')
 local ok, colorizer = pcall(require, 'colorizer')
 if ok then
   colorizer.setup()
