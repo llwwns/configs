@@ -1,3 +1,5 @@
-GuiTabline 0
-GuiPopupmenu 0
-set guifont=Iosevka\ Term:h12
+if !exists('gnvim')
+  GuiTabline 0
+  GuiPopupmenu 0
+  set guifont=Iosevka\ Term:h12
+end

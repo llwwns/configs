@@ -1,6 +1,6 @@
 std = "lua51"
 
-read_globals = { "vim" }
+globals = { "vim" }
 
 allow_defined = true
 

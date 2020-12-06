@@ -5,6 +5,8 @@ $git_branch\
 $character\
 """
 
+add_newline = false
+
 [character]
 success_symbol = " [λ](yellow)"
 error_symbol = " [λ](red)"
