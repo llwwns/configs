@@ -1,4 +1,4 @@
-return require('packer').startup(function(use)
+require('packer').startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
   use('ryanoasis/vim-devicons' )
   use('Yggdroot/indentLine')
@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
   end
   use('tpope/vim-unimpaired')
   use{'godlygeek/tabular', opt = true, cmd = { 'Tabularize' }}
-  use{'mbbill/undotree', opt = true, cmd = { 'UndotreeShow' }}
+  -- use{'mbbill/undotree', opt = true, cmd = { 'UndotreeShow' }}
   use('maksimr/vim-jsbeautify')
   -- use('einars/js-beautify')
   use('tpope/vim-abolish')
@@ -26,7 +26,7 @@ return require('packer').startup(function(use)
   use('sheerun/vim-polyglot')
   use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
-  use('neovim/nvim-lsp')
+  use('neovim/nvim-lspconfig')
   use('haorenW1025/completion-nvim')
   use{'scrooloose/nerdtree', opt = true, cmd = { 'NERDTreeToggle', 'NERDTreeFind' }}
   use{'vim-scripts/BufOnly.vim', opt = true, cmd = {'BOnly'}}
@@ -54,21 +54,17 @@ return require('packer').startup(function(use)
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
-  use('haorenW1025/diagnostic-nvim')
   use('sainnhe/sonokai')
-  use('rhysd/git-messenger.vim')
   use{'kassio/neoterm', opt = true, cmd = {'Ttoggle'}}
-  use('wbthomason/lsp-status.nvim')
   use('AndrewRadev/bufferize.vim')
-  -- use{'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
-  use{'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey'}}
+  use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')
   use('hrsh7th/vim-vsnip-integ')
   use('luochen1990/rainbow')
   use('nvim-treesitter/nvim-treesitter')
-  -- use('lukas-reineke/indent-blankline.nvim')
-  -- use('chuling/ci_dark')
-  use('liuchengxu/space-vim-dark')
+  use('lukas-reineke/indent-blankline.nvim')
   use('bluz71/vim-moonfly-colors')
   use('Xuyuanp/scrollbar.nvim')
+  use('ChristianChiarulli/nvcode-color-schemes.vim')
+  use('simnalamburt/vim-mundo', { on = { 'MundoShow', 'MundoToggle' } })
 end)

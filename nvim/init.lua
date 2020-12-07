@@ -1,5 +1,6 @@
 config_path=vim.fn.stdpath("config")
-require("plug")
+vim.cmd [[packadd packer.nvim]]
+require("packers")
 require("setting")
 require("lsp")
 
