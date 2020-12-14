@@ -21,19 +21,18 @@ try_require({'lspconfig', 'completion'}, function(lsp, completion)
       vim.lsp.buf.rename(r)
     end
   end
-  local command = vim.api.nvim_command
 
   local on_attach = function(client)
     completion.on_attach()
-    command [[nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>]]
-    command [[nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>]]
-    command [[nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>]]
-    -- command [[nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>]]
-    command [[nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>]]
-    command [[nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>]]
-    command [[nnoremap <buffer> <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>]]
-    command [[nnoremap <buffer> <silent> <leader>rn <cmd>call v:lua.lsp_rename()<CR>]]
-    command [[nnoremap <buffer> <silent> <leader>rp <cmd>call Replace()<CR>]]
+    vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })
+    -- vim.api.nvim_buf_set_keymap(0, "n", "<c-k>", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<leader>rn", "<cmd>call v:lua.lsp_rename()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<leader>rp", "<cmd>call v:lua.replace()<CR>", { noremap = true, silent = true })
   end
   lsp.clangd.setup{
     on_attach=on_attach,
@@ -95,6 +94,7 @@ try_require({'nvim-treesitter.configs'}, function(cfg)
       "bash",
       "tsx",
       "graphql",
+      "erlang"
     },
   }
 end)

@@ -68,7 +68,7 @@ function toggleNERDTree()
 
 function replace()
   w = vim.fn.expand("<cword>")
-  vim.cmd([[call feedkeys(":%s/]] .. w .. [[//g\<Left>\<Left>")]])
+  vim.cmd([[call feedkeys(":%s/]] .. w .. [[/]] .. w .. [[/g\<Left>\<Left>")]])
 end
 
 tomlr = vim.regex([[^($|\[)]])
@@ -172,16 +172,6 @@ augroups {
   highlight_yank = {
     'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'
   },
-  scrollbar_nvim = {
-    'BufEnter    * silent! lua require("scrollbar").show()',
-    'BufLeave    * silent! lua require("scrollbar").clear()',
-
-    'CursorMoved * silent! lua require("scrollbar").show()',
-    'VimResized  * silent! lua require("scrollbar").show()',
-
-    'FocusGained * silent! lua require("scrollbar").show()',
-    'FocusLost   * silent! lua require("scrollbar").clear()',
-  },
 }
 -- options
 if vim.fn.has('multi_lang') then
@@ -194,7 +184,9 @@ vim.o.pumblend = 20
 vim.o.timeoutlen = 500
 vim.wo.spell = true
 vim.o.spelloptions = "camel"
+vim.bo.spelloptions = "camel"
 vim.o.spellcapcheck = ""
+vim.bo.spellcapcheck = ""
 vim.o.hlsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -213,8 +205,11 @@ vim.o.fileencodings = "utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312"
 vim.o.shiftwidth = 0
 vim.o.tabstop = 2
 vim.o.softtabstop = -1
+vim.bo.shiftwidth = 0
+vim.bo.tabstop = 2
+vim.bo.softtabstop = -1
 vim.o.expandtab = true
-vim.o.autoindent = true
+vim.o.autoindent = false
 vim.o.updatetime = 1000
 vim.wo.signcolumn = "yes"
 vim.o.inccommand = "nosplit"
@@ -339,7 +334,6 @@ vim.g.ale_go_gofmt_options = '-s'
 vim.g.NERDTreeDirArrows = 1
 vim.g.NERDTreeDirArrowExpandable = '▶'
 vim.g.NERDTreeDirArrowCollapsible = '▼'
-vim.g.polyglot_disabled = {'csv', 'ruby'}
 
 vim.g.extra_whitespace_ignored_filetypes = {'calendar'}
 vim.g.calendar_google_calendar = 1
@@ -469,7 +463,7 @@ vim.api.nvim_set_keymap("n", "<A-j>", "<C-w>j", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-k>", "<C-w>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-l>", "<C-w>l", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<lcader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>", { noremap = true, silent = true })
 
 -- cmap <c-v> <c-r>
