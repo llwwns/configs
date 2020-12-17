@@ -27,7 +27,8 @@ require('packer').startup(function(use)
   use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
   use('neovim/nvim-lspconfig')
-  use('haorenW1025/completion-nvim')
+  use('nvim-lua/completion-nvim')
+  use('nvim-lua/lsp_extensions.nvim')
   use{'scrooloose/nerdtree', opt = true, cmd = { 'NERDTreeToggle', 'NERDTreeFind' }}
   use{'vim-scripts/BufOnly.vim', opt = true, cmd = {'BOnly'}}
   use('dbeniamine/todo.txt-vim')

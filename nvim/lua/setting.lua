@@ -54,8 +54,8 @@ end
 
 function toggleNERDTree()
     if vim.fn.exists('g:NERDTree') == 0 or
-      vim.api.nvim_exec("echo g:NERDTree.ExistsForTab()", true) == 0 or
-      vim.api.nvim_exec("echo g:NERDTree.IsOpen()", true) == 0 then
+      vim.api.nvim_exec("echo g:NERDTree.ExistsForTab()", true) == "0" or
+      vim.api.nvim_exec("echo g:NERDTree.IsOpen()", true) == "0" then
       if vim.fn.expand('%:p') == "" then
         vim.cmd("NERDTreeToggle")
       else
@@ -172,6 +172,9 @@ augroups {
   highlight_yank = {
     'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'
   },
+  rust = {
+    [[BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]]
+  }
 }
 -- options
 if vim.fn.has('multi_lang') then
@@ -506,7 +509,7 @@ elseif vim.fn.exists('neovide') == 1 then
   -- set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   vim.g.neovide_cursor_animation_length=0.05
   vim.g.neovide_cursor_trail_length=0.1
-  -- nnoremap <A-CR> :execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>
+  vim.api.nvim_set_keymap("n", "<A-CR>", [[:execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>]], { noremap = true })
 elseif vim.fn.exists('g:fvim_loaded') == 1 then
   -- FVimBackgroundOpacity 0.7
   vim.o.guifont="Sarasa Nerd Font:h18"
