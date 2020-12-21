@@ -17,15 +17,15 @@ require('packer').startup(function(use)
   use('tpope/vim-abolish')
   use('tpope/vim-surround')
   use('wellle/targets.vim')
-  use('mattn/emmet-vim')
+  use{'mattn/emmet-vim', opt = true, keys = {{'i', '<c-y>,'}}}
   use{'FooSoft/vim-argwrap', opt = true, cmd = {'ArgWrap'}}
-  use('leafgarland/typescript-vim')
-  use('ianks/vim-tsx')
-  use('junegunn/vim-easy-align')
+  use{'leafgarland/typescript-vim', opt = true, ft = {'typescript', 'typescript.tsx'}}
+  use{'ianks/vim-tsx', opt = true, ft = {'typescript', 'typescript.tsx'}}
+  use{'junegunn/vim-easy-align', opt = true, keys = {'<Plug>(EasyAlign)'}}
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
   use('vim-airline/vim-airline')
-  use('AndrewRadev/deleft.vim')
+  use{'AndrewRadev/deleft.vim', opt = true, keys = {'dh'}}
   use('neovim/nvim-lspconfig')
   use('nvim-lua/completion-nvim')
   use('nvim-lua/lsp_extensions.nvim')
@@ -48,16 +48,16 @@ require('packer').startup(function(use)
   -- use('tyrannicaltoucan/vim-quantum')
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
-  use('junegunn/fzf.vim')
+  use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
   -- use('whatyouhide/vim-gotham')
   use{'rhysd/try-colorscheme.vim', opt = true, cmd = {'TryColorscheme'}}
   use('airblade/vim-gitgutter')
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
-  use('sainnhe/sonokai')
+  -- use('sainnhe/sonokai')
   use{'kassio/neoterm', opt = true, cmd = {'Ttoggle'}}
-  use('AndrewRadev/bufferize.vim')
+  use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')
   use('hrsh7th/vim-vsnip-integ')
@@ -68,4 +68,8 @@ require('packer').startup(function(use)
   use('dstein64/nvim-scrollview')
   use('ChristianChiarulli/nvcode-color-schemes.vim')
   use('simnalamburt/vim-mundo', { on = { 'MundoShow', 'MundoToggle' } })
+  -- use('nvim-telescope/telescope.nvim')
+  -- use('nvim-lua/popup.nvim')
+  -- use('nvim-lua/plenary.nvim')
+  -- use('kyazdani42/nvim-web-devicons')
 end)
