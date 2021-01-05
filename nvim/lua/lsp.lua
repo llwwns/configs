@@ -1,18 +1,6 @@
-function try_require(tbl, func)
-  res = {}
-  for i, pkg in ipairs(tbl) do
-    local s, r = pcall(require, pkg)
-    if s then
-      res[i] = r
-    else
-      print("failed require "..pkg)
-      return
-    end
-  end
-  func(unpack(res))
-end
+local try_require = require("util").try_require
 
-try_require({'lspconfig', 'completion'}, function(lsp, completion)
+try_require({'lspconfig', 'completion', 'lspconfig/configs', 'lspconfig/util'}, function(lsp, completion, configs, util)
   function lsp_rename()
     local w = vim.fn.expand("<cword>")
     vim.fn.inputsave()
@@ -57,6 +45,21 @@ try_require({'lspconfig', 'completion'}, function(lsp, completion)
     deepCompletion = false,
     on_attach = on_attach,
   }
+
+  configs.erlang_ls = {
+    default_config = {
+      cmd = {"erlang_ls"};
+      filetypes = {"erlang"};
+      root_dir = util.root_pattern(".git");
+    };
+    docs = {
+      description = [[ test ]];
+      default_config = {
+        root_dir = [[root_pattern(".git")]];
+      };
+    };
+  }
+  lsp.erlang_ls.setup{on_attach=on_attach}
   function stop_lsp()
     vim.lsp.stop_client(vim.lsp.get_active_clients())
   end
@@ -65,44 +68,4 @@ try_require({'lspconfig', 'completion'}, function(lsp, completion)
       update_in_insert = false,
     }
   )
-end)
-
-try_require({'nvim-treesitter.configs'}, function(cfg)
-  cfg.setup {
-    highlight = {
-        enable = true,
-    },
-    ensure_installed = {
-      "html",
-      "typescript",
-      "regex",
-      "c",
-      "python",
-      "yaml",
-      "cpp",
-      "toml",
-      "lua",
-      "ruby",
-      "go",
-      "haskell",
-      "rust",
-      "json",
-      "jsdoc",
-      "javascript",
-      "css",
-      "c_sharp",
-      "bash",
-      "tsx",
-      "graphql",
-      "erlang"
-    },
-  }
-end)
-
-try_require({"nvim-treesitter.highlight"}, function(_)
-  local hlmap = vim.treesitter.highlighter.hl_map
-  --Misc
-  hlmap.error = nil
-  hlmap["punctuation.delimiter"] = "Delimiter"
-  hlmap["punctuation.bracket"] = nil
 end)

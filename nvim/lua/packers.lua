@@ -21,11 +21,11 @@ require('packer').startup(function(use)
   use{'FooSoft/vim-argwrap', opt = true, cmd = {'ArgWrap'}}
   use{'leafgarland/typescript-vim', opt = true, ft = {'typescript', 'typescript.tsx'}}
   use{'ianks/vim-tsx', opt = true, ft = {'typescript', 'typescript.tsx'}}
-  use{'junegunn/vim-easy-align', opt = true, keys = {'<Plug>(EasyAlign)'}}
+  use('junegunn/vim-easy-align')
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
   use('vim-airline/vim-airline')
-  use{'AndrewRadev/deleft.vim', opt = true, keys = {'dh'}}
+  use('AndrewRadev/deleft.vim')
   use('neovim/nvim-lspconfig')
   use('nvim-lua/completion-nvim')
   use('nvim-lua/lsp_extensions.nvim')
@@ -51,7 +51,7 @@ require('packer').startup(function(use)
   use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
   -- use('whatyouhide/vim-gotham')
   use{'rhysd/try-colorscheme.vim', opt = true, cmd = {'TryColorscheme'}}
-  use('airblade/vim-gitgutter')
+  -- use('airblade/vim-gitgutter')
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
@@ -68,6 +68,8 @@ require('packer').startup(function(use)
   use('dstein64/nvim-scrollview')
   use('ChristianChiarulli/nvcode-color-schemes.vim')
   use('simnalamburt/vim-mundo', { on = { 'MundoShow', 'MundoToggle' } })
+  use('lewis6991/gitsigns.nvim')
+  use('nvim-lua/plenary.nvim')
   -- use('nvim-telescope/telescope.nvim')
   -- use('nvim-lua/popup.nvim')
   -- use('nvim-lua/plenary.nvim')
