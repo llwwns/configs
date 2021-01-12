@@ -1,4 +1,17 @@
-require('packer').startup(function(use)
+local startup
+if not pcall(function()
+  vim.cmd [[packadd packer.nvim]]
+  startup = require('packer').startup
+end) then
+  local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.cmd('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  end
+  vim.cmd [[packadd packer.nvim]]
+  startup = require('packer').startup
+end
+
+startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
   use('ryanoasis/vim-devicons' )
   use('Yggdroot/indentLine')
@@ -56,7 +69,7 @@ require('packer').startup(function(use)
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
   -- use('sainnhe/sonokai')
-  use{'kassio/neoterm', opt = true, cmd = {'Ttoggle'}}
+  use{'kassio/neoterm', opt = true, cmd = {'Ttoggle', 'T'}}
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')

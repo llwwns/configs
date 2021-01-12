@@ -7,7 +7,7 @@ $aws\
 """
 
 [aws]
-format="([$symbol$profile](yellow) )"
+format="([$profile](yellow) )"
 
 [cmd_duration]
 format = "([$duration](red) )"
