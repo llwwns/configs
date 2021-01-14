@@ -13,7 +13,7 @@ end
 
 startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
-  use('ryanoasis/vim-devicons' )
+  use('ryanoasis/vim-devicons')
   use('Yggdroot/indentLine')
   use('tpope/vim-fugitive')
   use('mg979/vim-visual-multi')
@@ -24,16 +24,12 @@ startup(function(use)
   end
   use('tpope/vim-unimpaired')
   use{'godlygeek/tabular', opt = true, cmd = { 'Tabularize' }}
-  -- use{'mbbill/undotree', opt = true, cmd = { 'UndotreeShow' }}
   use('maksimr/vim-jsbeautify')
-  -- use('einars/js-beautify')
   use('tpope/vim-abolish')
   use('tpope/vim-surround')
   use('wellle/targets.vim')
   use{'mattn/emmet-vim', opt = true, keys = {{'i', '<c-y>,'}}}
   use{'FooSoft/vim-argwrap', opt = true, cmd = {'ArgWrap'}}
-  use{'leafgarland/typescript-vim', opt = true, ft = {'typescript', 'typescript.tsx'}}
-  use{'ianks/vim-tsx', opt = true, ft = {'typescript', 'typescript.tsx'}}
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
@@ -63,8 +59,6 @@ startup(function(use)
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
   -- use('whatyouhide/vim-gotham')
-  use{'rhysd/try-colorscheme.vim', opt = true, cmd = {'TryColorscheme'}}
-  -- use('airblade/vim-gitgutter')
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
@@ -76,15 +70,10 @@ startup(function(use)
   use('hrsh7th/vim-vsnip-integ')
   use('luochen1990/rainbow')
   use('nvim-treesitter/nvim-treesitter')
-  use('lukas-reineke/indent-blankline.nvim')
   use('bluz71/vim-moonfly-colors')
   use('dstein64/nvim-scrollview')
   use('ChristianChiarulli/nvcode-color-schemes.vim')
   use('simnalamburt/vim-mundo', { on = { 'MundoShow', 'MundoToggle' } })
   use('lewis6991/gitsigns.nvim')
   use('nvim-lua/plenary.nvim')
-  -- use('nvim-telescope/telescope.nvim')
-  -- use('nvim-lua/popup.nvim')
-  -- use('nvim-lua/plenary.nvim')
-  -- use('kyazdani42/nvim-web-devicons')
 end)

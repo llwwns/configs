@@ -5,6 +5,9 @@ try_require({'nvim-treesitter.configs'}, function(cfg)
     highlight = {
         enable = true,
     },
+    indent = {
+        enable = true,
+    },
     ensure_installed = {
       "html",
       "typescript",
