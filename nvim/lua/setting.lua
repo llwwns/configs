@@ -91,7 +91,8 @@ vim.g.airline_powerline_fonts = 1
 -- vim.g.sonokai_style = 'shusia',
 vim.g.sonokai_transparent_background = 0
 -- airline_theme = 'sonokai'
-vim.g.airline_theme = 'moonfly'
+-- vim.g.airline_theme = 'moonfly'
+vim.g.airline_theme = 'nightfly'
 -- airline_theme = 'onedark'
 vim.g['airline#extensions#tabline#enabled'] = 0
 vim.g.ale_linters_explicit = 1
@@ -152,6 +153,7 @@ vim.g.ale_fixers = {
 vim.g.ale_linters = {
   javascript = {'eslint'},
   typescript = {'eslint'},
+  typescriptreact = {'eslint'},
   ruby = {'rubocop'},
   -- go = {'gopls'},
   c = {'clangd'},
@@ -215,7 +217,8 @@ vim.g.rainbow_active = 1
 vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = '~'
 
-vim.cmd('silent! colorscheme moonfly')
+-- vim.cmd('silent! colorscheme moonfly')
+vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')
 -- vim.cmd('silent! colorscheme onedark')
 -- vim.cmd('silent! colorscheme embark')
