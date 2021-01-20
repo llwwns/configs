@@ -1,4 +1,5 @@
-vim.cmd([[command! -bang -nargs=* Rg AsyncRun rg --vimgrep <args>]])
+-- vim.cmd([[command! -bang -nargs=* Rg AsyncRun! rg --vimgrep <args>]])
+vim.cmd([[command! -bang -nargs=* Rg grep <args> | copen]])
 vim.cmd([[command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>]])
 vim.cmd([[command! -nargs=1 Z execute("cd ".system('zoxide query <args>'))]])
 vim.cmd([[command! Lcd lcd %:h]])
