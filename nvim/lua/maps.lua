@@ -59,8 +59,8 @@ vim.api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { ex
 
 -- nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 -- nmap <silent> <C-j> <Plug>(ale_next_wrap)
-vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", {})
-vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {})
 
 vim.api.nvim_set_keymap("t", "<C-[><C-[>", "<C-\\><C-n>", { noremap = true })
 vim.api.nvim_set_keymap("t", "<A-h>", "<C-\\><C-n><C-w>h", { noremap = true })

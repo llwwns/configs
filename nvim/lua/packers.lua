@@ -33,10 +33,12 @@ startup(function(use)
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
-  use('vim-airline/vim-airline')
+  -- use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
-  use('neovim/nvim-lspconfig')
-  use('nvim-lua/completion-nvim')
+  use{'neovim/nvim-lspconfig',
+    requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
+    config = function() require'lsp_init' end,
+  }
   use('nvim-lua/lsp_extensions.nvim')
   use{'scrooloose/nerdtree', opt = true, cmd = { 'NERDTreeToggle', 'NERDTreeFind' }}
   use{'vim-scripts/BufOnly.vim', opt = true, cmd = {'BOnly'}}
@@ -69,7 +71,9 @@ startup(function(use)
   use('hrsh7th/vim-vsnip')
   use('hrsh7th/vim-vsnip-integ')
   use('luochen1990/rainbow')
-  use('nvim-treesitter/nvim-treesitter')
+  use{'nvim-treesitter/nvim-treesitter',
+    config = function() require'treesitter_init' end
+  }
   use('bluz71/vim-moonfly-colors')
   use('dstein64/nvim-scrollview')
   use('ChristianChiarulli/nvcode-color-schemes.vim')
@@ -78,4 +82,12 @@ startup(function(use)
   use('nvim-lua/plenary.nvim')
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
+  use{'glepnir/galaxyline.nvim',
+    branch = 'main',
+    -- your statusline
+    config = function() require'status' end,
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+
 end)
+
