@@ -65,7 +65,7 @@ startup(function(use)
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
   -- use('sainnhe/sonokai')
-  use{'kassio/neoterm', opt = true, cmd = {'Ttoggle', 'T'}}
+  -- use{'kassio/neoterm', opt = true, cmd = {'Ttoggle', 'T'}}
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')
@@ -82,6 +82,7 @@ startup(function(use)
   use('nvim-lua/plenary.nvim')
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
+  use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
   use{'glepnir/galaxyline.nvim',
     branch = 'main',
     -- your statusline
