@@ -85,9 +85,8 @@ startup(function(use)
   use{'glepnir/galaxyline.nvim',
     branch = 'main',
     -- your statusline
-    config = function() require'status' end,
+    config = function() require'status_b' end,
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
-
 end)
 

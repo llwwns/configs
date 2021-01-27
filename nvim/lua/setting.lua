@@ -67,6 +67,7 @@ vim.o.exrc = true
 vim.o.secure = true
 vim.o.hidden = true
 vim.o.tags="./tags,tags;/"
+local config_path=vim.fn.stdpath("config")
 vim.o.spellfile=config_path .. "/spell/en.utf-8.add"
 
 vim.cmd("filetype plugin indent on")

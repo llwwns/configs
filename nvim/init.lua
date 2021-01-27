@@ -1,4 +1,3 @@
-config_path=vim.fn.stdpath("config")
 vim.g.polyglot_disabled = {'csv', 'ruby'}
 require("packers")
 require("globals")
