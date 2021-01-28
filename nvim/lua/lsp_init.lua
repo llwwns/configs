@@ -1,6 +1,17 @@
 print("test")
 local lsp = require('lspconfig')
-local completion = require('completion')
+-- local completion = require('completion')
+require'compe'.setup {
+  enabled = true;
+  source = {
+    path = true;
+    buffer = true;
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+  };
+}
+
 local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
 
@@ -14,7 +25,7 @@ function lsp_rename()
 end
 
 local on_attach = function(client)
-  completion.on_attach()
+  -- completion.on_attach()
   vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })

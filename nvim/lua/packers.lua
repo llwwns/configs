@@ -33,10 +33,11 @@ startup(function(use)
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
-  -- use('vim-airline/vim-airline')
+  use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
   use{'neovim/nvim-lspconfig',
-    requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
+    -- requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
+    requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true},
     config = function() require'lsp_init' end,
   }
   use('nvim-lua/lsp_extensions.nvim')
@@ -83,11 +84,5 @@ startup(function(use)
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
   use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
-  use{'glepnir/galaxyline.nvim',
-    branch = 'main',
-    -- your statusline
-    config = function() require'status_b' end,
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
 end)
 
