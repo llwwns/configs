@@ -30,11 +30,11 @@ vim.o.background="dark"
 vim.o.backspace = "indent,eol,start"
 --allow cursor go to next line
 vim.o.whichwrap = "b,s,<,>,[,]"
-if vim.fn.exists('+termguicolors') == 1 then
-  vim.o["t_8f"] = "\\<Esc>[38;2;%lu;%lu;%lum"
-  vim.o["t_8b"] = "\\<Esc>[48;2;%lu;%lu;%lum"
-  vim.o.termguicolors = true
-end
+-- if vim.fn.exists('+termguicolors') == 1 then
+--   vim.o["t_8f"] = "\\<Esc>[38;2;%lu;%lu;%lum"
+--   vim.o["t_8b"] = "\\<Esc>[48;2;%lu;%lu;%lum"
+-- end
+vim.o.termguicolors = true
 vim.o.fileencodings = "utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312"
 
 vim.o.shiftwidth = 0
@@ -48,7 +48,6 @@ vim.o.autoindent = false
 vim.o.updatetime = 1000
 vim.wo.signcolumn = "yes"
 vim.o.inccommand = "nosplit"
-vim.o.completeopt = "longest,menu"
 -- vim.o.grepprg = "git grep -I --line-number --no-color -E"
 vim.o.grepprg = "rg --vimgrep"
 vim.wo.wrap = false
@@ -58,7 +57,8 @@ vim.wo.list = true
 vim.o.listchars = "tab:¦ ,eol:¬,extends:»,precedes:«"
 -- vim.o.smarttab = true
 -- Set completeopt to have a better completion experience
-vim.o.completeopt="menuone,noinsert,noselect"
+vim.o.completeopt="menuone,noselect"
+-- vim.o.completeopt = "longest,menu"
 vim.o.shortmess="atToOFcA"
 vim.o.sessionoptions = "blank,curdir,folds,tabpages"
 vim.o.fillchars = "vert:│"
@@ -140,7 +140,7 @@ vim.g.completion_trigger_character = {'.', '::', '->'}
 
 
 vim.g.neoterm_default_mod = 'belowright'
-vim.g.neoterm_size = '13'
+vim.g.neoterm_size = '7'
 
 vim.g.disable_key_mappings = 1
 
@@ -218,6 +218,7 @@ vim.g.rainbow_active = 1
 -- vim.g["airline#extensions#tabline#enabled"] = 1
 vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = '~'
+-- vim.g.minimap_auto_start = 1
 
 -- vim.cmd('silent! colorscheme moonfly')
 vim.cmd('silent! colorscheme nightfly')

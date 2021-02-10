@@ -9,6 +9,7 @@ require'compe'.setup {
     vsnip = true;
     nvim_lsp = true;
     nvim_lua = true;
+    treesitter = true;
   };
 }
 
