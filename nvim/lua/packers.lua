@@ -33,7 +33,7 @@ startup(function(use)
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
   use('sheerun/vim-polyglot')
-  -- use('vim-airline/vim-airline')
+  use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
   use{'neovim/nvim-lspconfig',
     -- requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
@@ -85,10 +85,9 @@ startup(function(use)
   use('kevinhwang91/nvim-bqf')
   use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
   use{'onsails/lspkind-nvim', config = function() require'lspkind'.init() end, }
-  use {
-    'glepnir/galaxyline.nvim',
-      branch = 'main',
-      config = function() require'status' end,
-  }
+  -- use {
+  --   'glepnir/galaxyline.nvim',
+  --     branch = 'main',
+  --     config = function() require'status' end,
+  -- }
 end)
-
