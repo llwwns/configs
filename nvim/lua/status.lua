@@ -31,10 +31,7 @@ end
 section.left = {
   {
     FirstElement = {
-      -- provider = function() return '▊ ' end,
-      provider = function()
-        return "  "
-      end,
+      provider = function() return "  " end,
       highlight = {nord_colors.blue, nord_colors.line_bg}
     }
   }, {
@@ -64,22 +61,21 @@ section.left = {
           t = nord_colors.red
         }
         cmd("hi GalaxyViMode guifg=" .. mode_color[fn.mode()])
-        return " "..vim.fn.mode().." "
+        return vim.fn.mode()
       end,
+      separator = " ",
       highlight = {nord_colors.red, nord_colors.line_bg, "bold"}
     }
   }, {
     Paste = {
-      -- provider = "FileName",
       provider = function() return "paste" end,
-      condition = function() return not not vim.o.paste end,
+      condition = function() return vim.o.paste end,
       separator = " ",
       separator_highlight = {nord_colors.purple, nord_colors.bg},
       highlight = {nord_colors.red, nord_colors.line_bg, "bold"}
     }
   }, {
     FileName = {
-      -- provider = "FileName",
       provider = function()
         return fn.expand("%:F")
       end,
@@ -104,55 +100,49 @@ section.left = {
       separator_highlight = {nord_colors.purple, nord_colors.bg},
       highlight = {nord_colors.orange, nord_colors.line_bg, "bold"}
     }
+  }, {
+    FileFormat = {
+      provider = function() return vim.bo.filetype end,
+      separator = ' ',
+      highlight = { nord_colors.blue, nord_colors.line_bg },
+    },
   }
 }
-
-local checkwidth = function()
-  local squeeze_width = fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
 
 section.right = {
   {
     DiffAdd = {
       provider = "DiffAdd",
-      condition = checkwidth,
       icon = " ",
+      separator = " ",
+      separator_highlight = {nord_colors.purple, nord_colors.bg},
       highlight = {nord_colors.green, nord_colors.line_bg}
     }
   }, {
     DiffModified = {
       provider = "DiffModified",
-      condition = checkwidth,
-      icon = "柳",
+      icon = "柳 ",
+      separator = " ",
+      separator_highlight = {nord_colors.purple, nord_colors.bg},
       highlight = {nord_colors.yellow, nord_colors.line_bg}
     }
   }, {
     DiffRemove = {
       provider = "DiffRemove",
-      condition = checkwidth,
       icon = " ",
+      separator = " ",
+      separator_highlight = {nord_colors.purple, nord_colors.bg},
       highlight = {nord_colors.red, nord_colors.line_bg}
     }
   }, {
   LineInfo = {
     provider = "LineColumn",
-    separator = "",
+    separator = " ",
+    icon= "☰ ",
     separator_highlight = {nord_colors.blue, nord_colors.line_bg},
     highlight = {nord_colors.gray, nord_colors.line_bg}
   }
 },{
---   FileSize = {
---     provider = "FileSize",
---     separator = " ",
---     condition = buffer_not_empty,
---     separator_highlight = {nord_colors.blue, nord_colors.line_bg},
---     highlight = {nord_colors.fg, nord_colors.line_bg}
---   }
--- }, {
     DiagnosticError = {
       provider = "DiagnosticError",
       separator = " ",
@@ -163,14 +153,14 @@ section.right = {
   }, {
     DiagnosticWarn = {
       provider = "DiagnosticWarn",
-      -- separator = " ",
+      separator = " ",
       icon = " ",
       highlight = {nord_colors.yellow, nord_colors.line_bg},
       separator_highlight = {nord_colors.bg, nord_colors.bg}
     }
   }, {
     DiagnosticInfo = {
-      -- separator = " ",
+      separator = " ",
       provider = "DiagnosticInfo",
       icon = " ",
       highlight = {nord_colors.green, nord_colors.line_bg},
@@ -179,7 +169,7 @@ section.right = {
   }, {
     DiagnosticHint = {
       provider = "DiagnosticHint",
-      -- separator = " ",
+      separator = " ",
       icon = " ",
       highlight = {nord_colors.blue, nord_colors.line_bg},
       separator_highlight = {nord_colors.bg, nord_colors.bg}

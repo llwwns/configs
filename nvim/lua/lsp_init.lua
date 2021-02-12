@@ -1,4 +1,3 @@
-print("test")
 local lsp = require('lspconfig')
 -- local completion = require('completion')
 require'compe'.setup {
@@ -10,6 +9,7 @@ require'compe'.setup {
     nvim_lsp = true;
     nvim_lua = true;
     treesitter = true;
+    vim_dadbod_completion = true;
   };
 }
 
