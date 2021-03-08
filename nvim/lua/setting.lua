@@ -232,25 +232,13 @@ vim.cmd('silent! colorscheme nightfly')
 try_require({'colorizer'}, function(colorizer)
   colorizer.setup()
 end)
-try_require({'gitsigns'}, function(gitsigns)
-  gitsigns.setup({
-    numhl = true,
-    signs = {
-      add          = {hl = 'GitGutterAdd', text = '+', numhl='GitGutterAdd'},
-      change       = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
-      delete       = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
-      topdelete    = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
-      changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
-    },
-  })
-end)
 
 -- guis
 if vim.fn.exists('gnvim') == 1 then
-  vim.o.guifont="Iosevka Term:h12"
+  vim.o.guifont="Iosevka Fixed:h12"
   vim.o.guicursor = vim.o.guicursor .. ",a:blinkon0"
 elseif vim.fn.exists('neovide') == 1 then
-  vim.o.guifont="Sarasa Nerd Font:h18"
+  vim.o.guifont="Sarasa Nerd Font Mono:h18"
   -- set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   vim.g.neovide_cursor_animation_length=0.05
   vim.g.neovide_cursor_trail_length=0.1

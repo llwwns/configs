@@ -60,15 +60,15 @@ startup(function(use)
   -- use('tyrannicaltoucan/vim-quantum')
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
-  -- use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-    -- opt = true,
-    -- cmd = { "Telescope" },
-    config = function() require'telescope_init' end
-  }
-  use('whatyouhide/vim-gotham')
+  use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
+  -- use {
+  --   'nvim-telescope/telescope.nvim',
+  --   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+  --   -- opt = true,
+  --   -- cmd = { "Telescope" },
+  --   config = function() require'telescope_init' end
+  -- }
+  -- use('whatyouhide/vim-gotham')
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
@@ -86,7 +86,18 @@ startup(function(use)
   use('dstein64/nvim-scrollview')
   use('ChristianChiarulli/nvcode-color-schemes.vim')
   use('simnalamburt/vim-mundo', { on = { 'MundoShow', 'MundoToggle' } })
-  use('lewis6991/gitsigns.nvim')
+  use{'lewis6991/gitsigns.nvim',  requires = { 'nvim-lua/plenary.nvim' }, config = function()
+      require('gitsigns').setup({
+        numhl = true,
+        signs = {
+          add          = {hl = 'GitGutterAdd', text = '+', numhl='GitGutterAdd'},
+          change       = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
+          delete       = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
+          topdelete    = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
+          changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
+        },
+      })
+  end}
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
   use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
