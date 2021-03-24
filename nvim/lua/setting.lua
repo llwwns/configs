@@ -54,7 +54,7 @@ vim.wo.wrap = false
 vim.o.display = "lastline"
 vim.o.pumheight = 10
 vim.wo.list = true
-vim.o.listchars = "tab:¦ ,eol:¬,extends:»,precedes:«"
+vim.o.listchars = "tab:|-,eol:¬,extends:»,precedes:«"
 -- vim.o.smarttab = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt="menuone,noselect"
@@ -211,7 +211,8 @@ vim.g.firenvim_config = {
 
 vim.g.asyncrun_auto = 'asyncrun'
 vim.g.indentLine_conceallevel = 2
-vim.g.indent_blankline_char = '¦'
+-- vim.g.indent_blankline_char = '¦'
+vim.g.indent_blankline_char = '│'
 vim.g.vim_json_conceal = 0
 vim.g.vim_markdown_conceal = 0
 vim.g.vim_markdown_conceal_code_blocks = 0

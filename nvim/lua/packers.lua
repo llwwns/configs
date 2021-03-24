@@ -14,7 +14,8 @@ end
 startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
   use('ryanoasis/vim-devicons')
-  use('Yggdroot/indentLine')
+  -- use('Yggdroot/indentLine')
+  use{'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
   use('tpope/vim-fugitive')
   use('mg979/vim-visual-multi')
   use('easymotion/vim-easymotion')
@@ -101,5 +102,36 @@ startup(function(use)
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
   use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
-  use{'onsails/lspkind-nvim', config = function() require'lspkind'.init() end, }
-end)
+  use{'onsails/lspkind-nvim', config = function()
+    require'lspkind'.init({
+      with_text = true,
+      symbol_map = {
+        Text = '  ',
+        Method = '  ',
+        Function = '  ',
+        Constructor = '  ',
+        Variable = '[]',
+        Class = ' פּ ',
+        Interface = ' 蘒',
+        Module = '  ',
+        Property = '  ',
+        Unit = ' 塞 ',
+        Value = '  ',
+        Enum = ' 練',
+        Keyword = '  ',
+        Snippet = '  ',
+        Color = '  ',
+        File = '  ',
+        Folder = ' ﱮ ',
+        EnumMember = '  ',
+        Constant = '  ',
+        Struct = '  ',
+        Field = '  ',
+        TypeParameter = '<>',
+          Event = ' 練',
+          Operator = '  ',
+          Reference = '  ',
+        },
+    })
+    end}
+  end)

@@ -16,7 +16,7 @@ augroups {
     "BufLeave,FocusLost,InsertEnter * set norelativenumber",
   },
   filetypes = {
-    "Filetype calendar IndentLinesDisable",
+    -- "Filetype calendar IndentLinesDisable",
     "FileType * setlocal tabstop=2 expandtab",
     "FileType make setlocal tabstop=8 noexpandtab",
     "FileType yaml setlocal tabstop=2 expandtab",
@@ -76,7 +76,7 @@ augroups {
     'BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif',
     "Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>",
     "Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>",
-    "TermOpen * IndentLinesDisable",
+    -- "TermOpen * IndentLinesDisable",
   },
   asyncrun = {
     "QuickFixCmdPost asyncrun botright copen 8",
