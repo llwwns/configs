@@ -28,7 +28,8 @@ cfg.setup {
     "bash",
     "tsx",
     "graphql",
-    "erlang"
+    "erlang",
+    "jsonc"
   },
 }
 

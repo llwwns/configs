@@ -225,11 +225,13 @@ vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = '~'
 -- vim.g.minimap_auto_start = 1
 
+vim.g.tokyonight_style = "night"
 -- vim.cmd('silent! colorscheme moonfly')
-vim.cmd('silent! colorscheme nightfly')
+-- vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')
 -- vim.cmd('silent! colorscheme onedark')
 -- vim.cmd('silent! colorscheme embark')
+vim.cmd('silent! colorscheme tokyonight')
 try_require({'colorizer'}, function(colorizer)
   colorizer.setup()
 end)

@@ -134,4 +134,6 @@ startup(function(use)
         },
     })
     end}
+  use{'romgrk/nvim-treesitter-context', opt = true, cmd = { 'TSContextEnable' }}
+  use('folke/tokyonight.nvim')
   end)
