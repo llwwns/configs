@@ -136,4 +136,6 @@ startup(function(use)
     end}
   use{'romgrk/nvim-treesitter-context', opt = true, cmd = { 'TSContextEnable' }}
   use('folke/tokyonight.nvim')
+  use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
+  use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
   end)

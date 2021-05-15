@@ -14,8 +14,8 @@ if vim.fn.has('multi_lang') then
 end
 vim.o.encoding = "utf-8"
 vim.o.laststatus = 2
-vim.wo.winblend = 20
-vim.o.pumblend = 20
+-- vim.wo.winblend = 20
+-- vim.o.pumblend = 20
 vim.o.timeoutlen = 500
 vim.wo.spell = true
 vim.o.spelloptions = "camel"
@@ -213,6 +213,7 @@ vim.g.asyncrun_auto = 'asyncrun'
 vim.g.indentLine_conceallevel = 2
 -- vim.g.indent_blankline_char = '¦'
 vim.g.indent_blankline_char = '│'
+vim.g.indent_blankline_show_current_context = true
 vim.g.vim_json_conceal = 0
 vim.g.vim_markdown_conceal = 0
 vim.g.vim_markdown_conceal_code_blocks = 0
@@ -226,6 +227,7 @@ vim.g.signify_sign_change = '~'
 -- vim.g.minimap_auto_start = 1
 
 vim.g.tokyonight_style = "night"
+vim.g.tokyonight_transparent = true
 -- vim.cmd('silent! colorscheme moonfly')
 -- vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')
@@ -253,3 +255,6 @@ elseif vim.fn.exists('g:fvim_loaded') == 1 then
 -- else
   -- "hi Normal guibg=NONE ctermbg=NONE
 end
+
+vim.g.mergetool_layout = 'LmR'
+vim.g.mergetool_prefer_revision = 'base'
