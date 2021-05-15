@@ -69,6 +69,7 @@ vim.o.hidden = true
 vim.o.tags="./tags,tags;/"
 local config_path=vim.fn.stdpath("config")
 vim.o.spellfile=config_path .. "/spell/en.utf-8.add"
+vim.o.diffopt="internal,filler,algorithm:histogram,indent-heuristic,closeoff"
 
 vim.cmd("filetype plugin indent on")
 vim.api.nvim_exec("set guioptions-=e", false)

@@ -3,8 +3,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 git config --global core.editor nvim
 git config --global gui.encoding utf-8
 git config --global diff.tool meld
+git config --global diff.algorithm histogram
+git config --global diff.indentHeuristic true
 git config --global merge.tool meld
-git config --global merge.conflictstyle diff3
+git config --global merge.conflictStyle diff3
 git config --global difftool.prompt false
 git config --global mergetool.keepBackup false
 git config --global alias.st status
