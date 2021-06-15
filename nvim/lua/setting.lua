@@ -12,64 +12,67 @@ end
 if vim.fn.has('multi_lang') then
   vim.cmd("language C")
 end
-vim.o.encoding = "utf-8"
-vim.o.laststatus = 2
+vim.opt.encoding = "utf-8"
+vim.opt.laststatus = 2
 -- vim.wo.winblend = 20
 -- vim.o.pumblend = 20
-vim.o.timeoutlen = 500
-vim.wo.spell = true
-vim.o.spelloptions = "camel"
-vim.bo.spelloptions = "camel"
-vim.o.spellcapcheck = ""
-vim.bo.spellcapcheck = ""
-vim.o.hlsearch = true
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.o.background="dark"
+vim.opt.timeoutlen = 500
+vim.opt.spell = true
+vim.opt.spelloptions = "camel"
+vim.opt.spellcapcheck = ""
+vim.opt.hlsearch = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+-- vim.wo.foldcolumn = "auto:5"
+vim.opt.background="dark"
 --set backspace to delete indent, endo of line and before insert start
-vim.o.backspace = "indent,eol,start"
+vim.opt.backspace = {"indent","eol","start"}
 --allow cursor go to next line
-vim.o.whichwrap = "b,s,<,>,[,]"
+vim.opt.whichwrap = "b,s,<,>,[,]"
 -- if vim.fn.exists('+termguicolors') == 1 then
 --   vim.o["t_8f"] = "\\<Esc>[38;2;%lu;%lu;%lum"
 --   vim.o["t_8b"] = "\\<Esc>[48;2;%lu;%lu;%lum"
 -- end
-vim.o.termguicolors = true
-vim.o.fileencodings = "utf-8,iso-2022-jp,euc-jp,sjis,utf-16,utf-16le,gb2312"
+vim.opt.termguicolors = true
+vim.opt.fileencodings = {"utf-8", "iso-2022-jp", "euc-jp,sjis", "utf-16", "utf-16le", "gb2312"}
 
-vim.o.shiftwidth = 0
-vim.o.tabstop = 2
-vim.o.softtabstop = -1
-vim.bo.shiftwidth = 0
-vim.bo.tabstop = 2
-vim.bo.softtabstop = -1
-vim.o.expandtab = true
-vim.o.autoindent = false
-vim.o.updatetime = 1000
-vim.wo.signcolumn = "yes"
-vim.o.inccommand = "nosplit"
+vim.opt.shiftwidth = 0
+vim.opt.tabstop = 2
+vim.opt.softtabstop = -1
+vim.opt.shiftwidth = 0
+vim.opt.tabstop = 2
+vim.opt.softtabstop = -1
+vim.opt.expandtab = true
+vim.opt.autoindent = false
+vim.opt.updatetime = 1000
+vim.opt.signcolumn = "yes"
+vim.opt.inccommand = "nosplit"
 -- vim.o.grepprg = "git grep -I --line-number --no-color -E"
-vim.o.grepprg = "rg --vimgrep"
-vim.wo.wrap = false
-vim.o.display = "lastline"
-vim.o.pumheight = 10
-vim.wo.list = true
-vim.o.listchars = "tab:|-,eol:¬,extends:»,precedes:«"
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.wrap = false
+vim.opt.display = "lastline"
+vim.opt.pumheight = 10
+vim.opt.list = true
+vim.opt.listchars = { eol = "¬", tab = "|-", extends = "»", precedes = "«"}
 -- vim.o.smarttab = true
 -- Set completeopt to have a better completion experience
-vim.o.completeopt="menuone,noselect"
+vim.opt.completeopt="menuone,noselect"
 -- vim.o.completeopt = "longest,menu"
-vim.o.shortmess="atToOFcA"
-vim.o.sessionoptions = "blank,curdir,folds,tabpages"
-vim.o.fillchars = "vert:│"
-vim.o.laststatus = 2
-vim.o.exrc = true
-vim.o.secure = true
-vim.o.hidden = true
-vim.o.tags="./tags,tags;/"
+vim.opt.shortmess="atToOFcA"
+vim.opt.sessionoptions = { "blank", "curdir",  "folds", "tabpages" }
+vim.opt.fillchars = { vert = "│" }
+vim.opt.laststatus = 2
+vim.opt.exrc = true
+vim.opt.secure = true
+vim.opt.hidden = true
+vim.opt.tags="./tags,tags;/"
 local config_path=vim.fn.stdpath("config")
-vim.o.spellfile=config_path .. "/spell/en.utf-8.add"
-vim.o.diffopt="internal,filler,algorithm:histogram,indent-heuristic,closeoff"
+vim.opt.spellfile=config_path .. "/spell/en.utf-8.add"
+-- vim.o.diffopt="internal,filler,algorithm:histogram,indent-heuristic,closeoff"
+-- vim.o.diffopt="internal,filler,algorithm:histogram,indent-heuristic,closeoff"
+vim.opt.diffopt="internal,filler,algorithm:patience,indent-heuristic,closeoff"
+-- vim.o.diffopt="internal,filler,algorithm:minimal,closeoff"
+vim.opt.scrolloff = 1
 
 vim.cmd("filetype plugin indent on")
 vim.api.nvim_exec("set guioptions-=e", false)
@@ -241,17 +244,17 @@ end)
 
 -- guis
 if vim.fn.exists('gnvim') == 1 then
-  vim.o.guifont="Iosevka Fixed:h12"
-  vim.o.guicursor = vim.o.guicursor .. ",a:blinkon0"
+  vim.opt.guifont="Iosevka Fixed:h12"
+  vim.opt.guicursor = vim.o.guicursor .. ",a:blinkon0"
 elseif vim.fn.exists('neovide') == 1 then
-  vim.o.guifont="Sarasa Nerd Font Mono:h18"
+  vim.opt.guifont="Sarasa Nerd Font Mono:h18"
   -- set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   vim.g.neovide_cursor_animation_length=0.05
   vim.g.neovide_cursor_trail_length=0.1
   vim.api.nvim_set_keymap("n", "<A-CR>", [[:execute("let g:neovide_fullscreen = !g:neovide_fullscreen")<CR>]], { noremap = true })
 elseif vim.fn.exists('g:fvim_loaded') == 1 then
   -- FVimBackgroundOpacity 0.7
-  vim.o.guifont="Sarasa Nerd Font:h18"
+  vim.opt.guifont="Sarasa Nerd Font:h18"
   -- nnoremap <A-CR> :FVimToggleFullScreen<CR>
 -- else
   -- "hi Normal guibg=NONE ctermbg=NONE

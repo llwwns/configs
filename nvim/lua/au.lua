@@ -74,8 +74,8 @@ augroups {
     "BufNewFile,BufRead *.cwk set filetype=confluencewiki",
     "BufNewFile,BufRead *.coffee set filetype=coffee",
     'BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif',
-    "Filetype cpp nmap <buffer> <F7> :SCCompileAF -std=c++14 <CR>",
-    "Filetype cpp nmap <buffer> <F8> :SCCompileRunAF -std=c++14 <CR>",
+    "Filetype cpp nmap <buffer> <leader>cm :!clang++ -std=c++17 -g3 % <CR>",
+    "Filetype cpp nmap <buffer> <leader>cr :!clang++ -std=c++17 -g3 % && ./a.out <CR>",
     -- "TermOpen * IndentLinesDisable",
   },
   asyncrun = {

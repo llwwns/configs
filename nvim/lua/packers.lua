@@ -38,7 +38,8 @@ startup(function(use)
   use('AndrewRadev/deleft.vim')
   use{'neovim/nvim-lspconfig',
     -- requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
-    requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true},
+    requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
+    'ray-x/lsp_signature.nvim', opt = true},
     config = function() require'lsp_init' end,
   }
   use('nvim-lua/lsp_extensions.nvim')
@@ -93,8 +94,8 @@ startup(function(use)
         signs = {
           add          = {hl = 'GitGutterAdd', text = '+', numhl='GitGutterAdd'},
           change       = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
-          delete       = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
-          topdelete    = {hl = 'GitGutterDelete', text = '-', numhl='GitGutterDelete'},
+          delete       = {hl = 'GitGutterDelete', text = '_', numhl='GitGutterDelete'},
+          topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl='GitGutterDelete'},
           changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange'},
         },
       })
@@ -136,6 +137,24 @@ startup(function(use)
     end}
   use{'romgrk/nvim-treesitter-context', opt = true, cmd = { 'TSContextEnable' }}
   use('folke/tokyonight.nvim')
-  use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
+  -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      print("test")
+      require("todo-comments").setup {
+        search = {
+          pattern = [[\b(KEYWORDS)\b]],
+        },
+        highlight = {
+          pattern = [[.*<(KEYWORDS)>]],
+        },
+        keywords = {
+          WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
+        },
+        }
+    end
+  }
   end)

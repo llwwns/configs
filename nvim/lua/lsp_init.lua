@@ -39,6 +39,7 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>da", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "v", "<leader>da", "<cmd>'<,'>lua require('lspsaga.codeaction').code_action()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>df", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", { noremap = true, silent = true })
+  require'lsp_signature'.on_attach()
 end
 lsp.clangd.setup{
   on_attach=on_attach,
