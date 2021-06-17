@@ -76,6 +76,12 @@ augroups {
     'BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif',
     "Filetype cpp nmap <buffer> <leader>cm :!clang++ -std=c++17 -g3 % <CR>",
     "Filetype cpp nmap <buffer> <leader>cr :!clang++ -std=c++17 -g3 % && ./a.out <CR>",
+    "FileType go TSContextEnable",
+    "FileType typescript TSContextEnable",
+    "FileType javascript TSContextEnable",
+    "FileType ruby TSContextEnable",
+    "FileType typescriptreact TSContextEnable",
+    "FileType cpp TSContextEnable",
     -- "TermOpen * IndentLinesDisable",
   },
   asyncrun = {

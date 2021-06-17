@@ -33,11 +33,10 @@ startup(function(use)
   use{'FooSoft/vim-argwrap', opt = true, cmd = {'ArgWrap'}}
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
-  use('sheerun/vim-polyglot')
+  -- use('sheerun/vim-polyglot')
   use('vim-airline/vim-airline')
   use('AndrewRadev/deleft.vim')
   use{'neovim/nvim-lspconfig',
-    -- requires = {'nvim-lua/completion-nvim',opt = true, 'glepnir/lspsaga.nvim', opt = true},
     requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
     'ray-x/lsp_signature.nvim', opt = true},
     config = function() require'lsp_init' end,
@@ -59,23 +58,12 @@ startup(function(use)
   use('bronson/vim-trailing-whitespace')
   use('machakann/vim-swap')
   use('mechatroner/rainbow_csv')
-  -- use('tyrannicaltoucan/vim-quantum')
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
-  -- use {
-  --   'nvim-telescope/telescope.nvim',
-  --   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-  --   -- opt = true,
-  --   -- cmd = { "Telescope" },
-  --   config = function() require'telescope_init' end
-  -- }
-  -- use('whatyouhide/vim-gotham')
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
-  -- use('sainnhe/sonokai')
-  -- use{'kassio/neoterm', opt = true, cmd = {'Ttoggle', 'T'}}
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')
@@ -102,7 +90,16 @@ startup(function(use)
   end}
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
-  use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}}
+  use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}, config = function()
+    require"toggleterm".setup{
+      size = 20,
+      shade_filetypes = {},
+      shade_terminals = true,
+      shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+      persist_size = true,
+      direction = 'horizontal',
+    }
+  end}
   use{'onsails/lspkind-nvim', config = function()
     require'lspkind'.init({
       with_text = true,
@@ -143,7 +140,6 @@ startup(function(use)
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      print("test")
       require("todo-comments").setup {
         search = {
           pattern = [[\b(KEYWORDS)\b]],
