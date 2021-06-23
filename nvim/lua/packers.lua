@@ -25,7 +25,7 @@ startup(function(use)
   end
   use('tpope/vim-unimpaired')
   use{'godlygeek/tabular', opt = true, cmd = { 'Tabularize' }}
-  use('maksimr/vim-jsbeautify')
+  use{'maksimr/vim-jsbeautify', opt = true, cmd = { 'JsBeautify', 'JsonBeautify', 'JsxBeautify', 'HtmlBeautify', 'CSSBeautify' }}
   use('tpope/vim-abolish')
   use('tpope/vim-surround')
   use('wellle/targets.vim')
@@ -35,7 +35,7 @@ startup(function(use)
   use('w0rp/ale')
   -- use('sheerun/vim-polyglot')
   use('vim-airline/vim-airline')
-  use('AndrewRadev/deleft.vim')
+  use{'AndrewRadev/deleft.vim', opt = true, keys = {{'n', '<leader>dh'}}}
   use{'neovim/nvim-lspconfig',
     requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
     'ray-x/lsp_signature.nvim', opt = true},
@@ -54,7 +54,7 @@ startup(function(use)
   use{'powerman/vim-plugin-AnsiEsc', opt = true, cmd = {'AnsiEsc'} }
   -- use('rhysd/reply.vim')
   use('tpope/vim-endwise')
-  use('tomtom/tcomment_vim')
+  use{'tomtom/tcomment_vim', opt = true, keys = {{'v', 'gc'}}}
   use('bronson/vim-trailing-whitespace')
   use('machakann/vim-swap')
   use('mechatroner/rainbow_csv')
@@ -132,25 +132,7 @@ startup(function(use)
         },
     })
     end}
-  use{'romgrk/nvim-treesitter-context', opt = true, cmd = { 'TSContextEnable' }}
   use('folke/tokyonight.nvim')
   -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
-  use {
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {
-        search = {
-          pattern = [[\b(KEYWORDS)\b]],
-        },
-        highlight = {
-          pattern = [[.*<(KEYWORDS)>]],
-        },
-        keywords = {
-          WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
-        },
-        }
-    end
-  }
   end)

@@ -72,7 +72,6 @@ vim.opt.spellfile=config_path .. "/spell/en.utf-8.add"
 -- vim.o.diffopt="internal,filler,algorithm:histogram,indent-heuristic,closeoff"
 vim.opt.diffopt="internal,filler,algorithm:patience,indent-heuristic,closeoff"
 -- vim.o.diffopt="internal,filler,algorithm:minimal,closeoff"
-vim.opt.scrolloff = 1
 
 vim.cmd("filetype plugin indent on")
 vim.api.nvim_exec("set guioptions-=e", false)
@@ -262,3 +261,4 @@ end
 
 vim.g.mergetool_layout = 'LmR'
 vim.g.mergetool_prefer_revision = 'base'
+vim.g.deleft_mapping = "<leader>dh"
