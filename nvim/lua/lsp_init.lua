@@ -41,23 +41,40 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>df", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", { noremap = true, silent = true })
   require'lsp_signature'.on_attach()
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
 lsp.clangd.setup{
   on_attach=on_attach,
+  capabilities = capabilities,
 }
 lsp.rust_analyzer.setup{
   on_attach=on_attach,
   ["rust-analyzer.diagnostics.enable"] = true,
   ["rust-analyzer.checkOnSave.enable"] = true,
+  capabilities = capabilities,
 }
 -- lsp.rls.setup{on_attach=on_attach}
 lsp.solargraph.setup{on_attach=on_attach}
-lsp.tsserver.setup{on_attach=on_attach}
+lsp.tsserver.setup{
+  on_attach=on_attach,
+  capabilities = capabilities,
+}
 lsp.vimls.setup{on_attach=on_attach}
 lsp.pyls.setup{on_attach=on_attach}
 lsp.jsonls.setup{on_attach=on_attach}
 lsp.yamlls.setup{on_attach=on_attach}
 lsp.gopls.setup{
-  cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject" },
+  cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es" },
+  capabilities = capabilities,
   codelens = {
     ["upgrade.dependency"] = false
   },
