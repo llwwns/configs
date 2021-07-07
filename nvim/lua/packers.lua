@@ -15,7 +15,7 @@ startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
   use('ryanoasis/vim-devicons')
   -- use('Yggdroot/indentLine')
-  use{'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
+  use('lukas-reineke/indent-blankline.nvim')
   use('tpope/vim-fugitive')
   use('mg979/vim-visual-multi')
   use('easymotion/vim-easymotion')

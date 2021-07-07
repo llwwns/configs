@@ -65,8 +65,6 @@ vim.api.nvim_set_keymap("n", "<leader>a", ":ArgWrap<CR>", { noremap = true, sile
 vim.api.nvim_set_keymap("c", "w!!", "w suda://%", {})
 vim.api.nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", {})
 vim.api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", {})
-vim.api.nvim_set_keymap("v", "L" , "<Plug>(easymotion-overwin-line)", {})
-vim.api.nvim_set_keymap("n", "L" , "<Plug>(easymotion-overwin-line)", {})
 vim.api.nvim_set_keymap("n", "<Leader>m", "<Plug>(git-messenger)", {})
 vim.api.nvim_set_keymap("n", "[,", ":Tab /,<CR>", {})
 vim.api.nvim_set_keymap("v", "[,", ":'<,'>Tab /,<CR>", {})

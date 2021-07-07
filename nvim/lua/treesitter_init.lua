@@ -18,6 +18,7 @@ cfg.setup {
     "lua",
     "ruby",
     "go",
+    "gomod",
     "haskell",
     "rust",
     "json",
@@ -28,8 +29,7 @@ cfg.setup {
     "bash",
     "tsx",
     "graphql",
-    "erlang",
-    "jsonc"
+    "erlang"
   },
 }
 
