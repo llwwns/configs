@@ -1,6 +1,8 @@
 vim.api.nvim_set_keymap("", "<c-q>", "<cmd>q<CR>", {})
-vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>Buffers<CR>", {})
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Files<CR>", {})
+-- vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>Buffers<CR>", {})
+-- vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Files<CR>", {})
+vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>lua require('fzf-lua').buffers()<CR>", {})
+vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>lua require('fzf-lua').files()<CR>", {})
 -- vim.api.nvim_set_keymap("n", "<c-e>", ":Telescope buffers<CR>", { silent = true })
 -- vim.api.nvim_set_keymap("n", "<c-p>", ":Telescope find_files<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<Tab>", ":call v:lua.toggleNERDTree()<CR>", { silent = true })
@@ -103,6 +105,9 @@ vim.api.nvim_set_keymap("n", "<C-\\>", [[:tab split<CR>:exec("tag ".expand("<cwo
 
 vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", { noremap = true, expr = true })
 vim.api.nvim_set_keymap("i", "<c-y>", "compe#confirm('<c-y>')", { noremap = true, expr = true })
+
+vim.api.nvim_set_keymap("n", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", { noremap = true })
+vim.api.nvim_set_keymap("t", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('\\<CR\\>')", { noremap = true, expr = true })
 
 -- vim.api.nvim_set_keymap("", "<f1>", "1gt", {})

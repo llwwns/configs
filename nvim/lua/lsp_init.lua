@@ -8,7 +8,6 @@ require'compe'.setup {
     vsnip = true;
     nvim_lsp = true;
     nvim_lua = true;
-    treesitter = true;
     vim_dadbod_completion = true;
   };
 }
@@ -69,7 +68,6 @@ lsp.tsserver.setup{
   capabilities = capabilities,
 }
 lsp.vimls.setup{on_attach=on_attach}
-lsp.pyls.setup{on_attach=on_attach}
 lsp.jsonls.setup{on_attach=on_attach}
 lsp.yamlls.setup{on_attach=on_attach}
 lsp.gopls.setup{

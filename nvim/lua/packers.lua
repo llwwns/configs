@@ -60,14 +60,14 @@ startup(function(use)
   use('mechatroner/rainbow_csv')
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
-  use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
+  -- use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
   use('hrsh7th/vim-vsnip')
-  use('hrsh7th/vim-vsnip-integ')
+  -- use('hrsh7th/vim-vsnip-integ')
   use('luochen1990/rainbow')
   use{'nvim-treesitter/nvim-treesitter',
     config = function() require'treesitter_init' end
@@ -90,16 +90,6 @@ startup(function(use)
   end}
   use('bluz71/vim-nightfly-guicolors')
   use('kevinhwang91/nvim-bqf')
-  use{'akinsho/nvim-toggleterm.lua', opt = true, cmd = {'ToggleTerm', 'TermExec'}, config = function()
-    require"toggleterm".setup{
-      size = 20,
-      shade_filetypes = {},
-      shade_terminals = true,
-      shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-      persist_size = true,
-      direction = 'horizontal',
-    }
-  end}
   use{'onsails/lspkind-nvim', config = function()
     require'lspkind'.init({
       with_text = true,
@@ -136,4 +126,27 @@ startup(function(use)
   -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
   use('phaazon/hop.nvim')
+  use { opt = false, 'ibhagwan/fzf-lua',
+    -- module = 'fzf-lua',
+    requires = {
+      'vijaymarupudi/nvim-fzf'
+    }, config = function()
+      require'fzf-lua'.setup {
+          win_border          = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
+      }
+    end
+  }
+  use {
+    opt = true,
+    "numtostr/FTerm.nvim",
+    module = 'FTerm',
+    config = function()
+        require("FTerm").setup({
+            dimensions  = {
+            height = 0.95,
+            width = 0.8,
+        },
+      })
+    end
+  }
   end)
