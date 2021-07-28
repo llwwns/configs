@@ -50,17 +50,17 @@ startup(function(use)
   use{'junegunn/gv.vim', opt = true, opt = { 'GV' }}
   use('lambdalisue/suda.vim')
   use{'skywind3000/asyncrun.vim', opt = true, cmd = {'AsyncRun'} }
-  use('tyru/eskk.vim')
+  use{'tyru/eskk.vim', opt = true, keys = {{'i', '<c-j>'},{'c', '<c-j>'},{'l', '<c-j>'},}}
   use{'powerman/vim-plugin-AnsiEsc', opt = true, cmd = {'AnsiEsc'} }
   -- use('rhysd/reply.vim')
   use('tpope/vim-endwise')
   use{'tomtom/tcomment_vim', opt = true, keys = {{'v', 'gc'}}}
   use('bronson/vim-trailing-whitespace')
-  use('machakann/vim-swap')
+  use{'machakann/vim-swap', opt = true, keys = {{'n', 'g<'},{'n', 'g>'},{'n', 'gs'},{'x', 'gs'}}}
   use('mechatroner/rainbow_csv')
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
-  -- use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
+  use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
   use{'tpope/vim-dadbod', opt = true, cmd = { 'DBUI' }}
   use{'kristijanhusak/vim-dadbod-ui', opt = true, cmd = {'DBUI'}}
   use('norcalli/nvim-colorizer.lua')
@@ -126,16 +126,6 @@ startup(function(use)
   -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
   use('phaazon/hop.nvim')
-  use { opt = false, 'ibhagwan/fzf-lua',
-    -- module = 'fzf-lua',
-    requires = {
-      'vijaymarupudi/nvim-fzf'
-    }, config = function()
-      require'fzf-lua'.setup {
-          win_border          = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
-      }
-    end
-  }
   use {
     opt = true,
     "numtostr/FTerm.nvim",
@@ -149,4 +139,5 @@ startup(function(use)
       })
     end
   }
+  use('windwp/nvim-ts-autotag')
   end)

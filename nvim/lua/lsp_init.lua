@@ -5,7 +5,6 @@ require'compe'.setup {
   source = {
     path = true;
     buffer = true;
-    vsnip = true;
     nvim_lsp = true;
     nvim_lua = true;
     vim_dadbod_completion = true;

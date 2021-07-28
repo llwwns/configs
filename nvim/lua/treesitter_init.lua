@@ -6,6 +6,9 @@ cfg.setup {
   indent = {
       enable = true,
   },
+  autotag = {
+    enable = true,
+  },
   ensure_installed = {
     "html",
     "typescript",
@@ -29,7 +32,8 @@ cfg.setup {
     "bash",
     "tsx",
     "graphql",
-    "erlang"
+    "erlang",
+    "comment"
   },
 }
 

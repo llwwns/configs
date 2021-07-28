@@ -246,6 +246,7 @@ if vim.fn.exists('gnvim') == 1 then
   vim.opt.guifont="Iosevka Fixed:h12"
   vim.opt.guicursor = vim.o.guicursor .. ",a:blinkon0"
 elseif vim.fn.exists('neovide') == 1 then
+  vim.g.tokyonight_transparent = false
   vim.opt.guifont="Sarasa Nerd Font Mono:h18"
   -- set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   vim.g.neovide_cursor_animation_length=0.05
