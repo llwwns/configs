@@ -33,7 +33,7 @@ startup(function(use)
   use('w0rp/ale')
   -- use('sheerun/vim-polyglot')
   -- use('vim-airline/vim-airline')
-  use{'windwp/windline.nvim', config=function() require('wlsample.bubble') end}
+  use{'windwp/windline.nvim', config=function() require('bubble_custom') end}
   use{'AndrewRadev/deleft.vim', opt = true, keys = {{'n', '<leader>dh'}}}
   use{'neovim/nvim-lspconfig',
     requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
