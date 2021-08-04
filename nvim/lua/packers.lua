@@ -17,13 +17,11 @@ startup(function(use)
   -- use('Yggdroot/indentLine')
   use('lukas-reineke/indent-blankline.nvim')
   use('tpope/vim-fugitive')
-  use('mg979/vim-visual-multi')
-  use('easymotion/vim-easymotion')
-  use('haya14busa/vim-easyoperator-line')
-  if os.getenv("TMUXLINE") == '1' then
-    use('edkolev/tmuxline.vim')
-  end
-  use('tpope/vim-unimpaired')
+  use{'mg979/vim-visual-multi', opt = true, keys = {{'v', '<c-n>'}}}
+  -- use('easymotion/vim-easymotion')
+  -- use('haya14busa/vim-easyoperator-line')
+  -- use{'edkolev/tmuxline.vim', opt = false, cmd = 'Tmuxline'}
+  -- use('tpope/vim-unimpaired')
   use{'godlygeek/tabular', opt = true, cmd = { 'Tabularize' }}
   use{'maksimr/vim-jsbeautify', opt = true, cmd = { 'JsBeautify', 'JsonBeautify', 'JsxBeautify', 'HtmlBeautify', 'CSSBeautify' }}
   use('tpope/vim-abolish')
@@ -34,7 +32,8 @@ startup(function(use)
   use('junegunn/vim-easy-align')
   use('w0rp/ale')
   -- use('sheerun/vim-polyglot')
-  use('vim-airline/vim-airline')
+  -- use('vim-airline/vim-airline')
+  use{'windwp/windline.nvim', config=function() require('wlsample.bubble') end}
   use{'AndrewRadev/deleft.vim', opt = true, keys = {{'n', '<leader>dh'}}}
   use{'neovim/nvim-lspconfig',
     requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
@@ -125,7 +124,7 @@ startup(function(use)
   use('folke/tokyonight.nvim')
   -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use{'samoshkin/vim-mergetool', opt = true, cmd = { 'MergetoolStart' }}
-  use('phaazon/hop.nvim')
+  use{'phaazon/hop.nvim', opt = true, module = 'hop'}
   use {
     opt = true,
     "numtostr/FTerm.nvim",
