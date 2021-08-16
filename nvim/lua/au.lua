@@ -83,8 +83,8 @@ augroups {
   },
   completion = {
     "BufEnter * lua local s, com = pcall(require, 'completion'); if s then com.on_attach() end",
-    "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
-    "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
+    -- "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
+    -- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
   },
   highlight_yank = {
     'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'

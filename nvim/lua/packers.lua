@@ -41,7 +41,13 @@ startup(function(use)
     config = function() require'lsp_init' end,
   }
   use('nvim-lua/lsp_extensions.nvim')
-  use{'scrooloose/nerdtree', opt = true, cmd = { 'NERDTreeToggle', 'NERDTreeFind' }}
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    opt = true,
+    module = {'nvim-tree'},
+    config = function() require'tree_init' end
+  }
   use{'vim-scripts/BufOnly.vim', opt = true, cmd = {'BOnly'}}
   use('dbeniamine/todo.txt-vim')
   use('houtsnip/vim-emacscommandline')

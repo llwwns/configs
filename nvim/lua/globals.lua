@@ -32,19 +32,19 @@ function foldtext()
            lineCount
 end
 
-function toggleNERDTree()
-    if vim.fn.exists('g:NERDTree') == 0 or
-      vim.api.nvim_exec("echo g:NERDTree.ExistsForTab()", true) == "0" or
-      vim.api.nvim_exec("echo g:NERDTree.IsOpen()", true) == "0" then
-      if vim.fn.expand('%:p') == "" then
-        vim.cmd("NERDTreeToggle")
-      else
-        vim.cmd("NERDTreeFind")
-      end
+function toggleNvimTree()
+  local nt = require'nvim-tree'
+  local view = require'nvim-tree.view'
+  if not view.win_open() then
+    if vim.fn.expand('%:p') == "" then
+      nt.open()
     else
-      vim.cmd("NERDTreeToggle")
+      nt.find_file(true)
     end
+  else
+    nt.close()
   end
+end
 
 function replace()
   w = vim.fn.expand("<cword>")
