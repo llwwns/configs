@@ -54,9 +54,9 @@ basic.vi_mode = {
 basic.lsp_diagnos = {
     name = 'diagnostic',
     hl_colors = {
-        red = { 'red', 'black' },
-        yellow = { 'yellow', 'black' },
-        blue = { 'blue', 'black' },
+        red = { 'red', 'ActiveBg' },
+        yellow = { 'yellow', 'ActiveBg' },
+        blue = { 'blue', 'ActiveBg' },
     },
     width = 90,
     text = function()
@@ -155,8 +155,8 @@ local default = {
 local quickfix = {
     filetypes = { 'qf', 'Trouble' },
     active = {
-        { '🚦 Quickfix ', { 'white', 'black' } },
-        { helper.separators.slant_right, { 'black', 'black_light' } },
+        { 'Quickfix ', { 'black', 'red_light' } },
+        { helper.separators.slant_right, { 'red_light', 'black_light' } },
         {
             function()
                 return vim.fn.getqflist({ title = 0 }).title
@@ -167,8 +167,6 @@ local quickfix = {
         { helper.separators.slant_right, { 'black_light', 'InactiveBg' } },
         { ' ', { 'InactiveFg', 'InactiveBg' } },
         basic.divider,
-        { helper.separators.slant_right, { 'InactiveBg', 'black' } },
-        { '🧛 ', { 'white', 'black' } },
     },
     show_in_active = true,
 }

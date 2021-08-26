@@ -33,7 +33,8 @@ cfg.setup {
     "tsx",
     "graphql",
     "erlang",
-    "comment"
+    "comment",
+    "fish",
   },
 }
 

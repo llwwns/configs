@@ -36,9 +36,14 @@ startup(function(use)
   use{'windwp/windline.nvim', config=function() require('bubble_custom') end}
   use{'AndrewRadev/deleft.vim', opt = true, keys = {{'n', '<leader>dh'}}}
   use{'neovim/nvim-lspconfig',
-    requires = {'hrsh7th/nvim-compe',opt = true, 'glepnir/lspsaga.nvim', opt = true, 
-    'ray-x/lsp_signature.nvim', opt = true},
+    requires = {'glepnir/lspsaga.nvim',
+    'ray-x/lsp_signature.nvim',},
     config = function() require'lsp_init' end,
+  }
+  use{'hrsh7th/nvim-cmp', requires = {
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-nvim-lsp'}, config=function() require('cmp_init') end
   }
   use('nvim-lua/lsp_extensions.nvim')
   use {
@@ -71,8 +76,7 @@ startup(function(use)
   use('norcalli/nvim-colorizer.lua')
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
-  use('hrsh7th/vim-vsnip')
-  -- use('hrsh7th/vim-vsnip-integ')
+  use('L3MON4D3/LuaSnip')
   use('luochen1990/rainbow')
   use{'nvim-treesitter/nvim-treesitter',
     config = function() require'treesitter_init' end

@@ -1,15 +1,4 @@
 local lsp = require('lspconfig')
--- local completion = require('completion')
-require'compe'.setup {
-  enabled = true;
-  source = {
-    path = true;
-    buffer = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vim_dadbod_completion = true;
-  };
-}
 
 local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
@@ -24,7 +13,6 @@ function lsp_rename()
 end
 
 local on_attach = function(client)
-  -- completion.on_attach()
   vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })
@@ -37,11 +25,19 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>da", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "v", "<leader>da", "<cmd>'<,'>lua require('lspsaga.codeaction').code_action()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>df", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", { noremap = true, silent = true })
-  require'lsp_signature'.on_attach()
+  require'lsp_signature'.on_attach({
+    floating_window = false
+  })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     'documentation',
@@ -93,6 +89,20 @@ configs.erlang_ls = {
   };
 }
 lsp.erlang_ls.setup{on_attach=on_attach}
+-- configs.ruby = {
+--   default_config = {
+--     cmd = {"steep", "langserver"};
+--     filetypes = {"ruby", "rbs"};
+--     root_dir = util.root_pattern("Steepfile", ".git");
+--   };
+--   docs = {
+--     description = [[ test ]];
+--     default_config = {
+--       root_dir = [[root_pattern(".git")]];
+--     };
+--   };
+-- }
+-- lsp.ruby.setup{on_attach=on_attach}
 
 -- configs.deno = {
 --   default_config = {

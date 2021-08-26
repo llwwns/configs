@@ -1,5 +1,12 @@
 vim.g.nvim_tree_disable_default_keybindings = 1
 
+vim.g.nvim_tree_show_icons = {
+  git = 0,
+  folders = 1,
+  files = 1,
+  folder_arrows = 1,
+}
+
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 vim.g.nvim_tree_bindings = {
   { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
