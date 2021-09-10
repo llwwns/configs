@@ -126,6 +126,17 @@ basic.git = {
     end,
 }
 
+local gps = require("nvim-gps")
+basic.gps = {
+	function()
+		if gps.is_available() then
+			return ' '..gps.get_location()
+		end
+		return ''
+	end,
+	{"white", "ActiveBg"}
+}
+
 local default = {
     filetypes = { 'default' },
     active = {
@@ -136,13 +147,14 @@ local default = {
         { sep.right_rounded, hl_list.Active },
         basic.lsp_diagnos,
         basic.git,
+        basic.gps,
         basic.divider,
         { git_comps.git_branch({ icon = '  ' }), { 'green', 'ActiveBg' }, 90 },
         { ' ', hl_list.Active },
         basic.right,
         { ' ', hl_list.Active },
     },
-    in_active = {
+    inactive = {
         basic.file_name_inactive,
         basic.divider,
         basic.divider,
@@ -168,7 +180,7 @@ local quickfix = {
         { ' ', { 'InactiveFg', 'InactiveBg' } },
         basic.divider,
     },
-    show_in_active = true,
+    always_active = true,
 }
 
 local explorer = {
@@ -179,7 +191,7 @@ local explorer = {
         { b_components.divider, '' },
         { b_components.file_name(''), { 'white', 'black_light' } },
     },
-    show_in_active = true,
+    always_active = true,
     show_last_status = true
 }
 

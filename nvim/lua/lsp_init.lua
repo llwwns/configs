@@ -12,7 +12,35 @@ function lsp_rename()
   end
 end
 
+local null_ls = require("null-ls")
+
+local prettier = require("null-ls.helpers").conditional(function(utils)
+    local project_local_bin = "node_modules/.bin/prettier"
+
+    return null_ls.builtins.formatting.prettier.with({
+        command = utils.root_has_file(project_local_bin) and project_local_bin or "prettier",
+    })
+end)
+
+local eslint_d = require("null-ls.helpers").conditional(function(utils)
+    return null_ls.builtins.diagnostics.eslint_d.with({
+        timeout = 15000,
+    })
+end)
+
+require("null-ls").config({
+  -- sources = { require("null-ls").builtins.formatting.stylua }
+  debug = true,
+  sources = {
+    prettier,
+    eslint_d,
+  }
+})
+
 local on_attach = function(client)
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
   vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })
@@ -30,6 +58,11 @@ local on_attach = function(client)
   })
 end
 
+local on_attach_ts = function(client)
+  client.resolved_capabilities.document_formatting = false
+  on_attach(client)
+end
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -45,6 +78,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+lsp["null-ls"].setup({
+  on_attach=on_attach,
+  capabilities = capabilities,
+})
 
 lsp.clangd.setup{
   on_attach=on_attach,
@@ -59,7 +96,7 @@ lsp.rust_analyzer.setup{
 -- lsp.rls.setup{on_attach=on_attach}
 lsp.solargraph.setup{on_attach=on_attach}
 lsp.tsserver.setup{
-  on_attach=on_attach,
+  on_attach=on_attach_ts,
   capabilities = capabilities,
 }
 lsp.vimls.setup{on_attach=on_attach}

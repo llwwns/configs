@@ -25,7 +25,7 @@
       { name = 'nvim_lua' },
       { name = 'path' },
     },
-    preselect = cmp.Preselect.None,
+    preselect = cmp.PreselectMode.None,
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = "[" .. require'lspkind'.presets.default[vim_item.kind] .. "] " .. vim_item.kind

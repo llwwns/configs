@@ -13,13 +13,9 @@ end
 
 startup(function(use)
   use{'wbthomason/packer.nvim', opt = true}
-  use('ryanoasis/vim-devicons')
-  -- use('Yggdroot/indentLine')
   use('lukas-reineke/indent-blankline.nvim')
   use('tpope/vim-fugitive')
   use{'mg979/vim-visual-multi', opt = true, keys = {{'v', '<c-n>'}}}
-  -- use('easymotion/vim-easymotion')
-  -- use('haya14busa/vim-easyoperator-line')
   -- use{'edkolev/tmuxline.vim', opt = false, cmd = 'Tmuxline'}
   -- use('tpope/vim-unimpaired')
   use{'godlygeek/tabular', opt = true, cmd = { 'Tabularize' }}
@@ -30,13 +26,13 @@ startup(function(use)
   use{'mattn/emmet-vim', opt = true, keys = {{'i', '<c-y>,'}}}
   use{'FooSoft/vim-argwrap', opt = true, cmd = {'ArgWrap'}}
   use('junegunn/vim-easy-align')
-  use('w0rp/ale')
   -- use('sheerun/vim-polyglot')
-  -- use('vim-airline/vim-airline')
   use{'windwp/windline.nvim', config=function() require('bubble_custom') end}
   use{'AndrewRadev/deleft.vim', opt = true, keys = {{'n', '<leader>dh'}}}
   use{'neovim/nvim-lspconfig',
     requires = {'glepnir/lspsaga.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
+    'nvim-lua/plenary.nvim',
     'ray-x/lsp_signature.nvim',},
     config = function() require'lsp_init' end,
   }
@@ -68,7 +64,7 @@ startup(function(use)
   use{'tomtom/tcomment_vim', opt = true, keys = {{'v', 'gc'}}}
   use('bronson/vim-trailing-whitespace')
   use{'machakann/vim-swap', opt = true, keys = {{'n', 'g<'},{'n', 'g>'},{'n', 'gs'},{'x', 'gs'}}}
-  use('mechatroner/rainbow_csv')
+  use{'mechatroner/rainbow_csv', opt = true, ft = {'csv'}}
   use('google/vim-searchindex')
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   use{'junegunn/fzf.vim', opt = true, cmd = {"Files", "Buffers"}}
@@ -77,10 +73,11 @@ startup(function(use)
   use('norcalli/nvim-colorizer.lua')
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
-  use('L3MON4D3/LuaSnip')
+  use{'L3MON4D3/LuaSnip', opt = true, module = "luasnip"}
   use('luochen1990/rainbow')
   use{'nvim-treesitter/nvim-treesitter',
-    config = function() require'treesitter_init' end
+    config = function() require'treesitter_init' end,
+    requires = {'SmiteshP/nvim-gps'}
   }
   use('bluz71/vim-moonfly-colors')
   use('dstein64/nvim-scrollview')
@@ -150,4 +147,5 @@ startup(function(use)
     end
   }
   use('windwp/nvim-ts-autotag')
+  use 'lewis6991/impatient.nvim'
   end)
