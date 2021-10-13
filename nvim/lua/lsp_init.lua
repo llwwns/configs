@@ -84,7 +84,7 @@ lsp["null-ls"].setup({
 })
 
 lsp.clangd.setup{
-  on_attach=on_attach,
+  on_attach=on_attach_ts,
   capabilities = capabilities,
 }
 lsp.rust_analyzer.setup{
@@ -100,8 +100,8 @@ lsp.tsserver.setup{
   capabilities = capabilities,
 }
 lsp.vimls.setup{on_attach=on_attach}
-lsp.jsonls.setup{on_attach=on_attach}
-lsp.yamlls.setup{on_attach=on_attach}
+lsp.jsonls.setup{on_attach=on_attach_ts}
+lsp.yamlls.setup{on_attach=on_attach_ts}
 lsp.gopls.setup{
   cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es" },
   capabilities = capabilities,

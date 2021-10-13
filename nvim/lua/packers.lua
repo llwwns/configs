@@ -40,7 +40,10 @@ startup(function(use)
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-path'}, config=function() require('cmp_init') end
+    'saadparwaiz1/cmp_luasnip',
+    'hrsh7th/cmp-path',
+    'uga-rosa/cmp-dictionary',
+    }, config=function() require('cmp_init') end
   }
   use('nvim-lua/lsp_extensions.nvim')
   use {
@@ -73,7 +76,7 @@ startup(function(use)
   use('norcalli/nvim-colorizer.lua')
   use{'AndrewRadev/bufferize.vim', opt = true, cmd = {'Bufferize'}}
   use('liuchengxu/vim-which-key', { on = {'WhichKey', 'WhichKey!'} })
-  use{'L3MON4D3/LuaSnip', opt = true, module = "luasnip"}
+  use{'L3MON4D3/LuaSnip', opt = true, module = "luasnip", config = function() require'luasnip_init' end}
   use('luochen1990/rainbow')
   use{'nvim-treesitter/nvim-treesitter',
     config = function() require'treesitter_init' end,
@@ -148,4 +151,13 @@ startup(function(use)
   }
   use('windwp/nvim-ts-autotag')
   use 'lewis6991/impatient.nvim'
+  use {
+    "kwkarlwang/bufresize.nvim",
+    opt = true,
+    event = "VimResized",
+    config = function()
+        require("bufresize").setup()
+
+    end
+  }
   end)

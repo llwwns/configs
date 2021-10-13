@@ -63,7 +63,7 @@ augroups {
     "FileType typescriptreact set foldexpr=nvim_treesitter#foldexpr()",
     "FileType json set foldmethod=expr",
     "FileType json set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType * set foldtext=v:lua.foldtext()",
+    -- "FileType * set foldtext=v:lua.foldtext()",
     "FileType * set shortmess=atToOFcA",
     "FileType toml set fdm=expr",
     "FileType toml set foldexpr=TOMLFold()",
@@ -91,5 +91,5 @@ augroups {
   },
   rust = {
     [[BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]]
-  }
+  },
 }

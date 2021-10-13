@@ -32,6 +32,17 @@ function foldtext()
            lineCount
 end
 
+function foldtext2()
+  if vim.o.diff then
+    return foldtext()
+  end
+  local fs = vim.api.nvim_get_vvar("foldstart")
+  local fe = vim.api.nvim_get_vvar("foldend")
+  local ls = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.tabstop), 'g')
+  local le = vim.fn.getline(fe)
+  return ls.."..."..vim.fn.trim(le)
+end
+
 function toggleNvimTree()
   local nt = require'nvim-tree'
   local view = require'nvim-tree.view'

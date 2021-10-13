@@ -14,8 +14,8 @@ if vim.fn.has('multi_lang') then
 end
 vim.opt.encoding = "utf-8"
 vim.opt.laststatus = 2
--- vim.wo.winblend = 20
--- vim.o.pumblend = 20
+-- vim.opt.winblend = 20
+-- vim.opt.pumblend = 20
 vim.opt.timeoutlen = 500
 vim.opt.spell = true
 vim.opt.spelloptions = "camel"
@@ -23,7 +23,6 @@ vim.opt.spellcapcheck = ""
 vim.opt.hlsearch = true
 vim.opt.number = true
 vim.opt.relativenumber = true
--- vim.wo.foldcolumn = "auto:5"
 vim.opt.background="dark"
 --set backspace to delete indent, endo of line and before insert start
 vim.opt.backspace = {"indent","eol","start"}
@@ -53,14 +52,14 @@ vim.opt.wrap = false
 vim.opt.display = "lastline"
 vim.opt.pumheight = 10
 vim.opt.list = true
-vim.opt.listchars = { eol = "¬", tab = "|-", extends = "»", precedes = "«"}
+vim.opt.listchars = { eol = "¬", tab = "| ", extends = "»", precedes = "«"}
 -- vim.o.smarttab = true
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt="menuone,noselect"
 -- vim.o.completeopt = "longest,menu"
 vim.opt.shortmess="atToOFcA"
 vim.opt.sessionoptions = { "blank", "curdir",  "folds", "tabpages" }
-vim.opt.fillchars = { vert = "│" }
+vim.opt.fillchars = { vert = "│", fold=" " }
 vim.opt.laststatus = 2
 vim.opt.exrc = true
 vim.opt.secure = true
@@ -104,7 +103,6 @@ vim.g.airline_left_sep = ''
 vim.g.airline_left_alt_sep = '|'
 vim.g.airline_right_sep = ''
 vim.g.airline_right_alt_sep = '|'
-vim.g.ale_linters_explicit = 1
 vim.g.gruvbox_contrast_dark = 'hard'
 vim.g.fzf_layout = {
   up = '~90%',
@@ -151,6 +149,8 @@ vim.g.neoterm_size = '7'
 
 vim.g.disable_key_mappings = 1
 
+vim.g.ale_linters_explicit = 1
+
 vim.g.ale_fixers = {
   javascript = {'prettier'},
   typescript = {'prettier'},
@@ -164,10 +164,10 @@ vim.g.ale_linters = {
   typescript = {'eslint'},
   typescriptreact = {'eslint'},
   ruby = {'rubocop'},
-  -- go = {'gopls'},
+  go = {},
   c = {'clangd'},
   cpp = {'clangd'},
-  -- rust = {'analyzer'},
+  rust = {},
   lua = {'luacheck'},
 }
 vim.g.ale_fix_on_save = 1
@@ -190,7 +190,8 @@ vim.g.tmuxline_preset = {
   a = '[#S]',
   win = '#I:#W#F',
   cwin = '#I:#W#F',
-  x = '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
+  -- x = '#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -i 2 -a 0)',
+  x = '',
   y = '%m/%d %H:%M:%S',
   z = '#H',
   options = {
@@ -230,13 +231,16 @@ vim.g.signify_sign_change = '~'
 -- vim.g.minimap_auto_start = 1
 
 vim.g.tokyonight_style = "night"
-vim.g.tokyonight_transparent = true
+-- vim.g.tokyonight_transparent = true
 -- vim.cmd('silent! colorscheme moonfly')
 -- vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')
 -- vim.cmd('silent! colorscheme onedark')
 -- vim.cmd('silent! colorscheme embark')
 vim.cmd('silent! colorscheme tokyonight')
+-- vim.cmd[[hi clear SpellBad]]
+-- vim.cmd[[hi SpellBad cterm=underline gui=undercurl]]
+
 try_require({'colorizer'}, function(colorizer)
   colorizer.setup()
 end)
@@ -246,8 +250,8 @@ if vim.fn.exists('gnvim') == 1 then
   vim.opt.guifont="Iosevka Fixed:h12"
   vim.opt.guicursor = vim.o.guicursor .. ",a:blinkon0"
 elseif vim.fn.exists('neovide') == 1 then
-  vim.g.tokyonight_transparent = false
-  vim.opt.guifont="Sarasa Nerd Font Mono:h18"
+  -- vim.g.tokyonight_transparent = false
+  vim.opt.guifont="Sarasa Nerd Font Mono:h13"
   -- set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
   vim.g.neovide_cursor_animation_length=0.05
   vim.g.neovide_cursor_trail_length=0.1
@@ -263,3 +267,15 @@ end
 vim.g.mergetool_layout = 'LmR'
 vim.g.mergetool_prefer_revision = 'base'
 vim.g.deleft_mapping = "<leader>dh"
+vim.g.symbols_outline = {
+  position = 'left',
+  width = 16,
+}
+vim.opt.foldnestmax=3
+vim.opt.foldminlines=1
+-- vim.opt.foldtext="getline(v:foldstart).'...'.trim(getline(v:foldend))"
+-- vim.opt.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
+vim.opt.foldtext="v:lua.foldtext2()"
+-- vim.opt.foldcolumn = "auto:3"
+vim.opt.dictionary="/usr/share/dict/words"
+vim.g.cmp_dictionary_exact = 2

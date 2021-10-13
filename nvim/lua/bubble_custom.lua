@@ -130,7 +130,7 @@ local gps = require("nvim-gps")
 basic.gps = {
 	function()
 		if gps.is_available() then
-			return ' '..gps.get_location()
+			return ' /'..gps.get_location()
 		end
 		return ''
 	end,

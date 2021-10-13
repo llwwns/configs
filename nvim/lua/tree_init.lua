@@ -1,5 +1,3 @@
-vim.g.nvim_tree_disable_default_keybindings = 1
-
 vim.g.nvim_tree_show_icons = {
   git = 0,
   folders = 1,
@@ -8,7 +6,7 @@ vim.g.nvim_tree_show_icons = {
 }
 
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_bindings = {
+local bindings = {
   { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
   { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
 
@@ -43,5 +41,17 @@ vim.g.nvim_tree_bindings = {
   { key = "-",                            cb = tree_cb("dir_up") },
   { key = "s",                            cb = tree_cb("system_open") },
   { key = "q",                            cb = tree_cb("close") },
-  { key = "g?",                           cb = tree_cb("toggle_help") },
+  { key = "?",                           cb = tree_cb("toggle_help") },
+}
+
+require'nvim-tree'.setup {
+    view = {
+      width = 30,
+      side = 'left',
+      auto_resize = false,
+      mappings = {
+        custom_only = true,
+        list = bindings,
+      }
+    }
 }
