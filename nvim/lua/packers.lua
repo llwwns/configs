@@ -209,7 +209,14 @@ startup(function(use)
   use "folke/tokyonight.nvim"
   -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
   use { "samoshkin/vim-mergetool", opt = true, cmd = { "MergetoolStart" } }
-  use { "phaazon/hop.nvim", opt = true, module = "hop" }
+  use {
+    "phaazon/hop.nvim",
+    opt = true,
+    module = "hop",
+    config = function()
+      require("hop").setup()
+    end,
+  }
   use {
     opt = true,
     "numtostr/FTerm.nvim",
