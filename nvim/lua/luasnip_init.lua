@@ -1,4 +1,4 @@
-local ls = require"luasnip"
+local ls = require "luasnip"
 local s = ls.snippet
 local sn = ls.snippet_node
 local isn = ls.indent_snippet_node
@@ -7,41 +7,41 @@ local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
-local events = require("luasnip.util.events")
+local events = require "luasnip.util.events"
 
 ls.snippets = {
   all = {
-    s("trigger", t("Wow! Text!"))
+    s("trigger", t "Wow! Text!"),
   },
   go = {
     s("err", {
-      t{
+      t {
         "if err != nil {",
         "	return ",
       },
       i(0),
-      t{"", "}"},
+      t { "", "}" },
     }),
     s("wrap", {
-      t[[errors.Wrap(err, "]],
+      t [[errors.Wrap(err, "]],
       i(0),
-      t[[")]],
+      t [[")]],
     }),
     s("for", {
-      t[[for ]],
+      t [[for ]],
       i(1),
-      t[[, ]],
+      t [[, ]],
       i(2),
-      t[[ := range ]],
+      t [[ := range ]],
       i(3),
-      t{" {", "	"},
+      t { " {", "	" },
       i(0),
-      t{"", "}"},
+      t { "", "}" },
     }),
   },
   cpp = {
     s("main", {
-      t{
+      t {
         "#include<iostream>",
         "",
         "using namespace std;",
@@ -50,41 +50,41 @@ ls.snippets = {
         "    ",
       },
       i(0),
-      t({"", "}"}),
-    })
-  }
+      t { "", "}" },
+    }),
+  },
 }
 
 local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
+  local col = vim.fn.col "." - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match "%s" then
+    return true
+  else
+    return false
+  end
 end
 
 _G.tab_complete = function()
-    if vim.fn.pumvisible() then
-        return t "<C-n>"
-    elseif ls.expand_or_jumpable() then
-        return t "<Plug>luasnip-expand-or-jump"
-    elseif check_back_space() then
-        return t "<Tab>"
-    end
+  if vim.fn.pumvisible() then
+    return t "<C-n>"
+  elseif ls.expand_or_jumpable() then
+    return t "<Plug>luasnip-expand-or-jump"
+  elseif check_back_space() then
+    return t "<Tab>"
+  end
 end
 _G.s_tab_complete = function()
-    if vim.fn.pumvisible() then
-        return t "<C-p>"
-    elseif ls.jumpable(-1) then
-        return t "<Plug>luasnip-jump-prev"
-    else
-        return t "<S-Tab>"
-    end
+  if vim.fn.pumvisible() then
+    return t "<C-p>"
+  elseif ls.jumpable(-1) then
+    return t "<Plug>luasnip-jump-prev"
+  else
+    return t "<S-Tab>"
+  end
 end
 -- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})

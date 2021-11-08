@@ -8,10 +8,10 @@ local bufwidth = function()
   local foldwidth = wo.foldcolumn
   local sc = wo.signcolumn
   local signwidth = 0
-  if sc == 'yes' then
+  if sc == "yes" then
     signwidth = 2
-  elseif sc == 'auto' then
-    local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
+  elseif sc == "auto" then
+    local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr ""))
     signs = vim.fn.split(signs, "\n")
     if #signs > 2 then
       signwidth = 2
@@ -23,31 +23,32 @@ local bufwidth = function()
 end
 
 function foldtext()
-  local fs = vim.api.nvim_get_vvar("foldstart")
-  local fe = vim.api.nvim_get_vvar("foldend")
-  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.tabstop), 'g')
+  local fs = vim.api.nvim_get_vvar "foldstart"
+  local fe = vim.api.nvim_get_vvar "foldend"
+  local line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(" ", vim.bo.tabstop), "g")
   local winSize = bufwidth()
   local lineCount = string.format("[%d lines]-----", fe - fs + 1)
-  return line .. string.rep('-', winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount)) ..
-           lineCount
+  return line
+    .. string.rep("-", winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount))
+    .. lineCount
 end
 
 function foldtext2()
   if vim.o.diff then
     return foldtext()
   end
-  local fs = vim.api.nvim_get_vvar("foldstart")
-  local fe = vim.api.nvim_get_vvar("foldend")
-  local ls = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(' ', vim.bo.tabstop), 'g')
+  local fs = vim.api.nvim_get_vvar "foldstart"
+  local fe = vim.api.nvim_get_vvar "foldend"
+  local ls = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(" ", vim.bo.tabstop), "g")
   local le = vim.fn.getline(fe)
-  return ls.."..."..vim.fn.trim(le)
+  return ls .. "..." .. vim.fn.trim(le)
 end
 
 function toggleNvimTree()
-  local nt = require'nvim-tree'
-  local view = require'nvim-tree.view'
+  local nt = require "nvim-tree"
+  local view = require "nvim-tree.view"
   if not view.win_open() then
-    if vim.fn.expand('%:p') == "" then
+    if vim.fn.expand "%:p" == "" then
       nt.open()
     else
       nt.find_file(true)
@@ -58,13 +59,14 @@ function toggleNvimTree()
 end
 
 function replace()
-  w = vim.fn.expand("<cword>")
+  w = vim.fn.expand "<cword>"
   vim.cmd([[call feedkeys(":%s/]] .. w .. [[/]] .. w .. [[/g\<Left>\<Left>")]])
 end
 
-tomlr = vim.regex([[^($|\[)]])
+tomlr = vim.regex [[^($|\[)]]
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+  [[
 function! TOMLFold()
   let line = getline(v:lnum)
   if line =~? '\v^($|[)'
@@ -72,9 +74,12 @@ function! TOMLFold()
   endif
   return '1'
 endfunction
-]], false)
+]],
+  false
+)
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+  [[
 function! ShowDocumentation()
   if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
@@ -82,9 +87,11 @@ function! ShowDocumentation()
     lua vim.lsp.buf.hover()
   endif
 endfunction
-]], false)
+]],
+  false
+)
 
 function _G.dump(...)
-  local objects = vim.tbl_map(vim.inspect, {...})
-    print(unpack(objects))
+  local objects = vim.tbl_map(vim.inspect, { ... })
+  print(unpack(objects))
 end

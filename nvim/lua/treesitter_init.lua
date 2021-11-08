@@ -1,10 +1,10 @@
-local cfg = require 'nvim-treesitter.configs'
+local cfg = require "nvim-treesitter.configs"
 cfg.setup {
   highlight = {
-      enable = true,
+    enable = true,
   },
   indent = {
-      enable = true,
+    enable = true,
   },
   autotag = {
     enable = true,
@@ -45,17 +45,17 @@ hlmap.error = nil
 hlmap["punctuation.delimiter"] = "Delimiter"
 hlmap["punctuation.bracket"] = nil
 
-require("nvim-gps").setup({
-	icons = {
-		["class-name"] = '',      -- Classes and class-like objects
-		["function-name"] = '',   -- Functions
-		["method-name"] = ''      -- Methods (functions inside class-like objects)
-	},
-	-- Disable any languages individually over here
-	-- Any language not disabled here is enabled by default
-	languages = {
-		-- ["bash"] = false,
-		-- ["go"] = false,
-	},
-	separator = '/',
-})
+require("nvim-gps").setup {
+  icons = {
+    ["class-name"] = "", -- Classes and class-like objects
+    ["function-name"] = "", -- Functions
+    ["method-name"] = "",      -- Methods (functions inside class-like objects)
+  },
+  -- Disable any languages individually over here
+  -- Any language not disabled here is enabled by default
+  languages = {
+    -- ["bash"] = false,
+    -- ["go"] = false,
+  },
+  separator = "/",
+}

@@ -1,12 +1,12 @@
 local function augroups(definitions)
   for group_name, definition in pairs(definitions) do
-    vim.cmd('augroup ' .. group_name)
-    vim.cmd('autocmd!')
+    vim.cmd("augroup " .. group_name)
+    vim.cmd "autocmd!"
     for _, def in ipairs(definition) do
-      local cmd = 'autocmd ' .. def
+      local cmd = "autocmd " .. def
       vim.cmd(cmd)
     end
-    vim.cmd('augroup END')
+    vim.cmd "augroup END"
   end
 end
 
@@ -87,9 +87,9 @@ augroups {
     -- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
   },
   highlight_yank = {
-    'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)'
+    'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)',
   },
   rust = {
-    [[BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]]
+    [[BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]],
   },
 }

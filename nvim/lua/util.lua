@@ -5,7 +5,7 @@ local function try_require(tbl, func)
     if s then
       res[i] = r
     else
-      print("failed require "..pkg)
+      print("failed require " .. pkg)
       return
     end
   end
