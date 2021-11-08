@@ -1,5 +1,4 @@
 --  def
-local try_require = require("util").try_require
 local set_var = vim.api.nvim_set_var
 local get_var = vim.api.nvim_get_var
 local gset_var = function(tbl)
@@ -91,19 +90,6 @@ vim.g.mapleader = "'"
 vim.g.maplocalleader = "'"
 vim.g.ale_statusline_format = { "⨉ %d", "⚠ %d", "⬥ ok" }
 vim.g.ale_lint_on_text_changed = "never"
-vim.g.airline_powerline_fonts = 1
--- vim.g.sonokai_style = 'shusia',
-vim.g.sonokai_transparent_background = 0
--- airline_theme = 'sonokai'
--- vim.g.airline_theme = 'moonfly'
-vim.g.airline_theme = "nightfly"
--- airline_theme = 'onedark'
-vim.g["airline#extensions#tabline#enabled"] = 0
-vim.g.airline_left_sep = ""
-vim.g.airline_left_alt_sep = "|"
-vim.g.airline_right_sep = ""
-vim.g.airline_right_alt_sep = "|"
-vim.g.gruvbox_contrast_dark = "hard"
 vim.g.fzf_layout = {
   up = "~90%",
   window = {
@@ -225,10 +211,8 @@ vim.g.vim_markdown_conceal_code_blocks = 0
 vim.g.gitgutter_highlight_linenrs = 1
 vim.g.rainbow_active = 1
 
--- vim.g["airline#extensions#tabline#enabled"] = 1
 vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = "~"
--- vim.g.minimap_auto_start = 1
 
 vim.g.tokyonight_style = "night"
 -- vim.g.tokyonight_transparent = true
@@ -240,10 +224,6 @@ vim.g.tokyonight_style = "night"
 vim.cmd "silent! colorscheme tokyonight"
 -- vim.cmd[[hi clear SpellBad]]
 -- vim.cmd[[hi SpellBad cterm=underline gui=undercurl]]
-
-try_require({ "colorizer" }, function(colorizer)
-  colorizer.setup()
-end)
 
 -- guis
 if vim.fn.exists "gnvim" == 1 then

@@ -90,7 +90,6 @@ startup(function(use)
   use "RRethy/vim-illuminate"
   use { "junegunn/gv.vim", opt = true, opt = { "GV" } }
   use "lambdalisue/suda.vim"
-  use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
   use {
     "tyru/eskk.vim",
     opt = true,
@@ -112,9 +111,13 @@ startup(function(use)
   use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
   use { "tpope/vim-dadbod", opt = true, cmd = { "DBUI" } }
   use { "kristijanhusak/vim-dadbod-ui", opt = true, cmd = { "DBUI" } }
-  use "norcalli/nvim-colorizer.lua"
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
+  }
   use { "AndrewRadev/bufferize.vim", opt = true, cmd = { "Bufferize" } }
-  use("liuchengxu/vim-which-key", { on = { "WhichKey", "WhichKey!" } })
   use {
     "L3MON4D3/LuaSnip",
     opt = true,
@@ -133,7 +136,6 @@ startup(function(use)
   }
   use "bluz71/vim-moonfly-colors"
   use "dstein64/nvim-scrollview"
-  use "ChristianChiarulli/nvcode-color-schemes.vim"
   use("simnalamburt/vim-mundo", { on = { "MundoShow", "MundoToggle" } })
   use {
     "lewis6991/gitsigns.nvim",
@@ -224,11 +226,20 @@ startup(function(use)
   use "windwp/nvim-ts-autotag"
   use "lewis6991/impatient.nvim"
   use {
-    "kwkarlwang/bufresize.nvim",
-    opt = true,
-    event = "VimResized",
+    "https://gitlab.com/yorickpeterse/nvim-dd",
     config = function()
-      require("bufresize").setup()
+      require("dd").setup {
+        timeout = 500,
+      }
+    end,
+  }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    opt = true,
+    cmd = { "Trouble" },
+    config = function()
+      require("trouble").setup {}
     end,
   }
 end)

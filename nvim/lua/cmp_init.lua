@@ -24,8 +24,8 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "buffer" },
-    { name = "dictionary" },
+    -- { name = "buffer" },
+    { name = "dictionary", max_item_count = 7 },
   },
   preselect = cmp.PreselectMode.None,
   formatting = {

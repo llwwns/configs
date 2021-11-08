@@ -29,7 +29,6 @@ local eslint_d = require("null-ls.helpers").conditional(function(utils)
 end)
 
 require("null-ls").config {
-  -- sources = {}
   debug = true,
   sources = {
     prettier,
