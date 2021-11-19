@@ -150,8 +150,17 @@ lsp.rust_analyzer.setup {
 lsp.solargraph.setup { on_attach = on_attach }
 lsp.tsserver.setup {
   on_attach = on_attach_ts,
+  root_dir = lsp.util.root_pattern "package.json",
   capabilities = capabilities,
 }
+lsp.denols.setup {
+  on_attach = on_attach,
+  root_dir = lsp.util.root_pattern "deno.json",
+  init_options = {
+    lint = true,
+  },
+}
+
 lsp.vimls.setup { on_attach = on_attach }
 lsp.jsonls.setup { on_attach = on_attach_ts }
 lsp.yamlls.setup { on_attach = on_attach_ts }
