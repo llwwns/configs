@@ -9,6 +9,15 @@ cfg.setup {
   autotag = {
     enable = true,
   },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<CR>",
+      scope_incremental = "<CR>",
+      node_incremental = "<TAB>",
+      node_decremental = "<S-TAB>",
+    },
+  },
   ensure_installed = {
     "html",
     "typescript",
@@ -49,7 +58,7 @@ require("nvim-gps").setup {
   icons = {
     ["class-name"] = "", -- Classes and class-like objects
     ["function-name"] = "", -- Functions
-    ["method-name"] = "",      -- Methods (functions inside class-like objects)
+    ["method-name"] = "", -- Methods (functions inside class-like objects)
   },
   -- Disable any languages individually over here
   -- Any language not disabled here is enabled by default

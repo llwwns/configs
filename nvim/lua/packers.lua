@@ -98,7 +98,15 @@ startup(function(use)
   use { "powerman/vim-plugin-AnsiEsc", opt = true, cmd = { "AnsiEsc" } }
   -- use('rhysd/reply.vim')
   use "tpope/vim-endwise"
-  use { "tomtom/tcomment_vim", opt = true, keys = { { "v", "gc" } } }
+  -- use { "tomtom/tcomment_vim", opt = true, keys = { { "v", "gc" } } }
+  use {
+    "numToStr/Comment.nvim",
+    opt = true,
+    keys = { { "v", "gc" }, { "v", "gb" } },
+    config = function()
+      require("Comment").setup { extra = false, extended = false }
+    end,
+  }
   use "bronson/vim-trailing-whitespace"
   use {
     "machakann/vim-swap",
@@ -248,5 +256,10 @@ startup(function(use)
     config = function()
       require("trouble").setup {}
     end,
+  }
+  use {
+    "ii14/lsp-command",
+    opt = true,
+    cmd = { "Lsp" },
   }
 end)
