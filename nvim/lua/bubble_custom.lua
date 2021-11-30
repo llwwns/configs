@@ -99,7 +99,7 @@ basic.right = {
       { sep.left_rounded, "sep_before" },
       { "l/n", "text" },
       { b_components.line_col, "text" },
-      { "", "text" },
+      { " ", "text" },
       { b_components.progress, "text" },
       { sep.right_rounded, "sep_after" },
     }

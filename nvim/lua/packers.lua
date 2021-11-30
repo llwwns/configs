@@ -262,4 +262,9 @@ startup(function(use)
     opt = true,
     cmd = { "Lsp" },
   }
+  use {
+    "kyazdani42/nvim-web-devicons",
+    opt = true,
+    module = "nvim-web-devicons",
+  }
 end)

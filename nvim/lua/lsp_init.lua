@@ -147,7 +147,7 @@ lsp.rust_analyzer.setup {
   capabilities = capabilities,
 }
 -- lsp.rls.setup{on_attach=on_attach}
-lsp.solargraph.setup { on_attach = on_attach }
+-- lsp.solargraph.setup { on_attach = on_attach }
 lsp.tsserver.setup {
   on_attach = on_attach_ts,
   root_dir = lsp.util.root_pattern "package.json",
@@ -173,50 +173,20 @@ lsp.gopls.setup {
   deepCompletion = false,
   on_attach = on_attach,
 }
+lsp.erlangls.setup { on_attach = on_attach }
 
-configs.erlang_ls = {
-  default_config = {
-    cmd = { "erlang_ls" },
-    filetypes = { "erlang" },
-    root_dir = util.root_pattern ".git",
-  },
-  docs = {
-    description = [[ test ]],
-    default_config = {
-      root_dir = [[root_pattern(".git")]],
-    },
-  },
-}
-lsp.erlang_ls.setup { on_attach = on_attach }
--- configs.ruby = {
---   default_config = {
---     cmd = { "steep", "langserver" },
---     filetypes = { "ruby", "rbs" },
---     root_dir = util.root_pattern("Steepfile", ".git"),
---   },
---   docs = {
---     description = [[ test ]],
+-- if not configs.steep then
+--   configs.steep = {
 --     default_config = {
---       root_dir = [[root_pattern(".git")]],
+--       cmd = { "steep", "langserver" },
+--       filetypes = { "ruby", "rbs" },
+--       root_dir = util.root_pattern("Steepfile", ".git"),
 --     },
---   },
--- }
--- lsp.ruby.setup { on_attach = on_attach }
+--   }
+--   lsp.steep = configs.steep
+-- end
+-- lsp.steep.setup { on_attach = on_attach }
 --
--- configs.deno = {
---   default_config = {
---     cmd = { "deno", "lsp" },
---     filetypes = { "typescript", "typescript.jsx" },
---     root_dir = util.root_pattern("tsconfig.json", ".git"),
---   },
---   docs = {
---     description = [[ test ]],
---     default_config = {
---       root_dir = [[root_pattern(".git")]],
---     },
---   },
--- }
--- lsp.deno.setup { on_attach = on_attach }
 --
 function stop_lsp()
   vim.lsp.stop_client(vim.lsp.get_active_clients())
