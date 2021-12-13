@@ -26,7 +26,10 @@ local eslint_d = require("null-ls.helpers").conditional(function(utils)
 end)
 
 local on_attach = function(client)
-  if client.resolved_capabilities.document_formatting then
+  if
+    client.resolved_capabilities.document_formatting
+    and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
+  then
     vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
   end
   vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {
