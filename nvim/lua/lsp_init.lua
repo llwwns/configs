@@ -3,15 +3,6 @@ local lsp = require "lspconfig"
 local configs = require "lspconfig/configs"
 local util = require "lspconfig/util"
 
-function lsp_rename()
-  local w = vim.fn.expand "<cword>"
-  vim.fn.inputsave()
-  r = vim.fn.input("Rename: ", w)
-  if r ~= "" then
-    vim.lsp.buf.rename(r)
-  end
-end
-
 local null_ls = require "null-ls"
 
 local prettier = require("null-ls.helpers").conditional(function(utils)
@@ -19,6 +10,12 @@ local prettier = require("null-ls.helpers").conditional(function(utils)
 
   return null_ls.builtins.formatting.prettier.with {
     command = utils.root_has_file(project_local_bin) and project_local_bin or "prettier",
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
   }
 end)
 
@@ -27,15 +24,6 @@ local eslint_d = require("null-ls.helpers").conditional(function(utils)
     timeout = 15000,
   }
 end)
-
-require("null-ls").config {
-  debug = true,
-  sources = {
-    prettier,
-    eslint_d,
-    require("null-ls").builtins.formatting.stylua,
-  },
-}
 
 local on_attach = function(client)
   if client.resolved_capabilities.document_formatting then
@@ -79,7 +67,8 @@ local on_attach = function(client)
     0,
     "n",
     "<leader>rn",
-    "<cmd>call v:lua.lsp_rename()<CR>",
+    -- "<cmd>call v:lua.lsp_rename()<CR>",
+    "<cmd>Lsp rename<CR>",
     { noremap = true, silent = true }
   )
   vim.api.nvim_buf_set_keymap(0, "n", "<leader>rp", "<cmd>call v:lua.replace()<CR>", { noremap = true, silent = true })
@@ -87,7 +76,8 @@ local on_attach = function(client)
     0,
     "n",
     "<leader>da",
-    "<cmd>lua require('lspsaga.codeaction').code_action()<CR>",
+    -- "<cmd>lua require('lspsaga.codeaction').code_action()<CR>",
+    "<cmd>Lsp codeaction<CR>",
     { noremap = true, silent = true }
   )
   vim.api.nvim_buf_set_keymap(
@@ -115,23 +105,15 @@ local on_attach_ts = function(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = {
-  valueSet = { 1 },
-}
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits",
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+null_ls.setup {
+  -- debug = true,
+  sources = {
+    prettier,
+    eslint_d,
+    null_ls.builtins.formatting.stylua,
   },
-}
-lsp["null-ls"].setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
