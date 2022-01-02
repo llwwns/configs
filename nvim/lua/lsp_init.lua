@@ -5,8 +5,12 @@ local util = require "lspconfig/util"
 
 local null_ls = require "null-ls"
 
-local prettier = require("null-ls.helpers").conditional(function(utils)
+local prettier = function()
   local project_local_bin = "node_modules/.bin/prettier"
+  local utils = require("null-ls.utils").make_conditional_utils()
+  if not utils.root_has_file ".prettierrc" then
+    return nil
+  end
 
   return null_ls.builtins.formatting.prettier.with {
     command = utils.root_has_file(project_local_bin) and project_local_bin or "prettier",
@@ -17,13 +21,16 @@ local prettier = require("null-ls.helpers").conditional(function(utils)
       "typescriptreact",
     },
   }
-end)
+end
 
-local eslint_d = require("null-ls.helpers").conditional(function(utils)
+local eslint_d = function()
   return null_ls.builtins.diagnostics.eslint_d.with {
     timeout = 15000,
+    condition = function(utils)
+      utils.root_has_file ".eslintrc"
+    end,
   }
-end)
+end
 
 local on_attach = function(client)
   if
@@ -102,8 +109,17 @@ local on_attach = function(client)
   }
 end
 
-local on_attach_ts = function(client)
+local on_attach_noformat = function(client)
   client.resolved_capabilities.document_formatting = false
+  on_attach(client)
+end
+
+local on_attach_ts = function(client)
+  local root = client.config.root_dir
+  local path = require("null-ls.utils").path
+  if path.exists(path.join(root, ".prettierrc")) then
+    client.resolved_capabilities.document_formatting = false
+  end
   on_attach(client)
 end
 
@@ -122,9 +138,16 @@ null_ls.setup {
 }
 
 lsp.clangd.setup {
-  on_attach = on_attach_ts,
+  on_attach = on_attach_noformat,
   capabilities = capabilities,
+  cmd = { "clangd", "--background-index" },
 }
+--
+-- lsp.ccls.setup {
+--   on_attach = on_attach_ts,
+--   capabilities = capabilities,
+-- }
+
 lsp.rust_analyzer.setup {
   on_attach = on_attach,
   ["rust-analyzer.diagnostics.enable"] = true,
@@ -139,16 +162,19 @@ lsp.tsserver.setup {
   capabilities = capabilities,
 }
 lsp.denols.setup {
-  on_attach = on_attach,
+  on_attach = on_attach_ts,
   root_dir = lsp.util.root_pattern "deno.json",
   init_options = {
     lint = true,
   },
+  settings = {
+    ["deno.unstable"] = true,
+  },
 }
 
 lsp.vimls.setup { on_attach = on_attach }
-lsp.jsonls.setup { on_attach = on_attach_ts }
-lsp.yamlls.setup { on_attach = on_attach_ts }
+lsp.jsonls.setup { on_attach = on_attach_noformat }
+lsp.yamlls.setup { on_attach = on_attach_noformat }
 lsp.gopls.setup {
   cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es" },
   capabilities = capabilities,

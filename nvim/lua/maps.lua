@@ -128,7 +128,7 @@ vim.api.nvim_set_keymap("n", "<A-j>", "<C-w>j", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-k>", "<C-w>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-l>", "<C-w>l", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>", { noremap = true, silent = true })
 
 -- cmap <c-v> <c-r>

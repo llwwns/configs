@@ -52,6 +52,27 @@ ls.snippets = {
       i(0),
       t { "", "}" },
     }),
+    s("leetcode", {
+      t {
+        "#include<iostream>",
+        "#include<algorithm>",
+        "#include<vector>",
+        "#include<stack>",
+        "#include<queue>",
+        "",
+        "using namespace std;",
+        "",
+        "",
+      },
+      i(0),
+      t {
+        "",
+        "",
+        "int main() {",
+        "    ",
+        "}",
+      },
+    }),
   },
 }
 
