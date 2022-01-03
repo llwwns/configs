@@ -116,7 +116,7 @@ startup(function(use)
   use { "mechatroner/rainbow_csv", opt = true, ft = { "csv" } }
   use "google/vim-searchindex"
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
-  -- use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
+  use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
   use { "tpope/vim-dadbod", opt = true, cmd = { "DBUI" } }
   use { "kristijanhusak/vim-dadbod-ui", opt = true, cmd = { "DBUI" } }
   use {
@@ -225,23 +225,6 @@ startup(function(use)
       require("hop").setup()
     end,
   }
-  use {
-    opt = true,
-    "ibhagwan/fzf-lua",
-    module = "fzf-lua",
-    requires = {
-      "vijaymarupudi/nvim-fzf",
-    },
-    config = function()
-      require("fzf-lua").setup {
-        border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-        buffers = {
-          sort_lastused = true,
-        },
-      }
-    end,
-  }
-  use { opt = true, "vijaymarupudi/nvim-fzf", module = "fzf" }
   use {
     opt = true,
     "numtostr/FTerm.nvim",

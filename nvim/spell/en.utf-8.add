@@ -1,6 +1,7 @@
 github
 iam
 app
+apps
 usecase
 vo
 config
@@ -30,3 +31,6 @@ arg
 bool
 unparsable
 local
+godbc
+noncharacter
+func

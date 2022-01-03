@@ -215,7 +215,7 @@ vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = "~"
 
 vim.g.tokyonight_style = "night"
--- vim.g.tokyonight_transparent = true
+vim.g.tokyonight_transparent = true
 -- vim.cmd('silent! colorscheme moonfly')
 -- vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')
@@ -256,7 +256,7 @@ vim.g.symbols_outline = {
   position = "left",
   width = 16,
 }
-vim.opt.foldnestmax = 3
+-- vim.opt.foldnestmax = 3
 vim.opt.foldminlines = 1
 -- vim.opt.foldtext="getline(v:foldstart).'...'.trim(getline(v:foldend))"
 -- vim.opt.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
