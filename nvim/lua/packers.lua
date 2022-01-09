@@ -273,4 +273,14 @@ startup(function(use)
       require("dressing").setup {}
     end,
   }
+  use {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").register_lsp_virtual_lines()
+      vim.diagnostic.config {
+        virtual_text = false,
+      }
+    end,
+  }
+  use { "nyngwang/NeoZoom.lua", opt = true, cmd = { "NeoZoomToggle" } }
 end)

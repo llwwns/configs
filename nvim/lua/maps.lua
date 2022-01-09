@@ -15,6 +15,9 @@ vim.api.nvim_set_keymap("n", "<left>", "zH", { noremap = true })
 vim.api.nvim_set_keymap("n", "<right>", "zL", { noremap = true })
 vim.api.nvim_set_keymap("n", "<c-f>", ":Sub/", { noremap = true })
 
+vim.api.nvim_set_keymap("n", "<c-w>z", "<cmd>NeoZoomToggle<CR>", {})
+vim.api.nvim_set_keymap("i", "<c-w>z", "<cmd>NeoZoomToggle<CR>", {})
+
 -- vim.api.nvim_set_keymap("", "<leader>f"  , "<Plug>(easymotion-f)", {})
 -- vim.api.nvim_set_keymap("", "<leader>F"  , "<Plug>(easymotion-F)", {})
 -- vim.api.nvim_set_keymap("", "<leader>s"  , "<Plug>(easymotion-s)", {})
