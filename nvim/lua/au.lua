@@ -89,7 +89,4 @@ augroups {
   highlight_yank = {
     'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)',
   },
-  rust = {
-    [[BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]],
-  },
 }

@@ -241,14 +241,6 @@ startup(function(use)
   use "windwp/nvim-ts-autotag"
   use "lewis6991/impatient.nvim"
   use {
-    "https://gitlab.com/yorickpeterse/nvim-dd",
-    config = function()
-      require("dd").setup {
-        timeout = 500,
-      }
-    end,
-  }
-  use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     opt = true,
@@ -271,15 +263,6 @@ startup(function(use)
     "stevearc/dressing.nvim",
     config = function()
       require("dressing").setup {}
-    end,
-  }
-  use {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").register_lsp_virtual_lines()
-      vim.diagnostic.config {
-        virtual_text = false,
-      }
     end,
   }
   use { "nyngwang/NeoZoom.lua", opt = true, cmd = { "NeoZoomToggle" } }

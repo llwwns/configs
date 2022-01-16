@@ -123,6 +123,14 @@ local on_attach_ts = function(client)
   on_attach(client)
 end
 
+local on_attach_rs = function(client)
+  on_attach(client)
+  vim.cmd "augroup rust"
+  vim.cmd "autocmd!"
+  vim.cmd [[autocmd BufEnter,BufWinEnter,TabEnter,InsertLeave *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]]
+  vim.cmd "augroup END"
+end
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
@@ -132,6 +140,7 @@ null_ls.setup {
     prettier,
     eslint_d,
     null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.shellcheck,
   },
   on_attach = on_attach,
   capabilities = capabilities,
@@ -149,7 +158,7 @@ lsp.clangd.setup {
 -- }
 
 lsp.rust_analyzer.setup {
-  on_attach = on_attach,
+  on_attach = on_attach_rs,
   ["rust-analyzer.diagnostics.enable"] = true,
   ["rust-analyzer.checkOnSave.enable"] = true,
   capabilities = capabilities,
