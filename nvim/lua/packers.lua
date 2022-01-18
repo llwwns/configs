@@ -144,7 +144,7 @@ startup(function(use)
   }
   use "bluz71/vim-moonfly-colors"
   use "dstein64/nvim-scrollview"
-  use("simnalamburt/vim-mundo", { on = { "MundoShow", "MundoToggle" } })
+  use { "simnalamburt/vim-mundo", opt = true, cmd = { "MundoShow", "MundoToggle" } }
   use {
     "lewis6991/gitsigns.nvim",
     requires = { "nvim-lua/plenary.nvim" },

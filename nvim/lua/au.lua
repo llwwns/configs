@@ -87,6 +87,6 @@ augroups {
     -- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
   },
   highlight_yank = {
-    'TextYankPost * silent! lua require"vim.highlight".on_yank("Visual", 200)',
+    'TextYankPost * silent! lua vim.highlight.on_yank { higroup="Visual", timeout=200 }',
   },
 }

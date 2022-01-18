@@ -109,6 +109,8 @@ vim.api.nvim_set_keymap("n", "<Leader>t", ":Ttoggle<CR>", {})
 vim.api.nvim_set_keymap("v", "<Leader>r", ":TREPLSendSelection<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>ql", ":call v:lua.stop_lsp()<CR>", {})
 
+vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>MundoToggle<CR>", {})
+
 -- vim.api.nvim_set_keymap("i", "<TAB>", [[pumvisible() ? "\<C-n>" : "\<TAB>"]], { expr = true, noremap = true })
 -- vim.api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { expr = true, noremap = true })
 -- vim.api.nvim_set_keymap("i", "<S-TAB>", [[pumvisible() ? "\<C-p>" : "\<S-TAB>"]], { expr = true, noremap = true })
