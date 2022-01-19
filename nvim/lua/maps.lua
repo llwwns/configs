@@ -151,3 +151,5 @@ vim.api.nvim_set_keymap("t", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", 
 -- vim.api.nvim_set_keymap("", "<f7>", "7gt", {})
 -- vim.api.nvim_set_keymap("", "<f8>", "8gt", {})
 -- vim.api.nvim_set_keymap("", "<f9>", "9gt", {})
+
+vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true })

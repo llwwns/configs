@@ -167,8 +167,9 @@ local default = {
 local quickfix = {
   filetypes = { "qf", "Trouble" },
   active = {
+    { helper.separators.left_rounded, { "red_light", "black_light" } },
     { "Quickfix ", { "black", "red_light" } },
-    { helper.separators.slant_right, { "red_light", "black_light" } },
+    { helper.separators.left_rounded, { "black_light", "red_light" } },
     {
       function()
         return vim.fn.getqflist({ title = 0 }).title
@@ -176,7 +177,7 @@ local quickfix = {
       { "cyan", "black_light" },
     },
     { " Total : %L ", { "cyan", "black_light" } },
-    { helper.separators.slant_right, { "black_light", "InactiveBg" } },
+    { helper.separators.right_rounded, { "black_light", "InactiveBg" } },
     { " ", { "InactiveFg", "InactiveBg" } },
     basic.divider,
   },
@@ -186,8 +187,9 @@ local quickfix = {
 local explorer = {
   filetypes = { "fern", "NvimTree", "lir" },
   active = {
+    { helper.separators.left_rounded, { "black", "black_light" } },
     { "  ", { "white", "black" } },
-    { helper.separators.slant_right, { "black", "black_light" } },
+    { helper.separators.right_rounded, { "black", "black_light" } },
     { b_components.divider, "" },
     { b_components.file_name "", { "white", "black_light" } },
   },
@@ -204,5 +206,26 @@ windline.setup {
     default,
     explorer,
     quickfix,
+  },
+  tabline = {
+    template = {
+      -- this use a highlight color a text will replace by tab name
+      select = { "", { "TabSelectionFg", "TabSelectionBg" } },
+      select_start = { "", { "TabLineBg", "TabSelectionBg" } },
+      select_end = { sep.slant_right .. " ", { "TabSelectionBg", "TabLineBg" } },
+
+      -- select_last display if select tab is a last tab
+      select_last = { sep.slant_right, { "TabSelectionBg", "TabLineFillBg" } },
+
+      -- this only use a highlight color a text will replace by tab name
+      normal = { "", { "TabLineFg", "TabLineBg" } },
+      normal_start = { " ", { "TabLineFg", "TabLineBg" } },
+      normal_end = { sep.slant_right_thin, { "TabLineFg", "TabLineBg" } },
+
+      -- normal_select display if a next tab is select
+      normal_select = { sep.slant_right .. " ", { "TabLineBg", "TabSelectionBg" } },
+      -- normal_last display if tab is the last tab
+      normal_last = { sep.slant_right, { "TabLineBg", "TabLineFillBg" } },
+    },
   },
 }

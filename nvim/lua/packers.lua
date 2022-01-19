@@ -215,7 +215,7 @@ startup(function(use)
     end,
   }
   use "folke/tokyonight.nvim"
-  -- use{'TimUntersberger/neogit', opt = true, cmd = { 'Neogit' }}
+  use { "TimUntersberger/neogit", opt = true, cmd = { "Neogit" } }
   use { "samoshkin/vim-mergetool", opt = true, cmd = { "MergetoolStart" } }
   use {
     "phaazon/hop.nvim",
