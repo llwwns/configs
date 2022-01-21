@@ -266,4 +266,12 @@ startup(function(use)
     end,
   }
   use { "nyngwang/NeoZoom.lua", opt = true, cmd = { "NeoZoomToggle" } }
+  use {
+    "ruifm/gitlinker.nvim",
+    opt = true,
+    config = function()
+      require("gitlinker").setup()
+    end,
+    keys = { { "v", "<leader>gy" }, { "n", "<leader>gy" } },
+  }
 end)
