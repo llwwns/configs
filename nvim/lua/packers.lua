@@ -215,7 +215,44 @@ startup(function(use)
     end,
   }
   use "folke/tokyonight.nvim"
-  use { "TimUntersberger/neogit", opt = true, cmd = { "Neogit" } }
+  use {
+    "TimUntersberger/neogit",
+    opt = true,
+    cmd = { "Neogit" },
+    config = function()
+      require("neogit").setup {
+        disable_commit_confirmation = true,
+        signs = {
+          section = { "", "" },
+          item = { "", "" },
+          hunk = { "", "" },
+        },
+        sections = {
+          staged = {
+            folded = false,
+          },
+          unstaged = {
+            folded = false,
+          },
+          untracked = {
+            folded = false,
+          },
+          stashes = {
+            folded = true,
+          },
+          unpulled = {
+            folded = true,
+          },
+          unmerged = {
+            folded = true,
+          },
+          recent = {
+            folded = true,
+          },
+        },
+      }
+    end,
+  }
   use { "samoshkin/vim-mergetool", opt = true, cmd = { "MergetoolStart" } }
   use {
     "phaazon/hop.nvim",
