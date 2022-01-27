@@ -53,7 +53,7 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(
     0,
     "n",
-    "gD",
+    "gi",
     "<cmd>lua vim.lsp.buf.implementation()<CR>",
     { noremap = true, silent = true }
   )
@@ -61,7 +61,7 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(
     0,
     "n",
-    "1gD",
+    "gt",
     "<cmd>lua vim.lsp.buf.type_definition()<CR>",
     { noremap = true, silent = true }
   )
@@ -69,7 +69,7 @@ local on_attach = function(client)
   vim.api.nvim_buf_set_keymap(
     0,
     "n",
-    "g0",
+    "gs",
     "<cmd>lua vim.lsp.buf.document_symbol()<CR>",
     { noremap = true, silent = true }
   )

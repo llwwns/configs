@@ -1,7 +1,7 @@
 vim.api.nvim_set_keymap("", "<c-q>", "<cmd>q<CR>", {})
 vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>Buffers<CR>", {})
 vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Files<CR>", {})
-vim.api.nvim_set_keymap("n", "<Tab>", ":call v:lua.toggleNvimTree()<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<leader><Tab>", ":call v:lua.toggleNvimTree()<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true })
 vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true })
 vim.api.nvim_set_keymap("v", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true })
@@ -155,3 +155,22 @@ vim.api.nvim_set_keymap("t", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", 
 -- vim.api.nvim_set_keymap("", "<f9>", "9gt", {})
 
 vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true })
+
+-- Navigation
+vim.api.nvim_set_keymap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+vim.api.nvim_set_keymap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+
+-- Actions
+vim.api.nvim_set_keymap("n", "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>', {})
+vim.api.nvim_set_keymap("v", "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>', {})
+vim.api.nvim_set_keymap("v", "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hS", '<cmd>lua require"gitsigns".stage_buffer()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hR", '<cmd>lua require"gitsigns".reset_buffer()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hp", '<cmd>lua require"gitsigns".preview_hunk()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hb", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>tb", '<cmd>lua require"gitsigns".toggle_current_line_blame()<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>hd", "<cmd>Gdiff<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>', {})
+vim.api.nvim_set_keymap("n", "<leader>td", '<cmd>lua require"gitsigns".toggle_deleted()<CR>', {})

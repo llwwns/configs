@@ -117,8 +117,6 @@ startup(function(use)
   use "google/vim-searchindex"
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
-  use { "tpope/vim-dadbod", opt = true, cmd = { "DBUI" } }
-  use { "kristijanhusak/vim-dadbod-ui", opt = true, cmd = { "DBUI" } }
   use {
     "norcalli/nvim-colorizer.lua",
     config = function()
@@ -310,5 +308,11 @@ startup(function(use)
       require("gitlinker").setup()
     end,
     keys = { { "v", "<leader>gy" }, { "n", "<leader>gy" } },
+  }
+  use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup {}
+    end,
   }
 end)
