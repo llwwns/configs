@@ -27,7 +27,7 @@ local eslint_d = function()
   return null_ls.builtins.diagnostics.eslint_d.with {
     timeout = 15000,
     condition = function(utils)
-      utils.root_has_file ".eslintrc"
+      return utils.root_has_file ".eslintrc" or utils.root_has_file ".eslintrc.json"
     end,
   }
 end
@@ -37,7 +37,7 @@ local on_attach = function(client)
     client.resolved_capabilities.document_formatting
     and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
   then
-    vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+    vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"
   end
   vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {
     noremap = true,
@@ -147,7 +147,7 @@ null_ls.setup {
 }
 
 lsp.clangd.setup {
-  on_attach = on_attach_noformat,
+  on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "clangd", "--background-index" },
 }
@@ -182,8 +182,8 @@ lsp.denols.setup {
 }
 
 lsp.vimls.setup { on_attach = on_attach }
-lsp.jsonls.setup { on_attach = on_attach_noformat }
-lsp.yamlls.setup { on_attach = on_attach_noformat }
+lsp.jsonls.setup { on_attach = on_attach }
+lsp.yamlls.setup { on_attach = on_attach }
 lsp.gopls.setup {
   cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es" },
   capabilities = capabilities,

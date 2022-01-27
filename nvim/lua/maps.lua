@@ -156,6 +156,8 @@ vim.api.nvim_set_keymap("t", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", 
 
 vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true })
 
+vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>lua toggle_format()<CR>", { noremap = true })
+
 -- Navigation
 vim.api.nvim_set_keymap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
 vim.api.nvim_set_keymap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })

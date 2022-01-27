@@ -95,3 +95,19 @@ function _G.dump(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))
 end
+
+function toggle_format()
+  if vim.b.format_on_save then
+    vim.b.format_on_save = false
+    print "turn off auto format"
+  else
+    vim.b.format_on_save = true
+    print "turn on auto format"
+  end
+end
+
+function lsp_format()
+  if vim.b.format_on_save then
+    vim.lsp.buf.formatting_sync()
+  end
+end
