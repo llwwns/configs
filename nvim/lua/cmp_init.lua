@@ -1,10 +1,5 @@
 local cmp = require "cmp"
-
-require("cmp_dictionary").setup {
-  dic = {
-    ["*"] = "/usr/share/dict/words",
-  },
-}
+require "words"
 
 cmp.setup {
   snippet = {
@@ -32,7 +27,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "path" },
     -- { name = "buffer" },
-    { name = "dictionary", max_item_count = 7 },
+    { name = "words", max_item_count = 7 },
   },
   preselect = cmp.PreselectMode.None,
   formatting = {
