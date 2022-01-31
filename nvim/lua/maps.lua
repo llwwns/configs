@@ -176,3 +176,16 @@ vim.api.nvim_set_keymap("n", "<leader>tb", '<cmd>lua require"gitsigns".toggle_cu
 vim.api.nvim_set_keymap("n", "<leader>hd", "<cmd>Gdiff<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>', {})
 vim.api.nvim_set_keymap("n", "<leader>td", '<cmd>lua require"gitsigns".toggle_deleted()<CR>', {})
+
+vim.api.nvim_set_keymap("n", "crp", "crcvU", {})
+vim.api.nvim_set_keymap("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>", {})
+vim.api.nvim_set_keymap("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>", {})
+map_pairs("a", "")
+map_pairs("t", "tab")
+map_pairs("q", "c")
+map_pairs("l", "l")
+map_pairs("b", "b")
+
+vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>AerialToggle!<CR>", {})
+vim.api.nvim_buf_set_keymap(bufnr, "n", "[s", "<cmd>AerialPrev<CR>", {})
+vim.api.nvim_buf_set_keymap(bufnr, "n", "]s", "<cmd>AerialNext<CR>", {})

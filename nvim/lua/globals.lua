@@ -111,3 +111,11 @@ function lsp_format()
     vim.lsp.buf.formatting_sync()
   end
 end
+
+function map_pairs(map, cmd)
+  local umap = map:gsub(".", string.upper)
+  vim.api.nvim_set_keymap("n", "]" .. map, "<cmd>" .. cmd .. "next<CR>", {})
+  vim.api.nvim_set_keymap("n", "[" .. map, "<cmd>" .. cmd .. "previous<CR>", {})
+  vim.api.nvim_set_keymap("n", "[" .. umap, "<cmd>" .. cmd .. "first<CR>", {})
+  vim.api.nvim_set_keymap("n", "]" .. umap, "<cmd>" .. cmd .. "last<CR>", {})
+end

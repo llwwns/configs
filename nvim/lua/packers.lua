@@ -68,7 +68,6 @@ startup(function(use)
       "hrsh7th/cmp-nvim-lsp",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-path",
-      "uga-rosa/cmp-dictionary",
     },
     config = function()
       require "cmp_init"
@@ -297,7 +296,11 @@ startup(function(use)
   use {
     "stevearc/dressing.nvim",
     config = function()
-      require("dressing").setup {}
+      require("dressing").setup {
+        select = {
+          backend = { "builtin" },
+        },
+      }
     end,
   }
   use { "nyngwang/NeoZoom.lua", opt = true, cmd = { "NeoZoomToggle" } }
