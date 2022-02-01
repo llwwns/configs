@@ -7,10 +7,20 @@ require("telescope").setup {
         ["<esc>"] = actions.close,
       },
     },
-    file_sorter = sorters.get_fzy_sorter,
-    generic_sorter = sorters.get_fzy_sorter,
+    extensions = {
+      fzy_native = {
+        override_generic_sorter = false,
+        override_file_sorter = true,
+      },
+    },
     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-    prompt_position = "top",
     sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+      },
+    },
   },
 }
+require("telescope").load_extension "fzy_native"

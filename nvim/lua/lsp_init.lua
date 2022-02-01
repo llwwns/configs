@@ -66,13 +66,14 @@ local on_attach = function(client)
     { noremap = true, silent = true }
   )
   vim.api.nvim_buf_set_keymap(0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(
-    0,
-    "n",
-    "gs",
-    "<cmd>lua vim.lsp.buf.document_symbol()<CR>",
-    { noremap = true, silent = true }
-  )
+  -- vim.api.nvim_buf_set_keymap(
+  --   0,
+  --   "n",
+  --   "gs",
+  --   "<cmd>lua vim.lsp.buf.document_symbol()<CR>",
+  --   { noremap = true, silent = true }
+  -- )
+  vim.api.nvim_set_keymap("n", "gs", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", {})
   vim.api.nvim_buf_set_keymap(
     0,
     "n",

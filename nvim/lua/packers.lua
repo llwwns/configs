@@ -35,7 +35,6 @@ startup(function(use)
   use "wellle/targets.vim"
   use { "mattn/emmet-vim", opt = true, keys = { { "i", "<c-y>," } } }
   use { "FooSoft/vim-argwrap", opt = true, cmd = { "ArgWrap" } }
-  use "junegunn/vim-easy-align"
   -- use('sheerun/vim-polyglot')
   use {
     "windwp/windline.nvim",
@@ -106,7 +105,7 @@ startup(function(use)
       require("Comment").setup { extra = {}, extended = false }
     end,
   }
-  use "bronson/vim-trailing-whitespace"
+  -- use "bronson/vim-trailing-whitespace"
   use {
     "machakann/vim-swap",
     opt = true,
@@ -312,10 +311,27 @@ startup(function(use)
     end,
     keys = { { "v", "<leader>gy" }, { "n", "<leader>gy" } },
   }
+  -- use {
+  --   "j-hui/fidget.nvim",
+  --   config = function()
+  --     require("fidget").setup {}
+  --   end,
+  -- }
   use {
-    "j-hui/fidget.nvim",
+    opt = true,
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzy-native.nvim" },
+    },
+    module = { "telescope" },
     config = function()
-      require("fidget").setup {}
+      require "telescope_init"
     end,
+  }
+  use {
+    opt = true,
+    "nvim-telescope/telescope-fzy-native.nvim",
+    module = { "telescope._extensions" },
   }
 end)
