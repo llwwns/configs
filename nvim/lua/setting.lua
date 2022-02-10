@@ -58,7 +58,7 @@ vim.opt.completeopt = "menuone,noselect"
 -- vim.o.completeopt = "longest,menu"
 vim.opt.shortmess = "atToOFcA"
 vim.opt.sessionoptions = { "blank", "curdir", "folds", "tabpages" }
-vim.opt.fillchars = { vert = "│", fold = " " }
+vim.opt.fillchars = { vert = "│", fold = " ", diff = " ", eob = " " }
 vim.opt.laststatus = 2
 vim.opt.exrc = true
 vim.opt.secure = true
@@ -264,3 +264,4 @@ vim.opt.foldtext = "v:lua.foldtext2()"
 -- vim.opt.foldcolumn = "auto:3"
 vim.opt.dictionary = "/usr/share/dict/words"
 vim.g.cmp_dictionary_exact = 2
+vim.g.diff_translations = 0

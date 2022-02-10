@@ -99,6 +99,9 @@ local function starts_with(str, pre)
 end
 
 local function getlist(tbl, str, maxc, next)
+  if #str < 4 then
+    return
+  end
   local l = lower_bound(tbl, str)
   for i = l, l + maxc - 1 do
     if i > #tbl then

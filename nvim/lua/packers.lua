@@ -179,7 +179,7 @@ startup(function(use)
     "onsails/lspkind-nvim",
     config = function()
       require("lspkind").init {
-        with_text = true,
+        mode = "text_symbol",
         symbol_map = {
           Text = "  ",
           Method = "  ",
@@ -218,6 +218,9 @@ startup(function(use)
     config = function()
       require("neogit").setup {
         disable_commit_confirmation = true,
+        integrations = {
+          diffview = true,
+        },
         signs = {
           section = { "", "" },
           item = { "", "" },
@@ -333,5 +336,18 @@ startup(function(use)
     opt = true,
     "nvim-telescope/telescope-fzy-native.nvim",
     module = { "telescope._extensions" },
+  }
+  use {
+    "sindrets/diffview.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    opt = true,
+    module = "diffview",
+    cmd = {
+      "DiffviewFileHistory",
+      "DiffviewOpen",
+    },
+    config = function()
+      require "diffview_init"
+    end,
   }
 end)
