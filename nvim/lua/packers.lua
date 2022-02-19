@@ -72,7 +72,7 @@ startup(function(use)
       require "cmp_init"
     end,
   }
-  use "nvim-lua/lsp_extensions.nvim"
+  use { "nvim-lua/lsp_extensions.nvim", opt = true, module = { "lsp_extensions" } }
   use {
     "kyazdani42/nvim-tree.lua",
     requires = "kyazdani42/nvim-web-devicons",
@@ -140,7 +140,7 @@ startup(function(use)
   }
   use "bluz71/vim-moonfly-colors"
   use "dstein64/nvim-scrollview"
-  use { "simnalamburt/vim-mundo", opt = true, cmd = { "MundoShow", "MundoToggle" } }
+  use { "mbbill/undotree", opt = true, cmd = { "UndotreeToggle" } }
   use {
     "lewis6991/gitsigns.nvim",
     requires = { "nvim-lua/plenary.nvim" },
