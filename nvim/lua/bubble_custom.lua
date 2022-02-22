@@ -15,6 +15,24 @@ local hl_list = {
   Inactive = { "InactiveFg", "InactiveBg" },
   Active = { "ActiveFg", "ActiveBg" },
 }
+local text_colors = {
+  Normal = "blue_light",
+  Insert = "green",
+  Visual = "yellow",
+  Replace = "red",
+  Command = "magenta",
+}
+
+function table.flatmap(tbl, func)
+  local ret_tbl = {}
+  for k, v in pairs(tbl) do
+    t2 = func(k, v)
+    for k2, v2 in pairs(t2) do
+      ret_tbl[k2] = v2
+    end
+  end
+  return ret_tbl
+end
 local basic = {}
 
 basic.divider = { b_components.divider, "" }
@@ -25,23 +43,15 @@ basic.progress_inactive = { b_components.progress, hl_list.Inactive }
 
 basic.vi_mode = {
   name = "vi_mode",
-  hl_colors = {
-    Normal = { "black", "blue_light", "bold" },
-    Insert = { "black", "green", "bold" },
-    Visual = { "black", "yellow", "bold" },
-    Replace = { "black", "red", "bold" },
-    Command = { "black", "magenta", "bold" },
-    NormalBefore = { "blue_light", "ActiveBg" },
-    InsertBefore = { "green", "ActiveBg" },
-    VisualBefore = { "yellow", "ActiveBg" },
-    ReplaceBefore = { "red", "ActiveBg" },
-    CommandBefore = { "magenta", "ActiveBg" },
-    NormalAfter = { "white", "blue_light" },
-    InsertAfter = { "white", "green" },
-    VisualAfter = { "white", "yellow" },
-    ReplaceAfter = { "white", "red" },
-    CommandAfter = { "white", "magenta" },
-  },
+  hl_colors = table.flatmap(text_colors, function(k, v)
+    return {
+      [k .. "S1"] = { "ActiveBg", "InactiveBg" },
+      [k .. "Icon"] = { v, "ActiveBg" },
+      [k .. "S2"] = { "ActiveBg", v },
+      [k] = { "black", v, "bold" },
+      [k .. "After"] = { v, "ActiveBg" },
+    }
+  end),
   text = function()
     return {
       { sep.left_rounded, state.mode[2] .. "Before" },
@@ -143,12 +153,13 @@ local default = {
     { " ", hl_list.Active },
     basic.vi_mode,
     basic.file,
-    { vim_components.search_count(), { "red", "white" } },
+    { vim_components.search_count(), { "black", "white" } },
     { sep.right_rounded, { "white", "ActiveBg" } },
     basic.lsp_diagnos,
     basic.git,
     basic.gps,
     basic.divider,
+    { "[%{&fileformat}]", { "blue", "ActiveBg" }, 90 },
     { git_comps.git_branch { icon = "  " }, { "green", "ActiveBg" }, 90 },
     { " ", hl_list.Active },
     basic.right,

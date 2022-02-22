@@ -1,17 +1,14 @@
-local startup
 if not pcall(function()
   vim.cmd [[packadd packer.nvim]]
-  startup = require("packer").startup
 end) then
   local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
   if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.cmd("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
   end
   vim.cmd [[packadd packer.nvim]]
-  startup = require("packer").startup
 end
 
-startup(function(use)
+require("packer").startup(function(use)
   use { "wbthomason/packer.nvim", opt = true }
   use "lukas-reineke/indent-blankline.nvim"
   use "tpope/vim-fugitive"
@@ -50,7 +47,7 @@ startup(function(use)
   use {
     "neovim/nvim-lspconfig",
     requires = {
-      "tami5/lspsaga.nvim",
+      -- "tami5/lspsaga.nvim",
       "jose-elias-alvarez/null-ls.nvim",
       "nvim-lua/plenary.nvim",
       "ray-x/lsp_signature.nvim",
@@ -277,15 +274,6 @@ startup(function(use)
   use "windwp/nvim-ts-autotag"
   use "lewis6991/impatient.nvim"
   use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    opt = true,
-    cmd = { "Trouble" },
-    config = function()
-      require("trouble").setup {}
-    end,
-  }
-  use {
     "ii14/lsp-command",
     opt = true,
     cmd = { "Lsp" },
@@ -314,12 +302,12 @@ startup(function(use)
     end,
     keys = { { "v", "<leader>gy" }, { "n", "<leader>gy" } },
   }
-  -- use {
-  --   "j-hui/fidget.nvim",
-  --   config = function()
-  --     require("fidget").setup {}
-  --   end,
-  -- }
+  use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup {}
+    end,
+  }
   use {
     opt = true,
     "nvim-telescope/telescope.nvim",

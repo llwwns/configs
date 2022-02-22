@@ -119,8 +119,8 @@ vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>", {})
 
 -- nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 -- nmap <silent> <C-j> <Plug>(ale_next_wrap)
-vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>", {})
-vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>", {})
+-- vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>", {})
+-- vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>", {})
 
 vim.api.nvim_set_keymap("t", "<C-[><C-[>", "<C-\\><C-n>", { noremap = true })
 vim.api.nvim_set_keymap("t", "<A-h>", "<C-\\><C-n><C-w>h", { noremap = true })
@@ -179,8 +179,11 @@ vim.api.nvim_set_keymap("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis(
 vim.api.nvim_set_keymap("n", "<leader>td", '<cmd>lua require"gitsigns".toggle_deleted()<CR>', {})
 
 vim.api.nvim_set_keymap("n", "crp", "crcvU", {})
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>", {})
-vim.api.nvim_set_keymap("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>", {})
+vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", {})
+vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {})
+
+vim.api.nvim_set_keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.setqflist()<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>dl", "<cmd>lua vim.diagnostic.setloclist()<CR>", {})
 map_pairs("a", "")
 map_pairs("t", "tab")
 map_pairs("q", "c")

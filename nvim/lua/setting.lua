@@ -13,8 +13,8 @@ if vim.fn.has "multi_lang" then
 end
 vim.opt.encoding = "utf-8"
 vim.opt.laststatus = 2
--- vim.opt.winblend = 20
--- vim.opt.pumblend = 20
+vim.opt.winblend = 20
+vim.opt.pumblend = 20
 vim.opt.timeoutlen = 500
 vim.opt.spell = true
 vim.opt.spelloptions = "camel"
@@ -215,7 +215,7 @@ vim.g.Illuminate_delay = 0
 vim.g.signify_sign_change = "~"
 
 vim.g.tokyonight_style = "night"
-vim.g.tokyonight_transparent = true
+-- vim.g.tokyonight_transparent = true
 -- vim.cmd('silent! colorscheme moonfly')
 -- vim.cmd('silent! colorscheme nightfly')
 -- vim.cmd('silent! colorscheme nvcode')

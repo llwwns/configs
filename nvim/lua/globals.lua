@@ -47,14 +47,14 @@ end
 function toggleNvimTree()
   local nt = require "nvim-tree"
   local view = require "nvim-tree.view"
-  if not view.win_open() then
+  if not view.is_visible() then
     if vim.fn.expand "%:p" == "" then
       nt.open()
     else
       nt.find_file(true)
     end
   else
-    nt.close()
+    view.close()
   end
 end
 
