@@ -47,9 +47,9 @@ basic.vi_mode = {
     return {
       [k .. "S1"] = { "ActiveBg", "InactiveBg" },
       [k .. "Icon"] = { v, "ActiveBg" },
-      [k .. "S2"] = { "ActiveBg", v },
+      [k .. "Before"] = { v, "ActiveBg" },
       [k] = { "black", v, "bold" },
-      [k .. "After"] = { v, "ActiveBg" },
+      [k .. "After"] = { "white", v },
     }
   end),
   text = function()
