@@ -1,189 +1,205 @@
-vim.api.nvim_set_keymap("n", "Q", "<nop>", {})
-vim.api.nvim_set_keymap("", "<c-q>", "<cmd>q<CR>", {})
--- vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>Buffers<CR>", {})
--- vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Files<CR>", {})
-vim.api.nvim_set_keymap("n", "<c-e>", "<cmd>lua require('telescope.builtin').buffers({ sort_lastused = true })<CR>", {})
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader><Tab>", "<cmd>lua require('nvim-tree').toggle(true)<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true })
-vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true })
-vim.api.nvim_set_keymap("v", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true })
-vim.api.nvim_set_keymap("v", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true })
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("", "<c-q>", "<cmd>q<CR>")
+-- vim.keymap.set("n", "<c-e>", "<cmd>Buffers<CR>")
+-- vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>")
+vim.keymap.set("n", "<c-e>", function()
+  require("telescope.builtin").buffers { sort_lastused = true }
+end)
+vim.keymap.set("n", "<c-p>", function()
+  require("telescope.builtin").find_files()
+end)
+vim.keymap.set("n", "<leader><Tab>", function()
+  require("nvim-tree").toggle(true)
+end, { silent = true })
+vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true })
+vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true })
 
-vim.api.nvim_set_keymap("n", "<PageUp>", "<c-u>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<PageDown>", "<c-d>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<up>", "<c-y>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<down>", "<c-e>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<left>", "zH", { noremap = true })
-vim.api.nvim_set_keymap("n", "<right>", "zL", { noremap = true })
-vim.api.nvim_set_keymap("n", "<c-f>", ":Sub/", { noremap = true })
+vim.keymap.set("n", "<PageUp>", "<c-u>", { noremap = true })
+vim.keymap.set("n", "<PageDown>", "<c-d>", { noremap = true })
+vim.keymap.set("n", "<up>", "<c-y>", { noremap = true })
+vim.keymap.set("n", "<down>", "<c-e>", { noremap = true })
+vim.keymap.set("n", "<left>", "zH", { noremap = true })
+vim.keymap.set("n", "<right>", "zL", { noremap = true })
+vim.keymap.set("n", "<c-f>", ":Sub/", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<c-w>z", "<cmd>NeoZoomToggle<CR>", {})
-vim.api.nvim_set_keymap("i", "<c-w>z", "<cmd>NeoZoomToggle<CR>", {})
+vim.keymap.set({ "n", "i" }, "<c-w>z", "<cmd>NeoZoomToggle<CR>")
+-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", { silent = true })
 
--- vim.api.nvim_set_keymap("", "<leader>f"  , "<Plug>(easymotion-f)", {})
--- vim.api.nvim_set_keymap("", "<leader>F"  , "<Plug>(easymotion-F)", {})
--- vim.api.nvim_set_keymap("", "<leader>s"  , "<Plug>(easymotion-s)", {})
--- vim.api.nvim_set_keymap("", "<leader>t"  , "<Plug>(easymotion-t)", {})
--- vim.api.nvim_set_keymap("", "<leader>T"  , "<Plug>(easymotion-T)", {})
--- vim.api.nvim_set_keymap("", "<leader>w"  , "<Plug>(easymotion-w)", {})
--- vim.api.nvim_set_keymap("", "<leader>W"  , "<Plug>(easymotion-W)", {})
--- vim.api.nvim_set_keymap("", "<leader>b"  , "<Plug>(easymotion-b)", {})
--- vim.api.nvim_set_keymap("", "<leader>B"  , "<Plug>(easymotion-B)", {})
--- vim.api.nvim_set_keymap("", "<leader>e"  , "<Plug>(easymotion-e)", {})
--- vim.api.nvim_set_keymap("", "<leader>E"  , "<Plug>(easymotion-E)", {})
--- vim.api.nvim_set_keymap("", "<leader>ge" , "<Plug>(easymotion-ge)", {})
--- vim.api.nvim_set_keymap("", "<leader>gE" , "<Plug>(easymotion-gE)", {})
--- vim.api.nvim_set_keymap("", "<leader>j"  , "<Plug>(easymotion-j)", {})
--- vim.api.nvim_set_keymap("", "<leader>k"  , "<Plug>(easymotion-k)", {})
--- vim.api.nvim_set_keymap("", "<leader>n"  , "<Plug>(easymotion-n)", {})
--- vim.api.nvim_set_keymap("", "<leader>N"  , "<Plug>(easymotion-N)", {})
--- vim.api.nvim_set_keymap("", "<leader>w"  , "<Plug>(easymotion-w)", {})
+-- vim.keymap.set("", "<leader>f"  , "<Plug>(easymotion-f)")
+-- vim.keymap.set("", "<leader>F"  , "<Plug>(easymotion-F)")
+-- vim.keymap.set("", "<leader>s"  , "<Plug>(easymotion-s)")
+-- vim.keymap.set("", "<leader>t"  , "<Plug>(easymotion-t)")
+-- vim.keymap.set("", "<leader>T"  , "<Plug>(easymotion-T)")
+-- vim.keymap.set("", "<leader>w"  , "<Plug>(easymotion-w)")
+-- vim.keymap.set("", "<leader>W"  , "<Plug>(easymotion-W)")
+-- vim.keymap.set("", "<leader>b"  , "<Plug>(easymotion-b)")
+-- vim.keymap.set("", "<leader>B"  , "<Plug>(easymotion-B)")
+-- vim.keymap.set("", "<leader>e"  , "<Plug>(easymotion-e)")
+-- vim.keymap.set("", "<leader>E"  , "<Plug>(easymotion-E)")
+-- vim.keymap.set("", "<leader>ge" , "<Plug>(easymotion-ge)")
+-- vim.keymap.set("", "<leader>gE" , "<Plug>(easymotion-gE)")
+-- vim.keymap.set("", "<leader>j"  , "<Plug>(easymotion-j)")
+-- vim.keymap.set("", "<leader>k"  , "<Plug>(easymotion-k)")
+-- vim.keymap.set("", "<leader>n"  , "<Plug>(easymotion-n)")
+-- vim.keymap.set("", "<leader>N"  , "<Plug>(easymotion-N)")
+-- vim.keymap.set("", "<leader>w"  , "<Plug>(easymotion-w)")
 
--- vim.api.nvim_set_keymap("n", "s", "<Plug>(easymotion-s2)", {})
--- vim.api.nvim_set_keymap("v", "s", "<Plug>(easymotion-s2)", {})
--- vim.api.nvim_set_keymap("o", "z", "<Plug>(easymotion-s2)", {})
+-- vim.keymap.set("n", "s", "<Plug>(easymotion-s2)")
+-- vim.keymap.set("v", "s", "<Plug>(easymotion-s2)")
+-- vim.keymap.set("o", "z", "<Plug>(easymotion-s2)")
 
--- vim.api.nvim_set_keymap("v", "L" , "<Plug>(easymotion-overwin-line)", {})
--- vim.api.nvim_set_keymap("n", "L" , "<Plug>(easymotion-overwin-line)", {})
+-- vim.keymap.set("v", "L" , "<Plug>(easymotion-overwin-line)")
+-- vim.keymap.set("n", "L" , "<Plug>(easymotion-overwin-line)")
 
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>w",
-  "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>b",
-  "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>e",
-  "<cmd>lua require'hop'.hint_patterns({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR }, '\\\\w\\\\>')<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>ge",
-  "<cmd>lua require'hop'.hint_patterns({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR }, '\\\\w\\\\>')<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>j",
-  "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "<leader>k",
-  "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<CR>",
-  {}
-)
-vim.api.nvim_set_keymap("n", "s", "<cmd>lua require'hop'.hint_char2()<CR>", {})
-vim.api.nvim_set_keymap("v", "s", "<cmd>lua require'hop'.hint_char2()<CR>", {})
-vim.api.nvim_set_keymap("o", "z", "<cmd>lua require'hop'.hint_char2()<CR>", {})
--- vim.api.nvim_set_keymap("v", "L", '<cmd>lua require"hop".hint_lines()<CR>', {})
--- vim.api.nvim_set_keymap("n", "L", '<cmd>lua require"hop".hint_lines()<CR>', {})
+vim.keymap.set("", "<leader>w", function()
+  require("hop").hint_words { direction = require("hop.hint").HintDirection.AFTER_CURSOR }
+end)
+vim.keymap.set("", "<leader>b", function()
+  require("hop").hint_words { direction = require("hop.hint").HintDirection.BEFORE_CURSOR }
+end)
 
-vim.api.nvim_set_keymap("n", "<leader>a", ":ArgWrap<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("c", "w!!", "w suda://%", {})
-vim.api.nvim_set_keymap("n", "<Leader>m", "<Plug>(git-messenger)", {})
-vim.api.nvim_set_keymap("n", "[,", ":Tab /,<CR>", {})
-vim.api.nvim_set_keymap("v", "[,", ":'<,'>Tab /,<CR>", {})
-vim.api.nvim_set_keymap("n", "<Leader>t", ":Ttoggle<CR>", {})
-vim.api.nvim_set_keymap("v", "<Leader>r", ":TREPLSendSelection<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>ql", ":call v:lua.stop_lsp()<CR>", {})
+vim.keymap.set("", "<leader>e", function()
+  require("hop").hint_patterns({ direction = require("hop.hint").HintDirection.AFTER_CURSOR }, "\\\\w\\\\>")
+end)
+vim.keymap.set("", "<leader>ge", function()
+  require("hop").hint_patterns({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR }, "\\\\w\\\\>")
+end)
+vim.keymap.set("", "<leader>f", function()
+  require("hop").hint_char1 { direction = require("hop.hint").HintDirection.AFTER_CURSOR }
+end)
+vim.keymap.set("", "<leader>F", function()
+  require("hop").hint_char1 { direction = require("hop.hint").HintDirection.BEFORE_CURSOR }
+end)
+vim.keymap.set("", "<leader>j", function()
+  require("hop").hint_lines { direction = require("hop.hint").HintDirection.AFTER_CURSOR }
+end)
+vim.keymap.set("", "<leader>k", function()
+  require("hop").hint_lines { direction = require("hop.hint").HintDirection.BEFORE_CURSOR }
+end)
+vim.keymap.set("n", "s", function()
+  require("hop").hint_char2()
+end)
+vim.keymap.set("v", "s", function()
+  require("hop").hint_char2()
+end)
+vim.keymap.set("o", "z", function()
+  require("hop").hint_char2()
+end)
+-- vim.keymap.set("v", "L", '<cmd>lua require"hop".hint_lines()<CR>')
+-- vim.keymap.set("n", "L", '<cmd>lua require"hop".hint_lines()<CR>')
 
-vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>", {})
+vim.keymap.set("n", "<leader>a", ":ArgWrap<CR>", { noremap = true, silent = true })
+vim.keymap.set("c", "w!!", "w suda://%")
+vim.keymap.set("n", "<Leader>m", "<Plug>(git-messenger)")
+vim.keymap.set("n", "[,", ":Tab /,<CR>")
+vim.keymap.set("v", "[,", ":'<,'>Tab /,<CR>")
+vim.keymap.set("n", "<Leader>t", ":Ttoggle<CR>")
+vim.keymap.set("v", "<Leader>r", ":TREPLSendSelection<CR>")
+-- vim.keymap.set("n", "<leader>ql", stop_lsp)
 
--- vim.api.nvim_set_keymap("i", "<TAB>", [[pumvisible() ? "\<C-n>" : "\<TAB>"]], { expr = true, noremap = true })
--- vim.api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { expr = true, noremap = true })
--- vim.api.nvim_set_keymap("i", "<S-TAB>", [[pumvisible() ? "\<C-p>" : "\<S-TAB>"]], { expr = true, noremap = true })
--- vim.api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { expr = true, noremap = true })
+vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
+
+-- vim.keymap.set("i", "<TAB>", [[pumvisible() ? "\<C-n>" : "\<TAB>"]], { expr = true, noremap = true })
+-- vim.keymap.set("i", "<Down>", [[pumvisible() ? "\<C-n>" : "\<Down>"]], { expr = true, noremap = true })
+-- vim.keymap.set("i", "<S-TAB>", [[pumvisible() ? "\<C-p>" : "\<S-TAB>"]], { expr = true, noremap = true })
+-- vim.keymap.set("i", "<Up>", [[pumvisible() ? "\<C-p>" : "\<Up>"]], { expr = true, noremap = true })
 
 -- nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 -- nmap <silent> <C-j> <Plug>(ale_next_wrap)
--- vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>", {})
--- vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>", {})
+-- vim.keymap.set("n", "<C-k>", "<cmd>lua require'lspsaga.diagnostic'.navigate('prev')()<CR>")
+-- vim.keymap.set("n", "<C-j>", "<cmd>lua require'lspsaga.diagnostic'.navigate('next')()<CR>")
 
-vim.api.nvim_set_keymap("t", "<C-[><C-[>", "<C-\\><C-n>", { noremap = true })
-vim.api.nvim_set_keymap("t", "<A-h>", "<C-\\><C-n><C-w>h", { noremap = true })
-vim.api.nvim_set_keymap("t", "<A-j>", "<C-\\><C-n><C-w>j", { noremap = true })
-vim.api.nvim_set_keymap("t", "<A-k>", "<C-\\><C-n><C-w>k", { noremap = true })
-vim.api.nvim_set_keymap("t", "<A-l>", "<C-\\><C-n><C-w>l", { noremap = true })
-vim.api.nvim_set_keymap("n", "<A-h>", "<C-w>h", { noremap = true })
-vim.api.nvim_set_keymap("n", "<A-j>", "<C-w>j", { noremap = true })
-vim.api.nvim_set_keymap("n", "<A-k>", "<C-w>k", { noremap = true })
-vim.api.nvim_set_keymap("n", "<A-l>", "<C-w>l", { noremap = true })
+vim.keymap.set("t", "<C-[><C-[>", "<C-\\><C-n>", { noremap = true })
+vim.keymap.set("t", "<A-h>", "<C-\\><C-n><C-w>h", { noremap = true })
+vim.keymap.set("t", "<A-j>", "<C-\\><C-n><C-w>j", { noremap = true })
+vim.keymap.set("t", "<A-k>", "<C-\\><C-n><C-w>k", { noremap = true })
+vim.keymap.set("t", "<A-l>", "<C-\\><C-n><C-w>l", { noremap = true })
+vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true })
+vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true })
+vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true })
+vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true })
 
--- vim.api.nvim_set_keymap("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
+vim.keymap.set("n", "K", ":call ShowDocumentation()<CR>", { noremap = true, silent = true })
 
 -- cmap <c-v> <c-r>
-vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
-vim.api.nvim_set_keymap("n", "+", "<C-a>", { noremap = true })
-vim.api.nvim_set_keymap("n", "-", "<C-x>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-\\>", [[:tab split<CR>:exec("tag ".expand("<cword>"))<CR>]], {})
+vim.keymap.set("n", "Y", "y$", { noremap = true })
+vim.keymap.set("n", "+", "<C-a>", { noremap = true })
+vim.keymap.set("n", "-", "<C-x>", { noremap = true })
+vim.keymap.set("n", "<C-\\>", [[:tab split<CR>:exec("tag ".expand("<cword>"))<CR>]])
 
-vim.api.nvim_set_keymap("n", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", { noremap = true })
-vim.api.nvim_set_keymap("t", "<c-s>", "<cmd>lua require('FTerm').toggle()<CR>", { noremap = true })
--- vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('\\<CR\\>')", { noremap = true, expr = true })
+vim.keymap.set("n", "<c-s>", function()
+  require("FTerm").toggle()
+end, { noremap = true })
+vim.keymap.set("t", "<c-s>", function()
+  require("FTerm").toggle()
+end, { noremap = true })
+-- vim.keymap.set("i", "<CR>", "compe#confirm('\\<CR\\>')", { noremap = true, expr = true })
 
--- vim.api.nvim_set_keymap("", "<f1>", "1gt", {})
--- vim.api.nvim_set_keymap("", "<f2>", "2gt", {})
--- vim.api.nvim_set_keymap("", "<f3>", "3gt", {})
--- vim.api.nvim_set_keymap("", "<f4>", "4gt", {})
--- vim.api.nvim_set_keymap("", "<f5>", "5gt", {})
--- vim.api.nvim_set_keymap("", "<f6>", "6gt", {})
--- vim.api.nvim_set_keymap("", "<f7>", "7gt", {})
--- vim.api.nvim_set_keymap("", "<f8>", "8gt", {})
--- vim.api.nvim_set_keymap("", "<f9>", "9gt", {})
+-- vim.keymap.set("", "<f1>", "1gt")
+-- vim.keymap.set("", "<f2>", "2gt")
+-- vim.keymap.set("", "<f3>", "3gt")
+-- vim.keymap.set("", "<f4>", "4gt")
+-- vim.keymap.set("", "<f5>", "5gt")
+-- vim.keymap.set("", "<f6>", "6gt")
+-- vim.keymap.set("", "<f7>", "7gt")
+-- vim.keymap.set("", "<f8>", "8gt")
+-- vim.keymap.set("", "<f9>", "9gt")
 
-vim.api.nvim_set_keymap("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>lua toggle_format()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>tf", toggle_format, { noremap = true })
 
 -- Navigation
-vim.api.nvim_set_keymap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-vim.api.nvim_set_keymap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+vim.keymap.set("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+vim.keymap.set("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
 -- Actions
-vim.api.nvim_set_keymap("n", "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>', {})
-vim.api.nvim_set_keymap("v", "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>', {})
-vim.api.nvim_set_keymap("v", "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hS", '<cmd>lua require"gitsigns".stage_buffer()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hR", '<cmd>lua require"gitsigns".reset_buffer()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hp", '<cmd>lua require"gitsigns".preview_hunk()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hb", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>tb", '<cmd>lua require"gitsigns".toggle_current_line_blame()<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>hd", "<cmd>Gdiff<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>hD", '<cmd>lua require"gitsigns".diffthis("~")<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader>td", '<cmd>lua require"gitsigns".toggle_deleted()<CR>', {})
+vim.keymap.set("n", "<leader>hs", function()
+  require("gitsigns").stage_hunk()
+end)
+vim.keymap.set("n", "<leader>hr", function()
+  require("gitsigns").reset_hunk()
+end)
+vim.keymap.set("v", "<leader>hs", function()
+  require("gitsigns").stage_hunk()
+end)
+vim.keymap.set("v", "<leader>hr", function()
+  require("gitsigns").reset_hunk()
+end)
+vim.keymap.set("n", "<leader>hS", function()
+  require("gitsigns").stage_buffer()
+end)
+vim.keymap.set("n", "<leader>hu", function()
+  require("gitsigns").undo_stage_hunk()
+end)
+vim.keymap.set("n", "<leader>hR", function()
+  require("gitsigns").reset_buffer()
+end)
+vim.keymap.set("n", "<leader>hp", function()
+  require("gitsigns").preview_hunk()
+end)
+vim.keymap.set("n", "<leader>hb", function()
+  require("gitsigns").blame_line { full = true }
+end)
+vim.keymap.set("n", "<leader>tb", function()
+  require("gitsigns").toggle_current_line_blame()
+end)
+vim.keymap.set("n", "<leader>hd", "<cmd>Gdiff<CR>")
+vim.keymap.set("n", "<leader>hD", function()
+  require("gitsigns").diffthis "~"
+end)
+vim.keymap.set("n", "<leader>td", function()
+  require("gitsigns").toggle_deleted()
+end)
 
-vim.api.nvim_set_keymap("n", "crp", "crcvU", {})
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", {})
-vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {})
+vim.keymap.set("n", "crp", "crcvU")
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-vim.api.nvim_set_keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.setqflist()<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>dl", "<cmd>lua vim.diagnostic.setloclist()<CR>", {})
+vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist)
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist)
 map_pairs("a", "")
 map_pairs("t", "tab")
 map_pairs("q", "c")

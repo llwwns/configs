@@ -23,6 +23,7 @@ vim.opt.hlsearch = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.background = "dark"
+vim.opt.colorcolumn = "100"
 --set backspace to delete indent, endo of line and before insert start
 vim.opt.backspace = { "indent", "eol", "start" }
 --allow cursor go to next line
@@ -58,8 +59,19 @@ vim.opt.completeopt = "menuone,noselect"
 -- vim.o.completeopt = "longest,menu"
 vim.opt.shortmess = "atToOFcA"
 vim.opt.sessionoptions = { "blank", "curdir", "folds", "tabpages" }
-vim.opt.fillchars = { vert = "│", fold = " ", diff = " ", eob = " " }
-vim.opt.laststatus = 2
+vim.opt.fillchars = {
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vert = "│",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz = "┼",
+  fold = " ",
+  diff = " ",
+  eob = " ",
+}
+vim.opt.laststatus = 3
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.hidden = true
@@ -265,3 +277,4 @@ vim.opt.foldtext = "v:lua.foldtext2()"
 vim.opt.dictionary = "/usr/share/dict/words"
 vim.g.cmp_dictionary_exact = 2
 vim.g.diff_translations = 0
+vim.opt.mouse = "a"
