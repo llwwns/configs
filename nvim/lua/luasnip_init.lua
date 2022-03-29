@@ -9,69 +9,67 @@ local c = ls.choice_node
 local d = ls.dynamic_node
 local events = require "luasnip.util.events"
 
-ls.snippets = {
-  go = {
-    s("err", {
-      t {
-        "if err != nil {",
-        "	return ",
-      },
-      i(0),
-      t { "", "}" },
-    }),
-    s("wrap", {
-      t [[errors.Wrap(err, "]],
-      i(0),
-      t [[")]],
-    }),
-    s("for", {
-      t [[for ]],
-      i(1),
-      t [[, ]],
-      i(2),
-      t [[ := range ]],
-      i(3),
-      t { " {", "	" },
-      i(0),
-      t { "", "}" },
-    }),
-  },
-  cpp = {
-    s("main", {
-      t {
-        "#include<iostream>",
-        "",
-        "using namespace std;",
-        "",
-        "int main() {",
-        "    ",
-      },
-      i(0),
-      t { "", "}" },
-    }),
-    s("leetcode", {
-      t {
-        "#include<iostream>",
-        "#include<algorithm>",
-        "#include<vector>",
-        "#include<stack>",
-        "#include<queue>",
-        "",
-        "using namespace std;",
-        "",
-        "",
-      },
-      i(0),
-      t {
-        "",
-        "",
-        "int main() {",
-        "    ",
-        "}",
-      },
-    }),
-  },
-}
+ls.add_snippets("go", {
+  s("err", {
+    t {
+      "if err != nil {",
+      "	return ",
+    },
+    i(0),
+    t { "", "}" },
+  }),
+  s("wrap", {
+    t [[errors.Wrap(err, "]],
+    i(0),
+    t [[")]],
+  }),
+  s("for", {
+    t [[for ]],
+    i(1),
+    t [[, ]],
+    i(2),
+    t [[ := range ]],
+    i(3),
+    t { " {", "	" },
+    i(0),
+    t { "", "}" },
+  }),
+})
+ls.add_snippets("cpp", {
+  s("main", {
+    t {
+      "#include<iostream>",
+      "",
+      "using namespace std;",
+      "",
+      "int main() {",
+      "    ",
+    },
+    i(0),
+    t { "", "}" },
+  }),
+  s("leetcode", {
+    t {
+      "#include<iostream>",
+      "#include<algorithm>",
+      "#include<vector>",
+      "#include<stack>",
+      "#include<queue>",
+      "",
+      "using namespace std;",
+      "",
+      "",
+    },
+    i(0),
+    t {
+      "",
+      "",
+      "int main() {",
+      "    ",
+      "}",
+    },
+  }),
+})
 
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
