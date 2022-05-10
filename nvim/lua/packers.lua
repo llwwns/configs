@@ -1,3 +1,8 @@
+pcall(function()
+  vim.cmd [[packadd impatient.nvim]]
+  require "impatient"
+end)
+
 if not pcall(function()
   vim.cmd [[packadd packer.nvim]]
 end) then
@@ -19,7 +24,7 @@ require("packer").startup(function(use)
   use {
     "maksimr/vim-jsbeautify",
     opt = true,
-    cmd = {
+    fn = {
       "JsBeautify",
       "JsonBeautify",
       "JsxBeautify",
@@ -112,12 +117,6 @@ require("packer").startup(function(use)
   use "google/vim-searchindex"
   -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
-  use {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup()
-    end,
-  }
   use { "AndrewRadev/bufferize.vim", opt = true, cmd = { "Bufferize" } }
   use {
     "L3MON4D3/LuaSnip",
@@ -313,7 +312,7 @@ require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim",
     requires = {
       { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope-fzy-native.nvim" },
+      { "natecraddock/telescope-zf-native.nvim" },
     },
     module = { "telescope" },
     config = function()
@@ -322,8 +321,8 @@ require("packer").startup(function(use)
   }
   use {
     opt = true,
-    "nvim-telescope/telescope-fzy-native.nvim",
-    module = { "telescope._extensions" },
+    "natecraddock/telescope-zf-native.nvim",
+    module = { "telescope._extensions.zf-native" },
   }
   use {
     "sindrets/diffview.nvim",

@@ -8,9 +8,21 @@ require("telescope").setup {
       },
     },
     extensions = {
-      fzy_native = {
-        override_generic_sorter = false,
-        override_file_sorter = true,
+      -- fzy_native = {
+      --   override_generic_sorter = false,
+      --   override_file_sorter = true,
+      -- },
+      ["zf-native"] = {
+        file = {
+          enable = true,
+          highlight_results = true,
+          match_filename = true,
+        },
+        generic = {
+          enable = true,
+          highlight_results = true,
+          match_filename = false,
+        },
       },
     },
     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
@@ -23,4 +35,4 @@ require("telescope").setup {
     },
   },
 }
-require("telescope").load_extension "fzy_native"
+require("telescope").load_extension "zf-native"

@@ -19,6 +19,8 @@ git config --global oh-my-zsh.hide-dirty 1
 git config --global core.mergeoptions --no-edit
 git config --global stash.showPatch true
 git config --global pull.ff only
+git config --global rebase.autosquash true
+git config --global rebase.autostash true
 mkdir -p ~/.config/nvim/
 echo "source ~/.vimrc" > ~/.config/nvim/init.vim
 wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz

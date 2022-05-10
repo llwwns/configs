@@ -92,6 +92,13 @@ local on_attach = function(client)
     { noremap = true, silent = true }
   )
   vim.api.nvim_buf_set_keymap(0, "v", "<leader>da", "<cmd>Lsp codeaction<CR>", { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(
+  --   0,
+  --   "n",
+  --   "<leader>df",
+  --   "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>",
+  --   { noremap = true, silent = true }
+  -- )
   require("lsp_signature").on_attach {
     floating_window = false,
   }
@@ -108,7 +115,7 @@ end
 
 local on_attach_rs = function(client)
   on_attach(client)
-  vim.cmd "augroup rust"
+  vim.cmd "augroup inlayHint"
   vim.cmd "autocmd!"
   vim.cmd [[autocmd BufEnter,BufWinEnter,TabEnter,InsertLeave *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint" } }]]
   vim.cmd "augroup END"
@@ -130,7 +137,7 @@ null_ls.setup {
 }
 
 lsp.clangd.setup {
-  on_attach = on_attach,
+  on_attach = on_attach_rs,
   capabilities = capabilities,
   cmd = { "clangd", "--background-index" },
 }
@@ -167,6 +174,7 @@ lsp.denols.setup {
 lsp.vimls.setup { on_attach = on_attach }
 lsp.jsonls.setup { on_attach = on_attach }
 lsp.yamlls.setup { on_attach = on_attach }
+lsp.zls.setup { on_attach = on_attach }
 lsp.gopls.setup {
   cmd_env = { GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es" },
   capabilities = capabilities,
@@ -204,27 +212,27 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 lsp.tailwindcss.setup {}
 
-lsp.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+-- lsp.sumneko_lua.setup {
+--   settings = {
+--     Lua = {
+--       runtime = {
+--         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--         version = "LuaJIT",
+--         -- Setup your lua path
+--         path = runtime_path,
+--       },
+--       diagnostics = {
+--         -- Get the language server to recognize the `vim` global
+--         globals = { "vim" },
+--       },
+--       workspace = {
+--         -- Make the server aware of Neovim runtime files
+--         library = vim.api.nvim_get_runtime_file("", true),
+--       },
+--       -- Do not send telemetry data containing a randomized but unique identifier
+--       telemetry = {
+--         enable = false,
+--       },
+--     },
+--   },
+-- }

@@ -1,101 +1,243 @@
 local function augroups(definitions)
   for group_name, definition in pairs(definitions) do
-    vim.cmd("augroup " .. group_name)
-    vim.cmd "autocmd!"
+    vim.api.nvim_create_augroup(group_name, {})
     for _, def in ipairs(definition) do
-      local cmd = "autocmd " .. def
-      vim.cmd(cmd)
+      def[2].group = group_name
+      vim.api.nvim_create_autocmd(def[1], def[2])
     end
-    vim.cmd "augroup END"
   end
 end
 
 augroups {
   numbertoggle = {
-    "BufEnter,FocusGained,InsertLeave * set relativenumber",
-    "BufLeave,FocusLost,InsertEnter * set norelativenumber",
-  },
-  filetypes = {
-    -- "Filetype calendar IndentLinesDisable",
-    "FileType * setlocal tabstop=2 expandtab",
-    "FileType make setlocal tabstop=8 noexpandtab",
-    "FileType yaml setlocal tabstop=2 expandtab",
-    "FileType cpp setlocal tabstop=4 expandtab",
-    "FileType vim setlocal tabstop=2 expandtab",
-    "FileType ruby setlocal tabstop=2 expandtab",
-    "FileType ruby let b:format_on_save = v:true",
-    "FileType coffee setlocal tabstop=2 expandtab",
-    "FileType html setlocal tabstop=2 expandtab",
-    "FileType pug setlocal tabstop=2 expandtab",
-    "FileType css setlocal tabstop=2 expandtab",
-    "FileType scss setlocal tabstop=2 expandtab",
-    "FileType lisp setlocal tabstop=2 expandtab",
-    "FileType nim setlocal tabstop=2 expandtab",
-    "FileType slim setlocal tabstop=2 expandtab",
-    "FileType go setlocal tabstop=2 noexpandtab",
-    "FileType nginx setlocal tabstop=4 noexpandtab",
-    "FileType csv nmap [c :RainbowAlign <CR>",
-    "FileType csv nmap ]c :RainbowShrink <CR>",
-    "FileType json nmap [j :call JsonBeautify() <CR>",
-    "FileType * set formatoptions-=c",
-    "FileType * set formatoptions-=r",
-    "FileType * set formatoptions-=o",
-    "FileType * set fdl=18",
-    "FileType * set fdm=indent",
-    "FileType * set fdm=indent",
-    "FileType rust setlocal tabstop=4 expandtab",
-    "FileType rust set foldmethod=expr",
-    "FileType rust set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType rust let b:format_on_save = v:true",
-    "FileType go set foldmethod=expr",
-    "FileType go set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType go let b:format_on_save = v:true",
-    "FileType lua set foldmethod=expr",
-    "FileType lua set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType lua let b:format_on_save = v:true",
-    "FileType cpp set foldmethod=expr",
-    "FileType cpp set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType c set foldmethod=expr",
-    "FileType c set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType javascript set foldmethod=expr",
-    "FileType javascript set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType javascript let b:format_on_save = v:true",
-    "FileType javascript setlocal tabstop=2 expandtab",
-    "FileType javascript.jsx setlocal tabstop=2 expandtab",
-    "FileType javascript.jsx let b:format_on_save = v:true",
-    "FileType typescript set foldmethod=expr",
-    "FileType typescript set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType typescript let b:format_on_save = v:true",
-    "FileType typescriptreact set foldmethod=expr",
-    "FileType typescriptreact set foldexpr=nvim_treesitter#foldexpr()",
-    "FileType typescriptreact let b:format_on_save = v:true",
-    "FileType json set foldmethod=expr",
-    "FileType json set foldexpr=nvim_treesitter#foldexpr()",
-    -- "FileType * set foldtext=v:lua.foldtext()",
-    "FileType * set shortmess=atToOFcA",
-    "FileType toml set fdm=expr",
-    "FileType toml set foldexpr=TOMLFold()",
-    "FileType confluencewiki setlocal fdm=expr",
-    "FileType confluencewiki setlocal fdl=0",
-    "FileType confluencewiki setlocal fdc=1",
-    "FileType autohotkey setlocal tabstop=4 expandtab",
-    "BufReadPost fugitive://* set bufhidden=delete",
-    "BufNewFile,BufRead *.cwk set filetype=confluencewiki",
-    "BufNewFile,BufRead *.coffee set filetype=coffee",
-    'BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif',
-    "Filetype cpp nmap <buffer> <leader>cm :!clang++ -std=c++17 -g3 % <CR>",
-    "Filetype cpp nmap <buffer> <leader>cr :!clang++ -std=c++17 -g3 % && ./a.out <CR>",
-    "TermOpen * IndentBlanklineDisable",
-  },
-  asyncrun = {
-    "QuickFixCmdPost asyncrun botright copen 8",
-  },
-  completion = {
-    "BufEnter * lua local s, com = pcall(require, 'completion'); if s then com.on_attach() end",
-    -- "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
-    -- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
+    {
+      { "BufEnter", "FocusGained", "InsertLeave" },
+      {
+        callback = function()
+          vim.opt.relativenumber = true
+        end,
+      },
+    },
+    {
+      { "BufLeave", "FocusLost", "InsertEnter" },
+      {
+        callback = function()
+          vim.opt.relativenumber = false
+        end,
+      },
+    },
   },
   highlight_yank = {
-    'TextYankPost * silent! lua vim.highlight.on_yank { higroup="Visual", timeout=200 }',
+    {
+      "TextYankPost",
+      {
+        callback = function()
+          vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+        end,
+      },
+    },
+  },
+  buf_large = {
+    {
+      "BufReadPre",
+      {
+        command = 'if getfsize(expand(" % ")) > 10000000 | syntax off | endif',
+      },
+    },
+  },
+  fugitive_buf = {
+    {
+      "BufReadPost",
+
+      {
+        pattern = "fugitive://* ",
+        command = "set bufhidden=delete",
+      },
+    },
+  },
+  term = {
+    {
+      "TermOpen",
+      { command = "IndentBlanklineDisable" },
+    },
+  },
+  filetypes = {
+    {
+      "FileType",
+      {
+        pattern = "make",
+        callback = function()
+          vim.opt_local.tabstop = 8
+          vim.opt_local.expandtab = false
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "nginx",
+        callback = function()
+          vim.opt_local.tabstop = 4
+          vim.opt_local.expandtab = false
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "lua",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.b.format_on_save = true
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "go",
+        callback = function()
+          vim.opt_local.expandtab = false
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.b.format_on_save = true
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "c",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.opt_local.tabstop = 4
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "cpp",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.opt_local.tabstop = 4
+          vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++17 -g3 % <CR>", { buffer = true })
+          vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>", { buffer = true })
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "rust",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.opt_local.tabstop = 4
+          vim.b.format_on_save = true
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "ruby",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.b.format_on_save = true
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "json",
+        callback = function()
+          vim.keymap.set("n", "[j", vim.fn.JsonBeautify, {})
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "toml",
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "TOMLFold()"
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = { "javascript", "javascript.jsx", "typescript", "typescriptreact" },
+        callback = function()
+          vim.opt_local.foldmethod = "expr"
+          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.b.format_on_save = true
+        end,
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "autohotkey",
+        callback = function()
+          vim.opt_local.tabstop = 4
+        end,
+      },
+    },
+    {
+      { "BufNewFile", "BufRead" },
+      {
+        pattern = { "*.tsv", "*.csv" },
+        command = "set filetype=csv",
+      },
+    },
+    {
+      "FileType",
+      {
+        pattern = "csv",
+        callback = function()
+          vim.keymap.set("n", "[c", "<cmd>RainbowAlign<CR>", { buffer = true })
+          vim.keymap.set("n", "]c", "<cmd>RainbowShrink<CR>", { buffer = true })
+        end,
+      },
+    },
+
+    {
+      { "BufEnter", "BufWinEnter" },
+      {
+        pattern = { "*.cue" },
+        command = "set filetype=cue",
+      },
+    },
   },
 }
+
+-- augroups {
+--   filetypes = {
+-- "FileType json nmap [j :call JsonBeautify() <CR>",
+-- "FileType json set foldmethod=expr",
+-- "FileType json set foldexpr=nvim_treesitter#foldexpr()",
+-- "FileType confluencewiki setlocal fdm=expr",
+-- "FileType confluencewiki setlocal fdl=0",
+-- "FileType confluencewiki setlocal fdc=1",
+-- "BufNewFile,BufRead *.cwk set filetype=confluencewiki",
+-- "BufNewFile,BufRead *.coffee set filetype=coffee",
+-- },
+-- asyncrun = {
+--   "QuickFixCmdPost asyncrun botright copen 8",
+-- },
+-- completion = {
+-- "BufEnter * lua local s, com = pcall(require, 'completion'); if s then com.on_attach() end",
+-- "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
+-- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
+-- },
+-- }
