@@ -5,3 +5,4 @@ function __zoxide_hook --on-variable PWD
 end
 set -g fish_function_path $HOME/configs/fish/functions $fish_function_path
 set -x EDITOR nvim
+set fish_greeting

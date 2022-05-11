@@ -59,37 +59,25 @@ function toggleNvimTree()
 end
 
 function replace()
-  w = vim.fn.expand "<cword>"
+  local w = vim.fn.expand "<cword>"
   vim.cmd([[call feedkeys(":%s/]] .. w .. [[/]] .. w .. [[/g\<Left>\<Left>")]])
 end
 
-tomlr = vim.regex [[^($|\[)]]
+function tomlFold()
+  local line = vim.fn.getline(vim.v.lnum)
+  if line == "" or line:byte() == ("["):byte() then
+    return "0"
+  end
+  return "1"
+end
 
-vim.api.nvim_exec(
-  [[
-function! TOMLFold()
-  let line = getline(v:lnum)
-  if line =~? '\v^($|[)'
-    return '0'
-  endif
-  return '1'
-endfunction
-]],
-  false
-)
-
-vim.api.nvim_exec(
-  [[
-function! ShowDocumentation()
-  if &filetype ==? 'vim'
-    execute 'h '.expand('<cword>')
+function showDocumentation()
+  if vim.bo.filetype == "vim" then
+    vim.cmd("h " .. vim.fn.expand "<cword>")
   else
-    lua vim.lsp.buf.hover()
-  endif
-endfunction
-]],
-  false
-)
+    vim.lsp.buf.hover()
+  end
+end
 
 function _G.dump(...)
   local objects = vim.tbl_map(vim.inspect, { ... })

@@ -169,7 +169,7 @@ augroups {
         pattern = "toml",
         callback = function()
           vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "TOMLFold()"
+          vim.opt_local.foldexpr = "v:lua.tomlFold()"
         end,
       },
     },

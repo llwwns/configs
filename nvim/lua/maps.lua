@@ -121,13 +121,12 @@ vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true })
 vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true })
 
 -- vim.keymap.set("n", "<leader>", [[:WhichKey "'"<CR>]], { noremap = true, silent = true })
-vim.keymap.set("n", "K", ":call ShowDocumentation()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "K", showDocumentation, { noremap = true, silent = true })
 
 -- cmap <c-v> <c-r>
 vim.keymap.set("n", "Y", "y$", { noremap = true })
 vim.keymap.set("n", "+", "<C-a>", { noremap = true })
 vim.keymap.set("n", "-", "<C-x>", { noremap = true })
-vim.keymap.set("n", "<C-\\>", [[:tab split<CR>:exec("tag ".expand("<cword>"))<CR>]])
 
 vim.keymap.set("n", "<c-s>", function()
   require("FTerm").toggle()
