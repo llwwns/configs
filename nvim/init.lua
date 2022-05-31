@@ -1,5 +1,5 @@
 vim.g.polyglot_disabled = { "csv", "ruby" }
-require "packers"
+require "fpackers"
 require "globals"
 require "setting"
 require "au"

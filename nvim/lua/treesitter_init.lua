@@ -69,6 +69,7 @@ cfg.setup {
     "java",
     "kotlin",
     "dockerfile",
+    "fennel",
   },
 }
 
