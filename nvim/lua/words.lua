@@ -35,7 +35,6 @@ end
 ---Return this source is available in current context or not. (Optional)
 ---@return boolean
 function source:is_available()
-  print(self.words ~= nil)
   return self.words ~= nil
 end
 
@@ -56,7 +55,6 @@ end
 ---@param params cmp.SourceCompletionApiParams
 ---@param callback fun(response: lsp.CompletionResponse|nil)
 function source:complete(request, callback)
-  print "complent"
   local req = request.context.cursor_before_line:sub(request.offset)
   callback(self:get_items(req))
 end

@@ -1,10 +1,3 @@
-vim.g.nvim_tree_show_icons = {
-  git = 0,
-  folders = 1,
-  files = 1,
-  folder_arrows = 1,
-}
-
 local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
 require("nvim-tree").setup {
@@ -12,5 +5,18 @@ require("nvim-tree").setup {
     width = 30,
     side = "left",
     auto_resize = false,
+  },
+  renderer = {
+    icons = {
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = false,
+      },
+    },
+    indent_markers = {
+      enable = true,
+    },
   },
 }

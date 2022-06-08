@@ -261,7 +261,7 @@
     :config #(require "diffview_init"))
   (use! "EdenEast/nightfox.nvim")
   (use! "puremourning/vimspector"
-  :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
+    :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
   (use! "MunifTanjim/nui.nvim")
   (use! "bfredl/nvim-luadev")
   (use! "udayvir-singh/tangerine.nvim" :opt true

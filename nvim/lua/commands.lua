@@ -4,5 +4,5 @@ vim.api.nvim_create_user_command("Z", [[execute("cd ".system('zoxide query <args
 vim.api.nvim_create_user_command("Lcd", "lcd %:h", {})
 
 vim.api.nvim_create_user_command("SS", [[<line1>,<line2>!perl -pe "s<q-args>"]], { range = true, nargs = "*" })
-vim.api.nvim_create_user_command("Todo", "e ~/todo.txt", {})
+vim.api.nvim_create_user_command("Todo", "e ~/Documents/todo.txt", {})
 vim.api.nvim_create_user_command("Gblame", "Git blame", {})
