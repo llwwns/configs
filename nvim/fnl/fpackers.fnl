@@ -14,13 +14,12 @@
                 (tset out val nval))))
          `(use ,out)))))
 
-(pcall #(
-  (do
-    (vim.cmd "packadd impatient.nvim")
-    (require "impatient"))))
+(pcall #(do
+  (vim.cmd "packadd impatient.nvim")
+  (require "impatient")))
 
 (when (not (pcall #(
-  (vim.cmd "packadd packer.nvim"))))
+  vim.cmd "packadd packer.nvim")))
     (let [install_path (.. (vim.fn.stdpath "data") "/site/pack/packer/opt/packer.nvim")]
       (do
         (when (> (vim.fn.empty (vim.fn.glob install_path)) 0)
@@ -56,7 +55,7 @@
       "nvim-lua/plenary.nvim"
       "ray-x/lsp_signature.nvim"
     ]
-    :config #(require "lsp_init"))
+    :config #(require "flsp_init"))
   (use! "hrsh7th/nvim-cmp"
     :requires [
       "hrsh7th/cmp-buffer"

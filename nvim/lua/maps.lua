@@ -1,4 +1,4 @@
--- :fennel:1655012652
+-- :fennel:1655087918
 vim.g["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
 vim.keymap.set({"n"}, "Q", "<nop>", {silent = true})
@@ -89,7 +89,7 @@ vim.keymap.set({"v"}, "[,", ":'<,'>Tab /,<CR>", {silent = true})
 vim.keymap.set({"n"}, "<Leader>t", ":Ttoggle<CR>", {silent = true})
 vim.keymap.set({"v"}, "<Leader>r", ":TREPLSendSelection<CR>", {silent = true})
 vim.keymap.set({"n"}, "<leader>u", "<cmd>UndotreeToggle<CR>", {silent = true})
-vim.keymap.set({"n"}, "K", "<cmd>call ShowDocumentation()<CR>", {noremap = true, silent = true})
+vim.keymap.set({"n"}, "K", _G.showDocumentation, {noremap = true, silent = true})
 vim.keymap.set({"n"}, "+", "<C-a>", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "-", "<C-x>", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", {silent = true})
@@ -195,4 +195,5 @@ vim.keymap.set({"n"}, "<leader>sn", "<Plug>VimspectorStepOver", {silent = true})
 vim.keymap.set({"n"}, "<leader>si", "<Plug>VimspectorStepInto", {silent = true})
 vim.keymap.set({"n"}, "<leader>so", "<Plug>VimspectorStepOut", {silent = true})
 vim.keymap.set({"n"}, "<leader>tb", "<Plug>VimspectorToggleBreakpoint", {silent = true})
-return vim.keymap.set({"n"}, "<leader>tcb", "<Plug>VimspectorToggleConditionalBreakpoint", {silent = true})
+vim.keymap.set({"n"}, "<leader>tcb", "<Plug>VimspectorToggleConditionalBreakpoint", {silent = true})
+return vim.keymap.set({"n"}, "<leader>rp", _G.replace, {noremap = true, silent = true})

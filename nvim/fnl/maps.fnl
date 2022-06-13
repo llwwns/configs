@@ -23,8 +23,8 @@
       (map! [n] ,k3 ,c3)
       (map! [n] ,k4 ,c4))))
 
-(tset vim.g :mapleader "'")
-(tset vim.g :maplocalleader "'")
+(g! :mapleader "'")
+(g! :maplocalleader "'")
 
 
 (map! [n] "Q" "<nop>")
@@ -116,7 +116,7 @@
 ;; (map! [n :noremap] "<A-k>" "<C-w>k")
 ;; (map! [n :noremap] "<A-l>" "<C-w>l")
 
-(map! [n :noremap] "K" "<cmd>call ShowDocumentation()<CR>")
+(map! [n :noremap] "K" _G.showDocumentation)
 (map! [n :noremap] "+" "<C-a>")
 (map! [n :noremap] "-" "<C-x>")
 (map! [n] "<C-\\>" ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>")
@@ -201,3 +201,5 @@
 (map! [n] "<leader>so" "<Plug>VimspectorStepOut")
 (map! [n] "<leader>tb" "<Plug>VimspectorToggleBreakpoint")
 (map! [n] "<leader>tcb" "<Plug>VimspectorToggleConditionalBreakpoint")
+
+(map! [n :noremap] "<leader>rp" _G.replace)
