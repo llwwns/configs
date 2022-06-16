@@ -1,4 +1,4 @@
--- :fennel:1655343806
+-- :fennel:1655359925
 if vim.fn.has("multi_lang") then
   vim.cmd("language C")
 else
@@ -46,13 +46,10 @@ vim.opt["cmdheight"] = 0
 vim.opt["exrc"] = true
 vim.opt["secure"] = true
 vim.opt["hidden"] = true
-vim.opt["tags"] = "./tags,tags;/"
 vim.opt["spellfile"] = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
 do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff"
 do
   vim.cmd("filetype plugin indent on")
-  vim.cmd("let $FZF_DEFAULT_COMMAND = 'fd'")
-  vim.cmd("let $FZF_DEFAULT_OPTS='--layout=reverse'")
   vim.cmd("sign define LspDiagnosticsSignError text=\226\156\151 texthl=ALEErrorSign linehl= numhl=")
   vim.cmd("sign define LspDiagnosticsSignWarning text=! texthl=ALEWarningSign linehl= numhl=")
   vim.cmd("sign define LspDiagnosticsSignInformation text=i texthl=ALEInfoSign linehl= numhl=")
@@ -62,32 +59,16 @@ vim.g["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
 vim.g["vim_json_syntax_conceal"] = 0
 vim.g["eskk#large_dictionary"] = {path = "~/configs/SKK-JISYO.L", sorted = 1, encoding = "euc-jp"}
-vim.g["eskk#enable_completion"] = 1
-vim.g["extra_whitespace_ignored_filetypes"] = {"calendar"}
-vim.g["EmacsCommandLineSearchCommandLineDisable"] = 1
-vim.g["indent_blankline_char"] = "\226\148\130"
-vim.g["indent_blankline_show_current_context"] = true
 vim.g["vim_json_conceal"] = 0
 vim.g["vim_markdown_conceal"] = 0
 vim.g["vim_markdown_conceal_code_blocks"] = 0
-vim.g["gitgutter_highlight_linenrs"] = 1
-vim.g["rainbow_active"] = 1
-vim.g["Illuminate_delay"] = 0
-vim.g["signify_sign_change"] = "~"
 vim.g["tokyonight_style"] = "night"
 do
   vim.cmd("colorscheme tokyonight")
 end
-vim.g["mergetool_layout"] = "LmR"
-vim.g["mergetool_prefer_revision"] = "unmodified"
-vim.g["deleft_mapping"] = "<leader>dh"
-vim.g["symbols_outline"] = {position = "left", width = 16}
 vim.opt["foldminlines"] = 1
 vim.opt["foldtext"] = "v:lua.foldtext2()"
 vim.opt["dictionary"] = "/usr/share/dict/words"
-vim.g["cmp_dictionary_exact"] = 2
-vim.g["diff_translations"] = 0
-vim.g["Hexokinase_highlighters"] = "backgroundfull"
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")

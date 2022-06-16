@@ -64,7 +64,7 @@
 (set! exrc true)
 (set! secure true)
 (set! hidden true)
-(set! tags "./tags,tags;/")
+;; (set! tags "./tags,tags;/")
 (set! spellfile (.. (vim.fn.stdpath "config") "/spell/en.utf-8.add"))
 (set! diffopt "internal,filler,algorithm:patience,indent-heuristic,closeoff")
 
@@ -72,8 +72,8 @@
 
 (exec [
   ["filetype plugin indent on"]
-  ["let $FZF_DEFAULT_COMMAND = 'fd'"]
-  ["let $FZF_DEFAULT_OPTS='--layout=reverse'"]
+  ;; ["let $FZF_DEFAULT_COMMAND = 'fd'"]
+  ;; ["let $FZF_DEFAULT_OPTS='--layout=reverse'"]
   ["sign define LspDiagnosticsSignError text=✗ texthl=ALEErrorSign linehl= numhl="]
   ["sign define LspDiagnosticsSignWarning text=! texthl=ALEWarningSign linehl= numhl="]
   ["sign define LspDiagnosticsSignInformation text=i texthl=ALEInfoSign linehl= numhl="]
@@ -90,34 +90,13 @@
   :encoding "euc-jp"
 })
 
-(g! "eskk#enable_completion" 1)
-
-(g! extra_whitespace_ignored_filetypes ["calendar"])
-(g! EmacsCommandLineSearchCommandLineDisable 1)
-
-(g! indent_blankline_char "│")
-(g! indent_blankline_show_current_context true)
 (g! vim_json_conceal 0)
 (g! vim_markdown_conceal 0)
 (g! vim_markdown_conceal_code_blocks 0)
 
-(g! gitgutter_highlight_linenrs 1)
-(g! rainbow_active 1)
-
-(g! Illuminate_delay 0)
-(g! signify_sign_change "~")
-
 (g! tokyonight_style "night")
 (color! tokyonight)
 
-(g! mergetool_layout "LmR")
-;; (g! mergetool_prefer_revision "base")
-(g! mergetool_prefer_revision "unmodified")
-(g! deleft_mapping "<leader>dh")
-(g! symbols_outline {
-  :position "left"
-  :width 16
-})
 ; (set! foldnestmax 3)
 (set! foldminlines 1)
 ; vim.opt.foldtext="getline(v:foldstart).'...'.trim(getline(v:foldend))"
@@ -125,9 +104,6 @@
 (set! foldtext "v:lua.foldtext2()")
 ; vim.opt.foldcolumn "auto:3"
 (set! dictionary "/usr/share/dict/words")
-(g! cmp_dictionary_exact 2)
-(g! diff_translations 0)
-(g! Hexokinase_highlighters "backgroundfull")
 
 ;; guis
 (if 

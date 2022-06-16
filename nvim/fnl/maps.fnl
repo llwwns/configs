@@ -190,9 +190,9 @@
 (map_pairs "b" "b")
 
 
-(map! [n] "<leader>ps" "<cmd>PackerSync<CR>")
-(map! [n] "<leader>pc" "<cmd>PackerCompile<CR>")
-(map! [n] "<leader>sc" "<cmd>source ~/.config/nvim/init.lua<CR>")
+(map! [n :verbose] "<leader>ps" "<cmd>PackerSync<CR>")
+(map! [n :verbose] "<leader>pc" "<cmd>PackerCompile<CR>")
+(map! [n :verbose] "<leader>sc" "<cmd>source ~/.config/nvim/init.lua<CR>")
 
 (map! [n] "<leader>db" "<Plug>VimspectorContinue")
 (map! [n] "<leader>dc" "<Plug>VimspectorRunToCursor")

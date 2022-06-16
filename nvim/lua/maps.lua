@@ -1,4 +1,4 @@
--- :fennel:1655106790
+-- :fennel:1655360678
 vim.g["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
 vim.keymap.set({"n"}, "Q", "<nop>", {silent = true})
@@ -186,9 +186,9 @@ do
   vim.keymap.set({"n"}, "]B", "<cmd>bfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]B", "<cmd>blast<CR>", {silent = true})
 end
-vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = true})
-vim.keymap.set({"n"}, "<leader>pc", "<cmd>PackerCompile<CR>", {silent = true})
-vim.keymap.set({"n"}, "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", {silent = true})
+vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = false})
+vim.keymap.set({"n"}, "<leader>pc", "<cmd>PackerCompile<CR>", {silent = false})
+vim.keymap.set({"n"}, "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", {silent = false})
 vim.keymap.set({"n"}, "<leader>db", "<Plug>VimspectorContinue", {silent = true})
 vim.keymap.set({"n"}, "<leader>dc", "<Plug>VimspectorRunToCursor", {silent = true})
 vim.keymap.set({"n"}, "<leader>sn", "<Plug>VimspectorStepOver", {silent = true})

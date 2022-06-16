@@ -1,3 +1,5 @@
+(import-macros {: g!} :hibiscus.vim)
+
 (macro packer [...]
   `((-> :packer (require) (. :startup))
     (fn [,(sym :use)]
@@ -28,7 +30,9 @@
 
 (packer
   (use! :wbthomason/packer.nvim :opt true)
-  (use! :lukas-reineke/indent-blankline.nvim)
+  (use! :lukas-reineke/indent-blankline.nvim :config #(do 
+    (g! indent_blankline_char "│")
+    (g! indent_blankline_show_current_context true)))
   (use! :tpope/vim-fugitive)
   (use! :mg979/vim-visual-multi :opt true :keys [["v" "<c-n>"]] )
   (use! :godlygeek/tabular :opt true :cmd ["Tabularize"])
@@ -48,7 +52,8 @@
   ;;(use! :sheerun/vim-polyglot)
   (use! :windwp/windline.nvim
     :config #(require "bubble_custom"))
-  (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]])
+  (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]]
+    :config #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
     :requires [ 
       "jose-elias-alvarez/null-ls.nvim"
@@ -73,12 +78,13 @@
     :config #(require "tree_init"))
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
   (use! :dbeniamine/todo.txt-vim)
-  (use! :houtsnip/vim-emacscommandline)
-  (use! :RRethy/vim-illuminate)
+  (use! :houtsnip/vim-emacscommandline :config #(g! EmacsCommandLineSearchCommandLineDisable 1))
+  (use! :RRethy/vim-illuminate :config #(g! Illuminate_delay 0))
   (use! :junegunn/gv.vim :opt true :cmd ["GV"])
   (use! :lambdalisue/suda.vim)
   (use! :tyru/eskk.vim :opt true
-    :keys [[ "i" "<c-j>"] ["c" "<c-j>"] ["l" "<c-j>"]])
+    :keys [[ "i" "<c-j>"] ["c" "<c-j>"] ["l" "<c-j>"]]
+    :config #(g! "eskk#enable_completion" 1))
   (use! :powerman/vim-plugin-AnsiEsc :opt true :cmd [ "AnsiEsc" ])
   ;; use('rhysd/reply.vim')
   (use! :tpope/vim-endwise)
@@ -87,7 +93,6 @@
     :opt true
     :keys [[ "v" "gc" ] [ "v" "gb" ]]
     :config #((-> :Comment (require) (. :setup)) { :extra [] :extended  false }))
-  ;; -- use "bronson/vim-trailing-whitespace"
   (use! :machakann/vim-swap :opt true
     :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
   (use! :mechatroner/rainbow_csv :opt true :ft [ "csv" ])
@@ -98,7 +103,7 @@
   (use! :L3MON4D3/LuaSnip :opt true
     :module "luasnip"
     :config #(require "luasnip_init"))
-  (use! "luochen1990/rainbow")
+  (use! "luochen1990/rainbow" :config #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
     :config #(require "treesitter_init")
     :requires [ "SmiteshP/nvim-gps" ])
@@ -205,7 +210,10 @@
           }
         }
       }))
-  (use! :samoshkin/vim-mergetool :opt true :cmd ["MergetoolStart"])
+  (use! :samoshkin/vim-mergetool :opt true :cmd ["MergetoolStart"] :config #(do
+    (g! mergetool_layout "LmR")
+    ;; (g! mergetool_prefer_revision "base")
+    (g! mergetool_prefer_revision "unmodified")))
   (use! :phaazon/hop.nvim :opt true :module "hop" :config #((-> :hop (require) (. "setup"))))
   (use! :numtostr/FTerm.nvim :opt true
     :module "FTerm"
@@ -272,5 +280,5 @@
           :hooks [ "onsave" ]
         }
       }))
-  (use! "vimpostor/vim-tpipeline")
+  (use! "vimpostor/vim-tpipeline" :config #(g! :tpipeline_cursormoved 1))
 )
