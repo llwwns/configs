@@ -4,7 +4,6 @@
   (vim.cmd "language C"))
 
 (set! encoding "utf-8")
-(set! laststatus 2)
 ;; (set! winblend 20)
 ;; (set! pumblend 20)
 (set! timeoutlen 500)
@@ -61,6 +60,7 @@
   :eob " "
 })
 (set! laststatus 3)
+(set! cmdheight 0)
 (set! exrc true)
 (set! secure true)
 (set! hidden true)
@@ -128,3 +128,23 @@
 (g! cmp_dictionary_exact 2)
 (g! diff_translations 0)
 (g! Hexokinase_highlighters "backgroundfull")
+
+;; guis
+(if 
+  (= 1 (vim.fn.exists "gnvim" )) (do
+    (set! guifont "Iosevka Fixed:h12")
+    (set! guicursor (.. vim.o.guicursor ",a:blinkon0")))
+  (= 1 (vim.fn.exists "neovide")) (do
+  ; vim.g.tokyonight_transparent = false
+    (set! guifont "JetBrains Mono Slashed Light:h11.5")
+  ; set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
+    ;; (g! neovide_cursor_animation_length 0.05)
+    (g! neovide_cursor_animation_length 0)
+    (g! neovide_cursor_trail_length 0.1)
+    (map! [n :noremap] "<A-CR>"
+      "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))
+  (= 1 (vim.fn.exists "g:fvim_loaded")) (do
+  ; FVimBackgroundOpacity 0.7
+    (set! guifont "Sarasa Nerd Font:h18")))
+  ; nnoremap <A-CR> :FVimToggleFullScreen<CR>
+   ; (cmd! hi Normal guibg=NONE ctermbg=NONE))

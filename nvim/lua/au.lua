@@ -1,243 +1,122 @@
-local function augroups(definitions)
-  for group_name, definition in pairs(definitions) do
-    vim.api.nvim_create_augroup(group_name, {})
-    for _, def in ipairs(definition) do
-      def[2].group = group_name
-      vim.api.nvim_create_autocmd(def[1], def[2])
-    end
+-- :fennel:1655343987
+do
+  local augid_1_ = vim.api.nvim_create_augroup("numbertoggle", {clear = true})
+  local function _2_()
+    vim.opt["relativenumber"] = true
+    return nil
   end
+  vim.api.nvim_create_autocmd({"BufEnter", "FocusGained", "InsertLeave"}, {callback = _2_, group = augid_1_, nested = false, once = false, pattern = "*"})
+  local function _3_()
+    vim.opt["relativenumber"] = false
+    return nil
+  end
+  vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "InsertEnter"}, {callback = _3_, group = augid_1_, nested = false, once = false, pattern = "*"})
 end
-
-augroups {
-  numbertoggle = {
-    {
-      { "BufEnter", "FocusGained", "InsertLeave" },
-      {
-        callback = function()
-          vim.opt.relativenumber = true
-        end,
-      },
-    },
-    {
-      { "BufLeave", "FocusLost", "InsertEnter" },
-      {
-        callback = function()
-          vim.opt.relativenumber = false
-        end,
-      },
-    },
-  },
-  highlight_yank = {
-    {
-      "TextYankPost",
-      {
-        callback = function()
-          vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
-        end,
-      },
-    },
-  },
-  buf_large = {
-    {
-      "BufReadPre",
-      {
-        command = 'if getfsize(expand(" % ")) > 10000000 | syntax off | endif',
-      },
-    },
-  },
-  fugitive_buf = {
-    {
-      "BufReadPost",
-
-      {
-        pattern = "fugitive://* ",
-        command = "set bufhidden=delete",
-      },
-    },
-  },
-  term = {
-    {
-      "TermOpen",
-      { command = "IndentBlanklineDisable" },
-    },
-  },
-  filetypes = {
-    {
-      "FileType",
-      {
-        pattern = "make",
-        callback = function()
-          vim.opt_local.tabstop = 8
-          vim.opt_local.expandtab = false
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "nginx",
-        callback = function()
-          vim.opt_local.tabstop = 4
-          vim.opt_local.expandtab = false
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "lua",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.b.format_on_save = true
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "go",
-        callback = function()
-          vim.opt_local.expandtab = false
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.b.format_on_save = true
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "c",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.opt_local.tabstop = 4
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "cpp",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.opt_local.tabstop = 4
-          vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++17 -g3 % <CR>", { buffer = true })
-          vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>", { buffer = true })
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "rust",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.opt_local.tabstop = 4
-          vim.b.format_on_save = true
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "ruby",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.b.format_on_save = true
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "json",
-        callback = function()
-          vim.keymap.set("n", "[j", vim.fn.JsonBeautify, {})
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "toml",
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "v:lua.tomlFold()"
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = { "javascript", "javascript.jsx", "typescript", "typescriptreact" },
-        callback = function()
-          vim.opt_local.foldmethod = "expr"
-          vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.b.format_on_save = true
-        end,
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "autohotkey",
-        callback = function()
-          vim.opt_local.tabstop = 4
-        end,
-      },
-    },
-    {
-      { "BufNewFile", "BufRead" },
-      {
-        pattern = { "*.tsv", "*.csv" },
-        command = "set filetype=csv",
-      },
-    },
-    {
-      "FileType",
-      {
-        pattern = "csv",
-        callback = function()
-          vim.keymap.set("n", "[c", "<cmd>RainbowAlign<CR>", { buffer = true })
-          vim.keymap.set("n", "]c", "<cmd>RainbowShrink<CR>", { buffer = true })
-        end,
-      },
-    },
-
-    {
-      { "BufEnter", "BufWinEnter" },
-      {
-        pattern = { "*.cue" },
-        command = "set filetype=cue",
-      },
-    },
-  },
-}
-
--- augroups {
---   filetypes = {
--- "FileType json nmap [j :call JsonBeautify() <CR>",
--- "FileType json set foldmethod=expr",
--- "FileType json set foldexpr=nvim_treesitter#foldexpr()",
--- "FileType confluencewiki setlocal fdm=expr",
--- "FileType confluencewiki setlocal fdl=0",
--- "FileType confluencewiki setlocal fdc=1",
--- "BufNewFile,BufRead *.cwk set filetype=confluencewiki",
--- "BufNewFile,BufRead *.coffee set filetype=coffee",
--- },
--- asyncrun = {
---   "QuickFixCmdPost asyncrun botright copen 8",
--- },
--- completion = {
--- "BufEnter * lua local s, com = pcall(require, 'completion'); if s then com.on_attach() end",
--- "User eskk-enable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 0)",
--- "User eskk-disable-pre call v:lua.vim.api.nvim_set_var('completion_enable_auto_popup', 1)",
--- },
--- }
+do
+  local augid_4_ = vim.api.nvim_create_augroup("highlight_yank", {clear = true})
+  local function _5_()
+    return vim.highlight.on_yank({higroup = "Visual", timeout = 200})
+  end
+  vim.api.nvim_create_autocmd({"TextYankPost"}, {callback = _5_, group = augid_4_, nested = false, once = false, pattern = "*"})
+end
+do
+  local augid_6_ = vim.api.nvim_create_augroup("buf_large", {clear = true})
+  vim.api.nvim_create_autocmd({"BufReadPre"}, {command = "if getfsize(expand('%')) > 10000000 | syntax off | endif", group = augid_6_, nested = false, once = false, pattern = "*"})
+end
+do
+  local augid_7_ = vim.api.nvim_create_augroup("fugitive_buf", {clear = true})
+  vim.api.nvim_create_autocmd({"BufReadPost"}, {command = "set bufhidden=delete", group = augid_7_, nested = false, once = false, pattern = "fugitive://*"})
+end
+do
+  local augid_8_ = vim.api.nvim_create_augroup("term", {clear = true})
+  vim.api.nvim_create_autocmd({"TermOpen"}, {command = "IndentBlanklineDisable", group = augid_8_, nested = false, once = false, pattern = "*"})
+end
+local augid_9_ = vim.api.nvim_create_augroup("filetypes", {clear = true})
+local function _10_()
+  vim.opt_local["tabstop"] = 8
+  vim.opt_local["expandtab"] = false
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _10_, group = augid_9_, nested = false, once = false, pattern = "make"})
+local function _11_()
+  vim.opt_local["tabstop"] = 4
+  vim.opt_local["expandtab"] = false
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _11_, group = augid_9_, nested = false, once = false, pattern = "nginx"})
+local function _12_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _12_, group = augid_9_, nested = false, once = false, pattern = "lua"})
+local function _13_()
+  vim.opt_local["expandtab"] = false
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _13_, group = augid_9_, nested = false, once = false, pattern = "go"})
+local function _14_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.opt_local["tabstop"] = 4
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _14_, group = augid_9_, nested = false, once = false, pattern = "c"})
+local function _15_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.opt_local["tabstop"] = 4
+  vim.keymap.set({"n"}, "<leader>cm", "<cmd>!clang++ -std=c++17 -g3 % <CR>", {buffer = true, silent = false})
+  return vim.keymap.set({"n"}, "<leader>cr", "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>", {buffer = true, silent = false})
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _15_, group = augid_9_, nested = false, once = false, pattern = "cpp"})
+local function _16_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.opt_local["tabstop"] = 4
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _16_, group = augid_9_, nested = false, once = false, pattern = "rust"})
+local function _17_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _17_, group = augid_9_, nested = false, once = false, pattern = "rust"})
+local function _18_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  return vim.keymap.set({"n"}, "[j", vim.fn.JsonBeautify, {buffer = true, desc = {}, silent = false})
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _18_, group = augid_9_, nested = false, once = false, pattern = "json"})
+local function _19_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "v:lua.tomlFold()"
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _19_, group = augid_9_, nested = false, once = false, pattern = "toml"})
+local function _20_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _20_, group = augid_9_, nested = false, once = false, pattern = {"javascript", "javascript.jsx", "typescript", "typescriptreact"}})
+local function _21_()
+  vim.opt_local["tabstop"] = 4
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _21_, group = augid_9_, nested = false, once = false, pattern = "autohotkey"})
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=csv", group = augid_9_, nested = false, once = false, pattern = {"*.tsv", "*.csv"}})
+local function _22_()
+  vim.keymap.set({"n"}, "[c", "<cmd>RainbowAlign<CR>", {buffer = true, silent = false})
+  return vim.keymap.set({"n"}, "]c", "<cmd>RainbowShrink<CR>", {buffer = true, silent = false})
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _22_, group = augid_9_, nested = false, once = false, pattern = "csv"})
+return vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=cue", group = augid_9_, nested = false, once = false, pattern = {"*.cue"}})

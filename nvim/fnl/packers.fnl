@@ -55,7 +55,7 @@
       "nvim-lua/plenary.nvim"
       "ray-x/lsp_signature.nvim"
     ]
-    :config #(require "flsp_init"))
+    :config #(require "lsp_init"))
   (use! "hrsh7th/nvim-cmp"
     :requires [
       "hrsh7th/cmp-buffer"
@@ -272,4 +272,5 @@
           :hooks [ "onsave" ]
         }
       }))
+  (use! "vimpostor/vim-tpipeline")
 )
