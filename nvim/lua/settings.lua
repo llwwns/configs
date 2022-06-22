@@ -1,8 +1,4 @@
--- :fennel:1655359925
-if vim.fn.has("multi_lang") then
-  vim.cmd("language C")
-else
-end
+-- :fennel:generated
 vim.opt["encoding"] = "utf-8"
 vim.opt["timeoutlen"] = 500
 vim.opt["spell"] = true

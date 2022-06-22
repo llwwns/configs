@@ -271,7 +271,7 @@
     :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
   (use! "MunifTanjim/nui.nvim")
   (use! "bfredl/nvim-luadev")
-  (use! "udayvir-singh/tangerine.nvim" :opt true
+  (use! "llwwns/tangerine.nvim" :opt true
     :ft "fennel"
     :requires ["udayvir-singh/hibiscus.nvim" ]
     :config #((-> :tangerine (require) (. :setup)) {
@@ -281,4 +281,14 @@
         }
       }))
   (use! "vimpostor/vim-tpipeline" :config #(g! :tpipeline_cursormoved 1))
+  (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :requires :anuvyklack/keymap-layer.nvim)
+  (use! :ziontee113/icon-picker.nvim 
+    :opt true :cmd [
+      :PickIcons
+      :PickEmoji
+      :PickNerd
+      :PickIconsInsert
+      :PickEmojiInsert
+      :PickNerdInsert
+    ] :config #(require :icon-picker))
 )

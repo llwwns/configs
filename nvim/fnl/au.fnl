@@ -27,6 +27,10 @@
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.b :format_on_save true))]
+  [[FileType] ruby (fn []
+    (tset vim.opt_local :foldmethod "expr")
+    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
+    (tset vim.b :format_on_save true))]
   [[FileType] go (fn []
     (tset vim.opt_local :expandtab false)
     (tset vim.opt_local :foldmethod "expr")

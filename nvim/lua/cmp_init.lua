@@ -1,4 +1,4 @@
--- :fennel:1655373662
+-- :fennel:generated
 require("words")
 local cmp = require("cmp")
 local function _1_(args)

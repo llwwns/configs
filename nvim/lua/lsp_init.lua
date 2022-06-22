@@ -1,4 +1,4 @@
--- :fennel:1655343866
+-- :fennel:generated
 local lsp = require("lspconfig")
 local null_ls = require("null-ls")
 local function prettier()

@@ -1,7 +1,7 @@
 (require-macros :hibiscus.vim)
 
-(when (vim.fn.has "multi_lang")
-  (vim.cmd "language C"))
+;; (when (vim.fn.has "multi_lang")
+;;   (vim.cmd "language C"))
 
 (set! encoding "utf-8")
 ;; (set! winblend 20)

@@ -1,4 +1,4 @@
--- :fennel:1655369481
+-- :fennel:generated
 local function _1_()
   vim.cmd("packadd impatient.nvim")
   return require("impatient")
@@ -165,11 +165,19 @@ local function _5_(use)
   local function _31_()
     return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
   end
-  use({config = _31_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "udayvir-singh/tangerine.nvim"})
+  use({config = _31_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
   local function _32_()
     vim.g["tpipeline_cursormoved"] = 1
     return nil
   end
-  return use({config = _32_, "vimpostor/vim-tpipeline"})
+  use({config = _32_, "vimpostor/vim-tpipeline"})
+  local function _33_()
+    return require("hydra_init")
+  end
+  use({config = _33_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
+  local function _34_()
+    return require("icon-picker")
+  end
+  return use({cmd = {"PickIcons", "PickEmoji", "PickNerd", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert"}, config = _34_, opt = true, "ziontee113/icon-picker.nvim"})
 end
 return (require("packer")).startup(_5_)

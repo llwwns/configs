@@ -1,7 +1,12 @@
--- :fennel:1655360678
+-- :fennel:generated
 vim.g["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
 vim.keymap.set({"n"}, "Q", "<nop>", {silent = true})
+vim.keymap.set({"n"}, "q", "<nop>", {silent = true})
+vim.keymap.set({"n"}, "q:", "q:", {noremap = true, silent = true})
+vim.keymap.set({"n"}, "q/", "q/", {noremap = true, silent = true})
+vim.keymap.set({"n"}, "Q", "Q", {noremap = true, silent = true})
+vim.keymap.set({"n"}, "<leader>q", "q", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<c-q>", "<cmd>q<CR>", {silent = false})
 local function _1_()
   return (require("telescope.builtin")).buffers({sort_lastused = true, sort_mru = true})
@@ -189,11 +194,4 @@ end
 vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = false})
 vim.keymap.set({"n"}, "<leader>pc", "<cmd>PackerCompile<CR>", {silent = false})
 vim.keymap.set({"n"}, "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", {silent = false})
-vim.keymap.set({"n"}, "<leader>db", "<Plug>VimspectorContinue", {silent = true})
-vim.keymap.set({"n"}, "<leader>dc", "<Plug>VimspectorRunToCursor", {silent = true})
-vim.keymap.set({"n"}, "<leader>sn", "<Plug>VimspectorStepOver", {silent = true})
-vim.keymap.set({"n"}, "<leader>si", "<Plug>VimspectorStepInto", {silent = true})
-vim.keymap.set({"n"}, "<leader>so", "<Plug>VimspectorStepOut", {silent = true})
-vim.keymap.set({"n"}, "<leader>tb", "<Plug>VimspectorToggleBreakpoint", {silent = true})
-vim.keymap.set({"n"}, "<leader>tcb", "<Plug>VimspectorToggleConditionalBreakpoint", {silent = true})
 return vim.keymap.set({"n"}, "<leader>rp", _G.replace, {noremap = true, silent = true})

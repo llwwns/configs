@@ -28,6 +28,11 @@
 
 
 (map! [n] "Q" "<nop>")
+(map! [n] "q" "<nop>")
+(map! [n :noremap] "q:" "q:")
+(map! [n :noremap] "q/" "q/")
+(map! [n :noremap] "Q" "Q")
+(map! [n :noremap] "<leader>q" "q")
 
 (map! [n :verbose] "<c-q>" "<cmd>q<CR>")
 
@@ -194,12 +199,12 @@
 (map! [n :verbose] "<leader>pc" "<cmd>PackerCompile<CR>")
 (map! [n :verbose] "<leader>sc" "<cmd>source ~/.config/nvim/init.lua<CR>")
 
-(map! [n] "<leader>db" "<Plug>VimspectorContinue")
-(map! [n] "<leader>dc" "<Plug>VimspectorRunToCursor")
-(map! [n] "<leader>sn" "<Plug>VimspectorStepOver")
-(map! [n] "<leader>si" "<Plug>VimspectorStepInto")
-(map! [n] "<leader>so" "<Plug>VimspectorStepOut")
-(map! [n] "<leader>tb" "<Plug>VimspectorToggleBreakpoint")
-(map! [n] "<leader>tcb" "<Plug>VimspectorToggleConditionalBreakpoint")
+;; (map! [n] "<leader>db" "<Plug>VimspectorContinue")
+;; (map! [n] "<leader>dc" "<Plug>VimspectorRunToCursor")
+;; (map! [n] "<leader>sn" "<Plug>VimspectorStepOver")
+;; (map! [n] "<leader>si" "<Plug>VimspectorStepInto")
+;; (map! [n] "<leader>so" "<Plug>VimspectorStepOut")
+;; (map! [n] "<leader>tb" "<Plug>VimspectorToggleBreakpoint")
+;; (map! [n] "<leader>tcb" "<Plug>VimspectorToggleConditionalBreakpoint")
 
 (map! [n :noremap] "<leader>rp" _G.replace)
