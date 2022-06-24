@@ -30,7 +30,7 @@
 
 (packer
   (use! :wbthomason/packer.nvim :opt true)
-  (use! :lukas-reineke/indent-blankline.nvim :config #(do 
+  (use! :lukas-reineke/indent-blankline.nvim :setup #(do 
     (g! indent_blankline_char "│")
     (g! indent_blankline_show_current_context true)))
   (use! :tpope/vim-fugitive)
@@ -53,7 +53,7 @@
   (use! :windwp/windline.nvim
     :config #(require "bubble_custom"))
   (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]]
-    :config #(g! deleft_mapping "<leader>dh"))
+    :setup #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
     :requires [ 
       "jose-elias-alvarez/null-ls.nvim"
@@ -78,13 +78,13 @@
     :config #(require "tree_init"))
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
   (use! :dbeniamine/todo.txt-vim)
-  (use! :houtsnip/vim-emacscommandline :config #(g! EmacsCommandLineSearchCommandLineDisable 1))
-  (use! :RRethy/vim-illuminate :config #(g! Illuminate_delay 0))
+  (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
+  (use! :RRethy/vim-illuminate :setup #(g! Illuminate_delay 0))
   (use! :junegunn/gv.vim :opt true :cmd ["GV"])
   (use! :lambdalisue/suda.vim)
   (use! :tyru/eskk.vim :opt true
     :keys [[ "i" "<c-j>"] ["c" "<c-j>"] ["l" "<c-j>"]]
-    :config #(g! "eskk#enable_completion" 1))
+    :setup #(g! "eskk#enable_completion" 1))
   (use! :powerman/vim-plugin-AnsiEsc :opt true :cmd [ "AnsiEsc" ])
   ;; use('rhysd/reply.vim')
   (use! :tpope/vim-endwise)
@@ -103,7 +103,7 @@
   (use! :L3MON4D3/LuaSnip :opt true
     :module "luasnip"
     :config #(require "luasnip_init"))
-  (use! "luochen1990/rainbow" :config #(g! rainbow_active 1))
+  (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
     :config #(require "treesitter_init")
     :requires [ "SmiteshP/nvim-gps" ])
@@ -210,7 +210,7 @@
           }
         }
       }))
-  (use! :samoshkin/vim-mergetool :opt true :cmd ["MergetoolStart"] :config #(do
+  (use! :samoshkin/vim-mergetool :opt true :cmd ["MergetoolStart"] :setup #(do
     (g! mergetool_layout "LmR")
     ;; (g! mergetool_prefer_revision "base")
     (g! mergetool_prefer_revision "unmodified")))
@@ -280,7 +280,7 @@
           :hooks [ "onsave" ]
         }
       }))
-  (use! "vimpostor/vim-tpipeline" :config #(g! :tpipeline_cursormoved 1))
+  (use! "vimpostor/vim-tpipeline" :setup #(g! :tpipeline_cursormoved 1))
   (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :requires :anuvyklack/keymap-layer.nvim)
   (use! :ziontee113/icon-picker.nvim 
     :opt true :cmd [
@@ -292,3 +292,4 @@
       :PickNerdInsert
     ] :config #(require :icon-picker))
 )
+

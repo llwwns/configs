@@ -23,7 +23,7 @@ local function _5_(use)
     vim.g["indent_blankline_show_current_context"] = true
     return nil
   end
-  use({config = _6_, "lukas-reineke/indent-blankline.nvim"})
+  use({setup = _6_, "lukas-reineke/indent-blankline.nvim"})
   use("tpope/vim-fugitive")
   use({keys = {{"v", "<c-n>"}}, opt = true, "mg979/vim-visual-multi"})
   use({cmd = {"Tabularize"}, opt = true, "godlygeek/tabular"})
@@ -41,7 +41,7 @@ local function _5_(use)
     vim.g["deleft_mapping"] = "<leader>dh"
     return nil
   end
-  use({config = _8_, keys = {{"n", "<leader>dh"}}, opt = true, "AndrewRadev/deleft.vim"})
+  use({keys = {{"n", "<leader>dh"}}, opt = true, setup = _8_, "AndrewRadev/deleft.vim"})
   local function _9_()
     return require("lsp_init")
   end
@@ -61,19 +61,19 @@ local function _5_(use)
     vim.g["EmacsCommandLineSearchCommandLineDisable"] = 1
     return nil
   end
-  use({config = _12_, "houtsnip/vim-emacscommandline"})
+  use({setup = _12_, "houtsnip/vim-emacscommandline"})
   local function _13_()
     vim.g["Illuminate_delay"] = 0
     return nil
   end
-  use({config = _13_, "RRethy/vim-illuminate"})
+  use({setup = _13_, "RRethy/vim-illuminate"})
   use({cmd = {"GV"}, opt = true, "junegunn/gv.vim"})
   use("lambdalisue/suda.vim")
   local function _14_()
     vim.g["eskk#enable_completion"] = 1
     return nil
   end
-  use({config = _14_, keys = {{"i", "<c-j>"}, {"c", "<c-j>"}, {"l", "<c-j>"}}, opt = true, "tyru/eskk.vim"})
+  use({keys = {{"i", "<c-j>"}, {"c", "<c-j>"}, {"l", "<c-j>"}}, opt = true, setup = _14_, "tyru/eskk.vim"})
   use({cmd = {"AnsiEsc"}, opt = true, "powerman/vim-plugin-AnsiEsc"})
   use("tpope/vim-endwise")
   local function _15_()
@@ -91,7 +91,7 @@ local function _5_(use)
     vim.g["rainbow_active"] = 1
     return nil
   end
-  use({config = _17_, "luochen1990/rainbow"})
+  use({setup = _17_, "luochen1990/rainbow"})
   local function _18_()
     return require("treesitter_init")
   end
@@ -119,7 +119,7 @@ local function _5_(use)
     vim.g["mergetool_prefer_revision"] = "unmodified"
     return nil
   end
-  use({cmd = {"MergetoolStart"}, config = _22_, opt = true, "samoshkin/vim-mergetool"})
+  use({cmd = {"MergetoolStart"}, opt = true, setup = _22_, "samoshkin/vim-mergetool"})
   local function _23_()
     return (require("hop")).setup()
   end
@@ -170,7 +170,7 @@ local function _5_(use)
     vim.g["tpipeline_cursormoved"] = 1
     return nil
   end
-  use({config = _32_, "vimpostor/vim-tpipeline"})
+  use({setup = _32_, "vimpostor/vim-tpipeline"})
   local function _33_()
     return require("hydra_init")
   end
