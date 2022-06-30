@@ -19,6 +19,8 @@
 (set! backspace ["indent" "eol" "start"])
 ;; allow cursor go to next line
 (set! whichwrap "b,s,<,>,[,]")
+(set! noswapfile)
+(set! noundofile)
 
 (set! termguicolors true)
 (set! fileencodings ["utf-8" "iso-2022-jp" "euc-jpsjis" "utf-16" "utf-16le" "gb2312"])
@@ -56,6 +58,8 @@
   :vertright "├"
   :verthoriz "┼"
   :fold " "
+  :foldopen ""
+  :foldclose ""
   :diff " "
   :eob " "
 })
@@ -102,7 +106,7 @@
 ; vim.opt.foldtext="getline(v:foldstart).'...'.trim(getline(v:foldend))"
 ; vim.opt.foldtext [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
 (set! foldtext "v:lua.foldtext2()")
-; vim.opt.foldcolumn "auto:3"
+(set! foldcolumn "1")
 (set! dictionary "/usr/share/dict/words")
 
 ;; guis
@@ -117,6 +121,10 @@
     ;; (g! neovide_cursor_animation_length 0.05)
     (g! neovide_cursor_animation_length 0)
     (g! neovide_cursor_trail_length 0.1)
+    (g! neovide_scroll_animation_length 0)
+
+    (set! cmdheight 1)
+    (set! mouse "a")
     (map! [n :noremap] "<A-CR>"
       "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))
   (= 1 (vim.fn.exists "g:fvim_loaded")) (do

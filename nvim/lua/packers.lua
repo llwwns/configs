@@ -178,6 +178,10 @@ local function _5_(use)
   local function _34_()
     return require("icon-picker")
   end
-  return use({cmd = {"PickIcons", "PickEmoji", "PickNerd", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert"}, config = _34_, opt = true, "ziontee113/icon-picker.nvim"})
+  use({cmd = {"PickIcons", "PickEmoji", "PickNerd", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert"}, config = _34_, opt = true, "ziontee113/icon-picker.nvim"})
+  local function _35_()
+    return (require("scope")).setup()
+  end
+  return use({config = _35_, "tiagovla/scope.nvim"})
 end
 return (require("packer")).startup(_5_)

@@ -291,5 +291,6 @@
       :PickEmojiInsert
       :PickNerdInsert
     ] :config #(require :icon-picker))
+  (use! :tiagovla/scope.nvim :config #((-> :scope (require) (. :setup))))
 )
 

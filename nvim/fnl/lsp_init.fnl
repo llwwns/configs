@@ -1,4 +1,7 @@
 (local lsp (require "lspconfig"))
+(local configs (require "lspconfig/configs"))
+(local util (require "lspconfig/util"))
+
 (require-macros :hibiscus.vim)
 (local null_ls (require "null-ls"))
 ;;
@@ -121,20 +124,29 @@
   :on_attach on_attach
 })
 (lsp.erlangls.setup { :on_attach on_attach })
-;;
-;; -- if not configs.steep then
-;; --   configs.steep = {
-;; --     default_config = {
-;; --       cmd = { "steep", "langserver" },
-;; --       filetypes = { "ruby", "rbs" },
-;; --       root_dir = util.root_pattern("Steepfile", ".git"),
-;; --     },
-;; --   }
-;; --   lsp.steep = configs.steep
-;; -- end
-;; -- lsp.steep.setup { on_attach = on_attach }
-;; --
-;; --
+
+;; (when (not configs.ruby_lsp)
+;;   (tset configs :ruby_lsp {
+;;     :default_config {
+;;       :cmd [ :bundle :exec :ruby-lsp ]
+;;       :filetypes [ "ruby" "rbs" ]
+;;       :root_dir (util.root_pattern "Gemfile.lock" ".git")
+;;     }
+;;   })
+;;   (tset lsp :ruby_lsp configs.ruby_lsp))
+;; (lsp.ruby_lsp.setup { :on_attach on_attach })
+
+;; (when (not configs.steep)
+;;   (tset configs :steep {
+;;     :default_config {
+;;       :cmd [ :steep :langserver ]
+;;       :filetypes [ "ruby" "rbs" ]
+;;       :root_dir (util.root_pattern "Steepfile" ".git")
+;;     }
+;;   })
+;;   (tset lsp :steep configs.steep))
+;; (lsp.steep.setup { :on_attach on_attach })
+
 (fn _G.stop_lsp []
    (vim.lsp.stop_client (vim.lsp.get_active_clients)))
 
@@ -142,10 +154,6 @@
   (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics {
     :update_in_insert false
   }))
-;;
-;; local runtime_path = vim.split(package.path, ";")
-;; table.insert(runtime_path, "lua/?.lua")
-;; table.insert(runtime_path, "lua/?/init.lua")
-;;
+
 (lsp.tailwindcss.setup {})
 (lsp.hls.setup {})

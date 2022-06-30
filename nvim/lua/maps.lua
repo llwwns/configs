@@ -160,38 +160,39 @@ vim.keymap.set({"n"}, "]d", vim.diagnostic.goto_next, {silent = true})
 vim.keymap.set({"n"}, "[d", vim.diagnostic.goto_prev, {silent = true})
 vim.keymap.set({"n"}, "<leader>dq", vim.diagnostic.setqflist, {silent = true})
 vim.keymap.set({"n"}, "<leader>dl", vim.diagnostic.setloclist, {silent = true})
-vim.keymap.set({"t"}, "<c-'><c-[>", "<c-\\><c-n>", {noremap = true, silent = true})
 do
   vim.keymap.set({"n"}, "]a", "<cmd>next<CR>", {silent = true})
   vim.keymap.set({"n"}, "[a", "<cmd>previous<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]A", "<cmd>first<CR>", {silent = true})
+  vim.keymap.set({"n"}, "[A", "<cmd>first<CR>", {silent = true})
   vim.keymap.set({"n"}, "]A", "<cmd>last<CR>", {silent = true})
 end
 do
   vim.keymap.set({"n"}, "]t", "<cmd>tabnext<CR>", {silent = true})
   vim.keymap.set({"n"}, "[t", "<cmd>tabprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]T", "<cmd>tabfirst<CR>", {silent = true})
+  vim.keymap.set({"n"}, "[T", "<cmd>tabfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]T", "<cmd>tablast<CR>", {silent = true})
 end
 do
   vim.keymap.set({"n"}, "]q", "<cmd>cnext<CR>", {silent = true})
   vim.keymap.set({"n"}, "[q", "<cmd>cprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]Q", "<cmd>cfirst<CR>", {silent = true})
+  vim.keymap.set({"n"}, "[Q", "<cmd>cfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]Q", "<cmd>clast<CR>", {silent = true})
 end
 do
   vim.keymap.set({"n"}, "]l", "<cmd>lnext<CR>", {silent = true})
   vim.keymap.set({"n"}, "[l", "<cmd>lprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]L", "<cmd>lfirst<CR>", {silent = true})
+  vim.keymap.set({"n"}, "[L", "<cmd>lfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]L", "<cmd>llast<CR>", {silent = true})
 end
 do
   vim.keymap.set({"n"}, "]b", "<cmd>bnext<CR>", {silent = true})
   vim.keymap.set({"n"}, "[b", "<cmd>bprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]B", "<cmd>bfirst<CR>", {silent = true})
+  vim.keymap.set({"n"}, "[B", "<cmd>bfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]B", "<cmd>blast<CR>", {silent = true})
 end
 vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = false})
 vim.keymap.set({"n"}, "<leader>pc", "<cmd>PackerCompile<CR>", {silent = false})
 vim.keymap.set({"n"}, "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", {silent = false})
-return vim.keymap.set({"n"}, "<leader>rp", _G.replace, {noremap = true, silent = true})
+vim.keymap.set({"n"}, "<leader>rp", _G.replace, {noremap = true, silent = true})
+vim.keymap.set({"v"}, "P", "\"0p", {noremap = true, silent = true})
+return vim.keymap.set({"t"}, "<c-\\><c-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true})

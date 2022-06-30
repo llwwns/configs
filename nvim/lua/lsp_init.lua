@@ -1,5 +1,7 @@
 -- :fennel:generated
 local lsp = require("lspconfig")
+local configs = require("lspconfig/configs")
+local util = require("lspconfig/util")
 local null_ls = require("null-ls")
 local function prettier()
   local project_local_bin = "node_modules/.bin/prettier"

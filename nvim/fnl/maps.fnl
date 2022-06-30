@@ -10,7 +10,7 @@
   (let [ku (k:gsub "." string.upper)
         k1 (.. "]" k)
         k2 (.. "[" k)
-        k3 (.. "]" ku)
+        k3 (.. "[" ku)
         k4 (.. "]" ku)
         
         c1 (.. "<cmd>" cmd "next<CR>")
@@ -187,7 +187,6 @@
 
 (map! [n] "<leader>dq" vim.diagnostic.setqflist)
 (map! [n] "<leader>dl" vim.diagnostic.setloclist)
-(map! [t :noremap] "<c-'><c-[>" "<c-\\><c-n>")
 (map_pairs "a" "")
 (map_pairs "t" "tab")
 (map_pairs "q" "c")
@@ -208,3 +207,5 @@
 ;; (map! [n] "<leader>tcb" "<Plug>VimspectorToggleConditionalBreakpoint")
 
 (map! [n :noremap] "<leader>rp" _G.replace)
+(map! [v :noremap] "P" "\"0p")
+(map! [t :noremap] "<c-\\><c-v>" "<c-\\><c-n>\"+pa")

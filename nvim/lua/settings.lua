@@ -11,6 +11,8 @@ vim.opt["background"] = "dark"
 vim.opt["colorcolumn"] = "100"
 vim.opt["backspace"] = {"indent", "eol", "start"}
 vim.opt["whichwrap"] = "b,s,<,>,[,]"
+vim.opt["swapfile"] = false
+vim.opt["undofile"] = false
 vim.opt["termguicolors"] = true
 vim.opt["fileencodings"] = {"utf-8", "iso-2022-jp", "euc-jpsjis", "utf-16", "utf-16le", "gb2312"}
 vim.opt["shiftwidth"] = 0
@@ -64,6 +66,7 @@ do
 end
 vim.opt["foldminlines"] = 1
 vim.opt["foldtext"] = "v:lua.foldtext2()"
+vim.opt["foldcolumn"] = "1"
 vim.opt["dictionary"] = "/usr/share/dict/words"
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
@@ -73,6 +76,9 @@ elseif (1 == vim.fn.exists("neovide")) then
   vim.opt["guifont"] = "JetBrains Mono Slashed Light:h11.5"
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
+  vim.g["neovide_scroll_animation_length"] = 0
+  vim.opt["cmdheight"] = 1
+  vim.opt["mouse"] = "a"
   return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
 elseif (1 == vim.fn.exists("g:fvim_loaded")) then
   vim.opt["guifont"] = "Sarasa Nerd Font:h18"
