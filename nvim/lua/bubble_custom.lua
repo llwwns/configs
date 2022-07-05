@@ -34,35 +34,41 @@ local function _3_()
     return ""
   end
 end
-local function _5_()
-  return {{b_components.cache_file_icon({default = "\239\131\182"}), "default"}, {" ", "default"}, {"%f ", ""}, {b_components.file_modified("\239\129\128 "), ""}}
-end
-local function _6_()
-  return {{sep.left_rounded, "sep_before"}, {"l/n", "text"}, {b_components.line_col, "text"}, {"\239\131\137 ", "text"}, {b_components.progress, "text"}, {sep.right_rounded, "sep_after"}}
+local function _5_(bufnr, winid, width)
+  local fname
+  if (width > 110) then
+    fname = b_components.full_file_name
+  else
+    fname = b_components.cache_file_name("[No Name]", "full")
+  end
+  return {{b_components.cache_file_icon({default = "\239\131\182"}), "default"}, {" ", "default"}, {fname}, {b_components.file_modified("\239\129\128 "), ""}}
 end
 local function _7_()
+  return {{sep.left_rounded, "sep_before"}, {"l/n", "text"}, {b_components.line_col, "text"}, {"\239\131\137 ", "text"}, {b_components.progress, "text"}, {sep.right_rounded, "sep_after"}}
+end
+local function _8_()
   if git_comps.is_git() then
     return {{" "}, {git_comps.diff_added({format = "+ %s"}), "green"}, {git_comps.diff_removed({format = " - %s"}), "red"}, {git_comps.diff_changed({format = " ~ %s"}), "blue"}}
   else
     return ""
   end
 end
-local function _9_()
+local function _10_()
   if gps.is_available() then
     return (" /" .. gps.get_location())
   else
     return ""
   end
 end
-basic = {divider = {b_components.divider, ""}, space = {" ", ""}, file_name_inactive = {b_components.full_file_name, hl_list.Inactive}, line_col_inactive = {b_components.line_col, hl_list.Inactive}, progress_inactive = {b_components.progress, hl_list.Inactive}, vi_mode = {name = "vi_mode", hl_colors = table.flatmap(text_colors, _1_), text = _2_}, lsp_diagnos = {name = "diagnostic", hl_colors = {red = {"red", "ActiveBg"}, yellow = {"yellow", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, width = 90, text = _3_}, file = {name = "file", hl_colors = {default = hl_list.White}, text = _5_}, right = {hl_colors = {sep_before = {"black_light", "ActiveBg"}, sep_after = {"black_light", "ActiveBg"}, text = {"white", "black_light"}}, text = _6_}, git = {name = "git", width = 90, hl_colors = {green = {"green", "ActiveBg"}, red = {"red", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, text = _7_}, gps = {_9_, {"white", "ActiveBg"}}}
+basic = {divider = {b_components.divider, ""}, space = {" ", ""}, file_name_inactive = {b_components.full_file_name, hl_list.Inactive}, line_col_inactive = {b_components.line_col, hl_list.Inactive}, progress_inactive = {b_components.progress, hl_list.Inactive}, vi_mode = {name = "vi_mode", hl_colors = table.flatmap(text_colors, _1_), text = _2_}, lsp_diagnos = {name = "diagnostic", hl_colors = {red = {"red", "ActiveBg"}, yellow = {"yellow", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, width = 90, text = _3_}, file = {name = "file", hl_colors = {default = hl_list.White}, text = _5_}, right = {hl_colors = {sep_before = {"black_light", "ActiveBg"}, sep_after = {"black_light", "ActiveBg"}, text = {"white", "black_light"}}, text = _7_}, git = {name = "git", width = 90, hl_colors = {green = {"green", "ActiveBg"}, red = {"red", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, text = _8_}, gps = {_10_, {"white", "ActiveBg"}}}
 local default = {filetypes = {"default"}, active = {{" ", hl_list.Active}, basic.vi_mode, basic.file, {vim_components.search_count(), {"black", "white"}}, {sep.right_rounded, {"white", "ActiveBg"}}, basic.lsp_diagnos, basic.git, basic.gps, basic.divider, {"[%{&fileformat}]", {"blue", "ActiveBg"}, 90}, {git_comps.git_branch({icon = " \238\130\160 "}), {"green", "ActiveBg"}, 90}, {" ", hl_list.Active}, basic.right, {" ", hl_list.Active}}, inactive = {basic.file_name_inactive, basic.divider, basic.divider, basic.line_col_inactive, {"\238\130\185", {"white", "InactiveBg"}}, basic.progress_inactive}}
 local quickfix
-local function _11_()
+local function _12_()
   return (vim.fn.getqflist({title = 0})).title
 end
-quickfix = {filetypes = {"qf", "Trouble"}, active = {{helper.separators.left_rounded, {"red_light", "black_light"}}, {"Quickfix ", {"black", "red_light"}}, {helper.separators.left_rounded, {"black_light", "red_light"}}, {_11_, {"cyan", "black_light"}}, {" Total : %L ", {"cyan", "black_light"}}, {helper.separators.right_rounded, {"black_light", "InactiveBg"}}, {" ", {"InactiveFg", "InactiveBg"}}, basic.divider}, always_active = true}
+quickfix = {filetypes = {"qf", "Trouble"}, active = {{helper.separators.left_rounded, {"red_light", "black_light"}}, {"Quickfix ", {"black", "red_light"}}, {helper.separators.left_rounded, {"black_light", "red_light"}}, {_12_, {"cyan", "black_light"}}, {" Total : %L ", {"cyan", "black_light"}}, {helper.separators.right_rounded, {"black_light", "InactiveBg"}}, {" ", {"InactiveFg", "InactiveBg"}}, basic.divider}, always_active = true}
 local explorer = {filetypes = {"fern", "NvimTree", "lir"}, active = {{helper.separators.left_rounded, {"black", "black_light"}}, {" \239\144\148 ", {"white", "black"}}, {helper.separators.right_rounded, {"black", "black_light"}}, {b_components.divider, ""}, {b_components.file_name("\239\131\182"), {"white", "black_light"}}}, always_active = true, show_last_status = true}
-local function _12_(colors)
+local function _13_(colors)
   return colors
 end
-return windline.setup({colors_name = _12_, statuslines = {default, explorer, quickfix}, tabline = {template = {select = {"", {"TabSelectionFg", "TabSelectionBg"}}, select_start = {"", {"TabLineBg", "TabSelectionBg"}}, select_end = {(sep.slant_right .. " "), {"TabSelectionBg", "TabLineBg"}}, select_last = {sep.slant_right, {"TabSelectionBg", "TabLineFillBg"}}, normal = {"", {"TabLineFg", "TabLineBg"}}, normal_start = {" ", {"TabLineFg", "TabLineBg"}}, normal_end = {sep.slant_right_thin, {"TabLineFg", "TabLineBg"}}, normal_select = {(sep.slant_right .. " "), {"TabLineBg", "TabSelectionBg"}}, normal_last = {sep.slant_right, {"TabLineBg", "TabLineFillBg"}}}}})
+return windline.setup({colors_name = _13_, statuslines = {default, explorer, quickfix}, tabline = {template = {select = {"", {"TabSelectionFg", "TabSelectionBg"}}, select_start = {"", {"TabLineBg", "TabSelectionBg"}}, select_end = {(sep.slant_right .. " "), {"TabSelectionBg", "TabLineBg"}}, select_last = {sep.slant_right, {"TabSelectionBg", "TabLineFillBg"}}, normal = {"", {"TabLineFg", "TabLineBg"}}, normal_start = {" ", {"TabLineFg", "TabLineBg"}}, normal_end = {sep.slant_right_thin, {"TabLineFg", "TabLineBg"}}, normal_select = {(sep.slant_right .. " "), {"TabLineBg", "TabSelectionBg"}}, normal_last = {sep.slant_right, {"TabLineBg", "TabLineFillBg"}}}}})

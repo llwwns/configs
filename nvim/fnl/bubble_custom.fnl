@@ -74,14 +74,17 @@
     :hl_colors {
       :default hl_list.White
     }
-    :text (fn [] [
-        [ (b_components.cache_file_icon { :default "" }) "default" ]
-        [ " " "default" ]
-        ;; { b_components.cache_file_name('[No Name]', 'unique'), '' },
-        [ "%f " "" ]
-        [ (b_components.file_modified " ") "" ]
-        ;; { b_components.cache_file_size(), '' },
-      ])
+    :text (fn [bufnr winid width] 
+      (let [fname (if (> width 110)
+        b_components.full_file_name (b_components.cache_file_name "[No Name]" "full"))]
+        [
+          [ (b_components.cache_file_icon { :default "" }) "default" ]
+          [ " " "default" ]
+          ;; { b_components.cache_file_name('[No Name]', 'unique'), '' },
+          [fname]
+          [ (b_components.file_modified " ") "" ]
+          ;; { b_components.cache_file_size(), '' },
+        ]))
   }
   :right {
     :hl_colors {

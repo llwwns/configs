@@ -38,7 +38,7 @@ vim.opt["listchars"] = {eol = "\194\172", tab = "| ", extends = "\194\187", prec
 vim.opt["completeopt"] = "menuone,noselect"
 vim.opt["shortmess"] = "atToOFcA"
 vim.opt["sessionoptions"] = {"blank", "curdir", "folds", "tabpages"}
-vim.opt["fillchars"] = {horiz = "\226\148\128", horizup = "\226\148\180", horizdown = "\226\148\172", vert = "\226\148\130", vertleft = "\226\148\164", vertright = "\226\148\156", verthoriz = "\226\148\188", fold = " ", diff = " ", eob = " "}
+vim.opt["fillchars"] = {horiz = "\226\148\128", horizup = "\226\148\180", horizdown = "\226\148\172", vert = "\226\148\130", vertleft = "\226\148\164", vertright = "\226\148\156", verthoriz = "\226\148\188", fold = " ", foldopen = "\239\145\188", foldclose = "\239\145\160", diff = " ", eob = " "}
 vim.opt["laststatus"] = 3
 vim.opt["cmdheight"] = 0
 vim.opt["exrc"] = true
@@ -73,16 +73,16 @@ if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
   return nil
 elseif (1 == vim.fn.exists("neovide")) then
-  vim.opt["guifont"] = "JetBrains Mono Slashed Light:h11.5"
+  vim.opt["guifont"] = "JetBrains Mono Slashed Light:h10.5"
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
   vim.g["neovide_scroll_animation_length"] = 0
   vim.opt["cmdheight"] = 1
   vim.opt["mouse"] = "a"
   return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
-elseif (1 == vim.fn.exists("g:fvim_loaded")) then
-  vim.opt["guifont"] = "Sarasa Nerd Font:h18"
-  return nil
+elseif vim.keymap.set({"t"}, "<c-s-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true}) then
+  return (1 == vim.fn.exists("g:fvim_loaded"))
 else
+  vim.opt["guifont"] = "Sarasa Nerd Font:h18"
   return nil
 end

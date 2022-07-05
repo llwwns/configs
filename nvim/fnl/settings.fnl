@@ -116,7 +116,7 @@
     (set! guicursor (.. vim.o.guicursor ",a:blinkon0")))
   (= 1 (vim.fn.exists "neovide")) (do
   ; vim.g.tokyonight_transparent = false
-    (set! guifont "JetBrains Mono Slashed Light:h11.5")
+    (set! guifont "JetBrains Mono Slashed Light:h10.5")
   ; set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
     ;; (g! neovide_cursor_animation_length 0.05)
     (g! neovide_cursor_animation_length 0)
@@ -127,6 +127,7 @@
     (set! mouse "a")
     (map! [n :noremap] "<A-CR>"
       "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))
+    (map! [t :noremap] "<c-s-v>" "<c-\\><c-n>\"+pa")
   (= 1 (vim.fn.exists "g:fvim_loaded")) (do
   ; FVimBackgroundOpacity 0.7
     (set! guifont "Sarasa Nerd Font:h18")))
