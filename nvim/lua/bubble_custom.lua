@@ -7,7 +7,7 @@ local b_components = require("windline.components.basic")
 local state = _G.WindLine.state
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 local hl_list = {Black = {"white", "black"}, White = {"black", "white"}, Inactive = {"InactiveFg", "InactiveBg"}, Active = {"ActiveFg", "ActiveBg"}}
 local text_colors = {Normal = "blue_light", Insert = "green", Visual = "yellow", Replace = "red", Command = "magenta"}
 table.flatmap = function(tbl, func)
@@ -54,14 +54,14 @@ local function _8_()
   end
 end
 local function _10_()
-  if gps.is_available() then
-    return (" /" .. gps.get_location())
+  if navic.is_available() then
+    return (" " .. navic.get_location())
   else
     return ""
   end
 end
-basic = {divider = {b_components.divider, ""}, space = {" ", ""}, file_name_inactive = {b_components.full_file_name, hl_list.Inactive}, line_col_inactive = {b_components.line_col, hl_list.Inactive}, progress_inactive = {b_components.progress, hl_list.Inactive}, vi_mode = {name = "vi_mode", hl_colors = table.flatmap(text_colors, _1_), text = _2_}, lsp_diagnos = {name = "diagnostic", hl_colors = {red = {"red", "ActiveBg"}, yellow = {"yellow", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, width = 90, text = _3_}, file = {name = "file", hl_colors = {default = hl_list.White}, text = _5_}, right = {hl_colors = {sep_before = {"black_light", "ActiveBg"}, sep_after = {"black_light", "ActiveBg"}, text = {"white", "black_light"}}, text = _7_}, git = {name = "git", width = 90, hl_colors = {green = {"green", "ActiveBg"}, red = {"red", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, text = _8_}, gps = {_10_, {"white", "ActiveBg"}}}
-local default = {filetypes = {"default"}, active = {{" ", hl_list.Active}, basic.vi_mode, basic.file, {vim_components.search_count(), {"black", "white"}}, {sep.right_rounded, {"white", "ActiveBg"}}, basic.lsp_diagnos, basic.git, basic.gps, basic.divider, {"[%{&fileformat}]", {"blue", "ActiveBg"}, 90}, {git_comps.git_branch({icon = " \238\130\160 "}), {"green", "ActiveBg"}, 90}, {" ", hl_list.Active}, basic.right, {" ", hl_list.Active}}, inactive = {basic.file_name_inactive, basic.divider, basic.divider, basic.line_col_inactive, {"\238\130\185", {"white", "InactiveBg"}}, basic.progress_inactive}}
+basic = {divider = {b_components.divider, ""}, space = {" ", ""}, file_name_inactive = {b_components.full_file_name, hl_list.Inactive}, line_col_inactive = {b_components.line_col, hl_list.Inactive}, progress_inactive = {b_components.progress, hl_list.Inactive}, vi_mode = {name = "vi_mode", hl_colors = table.flatmap(text_colors, _1_), text = _2_}, lsp_diagnos = {name = "diagnostic", hl_colors = {red = {"red", "ActiveBg"}, yellow = {"yellow", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, width = 90, text = _3_}, file = {name = "file", hl_colors = {default = hl_list.White}, text = _5_}, right = {hl_colors = {sep_before = {"black_light", "ActiveBg"}, sep_after = {"black_light", "ActiveBg"}, text = {"white", "black_light"}}, text = _7_}, git = {name = "git", width = 90, hl_colors = {green = {"green", "ActiveBg"}, red = {"red", "ActiveBg"}, blue = {"blue", "ActiveBg"}}, text = _8_}, navic = {_10_, {"white", "ActiveBg"}}}
+local default = {filetypes = {"default"}, active = {{" ", hl_list.Active}, basic.vi_mode, basic.file, {vim_components.search_count(), {"black", "white"}}, {sep.right_rounded, {"white", "ActiveBg"}}, basic.lsp_diagnos, basic.git, basic.navic, basic.divider, {"[%{&fileformat}]", {"blue", "ActiveBg"}, 90}, {git_comps.git_branch({icon = " \238\130\160 "}), {"green", "ActiveBg"}, 90}, {" ", hl_list.Active}, basic.right, {" ", hl_list.Active}}, inactive = {basic.file_name_inactive, basic.divider, basic.divider, basic.line_col_inactive, {"\238\130\185", {"white", "InactiveBg"}}, basic.progress_inactive}}
 local quickfix
 local function _12_()
   return (vim.fn.getqflist({title = 0})).title

@@ -126,4 +126,10 @@ local function _23_()
   return vim.keymap.set({"n"}, "]c", "<cmd>RainbowShrink<CR>", {buffer = true, silent = false})
 end
 vim.api.nvim_create_autocmd({"FileType"}, {callback = _23_, group = augid_9_, nested = false, once = false, pattern = "csv"})
-return vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=cue", group = augid_9_, nested = false, once = false, pattern = {"*.cue"}})
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=cue", group = augid_9_, nested = false, once = false, pattern = {"*.cue"}})
+local function _24_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  return nil
+end
+return vim.api.nvim_create_autocmd({"FileType"}, {callback = _24_, group = augid_9_, nested = false, once = false, pattern = "proto"})

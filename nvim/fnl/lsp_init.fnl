@@ -1,6 +1,7 @@
 (local lsp (require "lspconfig"))
 (local configs (require "lspconfig/configs"))
 (local util (require "lspconfig/util"))
+(local navic (require "nvim-navic"))
 
 (require-macros :hibiscus.vim)
 (local null_ls (require "null-ls"))
@@ -26,33 +27,35 @@
     :condition #(or ($1.root_has_file ".eslintrc") ($1.root_has_file ".eslintrc.json"))
   }))
 
-(fn on_attach [client]
-   (when (and
-     client.resolved_capabilities.document_formatting
-     (not (: (vim.regex "\\vfugitive:\\/\\/") :match_str (vim.fn.expand "%"))))
-     (vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"))
-    (map! [n :buffer :noremap] "gd" "<cmd>lua vim.lsp.buf.declaration()<CR>")
-    (map! [n :buffer :noremap] "<c-]>" "<cmd>lua vim.lsp.buf.definition()<CR>")
-    (map! [n :buffer :noremap] "gi" "<cmd>lua vim.lsp.buf.implementation()<CR>")
-    (map! [n :buffer :noremap] "gt" "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-    (map! [n :buffer :noremap] "gr" "<cmd>lua vim.lsp.buf.references()<CR>")
-    ;; (map! [n :buffer :noremap] "gs" "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
-    (map! [n :buffer :noremap] "gs" "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
-    (map! [n :buffer :noremap] "<leader>rn" "<cmd>Lsp rename<CR>")
-    (map! [nv :buffer :noremap] "<leader>da" "<cmd>Lsp codeaction<CR>")
-    ((-> :lsp_signature (require) (. :on_attach)) {
-      :floating_window false
-    }))
+(fn on_attach [client bufnr]
+  (when (and
+    client.resolved_capabilities.document_formatting
+    (not (: (vim.regex "\\vfugitive:\\/\\/") :match_str (vim.fn.expand "%"))))
+    (vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"))
 
-(fn on_attach_ts [client]
+  (map! [n :buffer :noremap] "gd" "<cmd>lua vim.lsp.buf.declaration()<CR>")
+  (map! [n :buffer :noremap] "<c-]>" "<cmd>lua vim.lsp.buf.definition()<CR>")
+  (map! [n :buffer :noremap] "gi" "<cmd>lua vim.lsp.buf.implementation()<CR>")
+  (map! [n :buffer :noremap] "gt" "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+  (map! [n :buffer :noremap] "gr" "<cmd>lua vim.lsp.buf.references()<CR>")
+  ;; (map! [n :buffer :noremap] "gs" "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
+  (map! [n :buffer :noremap] "gs" "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
+  (map! [n :buffer :noremap] "<leader>rn" "<cmd>Lsp rename<CR>")
+  (map! [nv :buffer :noremap] "<leader>da" "<cmd>Lsp codeaction<CR>")
+  ((-> :lsp_signature (require) (. :on_attach)) {
+    :floating_window false
+  })
+  (navic.attach client bufnr))
+
+(fn on_attach_ts [client bufnr]
   (let [root client.config.root_dir
         path (-> :null-ls.utils (require) (. :path))]
     (when (path.exists (path.join root ".prettierrc"))
       (tset client.resolved_capabilities :document_formatting false))
-    (on_attach client)))
+    (on_attach client bufnr)))
 
-(fn on_attach_rs [client]
-  (on_attach client)
+(fn on_attach_rs [client bufnr]
+  (on_attach client bufnr)
   (augroup! :inlayHint
     [[BufEnter BufWinEnter TabEnter InsertLeave] *.rs
       #((-> :lsp_extensions (require) (. :inlay_hints)) {
@@ -115,7 +118,7 @@
 (lsp.yamlls.setup { :on_attach on_attach })
 (lsp.zls.setup { :on_attach on_attach })
 (lsp.gopls.setup {
-  :cmd_env { :GOFLAGS "-tags=test_system,test_mysql,wireinject,test_es" }
+  :cmd_env { :GOFLAGS "-tags=debug,test_mysql,wireinject,test_es" }
   :capabilities capabilities
   :codelens {
     :upgrade.dependency false

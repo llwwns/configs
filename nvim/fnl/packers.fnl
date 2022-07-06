@@ -38,11 +38,11 @@
   (use! :godlygeek/tabular :opt true :cmd ["Tabularize"])
   (use! :maksimr/vim-jsbeautify :opt true
     :fn [
-      "JsBeautify"
-      "JsonBeautify"
-      "JsxBeautify"
-      "HtmlBeautify"
-      "CSSBeautify"
+      :JsBeautify
+      :JsonBeautify
+      :JsxBeautify
+      :HtmlBeautify
+      :CSSBeautify
     ])
   (use! :tpope/vim-abolish)
   (use! :tpope/vim-surround)
@@ -51,7 +51,8 @@
   (use! :FooSoft/vim-argwrap :opt true :cmd ["ArgWrap"])
   ;;(use! :sheerun/vim-polyglot)
   (use! :windwp/windline.nvim
-    :config #(require "bubble_custom"))
+    :config #(require "bubble_custom")
+    :requires "SmiteshP/nvim-navic")
   (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]]
     :setup #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
@@ -59,8 +60,11 @@
       "jose-elias-alvarez/null-ls.nvim"
       "nvim-lua/plenary.nvim"
       "ray-x/lsp_signature.nvim"
+      "SmiteshP/nvim-navic"
     ]
     :config #(require "lsp_init"))
+  (use! "SmiteshP/nvim-navic"
+    :config #((-> "nvim-navic" (require) (. :setup))) {:separator "/"})
   (use! "hrsh7th/nvim-cmp"
     :requires [
       "hrsh7th/cmp-buffer"
@@ -105,9 +109,8 @@
     :config #(require "luasnip_init"))
   (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
-    :config #(require "treesitter_init")
-    :requires [ "SmiteshP/nvim-gps" ])
-  (use! :bluz71/vim-moonfly-colors)
+    :config #(require "treesitter_init"))
+  ;; (use! :bluz71/vim-moonfly-colors)
   (use! :dstein64/nvim-scrollview)
   (use! :mbbill/undotree :opt true :cmd "UndotreeToggle")
   (use! :lewis6991/gitsigns.nvim
@@ -139,7 +142,7 @@
           }
         }
       }))
-  (use! :bluz71/vim-nightfly-guicolors)
+  ;; (use! :bluz71/vim-nightfly-guicolors)
   (use! :kevinhwang91/nvim-bqf)
   (use! :onsails/lspkind-nvim
     :config #((-> :lspkind (require) (. :init)) {
@@ -232,7 +235,7 @@
   (use! "stevearc/dressing.nvim"
     :config #((-> :dressing (require) (. :setup)) {
         :select {
-          :backend ["builtin"]
+          :backend ["telescope" "builtin"]
         }
       }))
   (use! :nyngwang/NeoZoom.lua :opt true :cmd ["NeoZoomToggle"])
@@ -266,7 +269,7 @@
       "DiffviewOpen"
     ]
     :config #(require "diffview_init"))
-  (use! "EdenEast/nightfox.nvim")
+  ;; (use! "EdenEast/nightfox.nvim")
   (use! "puremourning/vimspector"
     :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
   (use! "MunifTanjim/nui.nvim")
@@ -284,12 +287,20 @@
   (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :requires :anuvyklack/keymap-layer.nvim)
   (use! :ziontee113/icon-picker.nvim 
     :opt true :cmd [
+      :PickEverything
       :PickIcons
       :PickEmoji
       :PickNerd
+      :PickSymbols
+      :PickAltFont
+      :PickAltFontAndSymbols
+      :PickEverythingInsert
       :PickIconsInsert
       :PickEmojiInsert
       :PickNerdInsert
+      :PickSymbolsInsert
+      :PickAltFontInsert
+      :PickAltFontAndSymbolsInsert
     ] :config #(require :icon-picker))
   (use! :tiagovla/scope.nvim :config #((-> :scope (require) (. :setup))))
 )

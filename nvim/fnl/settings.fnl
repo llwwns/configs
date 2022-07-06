@@ -123,7 +123,7 @@
     (g! neovide_cursor_trail_length 0.1)
     (g! neovide_scroll_animation_length 0)
 
-    (set! cmdheight 1)
+    ;; (set! cmdheight 1)
     (set! mouse "a")
     (map! [n :noremap] "<A-CR>"
       "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))

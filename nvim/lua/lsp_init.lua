@@ -2,6 +2,7 @@
 local lsp = require("lspconfig")
 local configs = require("lspconfig/configs")
 local util = require("lspconfig/util")
+local navic = require("nvim-navic")
 local null_ls = require("null-ls")
 local function prettier()
   local project_local_bin = "node_modules/.bin/prettier"
@@ -24,7 +25,7 @@ local function eslint_d()
   end
   return null_ls.builtins.diagnostics.eslint_d.with({timeout = 15000, condition = _4_})
 end
-local function on_attach(client)
+local function on_attach(client, bufnr)
   if (client.resolved_capabilities.document_formatting and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand("%"))) then
     vim.cmd("autocmd BufWritePre <buffer> lua lsp_format()")
   else
@@ -37,19 +38,20 @@ local function on_attach(client)
   vim.keymap.set({"n"}, "gs", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "<leader>rn", "<cmd>Lsp rename<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n", "v"}, "<leader>da", "<cmd>Lsp codeaction<CR>", {buffer = true, noremap = true, silent = true})
-  return (require("lsp_signature")).on_attach({floating_window = false})
+  do end (require("lsp_signature")).on_attach({floating_window = false})
+  return navic.attach(client, bufnr)
 end
-local function on_attach_ts(client)
+local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
   local path = (require("null-ls.utils")).path
   if path.exists(path.join(root, ".prettierrc")) then
     client.resolved_capabilities["document_formatting"] = false
   else
   end
-  return on_attach(client)
+  return on_attach(client, bufnr)
 end
-local function on_attach_rs(client)
-  on_attach(client)
+local function on_attach_rs(client, bufnr)
+  on_attach(client, bufnr)
   local augid_7_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
   local function _8_()
     return (require("lsp_extensions")).inlay_hints({enabled = {"ChainingHint", "TypeHint"}})
@@ -70,7 +72,7 @@ lsp.vimls.setup({on_attach = on_attach})
 lsp.jsonls.setup({on_attach = on_attach})
 lsp.yamlls.setup({on_attach = on_attach})
 lsp.zls.setup({on_attach = on_attach})
-lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=test_system,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
+lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
 lsp.erlangls.setup({on_attach = on_attach})
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())

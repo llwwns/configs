@@ -77,7 +77,6 @@ elseif (1 == vim.fn.exists("neovide")) then
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
   vim.g["neovide_scroll_animation_length"] = 0
-  vim.opt["cmdheight"] = 1
   vim.opt["mouse"] = "a"
   return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
 elseif vim.keymap.set({"t"}, "<c-s-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true}) then

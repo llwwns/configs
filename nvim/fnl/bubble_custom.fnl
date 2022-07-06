@@ -9,7 +9,7 @@
 (local lsp_comps (require "windline.components.lsp"))
 (local git_comps (require "windline.components.git"))
 
-(local gps (require "nvim-gps"))
+(local navic (require "nvim-navic"))
 
 (local hl_list {
   :Black [ "white" "black" ]
@@ -116,9 +116,9 @@
       [ (git_comps.diff_changed { :format " ~ %s" }) "blue" ]
     ] "")
   }
-  :gps [
-    #(if (gps.is_available)
-        (.. " /" (gps.get_location)) "")
+  :navic [
+    #(if (navic.is_available)
+        (.. " " (navic.get_location)) "")
     [ "white" "ActiveBg" ]
   ]
 })
@@ -133,7 +133,7 @@
     [ sep.right_rounded [ "white" "ActiveBg" ] ]
     basic.lsp_diagnos
     basic.git
-    basic.gps
+    basic.navic
     basic.divider
     [ "[%{&fileformat}]" [ "blue" "ActiveBg" ] 90 ]
     [ (git_comps.git_branch { :icon "  " }) [ "green" "ActiveBg" ] 90 ]

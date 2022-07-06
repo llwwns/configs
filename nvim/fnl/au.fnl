@@ -73,6 +73,9 @@
     (map! [n :buffer :verbose] "[c" "<cmd>RainbowAlign<CR>")
     (map! [n :buffer :verbose] "]c" "<cmd>RainbowShrink<CR>"))]
   [[BufNewFile BufRead] [*.cue] "set filetype=cue"]
+  [[FileType] proto (fn []
+    (tset vim.opt_local :foldmethod "expr")
+    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
 )
 ;; -- augroups {
 ;; --   filetypes = {
