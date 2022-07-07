@@ -29,7 +29,7 @@
 
 (fn on_attach [client bufnr]
   (when (and
-    client.resolved_capabilities.document_formatting
+    client.server_capabilities.documentFormattingProvider
     (not (: (vim.regex "\\vfugitive:\\/\\/") :match_str (vim.fn.expand "%"))))
     (vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"))
 
@@ -45,13 +45,14 @@
   ((-> :lsp_signature (require) (. :on_attach)) {
     :floating_window false
   })
-  (navic.attach client bufnr))
+  (when client.server_capabilities.documentSymbolProvider
+    (navic.attach client bufnr)))
 
 (fn on_attach_ts [client bufnr]
   (let [root client.config.root_dir
         path (-> :null-ls.utils (require) (. :path))]
     (when (path.exists (path.join root ".prettierrc"))
-      (tset client.resolved_capabilities :document_formatting false))
+      (tset client.server_capabilities :documentFormattingProvider false))
     (on_attach client bufnr)))
 
 (fn on_attach_rs [client bufnr]

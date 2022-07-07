@@ -26,7 +26,7 @@ local function eslint_d()
   return null_ls.builtins.diagnostics.eslint_d.with({timeout = 15000, condition = _4_})
 end
 local function on_attach(client, bufnr)
-  if (client.resolved_capabilities.document_formatting and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand("%"))) then
+  if (client.server_capabilities.documentFormattingProvider and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand("%"))) then
     vim.cmd("autocmd BufWritePre <buffer> lua lsp_format()")
   else
   end
@@ -39,24 +39,28 @@ local function on_attach(client, bufnr)
   vim.keymap.set({"n"}, "<leader>rn", "<cmd>Lsp rename<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n", "v"}, "<leader>da", "<cmd>Lsp codeaction<CR>", {buffer = true, noremap = true, silent = true})
   do end (require("lsp_signature")).on_attach({floating_window = false})
-  return navic.attach(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    return navic.attach(client, bufnr)
+  else
+    return nil
+  end
 end
 local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
   local path = (require("null-ls.utils")).path
   if path.exists(path.join(root, ".prettierrc")) then
-    client.resolved_capabilities["document_formatting"] = false
+    client.server_capabilities["documentFormattingProvider"] = false
   else
   end
   return on_attach(client, bufnr)
 end
 local function on_attach_rs(client, bufnr)
   on_attach(client, bufnr)
-  local augid_7_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
-  local function _8_()
+  local augid_8_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
+  local function _9_()
     return (require("lsp_extensions")).inlay_hints({enabled = {"ChainingHint", "TypeHint"}})
   end
-  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _8_, group = augid_7_, nested = false, once = false, pattern = "*.rs"})
+  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _9_, group = augid_8_, nested = false, once = false, pattern = "*.rs"})
 end
 local capabilities
 do
