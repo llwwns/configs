@@ -1,114 +1,27 @@
-local ls = require "luasnip"
-local s = ls.snippet
-local sn = ls.snippet_node
+-- :fennel:generated
+local ls = require("luasnip")
+local snippet = ls.snippet
+local text_node = ls.text_node
+local snippet_node = ls.snippet_node
 local isn = ls.indent_snippet_node
-local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
-local d = ls.dynamic_node
-local events = require "luasnip.util.events"
-
-ls.add_snippets("go", {
-  s("err", {
-    t {
-      "if err != nil {",
-      "	return ",
-    },
-    i(0),
-    t { "", "}" },
-  }),
-  s("wrap", {
-    t [[errors.Wrap(err, "]],
-    i(0),
-    t [[")]],
-  }),
-  s("for", {
-    t [[for ]],
-    i(1),
-    t [[, ]],
-    i(2),
-    t [[ := range ]],
-    i(3),
-    t { " {", "	" },
-    i(0),
-    t { "", "}" },
-  }),
-})
-ls.add_snippets("cpp", {
-  s("main", {
-    t {
-      "#include<iostream>",
-      "",
-      "using namespace std;",
-      "",
-      "int main() {",
-      "    ",
-    },
-    i(0),
-    t { "", "}" },
-  }),
-  s("leetcode", {
-    t {
-      "#include<iostream>",
-      "#include<algorithm>",
-      "#include<vector>",
-      "#include<stack>",
-      "#include<queue>",
-      "",
-      "using namespace std;",
-      "",
-      "",
-    },
-    i(0),
-    t {
-      "",
-      "",
-      "int main() {",
-      "    ",
-      "}",
-    },
-  }),
-})
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
+local dynamic_node = ls.dynamic_node
+local events = require("luasnip.util.events")
+local l = (require("luasnip.extras")).l
+local postfix = (require("luasnip.extras.postfix")).postfix
+local function _1_(_241, _242)
+  return snippet_node(nil, {text_node({("errors.Wrap(" .. _242.env.POSTFIX_MATCH .. ", \"")}), i(1), text_node({"\")"})})
 end
-
-local check_back_space = function()
-  local col = vim.fn.col "." - 1
-  if col == 0 or vim.fn.getline("."):sub(col, col):match "%s" then
-    return true
-  else
-    return false
-  end
+local function _2_(_241, _242)
+  return snippet_node(nil, {text_node({(_242.env.POSTFIX_MATCH .. " = make(")}), i(1), text_node({")"})})
 end
-
-_G.tab_complete = function()
-  if vim.fn.pumvisible() then
-    return t "<C-n>"
-  elseif ls.expand_or_jumpable() then
-    return t "<Plug>luasnip-expand-or-jump"
-  elseif check_back_space() then
-    return t "<Tab>"
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() then
-    return t "<C-p>"
-  elseif ls.jumpable(-1) then
-    return t "<Plug>luasnip-jump-prev"
-  else
-    return t "<S-Tab>"
-  end
-end
--- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<c-l>", "<Plug>luasnip-expand-or-jump", {})
-vim.api.nvim_set_keymap("s", "<c-l>", "<Plug>luasnip-expand-or-jump", {})
-vim.api.nvim_set_keymap("i", "<c-k>", "<Plug>luasnip-jump-prev", {})
-vim.api.nvim_set_keymap("s", "<c-k>", "<Plug>luasnip-jump-prev", {})
-vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+ls.add_snippets("go", {snippet("err", {text_node({"if err != nil {", "\9return "}), i(0), text_node({"", "}"})}), snippet("erris", {text_node({"errors.Is("}), i(1, "err"), text_node({", "}), i(2), text_node({")"}), i(0)}), snippet("wrap", {text_node({"errors.Wrap(err, \""}), i(0), text_node({"\")"})}), postfix(".wrap", dynamic_node(1, _1_)), postfix(".make", dynamic_node(1, _2_)), snippet("for", {text_node({"for "}), i(1), text_node({", "}), i(2), text_node({" := range "}), i(3), text_node({" {", "\9"}), i(0), text_node({"", "}"})})})
+ls.add_snippets("cpp", {snippet("main", {text_node({"#include<iostream>", "", "using namespace std;", "", "int main() {", "    "}), i(0), text_node({"", "}"})}), snippet("leetcode", {text_node({"#include<iostream>", "#include<algorithm>", "#include<vector>", "#include<stack>", "#include<queue>", "", "using namespace std;", "", ""}), i(0), text_node({"", "", "int main() {", "    ", "}"})})})
+vim.keymap.set({"i"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
+vim.keymap.set({"s"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
+vim.keymap.set({"i"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
+vim.keymap.set({"s"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
+vim.keymap.set({"i"}, "<C-E>", "<Plug>luasnip-next-choice", {silent = true})
+return vim.keymap.set({"s"}, "<C-E>", "<Plug>luasnip-next-choice", {silent = true})
