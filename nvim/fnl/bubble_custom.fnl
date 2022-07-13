@@ -9,6 +9,15 @@
 (local lsp_comps (require "windline.components.lsp"))
 (local git_comps (require "windline.components.git"))
 
+(local cache_utils (require "windline.cache_utils"))
+
+(fn get-file-name [bufnr]
+  (let [file-name (-> "%f" (vim.fn.expand) (vim.fn.pathshorten 2))]
+    (if (= "" file-name) "[No Name] " (.. file-name " "))))
+
+(fn cache-file-name []
+  (cache_utils.cache_on_buffer "BufEnter" "WL_filename" get-file-name))
+
 (local navic (require "nvim-navic"))
 
 (local hl_list {
@@ -75,16 +84,16 @@
       :default hl_list.White
     }
     :text (fn [bufnr winid width] 
-      (let [fname (if (> width 110)
-        b_components.full_file_name (b_components.cache_file_name "[No Name]" "full"))]
+      ;; (let [fname (if (> width 110)
+      ;;   b_components.full_file_name (b_components.cache_file_name "[No Name]" "full"))]
         [
           [ (b_components.cache_file_icon { :default "" }) "default" ]
           [ " " "default" ]
-          ;; { b_components.cache_file_name('[No Name]', 'unique'), '' },
-          [fname]
+          ;; [ (b_components.cache_file_name "[No Name]" "unique") "" ]
+          [(cache-file-name)]
           [ (b_components.file_modified " ") "" ]
           ;; { b_components.cache_file_size(), '' },
-        ]))
+        ])
   }
   :right {
     :hl_colors {
@@ -119,8 +128,15 @@
   :navic [
     #(if (navic.is_available)
         (.. " " (navic.get_location)) "")
-    [ "white" "ActiveBg" ]
+    [ "white" "InactiveBg" ]
   ]
+})
+(local winbar {
+  :filetypes [ "winbar" ]
+  :active [
+    basic.navic
+  ]
+  ;; :enable (fn [bufnr winid] (navic.is_available))
 })
 
 (local default {
@@ -133,7 +149,7 @@
     [ sep.right_rounded [ "white" "ActiveBg" ] ]
     basic.lsp_diagnos
     basic.git
-    basic.navic
+    ;; basic.navic
     basic.divider
     [ "[%{&fileformat}]" [ "blue" "ActiveBg" ] 90 ]
     [ (git_comps.git_branch { :icon "  " }) [ "green" "ActiveBg" ] 90 ]
@@ -190,6 +206,7 @@
     default
     explorer
     quickfix
+    winbar
   ]
   :tabline {
     :template {

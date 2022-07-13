@@ -40,10 +40,15 @@ local function on_attach(client, bufnr)
   vim.keymap.set({"n", "v"}, "<leader>da", "<cmd>Lsp codeaction<CR>", {buffer = true, noremap = true, silent = true})
   do end (require("lsp_signature")).on_attach({floating_window = false})
   if client.server_capabilities.documentSymbolProvider then
-    return navic.attach(client, bufnr)
+    navic.attach(client, bufnr)
   else
-    return nil
   end
+  if not _G.lsp_clients then
+    _G["lsp_clients"] = {}
+  else
+  end
+  _G.lsp_clients[bufnr] = client
+  return nil
 end
 local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
@@ -56,11 +61,11 @@ local function on_attach_ts(client, bufnr)
 end
 local function on_attach_rs(client, bufnr)
   on_attach(client, bufnr)
-  local augid_8_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
-  local function _9_()
+  local augid_9_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
+  local function _10_()
     return (require("lsp_extensions")).inlay_hints({enabled = {"ChainingHint", "TypeHint"}})
   end
-  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _9_, group = augid_8_, nested = false, once = false, pattern = "*.rs"})
+  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _10_, group = augid_9_, nested = false, once = false, pattern = "*.rs"})
 end
 local capabilities
 do
@@ -71,16 +76,16 @@ null_ls.setup({sources = {prettier, eslint_d, null_ls.builtins.formatting.stylua
 lsp.clangd.setup({on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
 lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
 lsp.tsserver.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
-lsp.denols.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}})
-lsp.vimls.setup({on_attach = on_attach})
-lsp.jsonls.setup({on_attach = on_attach})
-lsp.yamlls.setup({on_attach = on_attach})
-lsp.zls.setup({on_attach = on_attach})
+lsp.denols.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
+lsp.vimls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.jsonls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.yamlls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.zls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
-lsp.erlangls.setup({on_attach = on_attach})
+lsp.erlangls.setup({on_attach = on_attach, capabilities = capabilities})
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())
 end
 vim.lsp.handlers["textDocument/publishDiagnostics:"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
 lsp.tailwindcss.setup({})
-return lsp.hls.setup({})
+return lsp.hls.setup({capabilities = capabilities})

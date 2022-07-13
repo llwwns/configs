@@ -46,7 +46,9 @@
     :floating_window false
   })
   (when client.server_capabilities.documentSymbolProvider
-    (navic.attach client bufnr)))
+    (navic.attach client bufnr))
+  (when (not _G.lsp_clients) (tset _G :lsp_clients {}))
+  (tset _G.lsp_clients bufnr client))
 
 (fn on_attach_ts [client bufnr]
   (let [root client.config.root_dir
@@ -112,12 +114,25 @@
   :settings {
     :deno.unstable true
   }
+  :capabilities capabilities
 })
 
-(lsp.vimls.setup { :on_attach on_attach })
-(lsp.jsonls.setup { :on_attach on_attach })
-(lsp.yamlls.setup { :on_attach on_attach })
-(lsp.zls.setup { :on_attach on_attach })
+(lsp.vimls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.jsonls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.yamlls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.zls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
 (lsp.gopls.setup {
   :cmd_env { :GOFLAGS "-tags=debug,test_mysql,wireinject,test_es" }
   :capabilities capabilities
@@ -127,18 +142,25 @@
   :deepCompletion false
   :on_attach on_attach
 })
-(lsp.erlangls.setup { :on_attach on_attach })
+(lsp.erlangls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
 
 ;; (when (not configs.ruby_lsp)
 ;;   (tset configs :ruby_lsp {
 ;;     :default_config {
 ;;       :cmd [ :bundle :exec :ruby-lsp ]
-;;       :filetypes [ "ruby" "rbs" ]
+;;       :filetypes [ "ruby" ]
 ;;       :root_dir (util.root_pattern "Gemfile.lock" ".git")
+;;       :initializationOptions { :enabledFeatures ["documentSymbols"] }
 ;;     }
 ;;   })
 ;;   (tset lsp :ruby_lsp configs.ruby_lsp))
-;; (lsp.ruby_lsp.setup { :on_attach on_attach })
+;; (lsp.ruby_lsp.setup {
+;;   :on_attach on_attach
+;;   :capabilities capabilities
+;; })
 
 ;; (when (not configs.steep)
 ;;   (tset configs :steep {
@@ -160,4 +182,6 @@
   }))
 
 (lsp.tailwindcss.setup {})
-(lsp.hls.setup {})
+(lsp.hls.setup {
+  :capabilities capabilities
+ })
