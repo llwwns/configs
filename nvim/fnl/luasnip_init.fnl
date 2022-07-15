@@ -132,5 +132,5 @@
 (map! [s] "<c-l>" "<Plug>luasnip-expand-or-jump")
 (map! [i] "<c-k>" "<Plug>luasnip-jump-prev")
 (map! [s] "<c-k>" "<Plug>luasnip-jump-prev")
-(map! [i] "<C-E>" "<Plug>luasnip-next-choice")
-(map! [s] "<C-E>" "<Plug>luasnip-next-choice")
+;; (map! [i] "<C-E>" "<Plug>luasnip-next-choice")
+;; (map! [s] "<C-E>" "<Plug>luasnip-next-choice")

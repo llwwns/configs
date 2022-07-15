@@ -22,6 +22,4 @@ ls.add_snippets("cpp", {snippet("main", {text_node({"#include<iostream>", "", "u
 vim.keymap.set({"i"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
 vim.keymap.set({"s"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
 vim.keymap.set({"i"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
-vim.keymap.set({"s"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
-vim.keymap.set({"i"}, "<C-E>", "<Plug>luasnip-next-choice", {silent = true})
-return vim.keymap.set({"s"}, "<C-E>", "<Plug>luasnip-next-choice", {silent = true})
+return vim.keymap.set({"s"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})

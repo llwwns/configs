@@ -4,7 +4,9 @@
   :view {
     :width 30
     :side "left"
-    :auto_resize false
+  }
+  :actions {
+    :open_file { :resize_window false }
   }
   :renderer {
     :icons {

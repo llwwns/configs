@@ -127,7 +127,7 @@
   }
   :navic [
     #(if (navic.is_available)
-        (.. " " (navic.get_location)) "")
+        (.. " " (navic.get_location $1)) "")
     [ "white" "InactiveBg" ]
   ]
 })

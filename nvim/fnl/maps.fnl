@@ -36,11 +36,13 @@
 
 (map! [n :verbose] "<c-q>" "<cmd>q<CR>")
 
-(map! [n :verbose] "<c-e>" 
-  #(require-fun :telescope.builtin :buffers { :sort_lastused true :sort_mru true }))
+(map! [n] "<c-e>" 
+  #(when (~= (vim.fn.win_gettype) "command")
+    (require-fun :telescope.builtin :buffers { :sort_lastused true :sort_mru true })))
 
-(map! [n :verbose] "<c-p>" 
-  #(require-fun :telescope.builtin :find_files))
+(map! [n] "<c-p>" 
+  #(when (~= (vim.fn.win_gettype) "command")
+    (require-fun :telescope.builtin :find_files)))
 
 (map! [n :verbose] "<leader><tab>" 
   #(require-fun :nvim-tree :toggle true))
@@ -192,6 +194,8 @@
 (map_pairs "q" "c")
 (map_pairs "l" "l")
 (map_pairs "b" "b")
+(map! [i :noremap] "<c-a>" "<home>")
+(map! [i :noremap] "<c-e>" "<end>")
 
 
 (map! [n :verbose] "<leader>ps" "<cmd>PackerSync<CR>")

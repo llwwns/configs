@@ -36,7 +36,7 @@ local function _5_(use)
   local function _7_()
     return require("bubble_custom")
   end
-  use({config = _7_, requires = "SmiteshP/nvim-navic", "windwp/windline.nvim"})
+  use({config = _7_, requires = "llwwns/nvim-navic", "windwp/windline.nvim"})
   local function _8_()
     vim.g["deleft_mapping"] = "<leader>dh"
     return nil
@@ -45,11 +45,11 @@ local function _5_(use)
   local function _9_()
     return require("lsp_init")
   end
-  use({config = _9_, requires = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "ray-x/lsp_signature.nvim", "SmiteshP/nvim-navic"}, "neovim/nvim-lspconfig"})
+  use({config = _9_, requires = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "ray-x/lsp_signature.nvim", "llwwns/nvim-navic"}, "neovim/nvim-lspconfig"})
   local function _10_()
     return (require("nvim-navic")).setup()
   end
-  use({config = _10_, "SmiteshP/nvim-navic"})
+  use({config = _10_, "llwwns/nvim-navic"})
   local function _11_()
     return require("cmp_init")
   end
@@ -183,6 +183,13 @@ local function _5_(use)
   local function _36_()
     return (require("scope")).setup()
   end
-  return use({config = _36_, "tiagovla/scope.nvim"})
+  use({config = _36_, "tiagovla/scope.nvim"})
+  local function _37_()
+    local notify = require("notify")
+    notify.setup()
+    do end (vim)["notify"] = notify
+    return nil
+  end
+  return use({config = _37_, "rcarriga/nvim-notify"})
 end
 return (require("packer")).startup(_5_)

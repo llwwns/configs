@@ -52,7 +52,7 @@
   ;;(use! :sheerun/vim-polyglot)
   (use! :windwp/windline.nvim
     :config #(require "bubble_custom")
-    :requires "SmiteshP/nvim-navic")
+    :requires "llwwns/nvim-navic")
   (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]]
     :setup #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
@@ -60,10 +60,10 @@
       "jose-elias-alvarez/null-ls.nvim"
       "nvim-lua/plenary.nvim"
       "ray-x/lsp_signature.nvim"
-      "SmiteshP/nvim-navic"
+      "llwwns/nvim-navic"
     ]
     :config #(require "lsp_init"))
-  (use! "SmiteshP/nvim-navic"
+  (use! "llwwns/nvim-navic"
     :config #((-> "nvim-navic" (require) (. :setup))) {:separator "/"})
   (use! "hrsh7th/nvim-cmp"
     :requires [
@@ -303,5 +303,9 @@
       :PickAltFontAndSymbolsInsert
     ] :config #(require :icon-picker))
   (use! :tiagovla/scope.nvim :config #((-> :scope (require) (. :setup))))
+  (use! :rcarriga/nvim-notify :config #(let
+                                         [notify (require :notify)]
+                                         (notify.setup)
+                                         (tset vim :notify notify)))
 )
 

@@ -59,9 +59,9 @@ local function _8_()
     return ""
   end
 end
-local function _10_()
+local function _10_(_241)
   if navic.is_available() then
-    return (" " .. navic.get_location())
+    return (" " .. navic.get_location(_241))
   else
     return ""
   end
