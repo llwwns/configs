@@ -14,6 +14,12 @@
   :indent {
     :enable true
   }
+  :rainbow {
+    :enable true
+    :extended_mode true
+    :max_file_lines 10000
+    :colors [:royalblue3 :darkorange3 :seagreen3 :firebrick]
+  }
   :autotag {
     :enable true
   }
@@ -64,6 +70,7 @@
     "regex"
     "ruby"
     "rust"
+    "sql"
     "toml"
     "tsx"
     "typescript"
@@ -72,11 +79,11 @@
   ]
 })
 
-(require :nvim-treesitter.highlight)
-(let [hlmap vim.treesitter.highlighter.hl_map]
-  (tset hlmap :error nil)
-  (tset hlmap :punctuation.delimiter "Delimiter")
-  (tset hlmap :punctuation.bracket nil))
+;; (require :nvim-treesitter.highlight)
+;; (let [hlmap vim.treesitter.highlighter.hl_map]
+;;   (tset hlmap :error nil)
+;;   (tset hlmap :punctuation.delimiter "Delimiter")
+;;   (tset hlmap :punctuation.bracket nil))
 
 ;; ((-> :nvim-gps (require) (. :setup)) {
 ;;   :disable_icons true

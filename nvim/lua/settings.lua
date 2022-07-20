@@ -14,7 +14,7 @@ vim.opt["whichwrap"] = "b,s,<,>,[,]"
 vim.opt["swapfile"] = false
 vim.opt["undofile"] = false
 vim.opt["termguicolors"] = true
-vim.opt["fileencodings"] = {"utf-8", "iso-2022-jp", "euc-jpsjis", "utf-16", "utf-16le", "gb2312"}
+vim.opt["fileencodings"] = {"utf-8", "iso-2022-jp", "euc-jp", "sjis", "utf-16", "utf-16le", "gb2312"}
 vim.opt["shiftwidth"] = 0
 vim.opt["tabstop"] = 2
 vim.opt["softtabstop"] = -1
@@ -48,12 +48,12 @@ vim.opt["spellfile"] = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
 do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff"
 do
   vim.cmd("filetype plugin indent on")
-  vim.cmd("sign define LspDiagnosticsSignError text=\226\156\151 texthl=ALEErrorSign linehl= numhl=")
-  vim.cmd("sign define LspDiagnosticsSignWarning text=! texthl=ALEWarningSign linehl= numhl=")
-  vim.cmd("sign define LspDiagnosticsSignInformation text=i texthl=ALEInfoSign linehl= numhl=")
-  vim.cmd("sign define LspDiagnosticsSignHint text=\240\159\146\161 texthl=Label linehl= numhl=")
 end
-vim.g["mapleader"] = "'"
+vim.fn.sign_define("DiagnosticSignError", {text = "\239\129\151", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn", {text = "\239\129\177", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignHint", {text = "\239\129\154", texthl = "DiagnosticSignHint"})
+vim.fn.sign_define("DiagnosticSignInfo", {text = "\239\129\153", texthl = "DiagnosticSignInfo"})
+do end (vim.g)["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
 vim.g["vim_json_syntax_conceal"] = 0
 vim.g["eskk#large_dictionary"] = {path = "~/configs/SKK-JISYO.L", sorted = 1, encoding = "euc-jp"}
@@ -73,7 +73,7 @@ if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
   return nil
 elseif (1 == vim.fn.exists("neovide")) then
-  vim.opt["guifont"] = "JetBrains Mono Slashed Light:h10.5"
+  vim.opt["guifont"] = "JetBrains Mono Slashed Light:h10"
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
   vim.g["neovide_scroll_animation_length"] = 0

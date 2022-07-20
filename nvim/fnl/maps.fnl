@@ -44,8 +44,9 @@
   #(when (~= (vim.fn.win_gettype) "command")
     (require-fun :telescope.builtin :find_files)))
 
-(map! [n :verbose] "<leader><tab>" 
-  #(require-fun :nvim-tree :toggle true))
+;; (map! [n :verbose] "<leader><tab>" 
+;;   #(require-fun :nvim-tree :toggle true))
+(map! [n :verbose] "<leader><tab>" "<cmd>Neotree toggle reveal=true<CR>")
 
 (map! [nv :verbose :noremap :expr] "k" "v:count == 0 ? 'gk' : 'k'")
 (map! [nv :verbose :noremap :expr] "j" "v:count == 0 ? 'gj' : 'j'")

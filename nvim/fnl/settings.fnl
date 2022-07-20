@@ -23,7 +23,7 @@
 (set! noundofile)
 
 (set! termguicolors true)
-(set! fileencodings ["utf-8" "iso-2022-jp" "euc-jpsjis" "utf-16" "utf-16le" "gb2312"])
+(set! fileencodings ["utf-8" "iso-2022-jp" "euc-jp" "sjis" "utf-16" "utf-16le" "gb2312"])
  
 (set! shiftwidth 0)
 (set! tabstop 2)
@@ -78,11 +78,12 @@
   ["filetype plugin indent on"]
   ;; ["let $FZF_DEFAULT_COMMAND = 'fd'"]
   ;; ["let $FZF_DEFAULT_OPTS='--layout=reverse'"]
-  ["sign define LspDiagnosticsSignError text=✗ texthl=ALEErrorSign linehl= numhl="]
-  ["sign define LspDiagnosticsSignWarning text=! texthl=ALEWarningSign linehl= numhl="]
-  ["sign define LspDiagnosticsSignInformation text=i texthl=ALEInfoSign linehl= numhl="]
-  ["sign define LspDiagnosticsSignHint text=💡 texthl=Label linehl= numhl="]
 ])
+
+(vim.fn.sign_define :DiagnosticSignError { :text "" :texthl :DiagnosticSignError})
+(vim.fn.sign_define :DiagnosticSignWarn { :text "" :texthl :DiagnosticSignWarn })
+(vim.fn.sign_define :DiagnosticSignHint { :text "" :texthl :DiagnosticSignHint })
+(vim.fn.sign_define :DiagnosticSignInfo { :text "" :texthl :DiagnosticSignInfo })
 
 (g! mapleader "'")
 (g! maplocalleader "'")
@@ -115,8 +116,8 @@
     (set! guifont "Iosevka Fixed:h12")
     (set! guicursor (.. vim.o.guicursor ",a:blinkon0")))
   (= 1 (vim.fn.exists "neovide")) (do
-  ; vim.g.tokyonight_transparent = false
-    (set! guifont "JetBrains Mono Slashed Light:h10.5")
+  ; vim.g.tokyonighj_transparent = false
+    (set! guifont "JetBrains Mono Slashed Light:h10")
   ; set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
     ;; (g! neovide_cursor_animation_length 0.05)
     (g! neovide_cursor_animation_length 0)

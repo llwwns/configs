@@ -56,9 +56,9 @@ local function _5_(use)
   use({config = _11_, requires = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path"}, "hrsh7th/nvim-cmp"})
   use({module = {"lsp_extensions"}, opt = true, "nvim-lua/lsp_extensions.nvim"})
   local function _12_()
-    return require("tree_init")
+    return require("neotree_init")
   end
-  use({config = _12_, module = {"nvim-tree"}, opt = true, requires = "kyazdani42/nvim-web-devicons", "kyazdani42/nvim-tree.lua"})
+  use({branch = "v2.x", cmd = {"Neotree"}, config = _12_, ft = {"netrw"}, opt = true, requires = {"nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons", "MunifTanjim/nui.nvim"}, "nvim-neo-tree/neo-tree.nvim"})
   use({cmd = {"BOnly"}, opt = true, "vim-scripts/BufOnly.vim"})
   use("dbeniamine/todo.txt-vim")
   local function _13_()
@@ -92,104 +92,99 @@ local function _5_(use)
   end
   use({config = _17_, module = "luasnip", opt = true, "L3MON4D3/LuaSnip"})
   local function _18_()
-    vim.g["rainbow_active"] = 1
-    return nil
-  end
-  use({setup = _18_, "luochen1990/rainbow"})
-  local function _19_()
     return require("treesitter_init")
   end
-  use({config = _19_, "nvim-treesitter/nvim-treesitter"})
+  use({config = _18_, requires = "p00f/nvim-ts-rainbow", "nvim-treesitter/nvim-treesitter"})
   use("dstein64/nvim-scrollview")
   use({cmd = "UndotreeToggle", opt = true, "mbbill/undotree"})
-  local function _20_()
+  local function _19_()
     return (require("gitsigns")).setup({numhl = true, signs = {add = {hl = "GitGutterAdd", text = "+", numhl = "GitGutterAdd"}, change = {hl = "GitGutterChange", text = "~", numhl = "GitGutterChange"}, delete = {hl = "GitGutterDelete", text = "_", numhl = "GitGutterDelete"}, topdelete = {hl = "GitGutterDelete", text = "\226\128\190", numhl = "GitGutterDelete"}, changedelete = {hl = "GitGutterChange", text = "~", numhl = "GitGutterChange"}}})
   end
-  use({config = _20_, requires = {"nvim-lua/plenary.nvim"}, "lewis6991/gitsigns.nvim"})
+  use({config = _19_, requires = {"nvim-lua/plenary.nvim"}, "lewis6991/gitsigns.nvim"})
   use("kevinhwang91/nvim-bqf")
-  local function _21_()
+  local function _20_()
     return (require("lspkind")).init({mode = "text_symbol", symbol_map = {Text = " \239\148\171 ", Method = " \238\158\155 ", Function = " \238\158\155 ", Constructor = " \238\136\143 ", Variable = "[\238\156\150]", Class = " \239\173\132 ", Interface = " \239\168\160", Module = " \239\153\168 ", Property = " \239\130\173 ", Unit = " \239\165\172 ", Value = " \239\162\159 ", Enum = " \239\169\151", Keyword = " \239\157\167 ", Snippet = " \239\151\143 ", Color = " \238\136\171 ", File = " \239\133\155 ", Folder = " \239\177\174 ", EnumMember = " \239\133\157 ", Constant = " \239\155\188 ", Struct = " \239\134\179 ", Field = " \238\156\150 ", TypeParameter = "<\239\158\131>", Event = " \239\169\151", Operator = " \239\154\148 ", Reference = " \239\146\129 "}})
   end
-  use({config = _21_, "onsails/lspkind-nvim"})
+  use({config = _20_, "onsails/lspkind-nvim"})
   use("folke/tokyonight.nvim")
-  local function _22_()
+  local function _21_()
     return (require("neogit")).setup({disable_commit_confirmation = true, integrations = {diffview = true}, signs = {section = {"\239\145\160", "\239\145\188"}, item = {"\239\145\160", "\239\145\188"}, hunk = {"", ""}}, sections = {staged = {folded = false}, unstaged = {folded = false}, untracked = {folded = false}, stashes = {folded = true}, unpulled = {folded = true}, unmerged = {folded = true}, recent = {folded = true}}})
   end
-  use({cmd = {"Neogit"}, config = _22_, opt = true, "TimUntersberger/neogit"})
-  local function _23_()
+  use({cmd = {"Neogit"}, config = _21_, opt = true, "TimUntersberger/neogit"})
+  local function _22_()
     vim.g["mergetool_layout"] = "LmR"
     vim.g["mergetool_prefer_revision"] = "unmodified"
     return nil
   end
-  use({cmd = {"MergetoolStart"}, opt = true, setup = _23_, "samoshkin/vim-mergetool"})
-  local function _24_()
+  use({cmd = {"MergetoolStart"}, opt = true, setup = _22_, "samoshkin/vim-mergetool"})
+  local function _23_()
     return (require("hop")).setup()
   end
-  use({config = _24_, module = "hop", opt = true, "phaazon/hop.nvim"})
-  local function _25_()
+  use({config = _23_, module = "hop", opt = true, "phaazon/hop.nvim"})
+  local function _24_()
     return (require("FTerm")).setup({dimensions = {height = 0.95, width = 0.8}})
   end
-  use({config = _25_, module = "FTerm", opt = true, "numtostr/FTerm.nvim"})
+  use({config = _24_, module = "FTerm", opt = true, "numtostr/FTerm.nvim"})
   use("windwp/nvim-ts-autotag")
   use("lewis6991/impatient.nvim")
   use({cmd = {"Lsp"}, opt = true, "ii14/lsp-command"})
   use({module = "nvim-web-devicons", opt = true, "kyazdani42/nvim-web-devicons"})
-  local function _26_()
+  local function _25_()
     return (require("dressing")).setup({select = {backend = {"telescope", "builtin"}}})
   end
-  use({config = _26_, "stevearc/dressing.nvim"})
+  use({config = _25_, "stevearc/dressing.nvim"})
   use({cmd = {"NeoZoomToggle"}, opt = true, "nyngwang/NeoZoom.lua"})
-  local function _27_()
+  local function _26_()
     return (require("gitlinker")).setup()
   end
-  use({config = _27_, keys = {{"v", "<leader>gy"}, {"n", "<leader>gy"}}, opt = true, "ruifm/gitlinker.nvim"})
-  local function _28_()
+  use({config = _26_, keys = {{"v", "<leader>gy"}, {"n", "<leader>gy"}}, opt = true, "ruifm/gitlinker.nvim"})
+  local function _27_()
     return (require("fidget")).setup()
   end
-  use({config = _28_, "j-hui/fidget.nvim"})
-  local function _29_()
+  use({config = _27_, "j-hui/fidget.nvim"})
+  local function _28_()
     return require("telescope_init")
   end
-  use({config = _29_, module = {"telescope"}, opt = true, requires = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, "nvim-telescope/telescope.nvim"})
+  use({config = _28_, module = {"telescope"}, opt = true, requires = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, "nvim-telescope/telescope.nvim"})
   use({module = {"telescope._extensions.zf-native"}, opt = true, "natecraddock/telescope-zf-native.nvim"})
-  local function _30_()
+  local function _29_()
     return require("diffview_init")
   end
-  use({cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _30_, module = "diffview", opt = true, requires = "nvim-lua/plenary.nvim", "sindrets/diffview.nvim"})
-  local function _31_()
+  use({cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _29_, module = "diffview", opt = true, requires = "nvim-lua/plenary.nvim", "sindrets/diffview.nvim"})
+  local function _30_()
     vim.g["vimspector_enable_mappings"] = "HUMAN"
     return nil
   end
-  use({config = _31_, "puremourning/vimspector"})
+  use({config = _30_, "puremourning/vimspector"})
   use("MunifTanjim/nui.nvim")
   use("bfredl/nvim-luadev")
-  local function _32_()
+  local function _31_()
     return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
   end
-  use({config = _32_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
-  local function _33_()
+  use({config = _31_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
+  local function _32_()
     vim.g["tpipeline_cursormoved"] = 1
     return nil
   end
-  use({setup = _33_, "vimpostor/vim-tpipeline"})
-  local function _34_()
+  use({setup = _32_, "vimpostor/vim-tpipeline"})
+  local function _33_()
     return require("hydra_init")
   end
-  use({config = _34_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
-  local function _35_()
+  use({config = _33_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
+  local function _34_()
     return require("icon-picker")
   end
-  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _35_, opt = true, "ziontee113/icon-picker.nvim"})
-  local function _36_()
+  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _34_, opt = true, "ziontee113/icon-picker.nvim"})
+  local function _35_()
     return (require("scope")).setup()
   end
-  use({config = _36_, "tiagovla/scope.nvim"})
-  local function _37_()
+  use({config = _35_, "tiagovla/scope.nvim"})
+  local function _36_()
     local notify = require("notify")
     notify.setup()
     do end (vim)["notify"] = notify
     return nil
   end
-  return use({config = _37_, "rcarriga/nvim-notify"})
+  return use({config = _36_, "rcarriga/nvim-notify"})
 end
 return (require("packer")).startup(_5_)

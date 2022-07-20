@@ -45,6 +45,8 @@
       :CSSBeautify
     ])
   (use! :tpope/vim-abolish)
+  ;; (use! :kylechui/nvim-surround
+  ;;   :config #((-> :nvim-surround (require) (. :setup))))
   (use! :tpope/vim-surround)
   (use! :wellle/targets.vim)
   (use! :mattn/emmet-vim :opt true :keys [["i" "<c-y>"]])
@@ -75,11 +77,23 @@
     ]
     :config #(require "cmp_init"))
   (use! :nvim-lua/lsp_extensions.nvim :opt true :module ["lsp_extensions"])
-  (use! "kyazdani42/nvim-tree.lua"
-    :requires "kyazdani42/nvim-web-devicons"
+  ;; (use! "kyazdani42/nvim-tree.lua"
+  ;;   :requires "kyazdani42/nvim-web-devicons"
+  ;;   :opt true
+  ;;   :module [ "nvim-tree" ]
+  ;;   :config #(require "tree_init"))
+  (use!
+    :nvim-neo-tree/neo-tree.nvim
     :opt true
-    :module [ "nvim-tree" ]
-    :config #(require "tree_init"))
+    :ft ["netrw"]
+    :cmd [:Neotree]
+    :config #(require :neotree_init)
+      :branch "v2.x"
+      :requires [
+        "nvim-lua/plenary.nvim"
+        "kyazdani42/nvim-web-devicons"
+        "MunifTanjim/nui.nvim"
+      ])
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
   (use! :dbeniamine/todo.txt-vim)
   (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
@@ -107,8 +121,9 @@
   (use! :L3MON4D3/LuaSnip :opt true
     :module "luasnip"
     :config #(require "luasnip_init"))
-  (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
+  ;; (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
+    :requires :p00f/nvim-ts-rainbow
     :config #(require "treesitter_init"))
   ;; (use! :bluz71/vim-moonfly-colors)
   (use! :dstein64/nvim-scrollview)
