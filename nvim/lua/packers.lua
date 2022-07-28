@@ -185,6 +185,10 @@ local function _5_(use)
     do end (vim)["notify"] = notify
     return nil
   end
-  return use({config = _36_, "rcarriga/nvim-notify"})
+  use({config = _36_, "rcarriga/nvim-notify"})
+  local function _37_()
+    return (require("colorizer")).setup()
+  end
+  return use({config = _37_, "norcalli/nvim-colorizer.lua"})
 end
 return (require("packer")).startup(_5_)

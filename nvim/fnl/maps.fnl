@@ -1,10 +1,7 @@
 ;; (import-macros {: map!}    :hibiscus.vim)
-(require-macros :hibiscus.vim)
 
-;; (macro require-fun [name fun ...] 
-;;   `(let [mod# (require ,name)] ((. mod# ,fun) ,...)))
-(macro require-fun [name fun ...] 
-  `((-> ,name (require) (. ,fun)) ,...))
+(require-macros :hibiscus.vim)
+(require-macros :utils-macros)
 
 (macro map_pairs [k cmd]
   (let [ku (k:gsub "." string.upper)
@@ -38,11 +35,11 @@
 
 (map! [n] "<c-e>" 
   #(when (~= (vim.fn.win_gettype) "command")
-    (require-fun :telescope.builtin :buffers { :sort_lastused true :sort_mru true })))
+    (require-fun :telescope.builtin#buffers { :sort_lastused true :sort_mru true })))
 
 (map! [n] "<c-p>" 
   #(when (~= (vim.fn.win_gettype) "command")
-    (require-fun :telescope.builtin :find_files)))
+    (require-fun :telescope.builtin#find_files)))
 
 ;; (map! [n :verbose] "<leader><tab>" 
 ;;   #(require-fun :nvim-tree :toggle true))
@@ -96,10 +93,10 @@
     "direction" hint.HintDirection.BEFORE_CURSOR })))
 
 (map! [nv] "s" 
-  #(require-fun :hop :hint_char2))
+  #(require-fun :hop#hint_char2))
 
 (map! [o] "z" 
-  #(require-fun :hop :hint_char2))
+  #(require-fun :hop#hint_char2))
 
 (map! [n :noremap] "<leader>a" "<cmd>ArgWrap<CR>")
 (map! [c] "w!!" "w suda://%")
@@ -130,7 +127,7 @@
 (map! [n] "<C-\\>" ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>")
 
 
-(map! [nt :noremap] "<c-s>" #(require-fun :FTerm :toggle))
+(map! [nt :noremap] "<c-s>" #(require-fun :FTerm#toggle))
 
 ; vim.api.nvim_set_keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true })
 ; vim.api.nvim_set_keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", { noremap = true })
@@ -147,42 +144,42 @@
 
 ;; Actions
 (map! [n] "<leader>hs"
-  #(require-fun :gitsigns :stage_hunk))
+  #(require-fun :gitsigns#stage_hunk))
 
 (map! [n] "<leader>hr"
-  #(require-fun :gitsigns :reset_hunk))
+  #(require-fun :gitsigns#reset_hunk))
 
 (map! [v] "<leader>hs"
-  #(require-fun :gitsigns :stage_hunk))
+  #(require-fun :gitsigns#stage_hunk))
 
 (map! [v] "<leader>hr"
-  #(require-fun :gitsigns :reset_hunk))
+  #(require-fun :gitsigns#reset_hunk))
 
 (map! [n] "<leader>hS"
-  #(require-fun :gitsigns :stage_buffer))
+  #(require-fun :gitsigns#stage_buffer))
 
 (map! [n] "<leader>hu"
-  #(require-fun :gitsigns :undo_stage_hunk))
+  #(require-fun :gitsigns#undo_stage_hunk))
 
 (map! [n] "<leader>hR"
-  #(require-fun :gitsigns :reset_buffer))
+  #(require-fun :gitsigns#reset_buffer))
 
 (map! [n] "<leader>hp"
-  #(require-fun :gitsigns :preview_hunk))
+  #(require-fun :gitsigns#preview_hunk))
 
 (map! [n] "<leader>hb"
-  #(require-fun :gitsigns :blame_line { :full true }))
+  #(require-fun :gitsigns#blame_line { :full true }))
 
 (map! [n] "<leader>tb"
-  #(require-fun :gitsigns :toggle_current_line_blame))
+  #(require-fun :gitsigns#toggle_current_line_blame))
 
 (map! [n] "<leader>hd" "<cmd>Gdiff<CR>")
 
 (map! [n] "<leader>hD"
-  #(require-fun :gitsigns :diffthis "~"))
+  #(require-fun :gitsigns#diffthis "~"))
 
 (map! [n] "<leader>td"
-  #(require-fun :gitsigns :toggle_deleted))
+  #(require-fun :gitsigns#toggle_deleted))
 
 (map! [n] "crp" "crcvU")
 (map! [n] "]d" vim.diagnostic.goto_next)

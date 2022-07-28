@@ -73,4 +73,5 @@
 
 (fn _G.lsp_format []
   (when vim.b.format_on_save
-    (vim.lsp.buf.format)))
+    ;; (vim.lsp.buf.format)))
+    (vim.lsp.buf.formatting_sync)))

@@ -100,7 +100,7 @@ _G.toggle_format = function()
 end
 _G.lsp_format = function()
   if vim.b.format_on_save then
-    return vim.lsp.buf.format()
+    return vim.lsp.buf.formatting_sync()
   else
     return nil
   end

@@ -1,7 +1,8 @@
 (import-macros {: g!} :hibiscus.vim)
+(require-macros :utils-macros)
 
 (macro packer [...]
-  `((-> :packer (require) (. :startup))
+  `(require-fun :packer#startup
     (fn [,(sym :use)]
       (do ,...))))
 
@@ -66,7 +67,7 @@
     ]
     :config #(require "lsp_init"))
   (use! "llwwns/nvim-navic"
-    :config #((-> "nvim-navic" (require) (. :setup))) {:separator "/"})
+    :config #(require-fun "nvim-navic#setup"))
   (use! "hrsh7th/nvim-cmp"
     :requires [
       "hrsh7th/cmp-buffer"
@@ -110,7 +111,7 @@
   (use! :numToStr/Comment.nvim
     :opt true
     :keys [[ "v" "gc" ] [ "v" "gb" ]]
-    :config #((-> :Comment (require) (. :setup)) { :extra [] :extended  false }))
+    :config #(require-fun :Comment#setup { :extra [] :extended  false }))
   (use! :machakann/vim-swap :opt true
     :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
   (use! :mechatroner/rainbow_csv :opt true :ft [ "csv" ])
@@ -130,7 +131,7 @@
   (use! :mbbill/undotree :opt true :cmd "UndotreeToggle")
   (use! :lewis6991/gitsigns.nvim
     :requires [ "nvim-lua/plenary.nvim" ]
-    :config #((-> :gitsigns (require) (. :setup))
+    :config #(require-fun :gitsigns#setup
       {
         :numhl true
         :signs {
@@ -160,7 +161,7 @@
   ;; (use! :bluz71/vim-nightfly-guicolors)
   (use! :kevinhwang91/nvim-bqf)
   (use! :onsails/lspkind-nvim
-    :config #((-> :lspkind (require) (. :init)) {
+    :config #(require-fun :lspkind#init {
         :mode "text_symbol"
         :symbol_map {
           :Text "  "
@@ -194,7 +195,7 @@
   (use! "TimUntersberger/neogit"
     :opt true
     :cmd [ "Neogit" ]
-    :config #((-> :neogit (require) (. :setup)) {
+    :config #(require-fun :neogit#setup {
         :disable_commit_confirmation true
         :integrations {
           :diffview true
@@ -232,10 +233,10 @@
     (g! mergetool_layout "LmR")
     ;; (g! mergetool_prefer_revision "base")
     (g! mergetool_prefer_revision "unmodified")))
-  (use! :phaazon/hop.nvim :opt true :module "hop" :config #((-> :hop (require) (. "setup"))))
+  (use! :phaazon/hop.nvim :opt true :module "hop" :config #(require-fun :hop#setup))
   (use! :numtostr/FTerm.nvim :opt true
     :module "FTerm"
-    :config #((-> :FTerm (require) (. :setup)) {
+    :config #(require-fun :FTerm#setup {
         :dimensions {
           :height 0.95
           :width 0.8
@@ -248,16 +249,16 @@
   (use! :kyazdani42/nvim-web-devicons :opt true
     :module "nvim-web-devicons")
   (use! "stevearc/dressing.nvim"
-    :config #((-> :dressing (require) (. :setup)) {
+    :config #(require-fun :dressing#setup {
         :select {
           :backend ["telescope" "builtin"]
         }
       }))
   (use! :nyngwang/NeoZoom.lua :opt true :cmd ["NeoZoomToggle"])
   (use! :ruifm/gitlinker.nvim :opt true
-    :config #((-> :gitlinker (require) (. :setup)))
+    :config #(require-fun :gitlinker#setup)
     :keys [[ "v" "<leader>gy" ] [ "n" "<leader>gy" ]])
-  (use! :j-hui/fidget.nvim :config #((-> :fidget (require) (. :setup))))
+  (use! :j-hui/fidget.nvim :config #(require-fun :fidget#setup))
   (use! :nvim-telescope/telescope.nvim :opt true
     :requires [
       [ "nvim-lua/plenary.nvim" ]
@@ -292,7 +293,7 @@
   (use! "llwwns/tangerine.nvim" :opt true
     :ft "fennel"
     :requires ["udayvir-singh/hibiscus.nvim" ]
-    :config #((-> :tangerine (require) (. :setup)) {
+    :config #(require-fun :tangerine#setup {
         :compiler {
           :verbose false
           :hooks [ "onsave" ]
@@ -317,10 +318,11 @@
       :PickAltFontInsert
       :PickAltFontAndSymbolsInsert
     ] :config #(require :icon-picker))
-  (use! :tiagovla/scope.nvim :config #((-> :scope (require) (. :setup))))
+  (use! :tiagovla/scope.nvim :config #(require-fun :scope#setup))
   (use! :rcarriga/nvim-notify :config #(let
                                          [notify (require :notify)]
                                          (notify.setup)
                                          (tset vim :notify notify)))
+  (use! :norcalli/nvim-colorizer.lua :config #(require-fun :colorizer#setup))
 )
 

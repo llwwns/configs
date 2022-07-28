@@ -64,7 +64,7 @@
   :eob " "
 })
 (set! laststatus 3)
-(set! cmdheight 0)
+;; (set! cmdheight 0)
 (set! exrc true)
 (set! secure true)
 (set! hidden true)

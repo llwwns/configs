@@ -131,13 +131,13 @@
     [ "white" "InactiveBg" ]
   ]
 })
-(local winbar {
-  :filetypes [ "winbar" ]
-  :active [
-    basic.navic
-  ]
-  ;; :enable (fn [bufnr winid] (navic.is_available))
-})
+;; (local winbar {
+;;   :filetypes [ "winbar" ]
+;;   :active [
+;;     basic.navic
+;;   ]
+;;   ;; :enable (fn [bufnr winid] (navic.is_available))
+;; })
 
 (local default {
   :filetypes [ "default" ]
@@ -206,7 +206,7 @@
     default
     explorer
     quickfix
-    winbar
+    ;; winbar
   ]
   :tabline {
     :template {
