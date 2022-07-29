@@ -76,7 +76,7 @@ null_ls.setup({sources = {prettier, eslint_d, null_ls.builtins.formatting.stylua
 lsp.clangd.setup({on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
 lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
 lsp.tsserver.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
-lsp.denols.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
+lsp.denols.setup({single_file_support = false, on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
 lsp.vimls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.jsonls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.yamlls.setup({on_attach = on_attach, capabilities = capabilities})

@@ -106,6 +106,7 @@
   :capabilities capabilities
 })
 (lsp.denols.setup {
+  :single_file_support false
   :on_attach on_attach_ts
   :root_dir (lsp.util.root_pattern "deno.json")
   :init_options {
