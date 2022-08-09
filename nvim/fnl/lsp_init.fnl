@@ -2,9 +2,10 @@
 (local configs (require "lspconfig/configs"))
 (local util (require "lspconfig/util"))
 (local navic (require "nvim-navic"))
-
-(require-macros :hibiscus.vim)
 (local null_ls (require "null-ls"))
+
+(require-macros :utils-macros)
+(require-macros :hibiscus.vim)
 ;;
 (fn prettier [] 
   (let [project_local_bin "node_modules/.bin/prettier"
@@ -32,6 +33,10 @@
     client.server_capabilities.documentFormattingProvider
     (not (: (vim.regex "\\vfugitive:\\/\\/") :match_str (vim.fn.expand "%"))))
     (vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"))
+  (when client.server_capabilities.foldingRangeProvider
+    (require-fun :ufo#setup {
+      :open_fold_hl_timeout 0
+    }))
 
   (map! [n :buffer :noremap] "gd" "<cmd>lua vim.lsp.buf.declaration()<CR>")
   (map! [n :buffer :noremap] "<c-]>" "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -42,7 +47,12 @@
   (map! [n :buffer :noremap] "gs" "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
   (map! [n :buffer :noremap] "<leader>rn" "<cmd>Lsp rename<CR>")
   (map! [nv :buffer :noremap] "<leader>da" "<cmd>Lsp codeaction<CR>")
-  ((-> :lsp_signature (require) (. :on_attach)) {
+
+	(vim.api.nvim_buf_set_option bufnr "formatexpr" "v:lua.vim.lsp.formatexpr()")
+	(vim.api.nvim_buf_set_option bufnr "omnifunc" "v:lua.vim.lsp.omnifunc")
+	(vim.api.nvim_buf_set_option bufnr "tagfunc" "v:lua.vim.lsp.tagfunc")
+
+  (require-fun :lsp_signature#on_attach {
     :floating_window false
   })
   (when client.server_capabilities.documentSymbolProvider
@@ -67,7 +77,11 @@
 ;;
 (local capabilities 
     (let [capabilities (vim.lsp.protocol.make_client_capabilities)]
-      ((-> :cmp_nvim_lsp (require) (. :update_capabilities)) capabilities)))
+      (tset capabilities :foldingRange {
+        :dynamicRegistration false
+        :lineFoldingOnly true
+      })
+      (require-fun :cmp_nvim_lsp#update_capabilities capabilities)))
 ;;
 (null_ls.setup {
   ;; :debug true

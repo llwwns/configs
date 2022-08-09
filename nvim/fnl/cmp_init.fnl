@@ -1,24 +1,31 @@
 (require :words)
 (local cmp (require :cmp))
 
+(local mapping {
+  :<C-p> (cmp.mapping.select_prev_item)
+  :<C-n> (cmp.mapping.select_next_item)
+  :<C-u> (cmp.mapping.scroll_docs -4)
+  :<C-d> (cmp.mapping.scroll_docs 4)
+  :<C-Space> (cmp.mapping.complete)
+  :<C-e> (cmp.mapping.close)
+  :<C-y> (cmp.mapping.confirm {
+    :behavior cmp.ConfirmBehavior.Insert
+    :select true
+  })
+})
+
 (cmp.setup {
   :snippet {
     :expand (fn [args]
       ((-> :luasnip (require) (. :lsp_expand)) args.body))
   }
 
-  :mapping {
-    :<C-p> (cmp.mapping.select_prev_item)
-    :<C-n> (cmp.mapping.select_next_item)
-    :<C-u> (cmp.mapping.scroll_docs -4)
-    :<C-d> (cmp.mapping.scroll_docs 4)
-    :<C-Space> (cmp.mapping.complete)
-    :<C-e> (cmp.mapping.close)
-    :<C-y> (cmp.mapping.confirm {
-      :behavior cmp.ConfirmBehavior.Insert
-      :select true
-    })
-  }
+  :mapping mapping
+
+  ;; :window  {
+  ;;   :completion (cmp.config.window.bordered)
+  ;;   :documentation (cmp.config.window.bordered)
+  ;; }
 
   :sources [
     { :name "luasnip" }
@@ -39,3 +46,19 @@
     :keyword_length 2
   }
 })
+
+(cmp.setup.cmdline "/" {
+  :mapping (cmp.mapping.preset.cmdline)
+  :sources [
+    { :name "buffer" }
+  ]
+})
+
+(cmp.setup.cmdline ":" {
+  :mapping (cmp.mapping.preset.cmdline)
+  :sources [
+    { :name "path" }
+    { :name "cmdline" }
+  ]
+})
+

@@ -35,12 +35,9 @@
     (tset vim.opt_local :expandtab false)
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
+    (map! [n :buffer :verbose] "<leader>cr" "<cmd>!go run %<CR>")
     (tset vim.b :format_on_save true))]
-  [[FileType] c (fn []
-    (tset vim.opt_local :foldmethod "expr")
-    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
-    (tset vim.opt_local :tabstop 4))]
-  [[FileType] cpp (fn []
+  [[FileType] [cpp c] (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.opt_local :tabstop 4)
@@ -59,9 +56,9 @@
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (map! [n :buffer :verbose] "[j" vim.fn.JsonBeautify {}))]
-  [[FileType] toml (fn []
+  [[FileType] [toml yaml] (fn []
     (tset vim.opt_local :foldmethod "expr")
-    (tset vim.opt_local :foldexpr "v:lua.tomlFold()"))]
+    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
   [[FileType] [javascript javascript.jsx typescript typescriptreact] (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
@@ -74,6 +71,9 @@
     (map! [n :buffer :verbose] "]c" "<cmd>RainbowShrink<CR>"))]
   [[BufNewFile BufRead] [*.cue] "set filetype=cue"]
   [[FileType] proto (fn []
+    (tset vim.opt_local :foldmethod "expr")
+    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
+  [[FileType] [sh fish] (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
 )

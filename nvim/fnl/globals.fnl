@@ -66,12 +66,16 @@
   (if vim.b.format_on_save
     (do
       (tset vim.b :format_on_save false)
-      (print "turn off auto format"))
+      (vim.notify "turn off auto format"))
     (do
       (tset vim.b :format_on_save true)
-      (print "turn on auto format"))))
+      (vim.notify "turn on auto format"))))
 
 (fn _G.lsp_format []
   (when vim.b.format_on_save
-    ;; (vim.lsp.buf.format)))
-    (vim.lsp.buf.formatting_sync)))
+    (vim.lsp.buf.format)))
+;;
+;; (fn _G.entries [tbl]
+;;   (var ret [])
+;;   (each [k v (pairs tbl)] (table.insert ret [k v]))
+;;   ret)

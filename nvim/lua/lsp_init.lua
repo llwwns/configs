@@ -30,6 +30,10 @@ local function on_attach(client, bufnr)
     vim.cmd("autocmd BufWritePre <buffer> lua lsp_format()")
   else
   end
+  if client.server_capabilities.foldingRangeProvider then
+    do end (require("ufo")).setup({open_fold_hl_timeout = 0})
+  else
+  end
   vim.keymap.set({"n"}, "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {buffer = true, noremap = true, silent = true})
@@ -38,6 +42,9 @@ local function on_attach(client, bufnr)
   vim.keymap.set({"n"}, "gs", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "<leader>rn", "<cmd>Lsp rename<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n", "v"}, "<leader>da", "<cmd>Lsp codeaction<CR>", {buffer = true, noremap = true, silent = true})
+  vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   do end (require("lsp_signature")).on_attach({floating_window = false})
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
@@ -61,15 +68,16 @@ local function on_attach_ts(client, bufnr)
 end
 local function on_attach_rs(client, bufnr)
   on_attach(client, bufnr)
-  local augid_9_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
-  local function _10_()
+  local augid_10_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
+  local function _11_()
     return (require("lsp_extensions")).inlay_hints({enabled = {"ChainingHint", "TypeHint"}})
   end
-  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _10_, group = augid_9_, nested = false, once = false, pattern = "*.rs"})
+  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _11_, group = augid_10_, nested = false, once = false, pattern = "*.rs"})
 end
 local capabilities
 do
   local capabilities0 = vim.lsp.protocol.make_client_capabilities()
+  do end (capabilities0)["foldingRange"] = {dynamicRegistration = false, lineFoldingOnly = true}
   capabilities = (require("cmp_nvim_lsp")).update_capabilities(capabilities0)
 end
 null_ls.setup({sources = {prettier, eslint_d, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})

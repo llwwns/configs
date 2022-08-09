@@ -75,6 +75,7 @@
       "hrsh7th/cmp-nvim-lsp"
       "saadparwaiz1/cmp_luasnip"
       "hrsh7th/cmp-path"
+      "hrsh7th/cmp-cmdline"
     ]
     :config #(require "cmp_init"))
   (use! :nvim-lua/lsp_extensions.nvim :opt true :module ["lsp_extensions"])
@@ -324,5 +325,7 @@
                                          (notify.setup)
                                          (tset vim :notify notify)))
   (use! :norcalli/nvim-colorizer.lua :config #(require-fun :colorizer#setup))
+  (use! :kevinhwang91/nvim-ufo :opt true :module :ufo
+    :requires "kevinhwang91/promise-async")
 )
 

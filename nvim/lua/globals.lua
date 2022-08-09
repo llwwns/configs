@@ -92,15 +92,15 @@ end
 _G.toggle_format = function()
   if vim.b.format_on_save then
     vim.b["format_on_save"] = false
-    return print("turn off auto format")
+    return vim.notify("turn off auto format")
   else
     vim.b["format_on_save"] = true
-    return print("turn on auto format")
+    return vim.notify("turn on auto format")
   end
 end
 _G.lsp_format = function()
   if vim.b.format_on_save then
-    return vim.lsp.buf.formatting_sync()
+    return vim.lsp.buf.format()
   else
     return nil
   end

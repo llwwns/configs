@@ -126,18 +126,19 @@
     ] "")
   }
   :navic [
-    #(if (navic.is_available)
+    #(if (navic.is_available $1)
         (.. " " (navic.get_location $1)) "")
     [ "white" "InactiveBg" ]
   ]
 })
-;; (local winbar {
-;;   :filetypes [ "winbar" ]
-;;   :active [
-;;     basic.navic
-;;   ]
-;;   ;; :enable (fn [bufnr winid] (navic.is_available))
-;; })
+(local winbar {
+  :filetypes [ "winbar" ]
+  :active [
+    basic.navic
+    ;; basic.divider
+  ]
+  ;; :enable (fn [bufnr winid] (navic.is_available))
+})
 
 (local default {
   :filetypes [ "default" ]
@@ -206,7 +207,7 @@
     default
     explorer
     quickfix
-    ;; winbar
+    winbar
   ]
   :tabline {
     :template {

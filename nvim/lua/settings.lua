@@ -67,12 +67,13 @@ vim.opt["foldminlines"] = 1
 vim.opt["foldtext"] = "v:lua.foldtext2()"
 vim.opt["foldcolumn"] = "1"
 vim.opt["dictionary"] = "/usr/share/dict/words"
+vim.opt["winbar"] = " "
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
   return nil
 elseif (1 == vim.fn.exists("neovide")) then
-  vim.opt["guifont"] = "JetBrains Mono Slashed Light:h10"
+  vim.opt["guifont"] = "JetBrainsMono Nerd Font:h10"
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
   vim.g["neovide_scroll_animation_length"] = 0

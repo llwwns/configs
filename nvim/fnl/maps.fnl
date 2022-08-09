@@ -139,8 +139,8 @@
 (map! [n :noremap] "<leader>tf" _G.toggle_format)
 
 ;; Navigation
-(map! [n :expr] "]c" "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'")
-(map! [n :expr] "[c" "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'")
+(map! [n :expr :noremap] "]c" #(if vim.wo.diff "]c" "<cmd>Gitsigns next_hunk<CR>"))
+(map! [n :expr :noremap] "[c" #(if vim.wo.diff "[c" "<cmd>Gitsigns prev_hunk<CR>"))
 
 ;; Actions
 (map! [n] "<leader>hs"

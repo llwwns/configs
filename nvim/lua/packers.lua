@@ -53,7 +53,7 @@ local function _5_(use)
   local function _11_()
     return require("cmp_init")
   end
-  use({config = _11_, requires = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path"}, "hrsh7th/nvim-cmp"})
+  use({config = _11_, requires = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline"}, "hrsh7th/nvim-cmp"})
   use({module = {"lsp_extensions"}, opt = true, "nvim-lua/lsp_extensions.nvim"})
   local function _12_()
     return require("neotree_init")
@@ -189,6 +189,7 @@ local function _5_(use)
   local function _37_()
     return (require("colorizer")).setup()
   end
-  return use({config = _37_, "norcalli/nvim-colorizer.lua"})
+  use({config = _37_, "norcalli/nvim-colorizer.lua"})
+  return use({module = "ufo", opt = true, requires = "kevinhwang91/promise-async", "kevinhwang91/nvim-ufo"})
 end
 return (require("packer")).startup(_5_)

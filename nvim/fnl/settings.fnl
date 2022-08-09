@@ -109,6 +109,7 @@
 (set! foldtext "v:lua.foldtext2()")
 (set! foldcolumn "1")
 (set! dictionary "/usr/share/dict/words")
+(set! winbar " ")
 
 ;; guis
 (if 
@@ -117,7 +118,7 @@
     (set! guicursor (.. vim.o.guicursor ",a:blinkon0")))
   (= 1 (vim.fn.exists "neovide")) (do
   ; vim.g.tokyonighj_transparent = false
-    (set! guifont "JetBrains Mono Slashed Light:h10")
+    (set! guifont "JetBrainsMono Nerd Font:h10")
   ; set guifont=Iosevka\ Term,Sarasa\ Nerd\ Font:h17
     ;; (g! neovide_cursor_animation_length 0.05)
     (g! neovide_cursor_animation_length 0)

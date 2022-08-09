@@ -109,57 +109,71 @@ end
 vim.keymap.set({"n", "t"}, "<c-s>", _15_, {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<leader>gs", "<cmd>Neogit<CR>", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<leader>tf", _G.toggle_format, {noremap = true, silent = true})
-vim.keymap.set({"n"}, "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr = true, silent = true})
-vim.keymap.set({"n"}, "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr = true, silent = true})
 local function _16_()
-  return (require("gitsigns")).stage_hunk()
+  if vim.wo.diff then
+    return "]c"
+  else
+    return "<cmd>Gitsigns next_hunk<CR>"
+  end
 end
-vim.keymap.set({"n"}, "<leader>hs", _16_, {silent = true})
-local function _17_()
-  return (require("gitsigns")).reset_hunk()
-end
-vim.keymap.set({"n"}, "<leader>hr", _17_, {silent = true})
+vim.keymap.set({"n"}, "]c", _16_, {expr = true, noremap = true, silent = true})
 local function _18_()
+  if vim.wo.diff then
+    return "[c"
+  else
+    return "<cmd>Gitsigns prev_hunk<CR>"
+  end
+end
+vim.keymap.set({"n"}, "[c", _18_, {expr = true, noremap = true, silent = true})
+local function _20_()
   return (require("gitsigns")).stage_hunk()
 end
-vim.keymap.set({"v"}, "<leader>hs", _18_, {silent = true})
-local function _19_()
+vim.keymap.set({"n"}, "<leader>hs", _20_, {silent = true})
+local function _21_()
   return (require("gitsigns")).reset_hunk()
 end
-vim.keymap.set({"v"}, "<leader>hr", _19_, {silent = true})
-local function _20_()
+vim.keymap.set({"n"}, "<leader>hr", _21_, {silent = true})
+local function _22_()
+  return (require("gitsigns")).stage_hunk()
+end
+vim.keymap.set({"v"}, "<leader>hs", _22_, {silent = true})
+local function _23_()
+  return (require("gitsigns")).reset_hunk()
+end
+vim.keymap.set({"v"}, "<leader>hr", _23_, {silent = true})
+local function _24_()
   return (require("gitsigns")).stage_buffer()
 end
-vim.keymap.set({"n"}, "<leader>hS", _20_, {silent = true})
-local function _21_()
+vim.keymap.set({"n"}, "<leader>hS", _24_, {silent = true})
+local function _25_()
   return (require("gitsigns")).undo_stage_hunk()
 end
-vim.keymap.set({"n"}, "<leader>hu", _21_, {silent = true})
-local function _22_()
+vim.keymap.set({"n"}, "<leader>hu", _25_, {silent = true})
+local function _26_()
   return (require("gitsigns")).reset_buffer()
 end
-vim.keymap.set({"n"}, "<leader>hR", _22_, {silent = true})
-local function _23_()
+vim.keymap.set({"n"}, "<leader>hR", _26_, {silent = true})
+local function _27_()
   return (require("gitsigns")).preview_hunk()
 end
-vim.keymap.set({"n"}, "<leader>hp", _23_, {silent = true})
-local function _24_()
+vim.keymap.set({"n"}, "<leader>hp", _27_, {silent = true})
+local function _28_()
   return (require("gitsigns")).blame_line({full = true})
 end
-vim.keymap.set({"n"}, "<leader>hb", _24_, {silent = true})
-local function _25_()
+vim.keymap.set({"n"}, "<leader>hb", _28_, {silent = true})
+local function _29_()
   return (require("gitsigns")).toggle_current_line_blame()
 end
-vim.keymap.set({"n"}, "<leader>tb", _25_, {silent = true})
+vim.keymap.set({"n"}, "<leader>tb", _29_, {silent = true})
 vim.keymap.set({"n"}, "<leader>hd", "<cmd>Gdiff<CR>", {silent = true})
-local function _26_()
+local function _30_()
   return (require("gitsigns")).diffthis("~")
 end
-vim.keymap.set({"n"}, "<leader>hD", _26_, {silent = true})
-local function _27_()
+vim.keymap.set({"n"}, "<leader>hD", _30_, {silent = true})
+local function _31_()
   return (require("gitsigns")).toggle_deleted()
 end
-vim.keymap.set({"n"}, "<leader>td", _27_, {silent = true})
+vim.keymap.set({"n"}, "<leader>td", _31_, {silent = true})
 vim.keymap.set({"n"}, "crp", "crcvU", {silent = true})
 vim.keymap.set({"n"}, "]d", vim.diagnostic.goto_next, {silent = true})
 vim.keymap.set({"n"}, "[d", vim.diagnostic.goto_prev, {silent = true})
