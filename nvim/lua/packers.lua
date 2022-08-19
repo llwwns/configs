@@ -84,7 +84,6 @@ local function _5_(use)
     return (require("Comment")).setup({extra = {}, extended = false})
   end
   use({config = _16_, keys = {{"v", "gc"}, {"v", "gb"}}, opt = true, "numToStr/Comment.nvim"})
-  use({keys = {{"n", "g<"}, {"n", "g>"}, {"n", "gs"}, {"x", "gs"}}, opt = true, "machakann/vim-swap"})
   use({ft = {"csv"}, opt = true, "mechatroner/rainbow_csv"})
   use({cmd = {"Bufferize"}, opt = true, "AndrewRadev/bufferize.vim"})
   local function _17_()
@@ -190,6 +189,13 @@ local function _5_(use)
     return (require("colorizer")).setup()
   end
   use({config = _37_, "norcalli/nvim-colorizer.lua"})
-  return use({module = "ufo", opt = true, requires = "kevinhwang91/promise-async", "kevinhwang91/nvim-ufo"})
+  local function _38_()
+    return require("dial_init")
+  end
+  use({config = _38_, keys = {{"n", "<Plug>(dial-increment)"}, {"n", "<Plug>(dial-decrement)"}, {"v", "<Plug>(dial-increment)"}, {"v", "<Plug>(dial-decrement)"}, {"v", "g<Plug>(dial-increment)"}, {"v", "g<Plug>(dial-decrement)"}}, opt = true, "monaqa/dial.nvim"})
+  local function _39_()
+    return (require("iswap")).setup({flash_style = false})
+  end
+  return use({config = _39_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
 end
 return (require("packer")).startup(_5_)

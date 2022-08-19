@@ -33,10 +33,6 @@
     client.server_capabilities.documentFormattingProvider
     (not (: (vim.regex "\\vfugitive:\\/\\/") :match_str (vim.fn.expand "%"))))
     (vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"))
-  (when client.server_capabilities.foldingRangeProvider
-    (require-fun :ufo#setup {
-      :open_fold_hl_timeout 0
-    }))
 
   (map! [n :buffer :noremap] "gd" "<cmd>lua vim.lsp.buf.declaration()<CR>")
   (map! [n :buffer :noremap] "<c-]>" "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -56,7 +52,10 @@
     :floating_window false
   })
   (when client.server_capabilities.documentSymbolProvider
-    (navic.attach client bufnr))
+    (let [win (vim.api.nvim_get_current_win)
+          buf (vim.api.nvim_win_get_buf win)]
+      (navic.attach client bufnr)
+      (when (= buf bufnr) (WindLine.on_win_enter))))
   (when (not _G.lsp_clients) (tset _G :lsp_clients {}))
   (tset _G.lsp_clients bufnr client))
 
@@ -77,10 +76,6 @@
 ;;
 (local capabilities 
     (let [capabilities (vim.lsp.protocol.make_client_capabilities)]
-      (tset capabilities :foldingRange {
-        :dynamicRegistration false
-        :lineFoldingOnly true
-      })
       (require-fun :cmp_nvim_lsp#update_capabilities capabilities)))
 ;;
 (null_ls.setup {
@@ -162,6 +157,20 @@
   :capabilities capabilities
 })
 
+(lsp.tailwindcss.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.hls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+ })
+
+(lsp.marksman.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+
 ;; (when (not configs.ruby_lsp)
 ;;   (tset configs :ruby_lsp {
 ;;     :default_config {
@@ -195,8 +204,3 @@
   (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics {
     :update_in_insert false
   }))
-
-(lsp.tailwindcss.setup {})
-(lsp.hls.setup {
-  :capabilities capabilities
- })

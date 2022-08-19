@@ -109,7 +109,7 @@
 (set! foldtext "v:lua.foldtext2()")
 (set! foldcolumn "1")
 (set! dictionary "/usr/share/dict/words")
-(set! winbar " ")
+;; (set! winbar " ")
 
 ;; guis
 (if 

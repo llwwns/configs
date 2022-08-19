@@ -1,22 +1,6 @@
 (import-macros {: g!} :hibiscus.vim)
 (require-macros :utils-macros)
 
-(macro packer [...]
-  `(require-fun :packer#startup
-    (fn [,(sym :use)]
-      (do ,...))))
-
-(macro use! [name ...]
-  (let [opts [...]]
-    (if (= 0 (length opts))
-      `(use ,name)
-      (let [out [name]]
-        (each [idx val (ipairs opts)]
-          (when (= 1 (% idx 2))
-              (let [nval (. opts (+ idx 1))]
-                (tset out val nval))))
-         `(use ,out)))))
-
 (pcall #(do
   (vim.cmd "packadd impatient.nvim")
   (require "impatient")))
@@ -113,8 +97,8 @@
     :opt true
     :keys [[ "v" "gc" ] [ "v" "gb" ]]
     :config #(require-fun :Comment#setup { :extra [] :extended  false }))
-  (use! :machakann/vim-swap :opt true
-    :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
+  ;; (use! :machakann/vim-swap :opt true
+  ;;   :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
   (use! :mechatroner/rainbow_csv :opt true :ft [ "csv" ])
   ;; -- use "google/vim-searchindex"
   ;; -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
@@ -325,7 +309,15 @@
                                          (notify.setup)
                                          (tset vim :notify notify)))
   (use! :norcalli/nvim-colorizer.lua :config #(require-fun :colorizer#setup))
-  (use! :kevinhwang91/nvim-ufo :opt true :module :ufo
-    :requires "kevinhwang91/promise-async")
+  (use! :monaqa/dial.nvim :opt true :keys [
+    ["n" "<Plug>(dial-increment)"]
+    ["n" "<Plug>(dial-decrement)"]
+    ["v" "<Plug>(dial-increment)"]
+    ["v" "<Plug>(dial-decrement)"]
+    ["v" "g<Plug>(dial-increment)"]
+    ["v" "g<Plug>(dial-decrement)"]
+  ] :config #(require :dial_init))
+  (use! :mizlan/iswap.nvim :opt true :module [:iswap] :config 
+    #(require-fun :iswap#setup {:flash_style false}))
 )
 

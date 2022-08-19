@@ -137,7 +137,7 @@
     basic.navic
     ;; basic.divider
   ]
-  ;; :enable (fn [bufnr winid] (navic.is_available))
+  :enable (fn [bufnr winid] (navic.is_available bufnr))
 })
 
 (local default {

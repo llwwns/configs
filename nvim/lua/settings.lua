@@ -67,7 +67,6 @@ vim.opt["foldminlines"] = 1
 vim.opt["foldtext"] = "v:lua.foldtext2()"
 vim.opt["foldcolumn"] = "1"
 vim.opt["dictionary"] = "/usr/share/dict/words"
-vim.opt["winbar"] = " "
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")

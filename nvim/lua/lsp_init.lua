@@ -30,10 +30,6 @@ local function on_attach(client, bufnr)
     vim.cmd("autocmd BufWritePre <buffer> lua lsp_format()")
   else
   end
-  if client.server_capabilities.foldingRangeProvider then
-    do end (require("ufo")).setup({open_fold_hl_timeout = 0})
-  else
-  end
   vim.keymap.set({"n"}, "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {buffer = true, noremap = true, silent = true})
@@ -47,7 +43,13 @@ local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   do end (require("lsp_signature")).on_attach({floating_window = false})
   if client.server_capabilities.documentSymbolProvider then
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_win_get_buf(win)
     navic.attach(client, bufnr)
+    if (buf == bufnr) then
+      WindLine.on_win_enter()
+    else
+    end
   else
   end
   if not _G.lsp_clients then
@@ -77,7 +79,6 @@ end
 local capabilities
 do
   local capabilities0 = vim.lsp.protocol.make_client_capabilities()
-  do end (capabilities0)["foldingRange"] = {dynamicRegistration = false, lineFoldingOnly = true}
   capabilities = (require("cmp_nvim_lsp")).update_capabilities(capabilities0)
 end
 null_ls.setup({sources = {prettier, eslint_d, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
@@ -91,9 +92,11 @@ lsp.yamlls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.zls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
 lsp.erlangls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.tailwindcss.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.hls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.marksman.setup({on_attach = on_attach, capabilities = capabilities})
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())
 end
 vim.lsp.handlers["textDocument/publishDiagnostics:"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
-lsp.tailwindcss.setup({})
-return lsp.hls.setup({capabilities = capabilities})
+return nil

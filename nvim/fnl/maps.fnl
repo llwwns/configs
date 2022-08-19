@@ -60,39 +60,48 @@
 
 (map! [ni] "<c-w>z" "<cmd>NeoZoomToggle<CR>")
 
-(map! [nv] "<leader>w" 
+(map! [nvo] "<leader>w" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_words { 
     "direction" hint.HintDirection.AFTER_CURSOR })))
 
-(map! [nv] "<leader>b" 
+(map! [nvo] "<leader>b" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_words { 
     "direction" hint.HintDirection.BEFORE_CURSOR })))
 
-(map! [nv] "<leader>e" 
+(map! [nvo] "<leader>e" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_patterns { 
     "direction" hint.HintDirection.AFTER_CURSOR } "\\w\\>")))
 
-(map! [nv] "<leader>ge" 
+(map! [nvo] "<leader>ge" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_patterns { 
     "direction" hint.HintDirection.BEFORE_CURSOR } "\\w\\>")))
 
-(map! [nv] "<leader>f" 
+(map! [nvo] "<leader>f" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_char1 { 
     "direction" hint.HintDirection.AFTER_CURSOR })))
 
-(map! [nv] "<leader>F" 
+(map! [nvo] "<leader>F" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_char1 { 
     "direction" hint.HintDirection.BEFORE_CURSOR })))
 
-(map! [nv] "<leader>j" 
+(map! [nvo] "<leader>j" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_lines { 
     "direction" hint.HintDirection.AFTER_CURSOR })))
 
-(map! [nv] "<leader>k" 
+(map! [nvo] "<leader>k" 
   #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_lines { 
     "direction" hint.HintDirection.BEFORE_CURSOR })))
 
-(map! [nv] "s" 
+(map! [nvo] "<leader>'" 
+  #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_patterns {} "[\"']")))
+
+(map! [nvo] "<leader>[" 
+  #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_patterns {} "[\\[(<{]")))
+
+(map! [nvo] "<leader>]" 
+  #(let [hop (require :hop) hint (require "hop.hint")] (hop.hint_patterns {} "[\\])>}]")))
+
+(map! [nvo] "s" 
   #(require-fun :hop#hint_char2))
 
 (map! [o] "z" 
@@ -122,8 +131,6 @@
 ;; (map! [n :noremap] "<A-l>" "<C-w>l")
 
 (map! [n :noremap] "K" _G.showDocumentation)
-(map! [n :noremap] "+" "<C-a>")
-(map! [n :noremap] "-" "<C-x>")
 (map! [n] "<C-\\>" ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>")
 
 
@@ -211,3 +218,17 @@
 (map! [n :noremap] "<leader>rp" _G.replace)
 (map! [v :noremap] "P" "\"0p")
 (map! [t :noremap] "<c-\\><c-v>" "<c-\\><c-n>\"+pa")
+;;
+;; (map! [n] "zR" #(require-fun "ufo#openAllFolds"))
+;; (map! [n] "zM" #(require-fun "ufo#closeAllFolds"))
+
+(map! [n :noremap] "<C-a>"  "<Plug>(dial-increment)")
+(map! [n :noremap] "<C-x>"  "<Plug>(dial-decrement)")
+(map! [v :noremap] "<C-a>"  "<Plug>(dial-increment)")
+(map! [v :noremap] "<C-x>"  "<Plug>(dial-decrement)")
+(map! [v :noremap] "g<C-a>" "g<Plug>(dial-increment)")
+(map! [v :noremap] "g<C-x>" "g<Plug>(dial-decrement)")
+
+(map! [n] "g<" #(require-fun :iswap#iswap_node_with :left))
+(map! [n] "g>" #(require-fun :iswap#iswap_node_with :right))
+(map! [nx] "<leader>s" #(require-fun :iswap#iswap_node_with))
