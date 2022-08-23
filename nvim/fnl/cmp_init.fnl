@@ -22,10 +22,10 @@
 
   :mapping mapping
 
-  ;; :window  {
-  ;;   :completion (cmp.config.window.bordered)
-  ;;   :documentation (cmp.config.window.bordered)
-  ;; }
+  :window  {
+    :completion (cmp.config.window.bordered {:border :single})
+    :documentation (cmp.config.window.bordered {:border :single})
+  }
 
   :sources [
     { :name "luasnip" }

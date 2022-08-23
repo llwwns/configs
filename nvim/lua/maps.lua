@@ -225,6 +225,14 @@ do
   vim.keymap.set({"n"}, "[B", "<cmd>bfirst<CR>", {silent = true})
   vim.keymap.set({"n"}, "]B", "<cmd>blast<CR>", {silent = true})
 end
+local function _35_()
+  return (require("illuminate")).goto_next_reference()
+end
+vim.keymap.set({"n"}, "]w", _35_, {silent = true})
+local function _36_()
+  return (require("illuminate")).goto_prev_reference()
+end
+vim.keymap.set({"n"}, "[w", _36_, {silent = true})
 vim.keymap.set({"i"}, "<c-a>", "<home>", {noremap = true, silent = true})
 vim.keymap.set({"i"}, "<c-e>", "<end>", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = false})
@@ -239,15 +247,15 @@ vim.keymap.set({"v"}, "<C-a>", "<Plug>(dial-increment)", {noremap = true, silent
 vim.keymap.set({"v"}, "<C-x>", "<Plug>(dial-decrement)", {noremap = true, silent = true})
 vim.keymap.set({"v"}, "g<C-a>", "g<Plug>(dial-increment)", {noremap = true, silent = true})
 vim.keymap.set({"v"}, "g<C-x>", "g<Plug>(dial-decrement)", {noremap = true, silent = true})
-local function _35_()
+local function _37_()
   return (require("iswap")).iswap_node_with("left")
 end
-vim.keymap.set({"n"}, "g<", _35_, {silent = true})
-local function _36_()
+vim.keymap.set({"n"}, "g<", _37_, {silent = true})
+local function _38_()
   return (require("iswap")).iswap_node_with("right")
 end
-vim.keymap.set({"n"}, "g>", _36_, {silent = true})
-local function _37_()
+vim.keymap.set({"n"}, "g>", _38_, {silent = true})
+local function _39_()
   return (require("iswap")).iswap_node_with()
 end
-return vim.keymap.set({"n", "x"}, "<leader>s", _37_, {silent = true})
+return vim.keymap.set({"n", "x"}, "<leader>s", _39_, {silent = true})

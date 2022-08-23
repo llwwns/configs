@@ -199,6 +199,8 @@
 (map_pairs "q" "c")
 (map_pairs "l" "l")
 (map_pairs "b" "b")
+(map! [n] "]w" #(require-fun :illuminate#goto_next_reference))
+(map! [n] "[w" #(require-fun :illuminate#goto_prev_reference))
 (map! [i :noremap] "<c-a>" "<home>")
 (map! [i :noremap] "<c-e>" "<end>")
 

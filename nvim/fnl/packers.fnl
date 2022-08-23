@@ -19,7 +19,12 @@
     (g! indent_blankline_char "│")
     (g! indent_blankline_show_current_context true)))
   (use! :tpope/vim-fugitive)
-  (use! :mg979/vim-visual-multi :opt true :keys [["v" "<c-n>"]] )
+  (use! :mg979/vim-visual-multi :opt true :keys [
+    ["v" "<c-n>"]
+    ["n" "<c-n>"]
+    ["n" "<c-Up>"]
+    ["n" "<c-Down>"]
+  ] :setup #(g! VM_theme "codedark"))
   (use! :godlygeek/tabular :opt true :cmd ["Tabularize"])
   (use! :maksimr/vim-jsbeautify :opt true
     :fn [
@@ -83,7 +88,11 @@
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
   (use! :dbeniamine/todo.txt-vim)
   (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
-  (use! :RRethy/vim-illuminate :setup #(g! Illuminate_delay 0))
+  (use! :RRethy/vim-illuminate :config (fn [] (require-fun :illuminate#configure {
+    :providers [:regex]
+    :delay 0
+  })
+  (vim.cmd "hi link IlluminatedWordText illuminatedWord")))
   (use! :junegunn/gv.vim :opt true :cmd ["GV"])
   (use! :lambdalisue/suda.vim)
   (use! :tyru/eskk.vim :opt true
@@ -176,7 +185,7 @@
           :Reference "  "
         }
       }))
-  (use! :folke/tokyonight.nvim)
+  (use! :llwwns/tokyonight.nvim)
   (use! "TimUntersberger/neogit"
     :opt true
     :cmd [ "Neogit" ]
@@ -318,6 +327,6 @@
     ["v" "g<Plug>(dial-decrement)"]
   ] :config #(require :dial_init))
   (use! :mizlan/iswap.nvim :opt true :module [:iswap] :config 
-    #(require-fun :iswap#setup {:flash_style false}))
+    #(require-fun :iswap#setup {:flash_style false :move_cursor true}))
 )
 

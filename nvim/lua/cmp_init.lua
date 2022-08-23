@@ -10,6 +10,6 @@ local function _2_(entry, vim_item)
   do end (vim_item)["kind"] = ("[" .. lspkind.presets.default[vim_item.kind] .. "] " .. vim_item.kind)
   return vim_item
 end
-cmp.setup({snippet = {expand = _1_}, mapping = mapping, sources = {{name = "luasnip"}, {name = "nvim_lsp"}, {name = "nvim_lua"}, {name = "path"}, {name = "buffer"}, {name = "words", max_item_count = 7}}, preselect = cmp.PreselectMode.None, formatting = {format = _2_}, completion = {keyword_length = 2}})
+cmp.setup({snippet = {expand = _1_}, mapping = mapping, window = {completion = cmp.config.window.bordered({border = "single"}), documentation = cmp.config.window.bordered({border = "single"})}, sources = {{name = "luasnip"}, {name = "nvim_lsp"}, {name = "nvim_lua"}, {name = "path"}, {name = "buffer"}, {name = "words", max_item_count = 7}}, preselect = cmp.PreselectMode.None, formatting = {format = _2_}, completion = {keyword_length = 2}})
 cmp.setup.cmdline("/", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "buffer"}}})
 return cmp.setup.cmdline(":", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "path"}, {name = "cmdline"}}})
