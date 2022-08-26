@@ -1,5 +1,3 @@
-;; (import-macros {: map!}    :hibiscus.vim)
-
 (require-macros :hibiscus.vim)
 (require-macros :utils-macros)
 
@@ -150,43 +148,17 @@
 (map! [n :expr :noremap] "[c" #(if vim.wo.diff "[c" "<cmd>Gitsigns prev_hunk<CR>"))
 
 ;; Actions
-(map! [n] "<leader>hs"
-  #(require-fun :gitsigns#stage_hunk))
-
-(map! [n] "<leader>hr"
-  #(require-fun :gitsigns#reset_hunk))
-
-(map! [v] "<leader>hs"
-  #(require-fun :gitsigns#stage_hunk))
-
-(map! [v] "<leader>hr"
-  #(require-fun :gitsigns#reset_hunk))
-
-(map! [n] "<leader>hS"
-  #(require-fun :gitsigns#stage_buffer))
-
-(map! [n] "<leader>hu"
-  #(require-fun :gitsigns#undo_stage_hunk))
-
-(map! [n] "<leader>hR"
-  #(require-fun :gitsigns#reset_buffer))
-
-(map! [n] "<leader>hp"
-  #(require-fun :gitsigns#preview_hunk))
-
-(map! [n] "<leader>hb"
-  #(require-fun :gitsigns#blame_line { :full true }))
-
-(map! [n] "<leader>tb"
-  #(require-fun :gitsigns#toggle_current_line_blame))
-
+(map! [nv] "<leader>hs" #(require-fun :gitsigns#stage_hunk))
+(map! [nv] "<leader>hr" #(require-fun :gitsigns#reset_hunk))
+(map! [n] "<leader>hS" #(require-fun :gitsigns#stage_buffer))
+(map! [n] "<leader>hu" #(require-fun :gitsigns#undo_stage_hunk))
+(map! [n] "<leader>hR" #(require-fun :gitsigns#reset_buffer))
+(map! [n] "<leader>hp" #(require-fun :gitsigns#preview_hunk))
+(map! [n] "<leader>hb" #(require-fun :gitsigns#blame_line { :full true }))
+(map! [n] "<leader>tb" #(require-fun :gitsigns#toggle_current_line_blame))
+(map! [n] "<leader>td" #(require-fun :gitsigns#toggle_deleted))
+(map! [n] "<leader>hD" #(require-fun :gitsigns#diffthis "~"))
 (map! [n] "<leader>hd" "<cmd>Gdiff<CR>")
-
-(map! [n] "<leader>hD"
-  #(require-fun :gitsigns#diffthis "~"))
-
-(map! [n] "<leader>td"
-  #(require-fun :gitsigns#toggle_deleted))
 
 (map! [n] "crp" "crcvU")
 (map! [n] "]d" vim.diagnostic.goto_next)
