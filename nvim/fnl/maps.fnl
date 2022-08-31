@@ -134,11 +134,6 @@
 
 (map! [nt :noremap] "<c-s>" #(require-fun :FTerm#toggle))
 
-; vim.api.nvim_set_keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true })
-; vim.api.nvim_set_keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", { noremap = true })
-; vim.api.nvim_set_keymap("n", "<leader>dn", "<cmd>lua require'dap'.next()<CR>", { noremap = true })
-; vim.api.nvim_set_keymap("n", "<leader>di", "<cmd>lua require'dap'.into()<CR>", { noremap = true })
-
 (map! [n :noremap] "<leader>gs" "<cmd>Neogit<CR>")
 
 (map! [n :noremap] "<leader>tf" _G.toggle_format)
@@ -188,6 +183,13 @@
 ;; (map! [n] "<leader>so" "<Plug>VimspectorStepOut")
 ;; (map! [n] "<leader>tb" "<Plug>VimspectorToggleBreakpoint")
 ;; (map! [n] "<leader>tcb" "<Plug>VimspectorToggleConditionalBreakpoint")
+
+;; (map! [n :noremap] "<leader>db" #(require-fun :dap#toggle_breakpoint))
+;; (map! [n :noremap] "<leader>dc" #(require-fun :dap#continue))
+;; (map! [n :noremap] "<leader>dn" #(require-fun :dap#step_over))
+;; (map! [n :noremap] "<leader>di" #(require-fun :dap#step_into))
+;; (map! [n :noremap] "<leader>do" #(require-fun :dap#step_out))
+
 
 (map! [n :noremap] "<leader>rp" _G.replace)
 (map! [v :noremap] "P" "\"0p")

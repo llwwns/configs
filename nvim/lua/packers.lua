@@ -200,6 +200,19 @@ local function _5_(use)
   local function _40_()
     return (require("iswap")).setup({flash_style = false, move_cursor = true})
   end
-  return use({config = _40_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
+  use({config = _40_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
+  use({module = {"dapui"}, opt = true, "rcarriga/nvim-dap-ui"})
+  local function _41_()
+    return require("dap_init", "opt", true, "module", {"dap"})
+  end
+  use({config = _41_, "mfussenegger/nvim-dap"})
+  local function _42_()
+    do end (require("dap-go")).setup()
+    local function _43_()
+      return (require("dap-go")).debug_test()
+    end
+    return vim.keymap.set({"n"}, "<leader>td", _43_, {silent = true})
+  end
+  return use({config = _42_, ft = {"go"}, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
 end
 return (require("packer")).startup(_5_)

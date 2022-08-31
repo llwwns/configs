@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(require-macros :utils-macros)
 (local Hydra (require :hydra))
 
 (Hydra {
@@ -57,3 +58,19 @@
 ;;     ["x" "<Plug>VimspectorToggleConditionalBreakpoint"]
 ;;   ]
 ;; })
+(Hydra {
+  :name "dap"
+  :mode ["n"]
+  :body "<leader>d"
+  :config {
+    :color "pink"
+  }
+  :heads [
+    ["b" #(require-fun :dap#toggle_breakpoint)]
+    ["B" #(require-fun :dap#set_breakpoint (vim.fn.input "Breakpoint condition: "))]
+    ["c" #(require-fun :dap#continue)]
+    ["n" #(require-fun :dap#step_over)]
+    ["i" #(require-fun :dap#step_into)]
+    ["o" #(require-fun :dap#step_out)]
+  ]
+})

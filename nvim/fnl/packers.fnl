@@ -1,4 +1,4 @@
-(import-macros {: g!} :hibiscus.vim)
+(import-macros {: g! : map!} :hibiscus.vim)
 (require-macros :utils-macros)
 
 (pcall #(do
@@ -328,5 +328,11 @@
   ] :config #(require :dial_init))
   (use! :mizlan/iswap.nvim :opt true :module [:iswap] :config 
     #(require-fun :iswap#setup {:flash_style false :move_cursor true}))
+  (use! :rcarriga/nvim-dap-ui :opt true :module [:dapui])
+  (use! :mfussenegger/nvim-dap :config #(require :dap_init :opt true :module [:dap]))
+  (use! :leoluz/nvim-dap-go :requires [:mfussenegger/nvim-dap] :ft ["go"] :config
+    #(do 
+      (require-fun :dap-go#setup)
+      (map! [n] "<leader>td" #(require-fun :dap-go#debug_test))))
 )
 
