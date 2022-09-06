@@ -45,9 +45,7 @@ vim.opt["secure"] = true
 vim.opt["hidden"] = true
 vim.opt["spellfile"] = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
 do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff"
-do
-  vim.cmd("filetype plugin indent on")
-end
+vim.cmd("filetype plugin indent on")
 vim.fn.sign_define("DiagnosticSignError", {text = "\239\129\151", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DiagnosticSignWarn", {text = "\239\129\177", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignHint", {text = "\239\129\154", texthl = "DiagnosticSignHint"})
@@ -70,17 +68,15 @@ vim.opt["dictionary"] = "/usr/share/dict/words"
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
-  return nil
 elseif (1 == vim.fn.exists("neovide")) then
   vim.opt["guifont"] = "JetBrainsMono Nerd Font:h10"
   vim.g["neovide_cursor_animation_length"] = 0
   vim.g["neovide_cursor_trail_length"] = 0.1
   vim.g["neovide_scroll_animation_length"] = 0
   vim.opt["mouse"] = "a"
-  return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
+  vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
 elseif vim.keymap.set({"t"}, "<c-s-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true}) then
-  return (1 == vim.fn.exists("g:fvim_loaded"))
+  do local _ = (1 == vim.fn.exists("g:fvim_loaded")) end
 else
   vim.opt["guifont"] = "Sarasa Nerd Font:h18"
-  return nil
 end

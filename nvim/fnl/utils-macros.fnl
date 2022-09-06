@@ -19,8 +19,22 @@
                 (tset out val nval))))
          `(use ,out)))))
 
+
+(fn parse-sym [xs]
+  (if (or (in-scope? xs) (not (sym? xs)))
+      (do xs)
+      (tostring xs)))
+
+(fn set! [name val]
+  `(tset vim.opt ,(parse-sym name) ,val))
+
+(fn g! [name val]
+  `(tset vim.g ,(parse-sym name) ,val))
+
 {
   : require-fun
   : packer
   : use!
+  : set!
+  : g!
 }

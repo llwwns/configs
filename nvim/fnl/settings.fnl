@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(require-macros :utils-macros)
 
 ;; (when (vim.fn.has "multi_lang")
 ;;   (vim.cmd "language C"))
@@ -19,8 +20,8 @@
 (set! backspace ["indent" "eol" "start"])
 ;; allow cursor go to next line
 (set! whichwrap "b,s,<,>,[,]")
-(set! noswapfile)
-(set! noundofile)
+(set! swapfile false)
+(set! undofile false)
 
 (set! termguicolors true)
 (set! fileencodings ["utf-8" "iso-2022-jp" "euc-jp" "sjis" "utf-16" "utf-16le" "gb2312"])
@@ -74,11 +75,9 @@
 
 ;; (rem! guioptions "e")
 
-(exec [
-  ["filetype plugin indent on"]
+(vim.cmd "filetype plugin indent on")
   ;; ["let $FZF_DEFAULT_COMMAND = 'fd'"]
   ;; ["let $FZF_DEFAULT_OPTS='--layout=reverse'"]
-])
 
 (vim.fn.sign_define :DiagnosticSignError { :text "" :texthl :DiagnosticSignError})
 (vim.fn.sign_define :DiagnosticSignWarn { :text "" :texthl :DiagnosticSignWarn })

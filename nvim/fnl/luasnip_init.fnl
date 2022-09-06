@@ -81,6 +81,7 @@
        "#include<algorithm>"
        "#include<vector>"
        "#include<stack>"
+       "#include<array>"
        "#include<queue>"
        ""
        "using namespace std;"
@@ -91,7 +92,10 @@
        ""
        "int main() {"
        "    "
-       "}")))
+       "}"))
+    (postfix ".sort"
+      (d 1 (sn nil
+           (t (.. "sort(" $2.env.POSTFIX_MATCH ".begin(), "$2.env.POSTFIX_MATCH ".end());"))))))
 ;;
 ;; local t = function(str)
 ;;   return vim.api.nvim_replace_termcodes(str, true, true, true)
