@@ -2,17 +2,17 @@
 (local configs (require "lspconfig/configs"))
 (local util (require "lspconfig/util"))
 (local navic (require "nvim-navic"))
-(local null_ls (require "null-ls"))
+(local null-ls (require "null-ls"))
 
 (require-macros :utils-macros)
 (require-macros :hibiscus.vim)
 ;;
-(fn prettier [] 
+(fn prettierd [] 
   (let [project_local_bin "node_modules/.bin/prettier"
-        utils ((-> :null-ls.utils (require) (. :make_conditional_utils)))]
+        utils (require-fun :null-ls.utils#make_conditional_utils)]
     (when (utils.root_has_file ".prettierrc")
-      (null_ls.builtins.formatting.prettier.with {
-        :command (if (utils.root_has_file :project_local_bin) project_local_bin "prettier")
+      (null-ls.builtins.formatting.prettierd.with {
+        ;; :command (if (utils.root_has_file :project_local_bin) project_local_bin "prettier")
         :filetypes [
           "javascript"
           "javascriptreact"
@@ -22,11 +22,11 @@
         ]
       }))))
 
-(fn eslint_d [] 
-  (null_ls.builtins.diagnostics.eslint_d.with {
-    :timeout 15000
-    :condition #(or ($1.root_has_file ".eslintrc") ($1.root_has_file ".eslintrc.json"))
-  }))
+;; (fn eslint_d [] 
+;;   (null-ls.builtins.diagnostics.eslint_d.with {
+;;     :timeout 15000
+;;     :condition #(or ($1.root_has_file ".eslintrc") ($1.root_has_file ".eslintrc.json"))
+;;   }))
 
 (fn on_attach [client bufnr]
   (when (and
@@ -66,6 +66,10 @@
       (tset client.server_capabilities :documentFormattingProvider false))
     (on_attach client bufnr)))
 
+(fn on_attach_eslint [client bufnr]
+    (tset client.server_capabilities :documentFormattingProvider false)
+    (on_attach client bufnr))
+
 (fn on_attach_rs [client bufnr]
   (on_attach client bufnr)
   (augroup! :inlayHint
@@ -78,13 +82,14 @@
     (let [capabilities (vim.lsp.protocol.make_client_capabilities)]
       (require-fun :cmp_nvim_lsp#update_capabilities capabilities)))
 ;;
-(null_ls.setup {
+(null-ls.setup {
   ;; :debug true
   :sources [
-    prettier
-    eslint_d
-    null_ls.builtins.formatting.stylua
-    null_ls.builtins.diagnostics.shellcheck
+    prettierd
+    ;; eslint_d
+    null-ls.builtins.code_actions.gitsigns
+    null-ls.builtins.formatting.stylua
+    null-ls.builtins.diagnostics.shellcheck
   ]
   :on_attach on_attach
   :capabilities capabilities
@@ -135,8 +140,21 @@
   :on_attach on_attach
   :capabilities capabilities
 })
+(lsp.cssls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.html.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
 (lsp.yamlls.setup {
   :on_attach on_attach
+  :capabilities capabilities
+})
+(lsp.eslint.setup {
+  :on_attach on_attach_eslint
+  :root_dir (lsp.util.root_pattern "package.json")
   :capabilities capabilities
 })
 (lsp.zls.setup {

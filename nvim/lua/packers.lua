@@ -97,7 +97,7 @@ local function _5_(use)
   local function _19_()
     return require("treesitter_init")
   end
-  use({config = _19_, requires = "p00f/nvim-ts-rainbow", "nvim-treesitter/nvim-treesitter"})
+  use({config = _19_, requires = {"p00f/nvim-ts-rainbow"}, "nvim-treesitter/nvim-treesitter"})
   use("dstein64/nvim-scrollview")
   use({cmd = "UndotreeToggle", opt = true, "mbbill/undotree"})
   local function _20_()
@@ -109,7 +109,7 @@ local function _5_(use)
     return (require("lspkind")).init({mode = "text_symbol", symbol_map = {Text = " \239\148\171 ", Method = " \238\158\155 ", Function = " \238\158\155 ", Constructor = " \238\136\143 ", Variable = "[\238\156\150]", Class = " \239\173\132 ", Interface = " \239\168\160", Module = " \239\153\168 ", Property = " \239\130\173 ", Unit = " \239\165\172 ", Value = " \239\162\159 ", Enum = " \239\169\151", Keyword = " \239\157\167 ", Snippet = " \239\151\143 ", Color = " \238\136\171 ", File = " \239\133\155 ", Folder = " \239\177\174 ", EnumMember = " \239\133\157 ", Constant = " \239\155\188 ", Struct = " \239\134\179 ", Field = " \238\156\150 ", TypeParameter = "<\239\158\131>", Event = " \239\169\151", Operator = " \239\154\148 ", Reference = " \239\146\129 "}})
   end
   use({config = _21_, "onsails/lspkind-nvim"})
-  use("llwwns/tokyonight.nvim")
+  use("folke/tokyonight.nvim")
   local function _22_()
     return (require("neogit")).setup({disable_commit_confirmation = true, integrations = {diffview = true}, signs = {section = {"\239\145\160", "\239\145\188"}, item = {"\239\145\160", "\239\145\188"}, hunk = {"", ""}}, sections = {staged = {folded = false}, unstaged = {folded = false}, untracked = {folded = false}, stashes = {folded = true}, unpulled = {folded = true}, unmerged = {folded = true}, recent = {folded = true}}})
   end

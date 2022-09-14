@@ -4,26 +4,14 @@ local configs = require("lspconfig/configs")
 local util = require("lspconfig/util")
 local navic = require("nvim-navic")
 local null_ls = require("null-ls")
-local function prettier()
+local function prettierd()
   local project_local_bin = "node_modules/.bin/prettier"
   local utils = (require("null-ls.utils")).make_conditional_utils()
   if utils.root_has_file(".prettierrc") then
-    local _1_
-    if utils.root_has_file("project_local_bin") then
-      _1_ = project_local_bin
-    else
-      _1_ = "prettier"
-    end
-    return null_ls.builtins.formatting.prettier.with({command = _1_, filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "sh"}})
+    return null_ls.builtins.formatting.prettierd.with({filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "sh"}})
   else
     return nil
   end
-end
-local function eslint_d()
-  local function _4_(_241)
-    return (_241.root_has_file(".eslintrc") or _241.root_has_file(".eslintrc.json"))
-  end
-  return null_ls.builtins.diagnostics.eslint_d.with({timeout = 15000, condition = _4_})
 end
 local function on_attach(client, bufnr)
   if (client.server_capabilities.documentFormattingProvider and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand("%"))) then
@@ -68,27 +56,34 @@ local function on_attach_ts(client, bufnr)
   end
   return on_attach(client, bufnr)
 end
+local function on_attach_eslint(client, bufnr)
+  client.server_capabilities["documentFormattingProvider"] = false
+  return on_attach(client, bufnr)
+end
 local function on_attach_rs(client, bufnr)
   on_attach(client, bufnr)
-  local augid_10_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
-  local function _11_()
+  local augid_7_ = vim.api.nvim_create_augroup("inlayHint", {clear = true})
+  local function _8_()
     return (require("lsp_extensions")).inlay_hints({enabled = {"ChainingHint", "TypeHint"}})
   end
-  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _11_, group = augid_10_, nested = false, once = false, pattern = "*.rs"})
+  return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _8_, group = augid_7_, pattern = "*.rs"})
 end
 local capabilities
 do
   local capabilities0 = vim.lsp.protocol.make_client_capabilities()
   capabilities = (require("cmp_nvim_lsp")).update_capabilities(capabilities0)
 end
-null_ls.setup({sources = {prettier, eslint_d, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
+null_ls.setup({sources = {prettierd, null_ls.builtins.code_actions.gitsigns, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
 lsp.clangd.setup({on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
 lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
 lsp.tsserver.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
 lsp.denols.setup({single_file_support = false, on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
 lsp.vimls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.jsonls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.cssls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.html.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.yamlls.setup({on_attach = on_attach, capabilities = capabilities})
+lsp.eslint.setup({on_attach = on_attach_eslint, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
 lsp.zls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
 lsp.erlangls.setup({on_attach = on_attach, capabilities = capabilities})

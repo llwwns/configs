@@ -61,11 +61,11 @@
   :fold " "
   :foldopen ""
   :foldclose ""
-  :diff " "
+  :diff "╱"
   :eob " "
 })
 (set! laststatus 3)
-;; (set! cmdheight 0)
+(set! cmdheight 0)
 (set! exrc true)
 (set! secure true)
 (set! hidden true)
@@ -99,7 +99,7 @@
 (g! vim_markdown_conceal_code_blocks 0)
 
 (g! tokyonight_style "night")
-(color! tokyonight)
+(color! tokyonight-night)
 
 ; (set! foldnestmax 3)
 (set! foldminlines 1)

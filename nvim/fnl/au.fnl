@@ -17,6 +17,8 @@
 (augroup! :term
   [[TermOpen] * "IndentBlanklineDisable"])
 (augroup! :filetypes
+  [[FileType] * (fn []
+    (tset vim.opt_local :spelloptions :camel))]
   [[FileType] make (fn []
     (tset vim.opt_local :tabstop 8)
     (tset vim.opt_local :expandtab false))]

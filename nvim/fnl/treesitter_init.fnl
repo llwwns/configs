@@ -19,7 +19,7 @@
     :enable true
     :extended_mode true
     :max_file_lines 10000
-    :colors [:royalblue3 :darkorange3 :seagreen3 :firebrick]
+    ;; :colors [:royalblue3 :darkorange3 :seagreen3 :firebrick]
   }
   :autotag {
     :enable true

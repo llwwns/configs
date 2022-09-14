@@ -118,7 +118,7 @@
     :config #(require "luasnip_init"))
   ;; (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
-    :requires :p00f/nvim-ts-rainbow
+    :requires [ :p00f/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
   ;; (use! :bluz71/vim-moonfly-colors)
   (use! :dstein64/nvim-scrollview)
@@ -185,7 +185,7 @@
           :Reference "  "
         }
       }))
-  (use! :llwwns/tokyonight.nvim)
+  (use! :folke/tokyonight.nvim)
   (use! "TimUntersberger/neogit"
     :opt true
     :cmd [ "Neogit" ]

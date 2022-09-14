@@ -139,8 +139,10 @@
 (map! [n :noremap] "<leader>tf" _G.toggle_format)
 
 ;; Navigation
-(map! [n :expr :noremap] "]c" #(if vim.wo.diff "]c" "<cmd>Gitsigns next_hunk<CR>"))
-(map! [n :expr :noremap] "[c" #(if vim.wo.diff "[c" "<cmd>Gitsigns prev_hunk<CR>"))
+(map! [n :expr :noremap] "]c" #(if vim.wo.diff "]c"
+  "<cmd>lua require('gitsigns').next_hunk({navigation_message=false})<CR>"))
+(map! [n :expr :noremap] "[c" #(if vim.wo.diff "[c"
+  "<cmd>lua require('gitsigns').prev_hunk({navigation_message=false})<CR>"))
 
 ;; Actions
 (map! [nv] "<leader>hs" #(require-fun :gitsigns#stage_hunk))

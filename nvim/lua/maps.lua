@@ -129,7 +129,7 @@ local function _19_()
   if vim.wo.diff then
     return "]c"
   else
-    return "<cmd>Gitsigns next_hunk<CR>"
+    return "<cmd>lua require('gitsigns').next_hunk({navigation_message=false})<CR>"
   end
 end
 vim.keymap.set({"n"}, "]c", _19_, {expr = true, noremap = true, silent = true})
@@ -137,7 +137,7 @@ local function _21_()
   if vim.wo.diff then
     return "[c"
   else
-    return "<cmd>Gitsigns prev_hunk<CR>"
+    return "<cmd>lua require('gitsigns').prev_hunk({navigation_message=false})<CR>"
   end
 end
 vim.keymap.set({"n"}, "[c", _21_, {expr = true, noremap = true, silent = true})
