@@ -283,7 +283,12 @@
   (use! "puremourning/vimspector"
     :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
   (use! "MunifTanjim/nui.nvim")
-  (use! "bfredl/nvim-luadev")
+  (use! "bfredl/nvim-luadev" :opt true
+        :cmd [:Luadev] :config (fn [] 
+          (map! [n :noremap] "<leader>ll"  "<Plug>(Luadev-RunLine)")
+          (map! [nv :noremap] "<leader>lr"  "<Plug>(Luadev-Run)")
+          (map! [n :noremap] "<leader>lw"  "<Plug>(Luadev-RunWord)")
+          (map! [i :noremap] "<c-k><c-l>"  "<Plug>(Luadev-Complete)")))
   (use! "llwwns/tangerine.nvim" :opt true
     :ft "fennel"
     :requires ["udayvir-singh/hibiscus.nvim" ]

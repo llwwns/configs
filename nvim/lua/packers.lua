@@ -160,59 +160,65 @@ local function _5_(use)
   end
   use({config = _31_, "puremourning/vimspector"})
   use("MunifTanjim/nui.nvim")
-  use("bfredl/nvim-luadev")
   local function _32_()
+    vim.keymap.set({"n"}, "<leader>ll", "<Plug>(Luadev-RunLine)", {noremap = true, silent = true})
+    vim.keymap.set({"n", "v"}, "<leader>lr", "<Plug>(Luadev-Run)", {noremap = true, silent = true})
+    vim.keymap.set({"n"}, "<leader>lw", "<Plug>(Luadev-RunWord)", {noremap = true, silent = true})
+    return vim.keymap.set({"i"}, "<c-k><c-l>", "<Plug>(Luadev-Complete)", {noremap = true, silent = true})
+  end
+  use({cmd = {"Luadev"}, config = _32_, opt = true, "bfredl/nvim-luadev"})
+  local function _33_()
     return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
   end
-  use({config = _32_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
-  local function _33_()
+  use({config = _33_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
+  local function _34_()
     vim.g["tpipeline_cursormoved"] = 1
     return nil
   end
-  use({setup = _33_, "vimpostor/vim-tpipeline"})
-  local function _34_()
+  use({setup = _34_, "vimpostor/vim-tpipeline"})
+  local function _35_()
     return require("hydra_init")
   end
-  use({config = _34_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
-  local function _35_()
+  use({config = _35_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
+  local function _36_()
     return require("icon-picker")
   end
-  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _35_, opt = true, "ziontee113/icon-picker.nvim"})
-  local function _36_()
+  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _36_, opt = true, "ziontee113/icon-picker.nvim"})
+  local function _37_()
     return (require("scope")).setup()
   end
-  use({config = _36_, "tiagovla/scope.nvim"})
-  local function _37_()
+  use({config = _37_, "tiagovla/scope.nvim"})
+  local function _38_()
     local notify = require("notify")
     notify.setup()
     do end (vim)["notify"] = notify
     return nil
   end
-  use({config = _37_, "rcarriga/nvim-notify"})
-  local function _38_()
+  use({config = _38_, "rcarriga/nvim-notify"})
+  local function _39_()
     return (require("colorizer")).setup()
   end
-  use({config = _38_, "norcalli/nvim-colorizer.lua"})
-  local function _39_()
+  use({config = _39_, "norcalli/nvim-colorizer.lua"})
+  local function _40_()
     return require("dial_init")
   end
-  use({config = _39_, keys = {{"n", "<Plug>(dial-increment)"}, {"n", "<Plug>(dial-decrement)"}, {"v", "<Plug>(dial-increment)"}, {"v", "<Plug>(dial-decrement)"}, {"v", "g<Plug>(dial-increment)"}, {"v", "g<Plug>(dial-decrement)"}}, opt = true, "monaqa/dial.nvim"})
-  local function _40_()
+  use({config = _40_, keys = {{"n", "<Plug>(dial-increment)"}, {"n", "<Plug>(dial-decrement)"}, {"v", "<Plug>(dial-increment)"}, {"v", "<Plug>(dial-decrement)"}, {"v", "g<Plug>(dial-increment)"}, {"v", "g<Plug>(dial-decrement)"}}, opt = true, "monaqa/dial.nvim"})
+  local function _41_()
     return (require("iswap")).setup({flash_style = false, move_cursor = true})
   end
-  use({config = _40_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
+  use({config = _41_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
   use({module = {"dapui"}, opt = true, "rcarriga/nvim-dap-ui"})
-  local function _41_()
+  local function _42_()
     return require("dap_init", "opt", true, "module", {"dap"})
   end
-  use({config = _41_, "mfussenegger/nvim-dap"})
-  local function _42_()
+  use({config = _42_, "mfussenegger/nvim-dap"})
+  local function _43_()
     do end (require("dap-go")).setup()
-    local function _43_()
+    local function _44_()
       return (require("dap-go")).debug_test()
     end
-    return vim.keymap.set({"n"}, "<leader>td", _43_, {silent = true})
+    return vim.keymap.set({"n"}, "<leader>td", _44_, {silent = true})
   end
-  return use({config = _42_, ft = {"go"}, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
+  return use({config = _43_, ft = {"go"}, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
 end
 return (require("packer")).startup(_5_)

@@ -40,7 +40,6 @@ vim.opt["shortmess"] = "atToOFcA"
 vim.opt["sessionoptions"] = {"blank", "curdir", "folds", "tabpages"}
 vim.opt["fillchars"] = {horiz = "\226\148\128", horizup = "\226\148\180", horizdown = "\226\148\172", vert = "\226\148\130", vertleft = "\226\148\164", vertright = "\226\148\156", verthoriz = "\226\148\188", fold = " ", foldopen = "\239\145\188", foldclose = "\239\145\160", diff = "\226\149\177", eob = " "}
 vim.opt["laststatus"] = 3
-vim.opt["cmdheight"] = 0
 vim.opt["exrc"] = true
 vim.opt["secure"] = true
 vim.opt["hidden"] = true
