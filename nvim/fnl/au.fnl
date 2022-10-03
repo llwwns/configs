@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(require-macros :utils-macros)
 
 (augroup! :numbertoggle
     [[BufEnter FocusGained InsertLeave] *
@@ -38,6 +39,7 @@
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (map! [n :buffer :verbose] "<leader>cr" "<cmd>!go run %<CR>")
+    (map! [n] "<leader>td" #(require-fun :dap-go#debug_test))
     (tset vim.b :format_on_save true))]
   [[FileType] [cpp c] (fn []
     (tset vim.opt_local :foldmethod "expr")
@@ -72,6 +74,7 @@
     (map! [n :buffer :verbose] "[c" "<cmd>RainbowAlign<CR>")
     (map! [n :buffer :verbose] "]c" "<cmd>RainbowShrink<CR>"))]
   [[BufNewFile BufRead] [*.cue] "set filetype=cue"]
+  [[BufNewFile BufRead] [todo.txt] "set filetype=todo"]
   [[FileType] proto (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]

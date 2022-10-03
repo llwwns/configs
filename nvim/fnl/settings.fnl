@@ -65,7 +65,7 @@
   :eob " "
 })
 (set! laststatus 3)
-;; (set! cmdheight 0)
+(set! cmdheight 0)
 (set! exrc true)
 (set! secure true)
 (set! hidden true)
@@ -75,7 +75,7 @@
 
 ;; (rem! guioptions "e")
 
-(vim.cmd "filetype plugin indent on")
+;; (vim.cmd "filetype plugin indent on")
   ;; ["let $FZF_DEFAULT_COMMAND = 'fd'"]
   ;; ["let $FZF_DEFAULT_OPTS='--layout=reverse'"]
 

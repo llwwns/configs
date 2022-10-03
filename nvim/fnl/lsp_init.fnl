@@ -87,7 +87,7 @@
   :sources [
     prettierd
     ;; eslint_d
-    null-ls.builtins.code_actions.gitsigns
+    ;; null-ls.builtins.code_actions.gitsigns
     null-ls.builtins.formatting.stylua
     null-ls.builtins.diagnostics.shellcheck
   ]

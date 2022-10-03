@@ -73,7 +73,7 @@ do
   local capabilities0 = vim.lsp.protocol.make_client_capabilities()
   capabilities = (require("cmp_nvim_lsp")).update_capabilities(capabilities0)
 end
-null_ls.setup({sources = {prettierd, null_ls.builtins.code_actions.gitsigns, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
+null_ls.setup({sources = {prettierd, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
 lsp.clangd.setup({on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
 lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
 lsp.tsserver.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})

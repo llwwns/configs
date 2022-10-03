@@ -106,7 +106,7 @@
   #(require-fun :hop#hint_char2))
 
 (map! [n :noremap] "<leader>a" "<cmd>ArgWrap<CR>")
-(map! [c] "w!!" "w suda://%")
+(map! [c] "w!!" ":SudaWrite")
 (map! [n] "<Leader>m" "<Plug>(git-messenger)")
 
 (map! [n] "[," ":Tab /,<CR>")

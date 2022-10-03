@@ -110,7 +110,7 @@ local function _17_()
 end
 vim.keymap.set({"o"}, "z", _17_, {silent = true})
 vim.keymap.set({"n"}, "<leader>a", "<cmd>ArgWrap<CR>", {noremap = true, silent = true})
-vim.keymap.set({"c"}, "w!!", "w suda://%", {silent = true})
+vim.keymap.set({"c"}, "w!!", ":SudaWrite", {silent = true})
 vim.keymap.set({"n"}, "<Leader>m", "<Plug>(git-messenger)", {silent = true})
 vim.keymap.set({"n"}, "[,", ":Tab /,<CR>", {silent = true})
 vim.keymap.set({"v"}, "[,", ":'<,'>Tab /,<CR>", {silent = true})

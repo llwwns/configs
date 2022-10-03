@@ -34,7 +34,16 @@
       :HtmlBeautify
       :CSSBeautify
     ])
-  (use! :tpope/vim-abolish)
+  (use! :tpope/vim-abolish :opt true :cmd [:Abolish :Subvert] :keys [
+    [:n "crs"]
+    [:n "crm"]
+    [:n "crc"]
+    [:n "cru"]
+    [:n "cr-"]
+    [:n "cr."]
+    [:n "cr "]
+    [:n "crt"]
+  ])
   ;; (use! :kylechui/nvim-surround
   ;;   :config #((-> :nvim-surround (require) (. :setup))))
   (use! :tpope/vim-surround)
@@ -58,6 +67,8 @@
   (use! "llwwns/nvim-navic"
     :config #(require-fun "nvim-navic#setup"))
   (use! "hrsh7th/nvim-cmp"
+    :opt true
+    :event [:InsertEnter]
     :requires [
       "hrsh7th/cmp-buffer"
       "hrsh7th/cmp-nvim-lua"
@@ -67,6 +78,7 @@
       "hrsh7th/cmp-cmdline"
     ]
     :config #(require "cmp_init"))
+  (use! "hrsh7th/cmp-nvim-lsp")
   (use! :nvim-lua/lsp_extensions.nvim :opt true :module ["lsp_extensions"])
   ;; (use! "kyazdani42/nvim-tree.lua"
   ;;   :requires "kyazdani42/nvim-web-devicons"
@@ -86,7 +98,7 @@
         "MunifTanjim/nui.nvim"
       ])
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
-  (use! :dbeniamine/todo.txt-vim)
+  (use! :dbeniamine/todo.txt-vim :opt true :ft ["todo"])
   (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
   (use! :RRethy/vim-illuminate :config (fn [] (require-fun :illuminate#configure {
     :providers [:regex]
@@ -94,7 +106,7 @@
   })
   (vim.cmd "hi link IlluminatedWordText illuminatedWord")))
   (use! :junegunn/gv.vim :opt true :cmd ["GV"])
-  (use! :lambdalisue/suda.vim)
+  (use! :lambdalisue/suda.vim :opt true :cmd ["SudaWrite"])
   (use! :tyru/eskk.vim :opt true
     :keys [[ "i" "<c-j>"] ["c" "<c-j>"] ["l" "<c-j>"]]
     :setup #(g! "eskk#enable_completion" 1))
@@ -280,8 +292,6 @@
     ]
     :config #(require "diffview_init"))
   ;; (use! "EdenEast/nightfox.nvim")
-  (use! "puremourning/vimspector"
-    :config #(tset vim.g :vimspector_enable_mappings "HUMAN"))
   (use! "MunifTanjim/nui.nvim")
   (use! "bfredl/nvim-luadev" :opt true
         :cmd [:Luadev] :config (fn [] 
@@ -298,7 +308,7 @@
           :hooks [ "onsave" ]
         }
       }))
-  (use! "vimpostor/vim-tpipeline" :setup #(g! :tpipeline_cursormoved 1))
+  ;; (use! "vimpostor/vim-tpipeline" :setup #(g! :tpipeline_cursormoved 1))
   (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :requires :anuvyklack/keymap-layer.nvim)
   (use! :ziontee113/icon-picker.nvim 
     :opt true :cmd [
@@ -334,10 +344,9 @@
   (use! :mizlan/iswap.nvim :opt true :module [:iswap] :config 
     #(require-fun :iswap#setup {:flash_style false :move_cursor true}))
   (use! :rcarriga/nvim-dap-ui :opt true :module [:dapui])
-  (use! :mfussenegger/nvim-dap :config #(require :dap_init :opt true :module [:dap]))
-  (use! :leoluz/nvim-dap-go :requires [:mfussenegger/nvim-dap] :ft ["go"] :config
-    #(do 
-      (require-fun :dap-go#setup)
-      (map! [n] "<leader>td" #(require-fun :dap-go#debug_test))))
+  (use! :mfussenegger/nvim-dap :config #(require :dap_init) :opt true :module [:dap])
+  (use! :leoluz/nvim-dap-go :opt true :requires [:mfussenegger/nvim-dap] :module [:dap-go] :config
+    #(require-fun :dap-go#setup))
+  (use! :dstein64/vim-startuptime)
 )
 

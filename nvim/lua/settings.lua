@@ -40,12 +40,12 @@ vim.opt["shortmess"] = "atToOFcA"
 vim.opt["sessionoptions"] = {"blank", "curdir", "folds", "tabpages"}
 vim.opt["fillchars"] = {horiz = "\226\148\128", horizup = "\226\148\180", horizdown = "\226\148\172", vert = "\226\148\130", vertleft = "\226\148\164", vertright = "\226\148\156", verthoriz = "\226\148\188", fold = " ", foldopen = "\239\145\188", foldclose = "\239\145\160", diff = "\226\149\177", eob = " "}
 vim.opt["laststatus"] = 3
+vim.opt["cmdheight"] = 0
 vim.opt["exrc"] = true
 vim.opt["secure"] = true
 vim.opt["hidden"] = true
 vim.opt["spellfile"] = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
 do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff"
-vim.cmd("filetype plugin indent on")
 vim.fn.sign_define("DiagnosticSignError", {text = "\239\129\151", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DiagnosticSignWarn", {text = "\239\129\177", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignHint", {text = "\239\129\154", texthl = "DiagnosticSignHint"})
