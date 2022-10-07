@@ -105,4 +105,27 @@ _G.lsp_format = function()
     return nil
   end
 end
-return _G.lsp_format
+local function is_floating(win)
+  local cfg = vim.api.nvim_win_get_config(win)
+  if ((cfg.relative > "") or cfg.external) then
+    return true
+  else
+    return false
+  end
+end
+_G.is_special = function(window)
+  local function _17_()
+    local buf = vim.api.nvim_win_get_buf(window)
+    return (vim.tbl_contains({"quickfix", "nofile"}, vim.api.nvim_buf_get_option(buf, "buftype")) or vim.tbl_contains({"dapui_watches", "dap-repl"}, vim.api.nvim_buf_get_option(buf, "filetype")))
+  end
+  return (is_floating(window) or _17_())
+end
+_G.all_special = function()
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local ret = true
+  for i, w in ipairs(wins) do
+    ret = (ret and _G.is_special(w))
+  end
+  return ret
+end
+return _G.all_special

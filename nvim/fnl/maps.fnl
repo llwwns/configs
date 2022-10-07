@@ -22,12 +22,12 @@
 (g! :maplocalleader "'")
 
 
-(map! [n] "Q" "<nop>")
-(map! [n] "q" "<nop>")
-(map! [n :noremap] "q:" "q:")
-(map! [n :noremap] "q/" "q/")
-(map! [n :noremap] "Q" "Q")
-(map! [n :noremap] "<leader>q" "q")
+;; (map! [n] "Q" "<nop>")
+;; (map! [n] "q" "<nop>")
+;; (map! [n :noremap] "q:" "q:")
+;; (map! [n :noremap] "q/" "q/")
+;; (map! [n :noremap] "Q" "Q")
+;; (map! [n :noremap] "<leader>q" "q")
 
 (map! [n :verbose] "<c-q>" "<cmd>q<CR>")
 

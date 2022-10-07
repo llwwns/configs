@@ -7,7 +7,7 @@
 (vim.fn.sign_define :DiagnosticSignHint {:text "" :texthl "DiagnosticSignHint"})
 
 ((-> :neo-tree (require) (. :setup)) {
-  :close_if_last_window true
+  :close_if_last_window false
   :filesystem {
     :follow_current_file true
     :hijack_netrw_behavior "open_default"

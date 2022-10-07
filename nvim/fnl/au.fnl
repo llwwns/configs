@@ -17,6 +17,12 @@
   [[BufReadPost] fugitive://* "set bufhidden=delete"])
 (augroup! :term
   [[TermOpen] * "IndentBlanklineDisable"])
+(augroup! :autoclose
+  ;; [[WinEnter] * #(if (and (= (vim.fn.winnr "$") 1) (= vim.o.buftype "quickfix")) (vim.cmd "q"))])
+  [[WinEnter] * #(do
+                   (when (and (_G.is_special (vim.api.nvim_get_current_win)) (_G.all_special))
+                       (vim.defer_fn #(vim.cmd "q") 0)))])
+
 (augroup! :filetypes
   [[FileType] * (fn []
     (tset vim.opt_local :spelloptions :camel))]

@@ -31,115 +31,129 @@ do
   local augid_8_ = vim.api.nvim_create_augroup("term", {clear = true})
   vim.api.nvim_create_autocmd({"TermOpen"}, {command = "IndentBlanklineDisable", group = augid_8_, pattern = "*"})
 end
-local augid_9_ = vim.api.nvim_create_augroup("filetypes", {clear = true})
-local function _10_()
+do
+  local augid_9_ = vim.api.nvim_create_augroup("autoclose", {clear = true})
+  local function _10_()
+    if (_G.is_special(vim.api.nvim_get_current_win()) and _G.all_special()) then
+      local function _11_()
+        return vim.cmd("q")
+      end
+      return vim.defer_fn(_11_, 0)
+    else
+      return nil
+    end
+  end
+  vim.api.nvim_create_autocmd({"WinEnter"}, {callback = _10_, group = augid_9_, pattern = "*"})
+end
+local augid_13_ = vim.api.nvim_create_augroup("filetypes", {clear = true})
+local function _14_()
   vim.opt_local["spelloptions"] = "camel"
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _10_, group = augid_9_, pattern = "*"})
-local function _11_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _14_, group = augid_13_, pattern = "*"})
+local function _15_()
   vim.opt_local["tabstop"] = 8
   vim.opt_local["expandtab"] = false
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _11_, group = augid_9_, pattern = "make"})
-local function _12_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _15_, group = augid_13_, pattern = "make"})
+local function _16_()
   vim.opt_local["tabstop"] = 4
   vim.opt_local["expandtab"] = false
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _12_, group = augid_9_, pattern = "nginx"})
-local function _13_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _16_, group = augid_13_, pattern = "nginx"})
+local function _17_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.b["format_on_save"] = true
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _13_, group = augid_9_, pattern = "lua"})
-local function _14_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _17_, group = augid_13_, pattern = "lua"})
+local function _18_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.b["format_on_save"] = true
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _14_, group = augid_9_, pattern = "ruby"})
-local function _15_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _18_, group = augid_13_, pattern = "ruby"})
+local function _19_()
   vim.opt_local["expandtab"] = false
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.keymap.set({"n"}, "<leader>cr", "<cmd>!go run %<CR>", {buffer = true, silent = false})
-  local function _16_()
+  local function _20_()
     return (require("dap-go")).debug_test()
   end
-  vim.keymap.set({"n"}, "<leader>td", _16_, {silent = true})
+  vim.keymap.set({"n"}, "<leader>td", _20_, {silent = true})
   do end (vim.b)["format_on_save"] = true
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _15_, group = augid_9_, pattern = "go"})
-local function _17_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _19_, group = augid_13_, pattern = "go"})
+local function _21_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.opt_local["tabstop"] = 4
   vim.keymap.set({"n"}, "<leader>cm", "<cmd>!clang++ -std=c++17 -g3 % <CR>", {buffer = true, silent = false})
   return vim.keymap.set({"n"}, "<leader>cr", "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>", {buffer = true, silent = false})
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _17_, group = augid_9_, pattern = {"cpp", "c"}})
-local function _18_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _21_, group = augid_13_, pattern = {"cpp", "c"}})
+local function _22_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.opt_local["tabstop"] = 4
   vim.b["format_on_save"] = true
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _18_, group = augid_9_, pattern = "rust"})
-local function _19_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _22_, group = augid_13_, pattern = "rust"})
+local function _23_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   vim.b["format_on_save"] = true
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _19_, group = augid_9_, pattern = "rust"})
-local function _20_()
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _23_, group = augid_13_, pattern = "rust"})
+local function _24_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   return vim.keymap.set({"n"}, "[j", vim.fn.JsonBeautify, {buffer = true, desc = {}, silent = false})
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _20_, group = augid_9_, pattern = "json"})
-local function _21_()
-  vim.opt_local["foldmethod"] = "expr"
-  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
-  return nil
-end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _21_, group = augid_9_, pattern = {"toml", "yaml"}})
-local function _22_()
-  vim.opt_local["foldmethod"] = "expr"
-  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
-  vim.b["format_on_save"] = true
-  return nil
-end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _22_, group = augid_9_, pattern = {"javascript", "javascript.jsx", "typescript", "typescriptreact"}})
-local function _23_()
-  vim.opt_local["tabstop"] = 4
-  return nil
-end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _23_, group = augid_9_, pattern = "autohotkey"})
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=csv", group = augid_9_, pattern = {"*.tsv", "*.csv"}})
-local function _24_()
-  vim.keymap.set({"n"}, "[c", "<cmd>RainbowAlign<CR>", {buffer = true, silent = false})
-  return vim.keymap.set({"n"}, "]c", "<cmd>RainbowShrink<CR>", {buffer = true, silent = false})
-end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _24_, group = augid_9_, pattern = "csv"})
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=cue", group = augid_9_, pattern = {"*.cue"}})
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=todo", group = augid_9_, pattern = {"todo.txt"}})
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _24_, group = augid_13_, pattern = "json"})
 local function _25_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   return nil
 end
-vim.api.nvim_create_autocmd({"FileType"}, {callback = _25_, group = augid_9_, pattern = "proto"})
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _25_, group = augid_13_, pattern = {"toml", "yaml"}})
 local function _26_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  vim.b["format_on_save"] = true
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _26_, group = augid_13_, pattern = {"javascript", "javascript.jsx", "typescript", "typescriptreact"}})
+local function _27_()
+  vim.opt_local["tabstop"] = 4
+  return nil
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _27_, group = augid_13_, pattern = "autohotkey"})
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=csv", group = augid_13_, pattern = {"*.tsv", "*.csv"}})
+local function _28_()
+  vim.keymap.set({"n"}, "[c", "<cmd>RainbowAlign<CR>", {buffer = true, silent = false})
+  return vim.keymap.set({"n"}, "]c", "<cmd>RainbowShrink<CR>", {buffer = true, silent = false})
+end
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _28_, group = augid_13_, pattern = "csv"})
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=cue", group = augid_13_, pattern = {"*.cue"}})
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {command = "set filetype=todo", group = augid_13_, pattern = {"todo.txt"}})
+local function _29_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   return nil
 end
-return vim.api.nvim_create_autocmd({"FileType"}, {callback = _26_, group = augid_9_, pattern = {"sh", "fish"}})
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _29_, group = augid_13_, pattern = "proto"})
+local function _30_()
+  vim.opt_local["foldmethod"] = "expr"
+  vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+  return nil
+end
+return vim.api.nvim_create_autocmd({"FileType"}, {callback = _30_, group = augid_13_, pattern = {"sh", "fish"}})

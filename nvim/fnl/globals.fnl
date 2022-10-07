@@ -74,8 +74,20 @@
 (fn _G.lsp_format []
   (when vim.b.format_on_save
     (vim.lsp.buf.format)))
-;;
-;; (fn _G.entries [tbl]
-;;   (var ret [])
-;;   (each [k v (pairs tbl)] (table.insert ret [k v]))
-;;   ret)
+
+(fn is_floating [win]
+  (let [cfg (vim.api.nvim_win_get_config win)]
+    (if (or (> cfg.relative "") cfg.external) true false)))
+
+(fn _G.is_special [window]
+  (or (is_floating window) 
+    (let [buf (vim.api.nvim_win_get_buf window)]
+      (or 
+        (vim.tbl_contains [:quickfix :nofile] (vim.api.nvim_buf_get_option buf "buftype"))
+        (vim.tbl_contains [:dapui_watches :dap-repl] (vim.api.nvim_buf_get_option buf "filetype"))))))
+
+(fn _G.all_special []
+  (let [wins (vim.api.nvim_tabpage_list_wins 0)]
+    (accumulate [ret true
+                     i w (ipairs wins)]
+      (and ret (_G.is_special w)))))

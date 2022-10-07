@@ -75,7 +75,7 @@
     "toml"
     "tsx"
     "typescript"
-    "vim"
+    ;; "vim"
     "yaml"
   ]
 })

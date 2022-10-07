@@ -1,12 +1,6 @@
 -- :fennel:generated
 vim.g["mapleader"] = "'"
 vim.g["maplocalleader"] = "'"
-vim.keymap.set({"n"}, "Q", "<nop>", {silent = true})
-vim.keymap.set({"n"}, "q", "<nop>", {silent = true})
-vim.keymap.set({"n"}, "q:", "q:", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "q/", "q/", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "Q", "Q", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<leader>q", "q", {noremap = true, silent = true})
 vim.keymap.set({"n"}, "<c-q>", "<cmd>q<CR>", {silent = false})
 local function _1_()
   if (vim.fn.win_gettype() ~= "command") then
