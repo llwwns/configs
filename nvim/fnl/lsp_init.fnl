@@ -77,11 +77,9 @@
       #((-> :lsp_extensions (require) (. :inlay_hints)) {
         :enabled ["ChainingHint" "TypeHint"]
       })]))
-;;
-(local capabilities 
-    (let [capabilities (vim.lsp.protocol.make_client_capabilities)]
-      (require-fun :cmp_nvim_lsp#update_capabilities capabilities)))
-;;
+
+(local capabilities (require-fun :cmp_nvim_lsp#default_capabilities))
+
 (null-ls.setup {
   ;; :debug true
   :sources [

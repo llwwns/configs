@@ -68,11 +68,7 @@ local function on_attach_rs(client, bufnr)
   end
   return vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "TabEnter", "InsertLeave"}, {callback = _8_, group = augid_7_, pattern = "*.rs"})
 end
-local capabilities
-do
-  local capabilities0 = vim.lsp.protocol.make_client_capabilities()
-  capabilities = (require("cmp_nvim_lsp")).update_capabilities(capabilities0)
-end
+local capabilities = (require("cmp_nvim_lsp")).default_capabilities()
 null_ls.setup({sources = {prettierd, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
 lsp.clangd.setup({on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
 lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
