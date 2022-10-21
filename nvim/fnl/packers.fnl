@@ -344,5 +344,17 @@
   (use! :leoluz/nvim-dap-go :opt true :requires [:mfussenegger/nvim-dap] :module [:dap-go] :config
     #(require-fun :dap-go#setup))
   (use! :dstein64/vim-startuptime)
+  (use!
+    :toppair/peek.nvim
+    :run "deno task --quiet build:fast"
+    :opt true :ft "markdown"
+    :module [:peek]
+    :config #(require-fun :peek#setup {
+        :auto_load true
+        :close_on_bdelete true
+        :syntax true
+        :theme "dark"
+        :update_on_change true
+      }))
 )
 

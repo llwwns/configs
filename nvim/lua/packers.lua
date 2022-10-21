@@ -202,6 +202,10 @@ local function _4_(use)
     return (require("dap-go")).setup()
   end
   use({config = _40_, module = {"dap-go"}, opt = true, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
-  return use("dstein64/vim-startuptime")
+  use("dstein64/vim-startuptime")
+  local function _41_()
+    return (require("peek")).setup({auto_load = true, close_on_bdelete = true, syntax = true, theme = "dark", update_on_change = true})
+  end
+  return use({config = _41_, ft = "markdown", module = {"peek"}, opt = true, run = "deno task --quiet build:fast", "toppair/peek.nvim"})
 end
 return (require("packer")).startup(_4_)

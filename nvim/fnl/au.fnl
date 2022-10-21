@@ -65,7 +65,7 @@
   [[FileType] json (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
-    (map! [n :buffer :verbose] "[j" vim.fn.JsonBeautify {}))]
+    (map! [n :buffer :verbose] "[j" vim.fn.JsonBeautify))]
   [[FileType] [toml yaml] (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
@@ -87,6 +87,9 @@
   [[FileType] [sh fish] (fn []
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
+  [[FileType] [markdown] (fn []
+      (map! [n] "<leader>po" #(require-fun :peek#open))
+      (map! [n] "<leader>pc" #(require-fun :peek#close)))]
 )
 ;; -- augroups {
 ;; --   filetypes = {

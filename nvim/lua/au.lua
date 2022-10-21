@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({"FileType"}, {callback = _23_, group = augid_13_, p
 local function _24_()
   vim.opt_local["foldmethod"] = "expr"
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
-  return vim.keymap.set({"n"}, "[j", vim.fn.JsonBeautify, {buffer = true, desc = {}, silent = false})
+  return vim.keymap.set({"n"}, "[j", vim.fn.JsonBeautify, {buffer = true, silent = false})
 end
 vim.api.nvim_create_autocmd({"FileType"}, {callback = _24_, group = augid_13_, pattern = "json"})
 local function _25_()
@@ -156,4 +156,15 @@ local function _30_()
   vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
   return nil
 end
-return vim.api.nvim_create_autocmd({"FileType"}, {callback = _30_, group = augid_13_, pattern = {"sh", "fish"}})
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _30_, group = augid_13_, pattern = {"sh", "fish"}})
+local function _31_()
+  local function _32_()
+    return (require("peek")).open()
+  end
+  vim.keymap.set({"n"}, "<leader>po", _32_, {silent = true})
+  local function _33_()
+    return (require("peek")).close()
+  end
+  return vim.keymap.set({"n"}, "<leader>pc", _33_, {silent = true})
+end
+return vim.api.nvim_create_autocmd({"FileType"}, {callback = _31_, group = augid_13_, pattern = {"markdown"}})

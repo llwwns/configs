@@ -94,6 +94,7 @@
 })
 ;;
 (lsp.clangd.setup {
+  :filetypes [:c :cpp :objc :objcpp :cuda]
   :on_attach  on_attach_rs
   :capabilities  capabilities
   :cmd [ "clangd" "--background-index" ]
@@ -183,6 +184,12 @@
  })
 
 (lsp.marksman.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+
+(lsp.elixirls.setup {
+  :cmd [ "elixir-ls" ]
   :on_attach on_attach
   :capabilities capabilities
 })
