@@ -356,7 +356,5 @@
         :theme "dark"
         :update_on_change true
       }))
-  (use! :nvim-zh/colorful-winsep.nvim
-    :config #(require-fun :colorful-winsep#setup {}))
 )
 

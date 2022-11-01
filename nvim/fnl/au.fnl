@@ -20,8 +20,11 @@
 (augroup! :autoclose
   ;; [[WinEnter] * #(if (and (= (vim.fn.winnr "$") 1) (= vim.o.buftype "quickfix")) (vim.cmd "q"))])
   [[WinEnter] * #(do
+                   (tset _G :__latest_id (if _G.__latest_id (+ _G.__latest_id 1) 1))
                    (when (and (_G.is_special (vim.api.nvim_get_current_win)) (_G.all_special))
-                       (vim.defer_fn #(vim.cmd "q") 0)))])
+                      (let [id _G.__latest_id]
+                        (vim.defer_fn
+                          #(when (= id _G.__latest_id) (vim.cmd "q")) 0))))])
 
 (augroup! :filetypes
   [[FileType] * (fn []
