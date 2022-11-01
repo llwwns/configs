@@ -39,6 +39,10 @@
   #(when (~= (vim.fn.win_gettype) "command")
     (require-fun :telescope.builtin#find_files)))
 
+(map! [n] "<leader>sw" 
+  #(when (~= (vim.fn.win_gettype) "command")
+    (require-fun :telescope.builtin#git_branches)))
+
 ;; (map! [n :verbose] "<leader><tab>" 
 ;;   #(require-fun :nvim-tree :toggle true))
 (map! [n :verbose] "<leader><tab>" "<cmd>Neotree toggle reveal=true<CR>")
@@ -210,3 +214,5 @@
 (map! [n] "g<" #(require-fun :iswap#iswap_node_with :left))
 (map! [n] "g>" #(require-fun :iswap#iswap_node_with :right))
 (map! [nx] "<leader>s" #(require-fun :iswap#iswap_node_with))
+
+(map! [n :noremap] "gp" "`[v`]")

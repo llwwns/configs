@@ -206,6 +206,10 @@ local function _4_(use)
   local function _41_()
     return (require("peek")).setup({auto_load = true, close_on_bdelete = true, syntax = true, theme = "dark", update_on_change = true})
   end
-  return use({config = _41_, ft = "markdown", module = {"peek"}, opt = true, run = "deno task --quiet build:fast", "toppair/peek.nvim"})
+  use({config = _41_, ft = "markdown", module = {"peek"}, opt = true, run = "deno task --quiet build:fast", "toppair/peek.nvim"})
+  local function _42_()
+    return (require("colorful-winsep")).setup({})
+  end
+  return use({config = _42_, "nvim-zh/colorful-winsep.nvim"})
 end
 return (require("packer")).startup(_4_)

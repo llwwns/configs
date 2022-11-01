@@ -1,7 +1,7 @@
 (require :words)
 (local cmp (require :cmp))
 
-(local mapping {
+(local mapping (cmp.mapping.preset.insert {
   :<C-p> (cmp.mapping.select_prev_item)
   :<C-n> (cmp.mapping.select_next_item)
   :<C-u> (cmp.mapping.scroll_docs -4)
@@ -12,7 +12,7 @@
     :behavior cmp.ConfirmBehavior.Insert
     :select true
   })
-})
+}))
 
 (cmp.setup {
   :snippet {

@@ -26,12 +26,12 @@
 (fn _G.foldtext2 []
   (if vim.o.diff
     (_G.foldtext)
-  (let [
-    fs (vim.api.nvim_get_vvar "foldstart")
-    fe (vim.api.nvim_get_vvar "foldend")
-    ls (vim.fn.substitute (vim.fn.getline fs) "\t" (string.rep " " vim.bo.tabstop) "g")
-    le (vim.fn.getline fe)
-  ] (.. ls "..." (vim.fn.trim le)))))
+    (let [
+      fs (vim.api.nvim_get_vvar "foldstart")
+      fe (vim.api.nvim_get_vvar "foldend")
+      ls (vim.fn.substitute (vim.fn.getline fs) "\t" (string.rep " " vim.bo.tabstop) "g")
+      le (vim.fn.getline fe)
+    ] (.. ls "..." (vim.fn.trim le)))))
 
 (fn _G.toggleNvimTree []
   (let [

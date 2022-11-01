@@ -34,6 +34,7 @@
 (set! softtabstop -1)
 (set! expandtab true)
 (set! autoindent false)
+(set! indentkeys "")
 (set! updatetime 1000)
 (set! signcolumn "yes")
 (set! inccommand "nosplit")
@@ -108,7 +109,7 @@
 (set! foldtext "v:lua.foldtext2()")
 (set! foldcolumn "1")
 (set! dictionary "/usr/share/dict/words")
-;; (set! winbar " ")
+(set! conceallevel 0)
 
 ;; guis
 (if 

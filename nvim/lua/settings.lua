@@ -23,6 +23,7 @@ vim.opt["tabstop"] = 2
 vim.opt["softtabstop"] = -1
 vim.opt["expandtab"] = true
 vim.opt["autoindent"] = false
+vim.opt["indentkeys"] = ""
 vim.opt["updatetime"] = 1000
 vim.opt["signcolumn"] = "yes"
 vim.opt["inccommand"] = "nosplit"
@@ -65,6 +66,7 @@ vim.opt["foldminlines"] = 1
 vim.opt["foldtext"] = "v:lua.foldtext2()"
 vim.opt["foldcolumn"] = "1"
 vim.opt["dictionary"] = "/usr/share/dict/words"
+vim.opt["conceallevel"] = 0
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
