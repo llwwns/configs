@@ -121,7 +121,7 @@ local function _4_(use)
   end
   use({config = _23_, module = "hop", opt = true, "phaazon/hop.nvim"})
   local function _24_()
-    return (require("FTerm")).setup({dimensions = {height = 0.95, width = 0.8}})
+    return (require("FTerm")).setup({dimensions = {height = 0.8, width = 1, y = 1}})
   end
   use({config = _24_, module = "FTerm", opt = true, "numtostr/FTerm.nvim"})
   use("windwp/nvim-ts-autotag")

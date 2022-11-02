@@ -240,8 +240,9 @@
     :module "FTerm"
     :config #(require-fun :FTerm#setup {
         :dimensions {
-          :height 0.95
-          :width 0.8
+          :height 0.8
+          :width 1
+          :y 1
         }
       }))
 
