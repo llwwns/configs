@@ -72,7 +72,7 @@
 (set! hidden true)
 ;; (set! tags "./tags,tags;/")
 (set! spellfile (.. (vim.fn.stdpath "config") "/spell/en.utf-8.add"))
-(set! diffopt "internal,filler,algorithm:patience,indent-heuristic,closeoff")
+(set! diffopt "internal,filler,algorithm:patience,indent-heuristic,closeoff,linematch:120")
 
 ;; (rem! guioptions "e")
 

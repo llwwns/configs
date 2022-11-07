@@ -357,5 +357,6 @@
         :theme "dark"
         :update_on_change true
       }))
+  (use! :samjwill/nvim-unception :config #(g! unception_open_buffer_in_new_tab true))
 )
 

@@ -46,7 +46,7 @@ vim.opt["exrc"] = true
 vim.opt["secure"] = true
 vim.opt["hidden"] = true
 vim.opt["spellfile"] = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
-do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff"
+do end (vim.opt)["diffopt"] = "internal,filler,algorithm:patience,indent-heuristic,closeoff,linematch:120"
 vim.fn.sign_define("DiagnosticSignError", {text = "\239\129\151", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DiagnosticSignWarn", {text = "\239\129\177", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignHint", {text = "\239\129\154", texthl = "DiagnosticSignHint"})
