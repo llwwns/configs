@@ -2,6 +2,7 @@
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 if [[ ! -f ~/.config/git/config ]]; then
   mkdir -p ~/.config/git
+  touch ~/.config/git/config
 fi
 git config --global core.editor nvim
 git config --global core.mergeoptions --no-edit
@@ -9,6 +10,7 @@ git config --global pager.diff delta
 git config --global pager.log delta
 git config --global pager.reflog delta
 git config --global pager.show delta
+git config --global interactive.diffFilter delta --diff-highlight
 
 git config --global delta.navigate true
 git config --global delta.navigate true
@@ -56,19 +58,21 @@ git config --global pull.ff only
 
 git config --global stash.showPatch true
 
-git config --global init.defaultBranch true
+git config --global init.defaultBranch master
 
 git config --global credential.helper store
 
 git config --global rebase.autosquash true
 git config --global rebase.autostash true
 
+
+
 # mkdir -p ~/.config/nvim/
 # echo "source ~/.vimrc" > ~/.config/nvim/init.vim
 wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
 gzip -d SKK-JISYO.L.gz
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # cargo install ripgrep --force --features pcre2
 # cargo install fd-find
 # cargo install cargo-edit

@@ -9,14 +9,14 @@ makelink() {
   fi
   ln -s "$(pwd)/$2" "$HOME/$1"
 }
-makelink .inputrc   .inputrc
-makelink .tern-config .tern-config
-makelink .ycm_extra_conf.py .ycm_extra_conf.py
-makelink .xmonad .xmonad
 mkdir -p "$HOME/.config/"
 mkdir -p "$HOME/.config/fish"
 mkdir -p "$HOME/.config/tmux"
 mkdir -p "$HOME/.config/tig"
+makelink .inputrc   .inputrc
+# makelink .tern-config .tern-config
+# makelink .ycm_extra_conf.py .ycm_extra_conf.py
+# makelink .xmonad .xmonad
 makelink .config/tig/.tigrc .tigrc
 makelink .config/tmux.conf tmux.conf
 makelink .config/fish/config.fish fish/config.fish
