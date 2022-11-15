@@ -129,37 +129,40 @@
     :requires [ :p00f/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
   ;; (use! :bluz71/vim-moonfly-colors)
-  (use! :dstein64/nvim-scrollview)
+  ;; (use! :dstein64/nvim-scrollview)
+  (use! :petertriho/nvim-scrollbar :config #(require-fun :scrollbar#setup))
   (use! :mbbill/undotree :opt true :cmd "UndotreeToggle")
   (use! :lewis6991/gitsigns.nvim
     :requires [ "nvim-lua/plenary.nvim" ]
-    :config #(require-fun :gitsigns#setup
-      {
-        :numhl true
-        :signs {
-          :add { :hl "GitGutterAdd" :text "+" :numhl "GitGutterAdd" }
-          :change {
-            :hl "GitGutterChange"
-            :text "~"
-            :numhl "GitGutterChange"
+    :config (fn []
+      (require-fun :gitsigns#setup
+        {
+          :numhl true
+          :signs {
+            :add { :hl "GitGutterAdd" :text "+" :numhl "GitGutterAdd" }
+            :change {
+              :hl "GitGutterChange"
+              :text "~"
+              :numhl "GitGutterChange"
+            }
+            :delete {
+              :hl "GitGutterDelete"
+              :text "_"
+              :numhl "GitGutterDelete"
+            }
+            :topdelete {
+              :hl "GitGutterDelete"
+              :text "‾"
+              :numhl "GitGutterDelete"
+            }
+            :changedelete {
+              :hl "GitGutterChange"
+              :text "~"
+              :numhl "GitGutterChange"
+            }
           }
-          :delete {
-            :hl "GitGutterDelete"
-            :text "_"
-            :numhl "GitGutterDelete"
-          }
-          :topdelete {
-            :hl "GitGutterDelete"
-            :text "‾"
-            :numhl "GitGutterDelete"
-          }
-          :changedelete {
-            :hl "GitGutterChange"
-            :text "~"
-            :numhl "GitGutterChange"
-          }
-        }
-      }))
+        })
+      (require-fun :scrollbar.handlers.gitsigns#setup)))
   ;; (use! :bluz71/vim-nightfly-guicolors)
   (use! :kevinhwang91/nvim-bqf)
   (use! :onsails/lspkind-nvim
@@ -357,6 +360,9 @@
         :theme "dark"
         :update_on_change true
       }))
-  (use! :samjwill/nvim-unception :config #(g! unception_open_buffer_in_new_tab true))
+  (use! :nvim-zh/colorful-winsep.nvim
+    :config #(require-fun :colorful-winsep#setup {
+      :symbols ["─" "│" "┌" "┐" "└" "┘"]
+    }))
 )
 
