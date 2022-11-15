@@ -26,6 +26,12 @@
                         (vim.defer_fn
                           #(when (= id _G.__latest_id) (vim.cmd "q")) 0))))])
 
+(augroup! :visualmode
+  [[ModeChanged] *
+    #(match vim.v.event
+       {:new_mode "i" :old_mode ""} (tset vim.opt_local :indentkeys "")
+       {:old_mode "i"} (tset vim.opt_local :indentkeys "0{,0},0),0],:,0#,!^F,o,O,e"))])
+
 (augroup! :filetypes
   [[FileType] * (fn []
     (tset vim.opt_local :spelloptions :camel))]
