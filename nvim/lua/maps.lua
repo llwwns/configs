@@ -253,4 +253,5 @@ local function _39_()
   return (require("iswap")).iswap_node_with()
 end
 vim.keymap.set({"n", "x"}, "<leader>s", _39_, {silent = true})
+vim.keymap.set({"i"}, "<c-r>", "<c-r><c-o>", {noremap = true, silent = true})
 return vim.keymap.set({"n"}, "gp", "`[v`]", {noremap = true, silent = true})

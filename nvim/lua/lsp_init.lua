@@ -35,7 +35,7 @@ local function on_attach(client, bufnr)
     local buf = vim.api.nvim_win_get_buf(win)
     navic.attach(client, bufnr)
     if (buf == bufnr) then
-      WindLine.on_win_enter()
+      _G.WindLine.on_win_enter()
     else
     end
   else
@@ -87,6 +87,10 @@ lsp.tailwindcss.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.hls.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.marksman.setup({on_attach = on_attach, capabilities = capabilities})
 lsp.elixirls.setup({cmd = {"elixir-ls"}, on_attach = on_attach, capabilities = capabilities})
+local function _9_(_241)
+  return (util.find_git_ancestor(_241) or util.path.dirname(_241))
+end
+lsp.sumneko_lua.setup({on_attach = on_attach, capabilities = capabilities, runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}, workspace = {library = vim.api.nvim_get_runtime_file("", true)}, telemetry = {enable = false}, root_dir = _9_})
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())
 end

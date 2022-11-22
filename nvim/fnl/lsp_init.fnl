@@ -55,7 +55,7 @@
     (let [win (vim.api.nvim_get_current_win)
           buf (vim.api.nvim_win_get_buf win)]
       (navic.attach client bufnr)
-      (when (= buf bufnr) (WindLine.on_win_enter))))
+      (when (= buf bufnr) (_G.WindLine.on_win_enter))))
   (when (not _G.lsp_clients) (tset _G :lsp_clients {}))
   (tset _G.lsp_clients bufnr client))
 
@@ -188,10 +188,34 @@
   :capabilities capabilities
 })
 
+(lsp.fennel-ls.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+})
+
 (lsp.elixirls.setup {
   :cmd [ "elixir-ls" ]
   :on_attach on_attach
   :capabilities capabilities
+})
+
+(lsp.sumneko_lua.setup {
+  :on_attach on_attach
+  :capabilities capabilities
+  :runtime {
+    :version "LuaJIT"
+  }
+  :diagnostics {
+    :globals ["vim"]
+  }
+  :workspace {
+    :library (vim.api.nvim_get_runtime_file ""  true)
+  }
+  ;; Do not send telemetry data containing a randomized but unique identifier
+  :telemetry {
+    :enable false
+  }
+  :root_dir #(or (util.find_git_ancestor $1) (util.path.dirname $1))
 })
 
 ;; (when (not configs.ruby_lsp)

@@ -34,7 +34,7 @@
 (set! softtabstop -1)
 (set! expandtab true)
 (set! autoindent false)
-(set! indentkeys "")
+;; (set! indentkeys "")
 (set! updatetime 1000)
 (set! signcolumn "yes")
 (set! inccommand "nosplit")

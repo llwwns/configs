@@ -215,4 +215,5 @@
 (map! [n] "g>" #(require-fun :iswap#iswap_node_with :right))
 (map! [nx] "<leader>s" #(require-fun :iswap#iswap_node_with))
 
+(map! [i :noremap] "<c-r>" "<c-r><c-o>")
 (map! [n :noremap] "gp" "`[v`]")

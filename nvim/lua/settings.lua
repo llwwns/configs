@@ -23,7 +23,6 @@ vim.opt["tabstop"] = 2
 vim.opt["softtabstop"] = -1
 vim.opt["expandtab"] = true
 vim.opt["autoindent"] = false
-vim.opt["indentkeys"] = ""
 vim.opt["updatetime"] = 1000
 vim.opt["signcolumn"] = "yes"
 vim.opt["inccommand"] = "nosplit"
