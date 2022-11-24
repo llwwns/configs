@@ -12,7 +12,13 @@
     #(vim.highlight.on_yank { :higroup "Visual" :timeout 200 })])
 (augroup! :buf_large
   [[BufReadPre] *
-    "if getfsize(expand('%')) > 10000000 | syntax off | endif"])
+    #(let [(ok stats) (pcall vim.loop.fs_stat (vim.api.nvim_buf_get_name (vim.api.nvim_get_current_buf)))]
+       (when (and ok stats (> stats.size 1000000)) (do
+                                               (tset vim.b :large_buf true)
+                                               (vim.cmd "syntax off")
+                                               (vim.cmd "IlluminatePauseBuf")
+                                               (vim.cmd "IndentBlanklineDisable")
+                                               (tset vim.opt_local :foldmethod "manual"))))])
 (augroup! :fugitive_buf
   [[BufReadPost] fugitive://* "set bufhidden=delete"])
 (augroup! :term
@@ -42,43 +48,47 @@
     (tset vim.opt_local :tabstop 4)
     (tset vim.opt_local :expandtab false))]
   [[FileType] lua (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.b :format_on_save true))]
   [[FileType] ruby (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.b :format_on_save true))]
   [[FileType] go (fn []
     (tset vim.opt_local :expandtab false)
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (map! [n :buffer :verbose] "<leader>cr" "<cmd>!go run %<CR>")
     (map! [n] "<leader>td" #(require-fun :dap-go#debug_test))
     (tset vim.b :format_on_save true))]
   [[FileType] [cpp c] (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.opt_local :tabstop 4)
     (map! [n :buffer :verbose] "<leader>cm" "<cmd>!clang++ -std=c++17 -g3 % <CR>")
     (map! [n :buffer :verbose] "<leader>cr" "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>"))]
   [[FileType] rust (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.opt_local :tabstop 4)
     (tset vim.b :format_on_save true))]
-  [[FileType] rust (fn []
-    (tset vim.opt_local :foldmethod "expr")
-    (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
-    (tset vim.b :format_on_save true))]
   [[FileType] json (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (map! [n :buffer :verbose] "[j" vim.fn.JsonBeautify))]
   [[FileType] [toml yaml] (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
   [[FileType] [javascript javascript.jsx typescript typescriptreact] (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
     (tset vim.b :format_on_save true))]
@@ -86,14 +96,17 @@
     (tset vim.opt_local :tabstop 4))]
   [[BufNewFile BufRead] [*.tsv *.csv] "set filetype=csv"]
   [[FileType] csv (fn []
+    (when vim.b.large_buf (lua "return"))
     (map! [n :buffer :verbose] "[c" "<cmd>RainbowAlign<CR>")
     (map! [n :buffer :verbose] "]c" "<cmd>RainbowShrink<CR>"))]
   [[BufNewFile BufRead] [*.cue] "set filetype=cue"]
   [[BufNewFile BufRead] [todo.txt] "set filetype=todo"]
   [[FileType] proto (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
   [[FileType] [sh fish] (fn []
+    (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()"))]
   [[FileType] [markdown] (fn []

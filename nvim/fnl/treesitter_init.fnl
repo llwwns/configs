@@ -11,18 +11,22 @@
   :highlight {
     :enable true
     :additional_vim_regex_highlighting false
+    :disable #(not (not vim.b.large_buf))
   }
   :indent {
     :enable true
+    :disable #(not (not vim.b.large_buf))
   }
   :rainbow {
     :enable true
     :extended_mode true
     :max_file_lines 10000
+    :disable #(not (not vim.b.large_buf))
     ;; :colors [:royalblue3 :darkorange3 :seagreen3 :firebrick]
   }
   :autotag {
     :enable true
+    :disable #(not (not vim.b.large_buf))
   }
   :incremental_selection {
     :enable false

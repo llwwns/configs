@@ -40,9 +40,6 @@
     [:n "cr "]
     [:n "crt"]
   ])
-  ;; (use! :kylechui/nvim-surround
-  ;;   :config #((-> :nvim-surround (require) (. :setup))))
-  (use! :tpope/vim-surround)
   (use! :wellle/targets.vim)
   (use! :mattn/emmet-vim :opt true :keys [["i" "<c-y>"]])
   (use! :FooSoft/vim-argwrap :opt true :cmd ["ArgWrap"])
@@ -96,11 +93,12 @@
   (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
   (use! :dbeniamine/todo.txt-vim :opt true :ft ["todo"])
   (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
-  (use! :RRethy/vim-illuminate :config (fn [] (require-fun :illuminate#configure {
-    :providers [:regex]
-    :delay 0
-  })
-  (vim.cmd "hi link IlluminatedWordText illuminatedWord")))
+  (use! :RRethy/vim-illuminate :config (fn [] 
+    (require-fun :illuminate#configure {
+      :providers [:regex]
+      :delay 0
+    })
+    (vim.cmd "hi link IlluminatedWordText illuminatedWord")))
   (use! :junegunn/gv.vim :opt true :cmd ["GV"])
   (use! :lambdalisue/suda.vim :opt true :cmd ["SudaWrite"])
   (use! :tyru/eskk.vim :opt true
@@ -196,7 +194,9 @@
           :Reference "  "
         }
       }))
-  (use! :folke/tokyonight.nvim)
+  (use! :folke/tokyonight.nvim :config #(require-fun :tokyonight#setup {
+      :sidebars [:qf :neo-tree :FTerm :packer]
+  }))
   (use! "TimUntersberger/neogit"
     :opt true
     :cmd [ "Neogit" ]
