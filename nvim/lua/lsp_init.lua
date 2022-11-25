@@ -70,29 +70,43 @@ local function on_attach_rs(client, bufnr)
 end
 local capabilities = (require("cmp_nvim_lsp")).default_capabilities()
 null_ls.setup({sources = {prettierd, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
-lsp.clangd.setup({filetypes = {"c", "cpp", "objc", "objcpp", "cuda"}, on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
-lsp.rust_analyzer.setup({on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
-lsp.tsserver.setup({on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
-lsp.denols.setup({single_file_support = false, on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
-lsp.vimls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.jsonls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.cssls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.html.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.yamlls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.eslint.setup({on_attach = on_attach_eslint, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
-lsp.zls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.gopls.setup({cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
-lsp.erlangls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.tailwindcss.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.hls.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.marksman.setup({on_attach = on_attach, capabilities = capabilities})
-lsp.elixirls.setup({cmd = {"elixir-ls"}, on_attach = on_attach, capabilities = capabilities})
-local function _9_(_241)
+local function setup_lsp(server, opts)
+  local man = lsp[server]
+  man.setup(opts)
+  local try_add = man.manager.try_add
+  local function _9_(_241)
+    if not vim.b.large_buf then
+      return try_add(_241)
+    else
+      return nil
+    end
+  end
+  man.manager["try_add"] = _9_
+  return nil
+end
+setup_lsp("clangd", {filetypes = {"c", "cpp", "objc", "objcpp", "cuda"}, on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
+setup_lsp("rust_analyzer", {on_attach = on_attach_rs, ["rust-analyzer.diagnostics.enable"] = true, ["rust-analyzer.checkOnSave.enable"] = true, capabilities = capabilities})
+setup_lsp("tsserver", {on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
+setup_lsp("denols", {single_file_support = false, on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
+setup_lsp("vimls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("jsonls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("cssls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("html", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("yamlls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("eslint", {on_attach = on_attach_eslint, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
+setup_lsp("zls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("gopls", {cmd_env = {GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es"}, capabilities = capabilities, codelens = {["upgrade.dependency"] = false}, deepCompletion = false, on_attach = on_attach})
+setup_lsp("erlangls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("tailwindcss", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("hls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("marksman", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("elixirls", {cmd = {"elixir-ls"}, on_attach = on_attach, capabilities = capabilities})
+local function _11_(_241)
   return (util.find_git_ancestor(_241) or util.path.dirname(_241))
 end
-lsp.sumneko_lua.setup({on_attach = on_attach, capabilities = capabilities, runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}, workspace = {library = vim.api.nvim_get_runtime_file("", true)}, telemetry = {enable = false}, root_dir = _9_})
+setup_lsp("sumneko_lua", {on_attach = on_attach, capabilities = capabilities, runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}, workspace = {library = vim.api.nvim_get_runtime_file("", true)}, telemetry = {enable = false}, root_dir = _11_})
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())
 end
-vim.lsp.handlers["textDocument/publishDiagnostics:"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
 return nil

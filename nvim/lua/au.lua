@@ -31,6 +31,7 @@ do
       do end (vim.opt_local)["foldmethod"] = "manual"
       return nil
     else
+      vim.b["large_buf"] = false
       return nil
     end
   end

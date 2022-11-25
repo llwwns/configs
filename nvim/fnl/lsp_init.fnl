@@ -92,8 +92,15 @@
   :on_attach on_attach
   :capabilities capabilities
 })
-;;
-(lsp.clangd.setup {
+
+(fn setup-lsp [server opts]
+  (do 
+     (local man (. lsp server))
+     ((. man :setup) opts)
+     (local try-add (. man.manager :try_add))
+     (tset man.manager :try_add #(when (not vim.b.large_buf) (try-add $1)))))
+
+(setup-lsp :clangd {
   :filetypes [:c :cpp :objc :objcpp :cuda]
   :on_attach  on_attach_rs
   :capabilities  capabilities
@@ -105,7 +112,7 @@
 ;; --   capabilities = capabilities,
 ;; -- }
 ;;
-(lsp.rust_analyzer.setup {
+(setup-lsp :rust_analyzer {
   :on_attach on_attach_rs
   :rust-analyzer.diagnostics.enable true
   :rust-analyzer.checkOnSave.enable true
@@ -113,12 +120,12 @@
 })
 ;; -- lsp.rls.setup{on_attach=on_attach}
 ;; -- lsp.solargraph.setup { on_attach = on_attach }
-(lsp.tsserver.setup {
+(setup-lsp :tsserver {
   :on_attach on_attach_ts
   :root_dir (lsp.util.root_pattern "package.json")
   :capabilities capabilities
 })
-(lsp.denols.setup {
+(setup-lsp :denols {
   :single_file_support false
   :on_attach on_attach_ts
   :root_dir (lsp.util.root_pattern "deno.json")
@@ -131,36 +138,36 @@
   :capabilities capabilities
 })
 
-(lsp.vimls.setup {
+(setup-lsp :vimls {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.jsonls.setup {
+(setup-lsp :jsonls {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.cssls.setup {
+(setup-lsp :cssls {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.html.setup {
+(setup-lsp :html {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.yamlls.setup {
+(setup-lsp :yamlls {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.eslint.setup {
+(setup-lsp :eslint {
   :on_attach on_attach_eslint
   :root_dir (lsp.util.root_pattern "package.json")
   :capabilities capabilities
 })
-(lsp.zls.setup {
+(setup-lsp :zls {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.gopls.setup {
+(setup-lsp :gopls {
   :cmd_env { :GOFLAGS "-tags=debug,test_mysql,wireinject,test_es" }
   :capabilities capabilities
   :codelens {
@@ -169,37 +176,37 @@
   :deepCompletion false
   :on_attach on_attach
 })
-(lsp.erlangls.setup {
+(setup-lsp :erlangls {
   :on_attach on_attach
   :capabilities capabilities
 })
 
-(lsp.tailwindcss.setup {
+(setup-lsp :tailwindcss {
   :on_attach on_attach
   :capabilities capabilities
 })
-(lsp.hls.setup {
+(setup-lsp :hls {
   :on_attach on_attach
   :capabilities capabilities
  })
 
-(lsp.marksman.setup {
+(setup-lsp :marksman {
   :on_attach on_attach
   :capabilities capabilities
 })
 
-(lsp.fennel-ls.setup {
-  :on_attach on_attach
-  :capabilities capabilities
-})
-
-(lsp.elixirls.setup {
+;; (lsp.fennel-ls.setup {
+;;   :on_attach on_attach
+;;   :capabilities capabilities
+;; })
+;;
+(setup-lsp :elixirls {
   :cmd [ "elixir-ls" ]
   :on_attach on_attach
   :capabilities capabilities
 })
 
-(lsp.sumneko_lua.setup {
+(setup-lsp :sumneko_lua {
   :on_attach on_attach
   :capabilities capabilities
   :runtime {

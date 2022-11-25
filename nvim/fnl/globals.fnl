@@ -72,7 +72,7 @@
       (vim.notify "turn on auto format"))))
 
 (fn _G.lsp_format []
-  (when vim.b.format_on_save
+  (when (and vim.b.format_on_save (not vim.b.large_buf))
     (vim.lsp.buf.format)))
 
 (fn is_floating [win]

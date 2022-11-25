@@ -99,7 +99,7 @@ _G.toggle_format = function()
   end
 end
 _G.lsp_format = function()
-  if vim.b.format_on_save then
+  if (vim.b.format_on_save and not vim.b.large_buf) then
     return vim.lsp.buf.format()
   else
     return nil

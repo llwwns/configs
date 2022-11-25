@@ -13,12 +13,13 @@
 (augroup! :buf_large
   [[BufReadPre] *
     #(let [(ok stats) (pcall vim.loop.fs_stat (vim.api.nvim_buf_get_name (vim.api.nvim_get_current_buf)))]
-       (when (and ok stats (> stats.size 1000000)) (do
+       (if (and ok stats (> stats.size 1000000)) (do
                                                (tset vim.b :large_buf true)
                                                (vim.cmd "syntax off")
                                                (vim.cmd "IlluminatePauseBuf")
                                                (vim.cmd "IndentBlanklineDisable")
-                                               (tset vim.opt_local :foldmethod "manual"))))])
+                                               (tset vim.opt_local :foldmethod "manual"))
+           (tset vim.b :large_buf false)))])
 (augroup! :fugitive_buf
   [[BufReadPost] fugitive://* "set bufhidden=delete"])
 (augroup! :term
