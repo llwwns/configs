@@ -29,6 +29,7 @@ do
       vim.cmd("IlluminatePauseBuf")
       vim.cmd("IndentBlanklineDisable")
       do end (vim.opt_local)["foldmethod"] = "manual"
+      vim.opt_local["spell"] = false
       return nil
     else
       vim.b["large_buf"] = false

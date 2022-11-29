@@ -18,7 +18,8 @@
                                                (vim.cmd "syntax off")
                                                (vim.cmd "IlluminatePauseBuf")
                                                (vim.cmd "IndentBlanklineDisable")
-                                               (tset vim.opt_local :foldmethod "manual"))
+                                               (tset vim.opt_local :foldmethod "manual")
+                                               (tset vim.opt_local :spell false))
            (tset vim.b :large_buf false)))])
 (augroup! :fugitive_buf
   [[BufReadPost] fugitive://* "set bufhidden=delete"])

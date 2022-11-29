@@ -112,6 +112,7 @@ local function _4_(use)
     return (require("tokyonight")).setup({sidebars = {"qf", "neo-tree", "FTerm", "packer"}})
   end
   use({config = _22_, "folke/tokyonight.nvim"})
+  use("EdenEast/nightfox.nvim")
   local function _23_()
     return (require("neogit")).setup({disable_commit_confirmation = true, integrations = {diffview = true}, signs = {section = {"\239\145\160", "\239\145\188"}, item = {"\239\145\160", "\239\145\188"}, hunk = {"", ""}}, sections = {staged = {folded = false}, unstaged = {folded = false}, untracked = {folded = false}, stashes = {folded = true}, unpulled = {folded = true}, unmerged = {folded = true}, recent = {folded = true}}})
   end
@@ -216,6 +217,20 @@ local function _4_(use)
   local function _44_()
     return (require("colorful-winsep")).setup({symbols = {"\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\148", "\226\148\152"}})
   end
-  return use({config = _44_, "nvim-zh/colorful-winsep.nvim"})
+  use({config = _44_, "nvim-zh/colorful-winsep.nvim"})
+  local function _45_()
+    local function _46_()
+      return (vim.fn.winheight("%") * 1.2)
+    end
+    local function _47_()
+      vim.opt_local["spell"] = false
+      vim.opt_local["number"] = false
+      vim.opt_local["relativenumber"] = false
+      vim.opt_local["winbar"] = ""
+      return nil
+    end
+    return (require("toggleterm")).setup({hide_numbers = true, size = _46_, winbar = {enabled = false}, on_open = _47_})
+  end
+  return use({cmd = {"ToggleTerm"}, config = _45_, opt = true, "akinsho/toggleterm.nvim"})
 end
 return (require("packer")).startup(_4_)

@@ -110,6 +110,7 @@
 (set! foldcolumn "1")
 (set! dictionary "/usr/share/dict/words")
 (set! conceallevel 0)
+(set! splitkeep :screen)
 
 ;; guis
 (if 
@@ -130,8 +131,8 @@
     (map! [n :noremap] "<A-CR>"
       "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))
     (map! [t :noremap] "<c-s-v>" "<c-\\><c-n>\"+pa")
-  (= 1 (vim.fn.exists "g:fvim_loaded")) (do
+  (when (= 1 (vim.fn.exists "g:fvim_loaded")) (do
   ; FVimBackgroundOpacity 0.7
-    (set! guifont "Sarasa Nerd Font:h18")))
+    (set! guifont "Sarasa Nerd Font:h18"))))
   ; nnoremap <A-CR> :FVimToggleFullScreen<CR>
    ; (cmd! hi Normal guibg=NONE ctermbg=NONE))

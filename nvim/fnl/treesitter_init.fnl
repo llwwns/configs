@@ -58,6 +58,7 @@
     "gomod"
     "graphql"
     "haskell"
+    "heex"
     "html"
     "java"
     "javascript"

@@ -136,7 +136,8 @@
 (map! [n] "<C-\\>" ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>")
 
 
-(map! [nt :noremap] "<c-s>" #(require-fun :FTerm#toggle))
+;; (map! [nt :noremap] "<c-s>" #(require-fun :FTerm#toggle))
+(map! [nt :noremap] "<c-s>" "<cmd>ToggleTerm<CR>")
 
 (map! [n :noremap] "<leader>gs" "<cmd>Neogit<CR>")
 

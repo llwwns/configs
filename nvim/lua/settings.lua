@@ -66,6 +66,7 @@ vim.opt["foldtext"] = "v:lua.foldtext2()"
 vim.opt["foldcolumn"] = "1"
 vim.opt["dictionary"] = "/usr/share/dict/words"
 vim.opt["conceallevel"] = 0
+vim.opt["splitkeep"] = "screen"
 if (1 == vim.fn.exists("gnvim")) then
   vim.opt["guifont"] = "Iosevka Fixed:h12"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
@@ -78,8 +79,12 @@ elseif (1 == vim.fn.exists("neovide")) then
   vim.opt["mouse"] = "a"
   return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
 elseif vim.keymap.set({"t"}, "<c-s-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true}) then
-  return (1 == vim.fn.exists("g:fvim_loaded"))
+  if (1 == vim.fn.exists("g:fvim_loaded")) then
+    vim.opt["guifont"] = "Sarasa Nerd Font:h18"
+    return nil
+  else
+    return nil
+  end
 else
-  vim.opt["guifont"] = "Sarasa Nerd Font:h18"
   return nil
 end
