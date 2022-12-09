@@ -37,6 +37,9 @@
       :node_decremental "<S-TAB>"
     }
   }
+  :playground {
+    :enable true
+  }
   :ensure_installed [
     "bash"
     "c"

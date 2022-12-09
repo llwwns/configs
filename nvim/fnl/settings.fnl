@@ -11,6 +11,7 @@
 (set! spell true)
 (set! spelloptions "camel")
 (set! spellcapcheck "")
+(set! spelllang "en_us,cjk")
 (set! hlsearch true)
 (set! number true)
 (set! relativenumber true)
@@ -101,6 +102,7 @@
 
 (g! tokyonight_style "night")
 (color! tokyonight-night)
+;; (color! oxocarbon)
 
 ; (set! foldnestmax 3)
 (set! foldminlines 1)
@@ -115,7 +117,7 @@
 ;; guis
 (if 
   (= 1 (vim.fn.exists "gnvim" )) (do
-    (set! guifont "Iosevka Fixed:h12")
+    (set! guifont "JetBrainsMono Nerd Font:h10")
     (set! guicursor (.. vim.o.guicursor ",a:blinkon0")))
   (= 1 (vim.fn.exists "neovide")) (do
   ; vim.g.tokyonighj_transparent = false

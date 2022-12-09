@@ -9,3 +9,4 @@
 
 (command! [] :Todo "e ~/Documents/todo.txt")
 (command! [] :Gblame "Git blame")
+(command! [] :StopLsp "call v:lua.stop_lsp()")

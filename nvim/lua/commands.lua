@@ -5,4 +5,5 @@ vim.api.nvim_create_user_command("LZ", "execute('lcd '.system('zoxide query <arg
 vim.api.nvim_create_user_command("Lcd", "lcd %:h", {force = true})
 vim.api.nvim_create_user_command("SS", "<line1>,<line2>!perl -pe 's<q-args>'", {force = true, nargs = "*", range = true})
 vim.api.nvim_create_user_command("Todo", "e ~/Documents/todo.txt", {force = true})
-return vim.api.nvim_create_user_command("Gblame", "Git blame", {force = true})
+vim.api.nvim_create_user_command("Gblame", "Git blame", {force = true})
+return vim.api.nvim_create_user_command("StopLsp", "call v:lua.stop_lsp()", {force = true})

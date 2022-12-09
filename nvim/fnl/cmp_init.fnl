@@ -28,6 +28,7 @@
   }
 
   :sources [
+    { :name "nvim_lsp_signature_help" }
     { :name "luasnip" }
     { :name "nvim_lsp" }
     { :name "nvim_lua" }

@@ -69,6 +69,7 @@
       "saadparwaiz1/cmp_luasnip"
       "hrsh7th/cmp-path"
       "hrsh7th/cmp-cmdline"
+      "hrsh7th/cmp-nvim-lsp-signature-help"
     ]
     :config #(require "cmp_init"))
   (use! "hrsh7th/cmp-nvim-lsp")
@@ -126,6 +127,7 @@
   (use! :nvim-treesitter/nvim-treesitter
     :requires [ :p00f/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
+  (use! :nvim-treesitter/playground)
   ;; (use! :bluz71/vim-moonfly-colors)
   ;; (use! :dstein64/nvim-scrollview)
   (use! :petertriho/nvim-scrollbar :config #(require-fun :scrollbar#setup))
@@ -240,15 +242,28 @@
     ;; (g! mergetool_prefer_revision "base")
     (g! mergetool_prefer_revision "unmodified")))
   (use! :phaazon/hop.nvim :opt true :module "hop" :config #(require-fun :hop#setup))
-  (use! :numtostr/FTerm.nvim :opt true
-    :module "FTerm"
-    :config #(require-fun :FTerm#setup {
-        :dimensions {
-          :height 0.8
-          :width 1
-          :y 1
-        }
-      }))
+  (use! :akinsho/toggleterm.nvim
+    :opt true :cmd [:ToggleTerm]
+    :config #(require-fun :toggleterm#setup {
+      :hide_numbers true
+      :size #(* (vim.fn.winheight "%") 1.2)
+      ;; :size 60
+      :winbar { :enabled false }
+      :on_open (fn []
+                   (tset vim.opt_local :spell false)
+                   (tset vim.opt_local :number false)
+                   (tset vim.opt_local :relativenumber false)
+                   (tset vim.opt_local :winbar ""))
+    }))
+  ;; (use! :numtostr/FTerm.nvim :opt true
+  ;;   :module "FTerm"
+  ;;   :config #(require-fun :FTerm#setup {
+  ;;       :dimensions {
+  ;;         :height 0.8
+  ;;         :width 1
+  ;;         :y 1
+  ;;       }
+  ;;     }))
 
   (use! :windwp/nvim-ts-autotag)
   (use! :lewis6991/impatient.nvim)

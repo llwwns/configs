@@ -18,6 +18,7 @@
                                                (vim.cmd "syntax off")
                                                (vim.cmd "IlluminatePauseBuf")
                                                (vim.cmd "IndentBlanklineDisable")
+                                               (vim.cmd "NoMatchParen")
                                                (tset vim.opt_local :foldmethod "manual")
                                                (tset vim.opt_local :spell false))
            (tset vim.b :large_buf false)))])

@@ -4,6 +4,7 @@ vim.opt["timeoutlen"] = 500
 vim.opt["spell"] = true
 vim.opt["spelloptions"] = "camel"
 vim.opt["spellcapcheck"] = ""
+vim.opt["spelllang"] = "en_us,cjk"
 vim.opt["hlsearch"] = true
 vim.opt["number"] = true
 vim.opt["relativenumber"] = true
@@ -68,7 +69,7 @@ vim.opt["dictionary"] = "/usr/share/dict/words"
 vim.opt["conceallevel"] = 0
 vim.opt["splitkeep"] = "screen"
 if (1 == vim.fn.exists("gnvim")) then
-  vim.opt["guifont"] = "Iosevka Fixed:h12"
+  vim.opt["guifont"] = "JetBrainsMono Nerd Font:h10"
   vim.opt["guicursor"] = (vim.o.guicursor .. ",a:blinkon0")
   return nil
 elseif (1 == vim.fn.exists("neovide")) then

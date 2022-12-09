@@ -51,7 +51,7 @@ local function _4_(use)
   local function _11_()
     return require("cmp_init")
   end
-  use({config = _11_, event = {"InsertEnter"}, opt = true, requires = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline"}, "hrsh7th/nvim-cmp"})
+  use({config = _11_, event = {"InsertEnter"}, opt = true, requires = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/cmp-nvim-lsp-signature-help"}, "hrsh7th/nvim-cmp"})
   use("hrsh7th/cmp-nvim-lsp")
   use({module = {"lsp_extensions"}, opt = true, "nvim-lua/lsp_extensions.nvim"})
   local function _12_()
@@ -93,6 +93,7 @@ local function _4_(use)
     return require("treesitter_init")
   end
   use({config = _18_, requires = {"p00f/nvim-ts-rainbow"}, "nvim-treesitter/nvim-treesitter"})
+  use("nvim-treesitter/playground")
   local function _19_()
     return (require("scrollbar")).setup()
   end
@@ -128,109 +129,105 @@ local function _4_(use)
   end
   use({config = _25_, module = "hop", opt = true, "phaazon/hop.nvim"})
   local function _26_()
-    return (require("FTerm")).setup({dimensions = {height = 0.8, width = 1, y = 1}})
-  end
-  use({config = _26_, module = "FTerm", opt = true, "numtostr/FTerm.nvim"})
-  use("windwp/nvim-ts-autotag")
-  use("lewis6991/impatient.nvim")
-  use({cmd = {"Lsp"}, opt = true, "ii14/lsp-command"})
-  use({module = "nvim-web-devicons", opt = true, "kyazdani42/nvim-web-devicons"})
-  local function _27_()
-    return (require("dressing")).setup({select = {backend = {"telescope", "builtin"}}})
-  end
-  use({config = _27_, "stevearc/dressing.nvim"})
-  use({cmd = {"NeoZoomToggle"}, opt = true, "nyngwang/NeoZoom.lua"})
-  local function _28_()
-    return (require("gitlinker")).setup()
-  end
-  use({config = _28_, keys = {{"v", "<leader>gy"}, {"n", "<leader>gy"}}, opt = true, "ruifm/gitlinker.nvim"})
-  local function _29_()
-    return (require("fidget")).setup()
-  end
-  use({config = _29_, "j-hui/fidget.nvim"})
-  local function _30_()
-    return require("telescope_init")
-  end
-  use({config = _30_, module = {"telescope"}, opt = true, requires = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, "nvim-telescope/telescope.nvim"})
-  use({module = {"telescope._extensions.zf-native"}, opt = true, "natecraddock/telescope-zf-native.nvim"})
-  local function _31_()
-    return require("diffview_init")
-  end
-  use({cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _31_, module = "diffview", opt = true, requires = "nvim-lua/plenary.nvim", "sindrets/diffview.nvim"})
-  use("MunifTanjim/nui.nvim")
-  local function _32_()
-    vim.keymap.set({"n"}, "<leader>ll", "<Plug>(Luadev-RunLine)", {noremap = true, silent = true})
-    vim.keymap.set({"n", "v"}, "<leader>lr", "<Plug>(Luadev-Run)", {noremap = true, silent = true})
-    vim.keymap.set({"n"}, "<leader>lw", "<Plug>(Luadev-RunWord)", {noremap = true, silent = true})
-    return vim.keymap.set({"i"}, "<c-k><c-l>", "<Plug>(Luadev-Complete)", {noremap = true, silent = true})
-  end
-  use({cmd = {"Luadev"}, config = _32_, opt = true, "bfredl/nvim-luadev"})
-  local function _33_()
-    return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
-  end
-  use({config = _33_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
-  local function _34_()
-    return require("hydra_init")
-  end
-  use({config = _34_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
-  local function _35_()
-    return require("icon-picker")
-  end
-  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _35_, opt = true, "ziontee113/icon-picker.nvim"})
-  local function _36_()
-    return (require("scope")).setup()
-  end
-  use({config = _36_, "tiagovla/scope.nvim"})
-  local function _37_()
-    local notify = require("notify")
-    notify.setup()
-    do end (vim)["notify"] = notify
-    return nil
-  end
-  use({config = _37_, "rcarriga/nvim-notify"})
-  local function _38_()
-    return (require("colorizer")).setup()
-  end
-  use({config = _38_, "norcalli/nvim-colorizer.lua"})
-  local function _39_()
-    return require("dial_init")
-  end
-  use({config = _39_, keys = {{"n", "<Plug>(dial-increment)"}, {"n", "<Plug>(dial-decrement)"}, {"v", "<Plug>(dial-increment)"}, {"v", "<Plug>(dial-decrement)"}, {"v", "g<Plug>(dial-increment)"}, {"v", "g<Plug>(dial-decrement)"}}, opt = true, "monaqa/dial.nvim"})
-  local function _40_()
-    return (require("iswap")).setup({flash_style = false, move_cursor = true})
-  end
-  use({config = _40_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
-  use({module = {"dapui"}, opt = true, "rcarriga/nvim-dap-ui"})
-  local function _41_()
-    return require("dap_init")
-  end
-  use({config = _41_, module = {"dap"}, opt = true, "mfussenegger/nvim-dap"})
-  local function _42_()
-    return (require("dap-go")).setup()
-  end
-  use({config = _42_, module = {"dap-go"}, opt = true, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
-  use("dstein64/vim-startuptime")
-  local function _43_()
-    return (require("peek")).setup({auto_load = true, close_on_bdelete = true, syntax = true, theme = "dark", update_on_change = true})
-  end
-  use({config = _43_, ft = "markdown", module = {"peek"}, opt = true, run = "deno task --quiet build:fast", "toppair/peek.nvim"})
-  local function _44_()
-    return (require("colorful-winsep")).setup({symbols = {"\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\148", "\226\148\152"}})
-  end
-  use({config = _44_, "nvim-zh/colorful-winsep.nvim"})
-  local function _45_()
-    local function _46_()
+    local function _27_()
       return (vim.fn.winheight("%") * 1.2)
     end
-    local function _47_()
+    local function _28_()
       vim.opt_local["spell"] = false
       vim.opt_local["number"] = false
       vim.opt_local["relativenumber"] = false
       vim.opt_local["winbar"] = ""
       return nil
     end
-    return (require("toggleterm")).setup({hide_numbers = true, size = _46_, winbar = {enabled = false}, on_open = _47_})
+    return (require("toggleterm")).setup({hide_numbers = true, size = _27_, winbar = {enabled = false}, on_open = _28_})
   end
-  return use({cmd = {"ToggleTerm"}, config = _45_, opt = true, "akinsho/toggleterm.nvim"})
+  use({cmd = {"ToggleTerm"}, config = _26_, opt = true, "akinsho/toggleterm.nvim"})
+  use("windwp/nvim-ts-autotag")
+  use("lewis6991/impatient.nvim")
+  use({cmd = {"Lsp"}, opt = true, "ii14/lsp-command"})
+  use({module = "nvim-web-devicons", opt = true, "kyazdani42/nvim-web-devicons"})
+  local function _29_()
+    return (require("dressing")).setup({select = {backend = {"telescope", "builtin"}}})
+  end
+  use({config = _29_, "stevearc/dressing.nvim"})
+  use({cmd = {"NeoZoomToggle"}, opt = true, "nyngwang/NeoZoom.lua"})
+  local function _30_()
+    return (require("gitlinker")).setup()
+  end
+  use({config = _30_, keys = {{"v", "<leader>gy"}, {"n", "<leader>gy"}}, opt = true, "ruifm/gitlinker.nvim"})
+  local function _31_()
+    return (require("fidget")).setup()
+  end
+  use({config = _31_, "j-hui/fidget.nvim"})
+  local function _32_()
+    return require("telescope_init")
+  end
+  use({config = _32_, module = {"telescope"}, opt = true, requires = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, "nvim-telescope/telescope.nvim"})
+  use({module = {"telescope._extensions.zf-native"}, opt = true, "natecraddock/telescope-zf-native.nvim"})
+  local function _33_()
+    return require("diffview_init")
+  end
+  use({cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _33_, module = "diffview", opt = true, requires = "nvim-lua/plenary.nvim", "sindrets/diffview.nvim"})
+  use("MunifTanjim/nui.nvim")
+  local function _34_()
+    vim.keymap.set({"n"}, "<leader>ll", "<Plug>(Luadev-RunLine)", {noremap = true, silent = true})
+    vim.keymap.set({"n", "v"}, "<leader>lr", "<Plug>(Luadev-Run)", {noremap = true, silent = true})
+    vim.keymap.set({"n"}, "<leader>lw", "<Plug>(Luadev-RunWord)", {noremap = true, silent = true})
+    return vim.keymap.set({"i"}, "<c-k><c-l>", "<Plug>(Luadev-Complete)", {noremap = true, silent = true})
+  end
+  use({cmd = {"Luadev"}, config = _34_, opt = true, "bfredl/nvim-luadev"})
+  local function _35_()
+    return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
+  end
+  use({config = _35_, ft = "fennel", opt = true, requires = {"udayvir-singh/hibiscus.nvim"}, "llwwns/tangerine.nvim"})
+  local function _36_()
+    return require("hydra_init")
+  end
+  use({config = _36_, requires = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"})
+  local function _37_()
+    return require("icon-picker")
+  end
+  use({cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _37_, opt = true, "ziontee113/icon-picker.nvim"})
+  local function _38_()
+    return (require("scope")).setup()
+  end
+  use({config = _38_, "tiagovla/scope.nvim"})
+  local function _39_()
+    local notify = require("notify")
+    notify.setup()
+    do end (vim)["notify"] = notify
+    return nil
+  end
+  use({config = _39_, "rcarriga/nvim-notify"})
+  local function _40_()
+    return (require("colorizer")).setup()
+  end
+  use({config = _40_, "norcalli/nvim-colorizer.lua"})
+  local function _41_()
+    return require("dial_init")
+  end
+  use({config = _41_, keys = {{"n", "<Plug>(dial-increment)"}, {"n", "<Plug>(dial-decrement)"}, {"v", "<Plug>(dial-increment)"}, {"v", "<Plug>(dial-decrement)"}, {"v", "g<Plug>(dial-increment)"}, {"v", "g<Plug>(dial-decrement)"}}, opt = true, "monaqa/dial.nvim"})
+  local function _42_()
+    return (require("iswap")).setup({flash_style = false, move_cursor = true})
+  end
+  use({config = _42_, module = {"iswap"}, opt = true, "mizlan/iswap.nvim"})
+  use({module = {"dapui"}, opt = true, "rcarriga/nvim-dap-ui"})
+  local function _43_()
+    return require("dap_init")
+  end
+  use({config = _43_, module = {"dap"}, opt = true, "mfussenegger/nvim-dap"})
+  local function _44_()
+    return (require("dap-go")).setup()
+  end
+  use({config = _44_, module = {"dap-go"}, opt = true, requires = {"mfussenegger/nvim-dap"}, "leoluz/nvim-dap-go"})
+  use("dstein64/vim-startuptime")
+  local function _45_()
+    return (require("peek")).setup({auto_load = true, close_on_bdelete = true, syntax = true, theme = "dark", update_on_change = true})
+  end
+  use({config = _45_, ft = "markdown", module = {"peek"}, opt = true, run = "deno task --quiet build:fast", "toppair/peek.nvim"})
+  local function _46_()
+    return (require("colorful-winsep")).setup({symbols = {"\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\148", "\226\148\152"}})
+  end
+  return use({config = _46_, "nvim-zh/colorful-winsep.nvim"})
 end
 return (require("packer")).startup(_4_)

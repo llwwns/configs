@@ -28,6 +28,7 @@ do
       vim.cmd("syntax off")
       vim.cmd("IlluminatePauseBuf")
       vim.cmd("IndentBlanklineDisable")
+      vim.cmd("NoMatchParen")
       do end (vim.opt_local)["foldmethod"] = "manual"
       vim.opt_local["spell"] = false
       return nil
@@ -76,7 +77,7 @@ do
   local augid_18_ = vim.api.nvim_create_augroup("visualmode", {clear = true})
   local function _19_()
     local _20_ = vim.v.event
-    if ((_G.type(_20_) == "table") and ((_20_).old_mode == "\22") and ((_20_).new_mode == "i")) then
+    if ((_G.type(_20_) == "table") and ((_20_).new_mode == "i") and ((_20_).old_mode == "\22")) then
       vim.opt_local["indentkeys"] = ""
       return nil
     elseif ((_G.type(_20_) == "table") and ((_20_).old_mode == "i")) then
