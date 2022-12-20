@@ -43,7 +43,7 @@ local function _4_(use)
   local function _9_()
     return require("lsp_init")
   end
-  use({config = _9_, requires = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "ray-x/lsp_signature.nvim", "llwwns/nvim-navic"}, "neovim/nvim-lspconfig"})
+  use({config = _9_, requires = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "llwwns/nvim-navic"}, "neovim/nvim-lspconfig"})
   local function _10_()
     return (require("nvim-navic")).setup()
   end

@@ -56,6 +56,8 @@ git config --global oh-my-zsh.hide-dirty 1
 
 git config --global pull.ff only
 
+git config --global push.autoSetupRemote true
+
 git config --global stash.showPatch true
 
 git config --global init.defaultBranch master

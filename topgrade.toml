@@ -8,7 +8,7 @@
 # predefined_git_repos = false
 
 # Disable specific steps - same options as the command line flag
-disable = ["deno", "go"]
+disable = ["vim", "stack", "pipx", "pip3", "firmware", "containers", "tldr", "julia"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]

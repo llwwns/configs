@@ -48,9 +48,9 @@
 	(vim.api.nvim_buf_set_option bufnr "omnifunc" "v:lua.vim.lsp.omnifunc")
 	(vim.api.nvim_buf_set_option bufnr "tagfunc" "v:lua.vim.lsp.tagfunc")
 
-  (require-fun :lsp_signature#on_attach {
-    :floating_window false
-  })
+  ;; (require-fun :lsp_signature#on_attach {
+  ;;   :floating_window false
+  ;; })
   (when client.server_capabilities.documentSymbolProvider
     (let [win (vim.api.nvim_get_current_win)
           buf (vim.api.nvim_win_get_buf win)]
@@ -95,10 +95,10 @@
 
 (fn setup-lsp [server opts]
   (do 
-     (local man (. lsp server))
-     ((. man :setup) opts)
-     (local try-add (. man.manager :try_add))
-     (tset man.manager :try_add #(when (not vim.b.large_buf) (try-add $1)))))
+     (local conf (. lsp server))
+     ((. conf :setup) opts)
+     (local try-add (. conf.manager :try_add))
+     (tset conf.manager :try_add #(when (not vim.b.large_buf) (try-add $1)))))
 
 (setup-lsp :clangd {
   :filetypes [:c :cpp :objc :objcpp :cuda]

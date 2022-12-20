@@ -47,6 +47,8 @@
   [[FileType] make (fn []
     (tset vim.opt_local :tabstop 8)
     (tset vim.opt_local :expandtab false))]
+  [[FileType] help (fn []
+    (tset vim.opt_local :conceallevel 0))]
   [[FileType] nginx (fn []
     (tset vim.opt_local :tabstop 4)
     (tset vim.opt_local :expandtab false))]

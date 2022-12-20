@@ -53,7 +53,7 @@
     :requires [ 
       "jose-elias-alvarez/null-ls.nvim"
       "nvim-lua/plenary.nvim"
-      "ray-x/lsp_signature.nvim"
+      ;; "ray-x/lsp_signature.nvim"
       "llwwns/nvim-navic"
     ]
     :config #(require "lsp_init"))
@@ -380,18 +380,4 @@
     :config #(require-fun :colorful-winsep#setup {
       :symbols ["─" "│" "┌" "┐" "└" "┘"]
     }))
-  (use! :akinsho/toggleterm.nvim
-    :opt true :cmd [:ToggleTerm]
-    :config #(require-fun :toggleterm#setup {
-      :hide_numbers true
-      :size #(* (vim.fn.winheight "%") 1.2)
-      ;; :size 60
-      :winbar { :enabled false }
-      :on_open (fn []
-                   (tset vim.opt_local :spell false)
-                   (tset vim.opt_local :number false)
-                   (tset vim.opt_local :relativenumber false)
-                   (tset vim.opt_local :winbar ""))
-  }))
 )
-

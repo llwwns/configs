@@ -1,2 +1,2 @@
-rofi.font: Iosevka Term 14
-rofi.theme: ~/.config/rofi/rofi.rasi
+rofi.font: JetBrain Mono Slashed 14
+Rofi.theme: tokyonight
