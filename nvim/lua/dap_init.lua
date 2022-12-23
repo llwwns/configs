@@ -21,4 +21,4 @@ local function _4_()
   return dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = _4_
-return nil
+return vim.fn.sign_define("DapBreakpoint", {text = "\240\159\144\158"})

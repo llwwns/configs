@@ -110,3 +110,5 @@
 (tset dap.listeners.before.event_terminated :dapui_config #(dapui.close))
 
 (tset dap.listeners.before.event_exited :dapui_config #(dapui.close))
+
+(vim.fn.sign_define :DapBreakpoint { :text "🐞" })

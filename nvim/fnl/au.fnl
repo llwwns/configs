@@ -87,7 +87,8 @@
     (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")
     (tset vim.opt_local :foldexpr "nvim_treesitter#foldexpr()")
-    (map! [n :buffer :verbose] "[j" vim.fn.JsonBeautify))]
+    (map! [n :buffer :verbose] "[j" #(vim.cmd "%!prettier --parser json"))
+    (map! [n :buffer :verbose] "]j" #(vim.cmd "%!jq -c")))]
   [[FileType] [toml yaml] (fn []
     (when vim.b.large_buf (lua "return"))
     (tset vim.opt_local :foldmethod "expr")

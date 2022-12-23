@@ -205,12 +205,12 @@
 ;; (map! [n] "zR" #(require-fun "ufo#openAllFolds"))
 ;; (map! [n] "zM" #(require-fun "ufo#closeAllFolds"))
 
-(map! [n :noremap] "<C-a>"  "<Plug>(dial-increment)")
-(map! [n :noremap] "<C-x>"  "<Plug>(dial-decrement)")
-(map! [v :noremap] "<C-a>"  "<Plug>(dial-increment)")
-(map! [v :noremap] "<C-x>"  "<Plug>(dial-decrement)")
-(map! [v :noremap] "g<C-a>" "g<Plug>(dial-increment)")
-(map! [v :noremap] "g<C-x>" "g<Plug>(dial-decrement)")
+(map! [n :verbose :noremap] "<C-a>"  (require-fun :dial.map#inc_normal))
+(map! [n :verbose :noremap] "<C-x>"  (require-fun :dial.map#dec_normal))
+(map! [v :verbose :noremap] "<C-a>"  (.. (require-fun :dial.map#inc_visual) "gv"))
+(map! [v :verbose :noremap] "<C-x>"  (.. (require-fun :dial.map#dec_visual) "gv"))
+(map! [v :verbose :noremap] "g<C-a>" (.. (require-fun :dial.map#inc_gvisual) "gv"))
+(map! [v :verbose :noremap] "g<C-x>" (.. (require-fun :dial.map#dec_gvisual) "gv"))
 
 (map! [n] "g<" #(require-fun :iswap#iswap_node_with :left))
 (map! [n] "g>" #(require-fun :iswap#iswap_node_with :right))
@@ -218,3 +218,5 @@
 
 (map! [i :noremap] "<c-r>" "<c-r><c-o>")
 (map! [n :noremap] "gp" "`[v`]")
+
+(map! [n] "<leader>yy" #(vim.fn.setreg "+" (string.gsub (vim.fn.expand "%") ".*%.git/[%w%d]+/" "")))

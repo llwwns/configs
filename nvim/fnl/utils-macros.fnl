@@ -19,6 +19,10 @@
                 (tset out val nval))))
          `(use ,out)))))
 
+(fn lazy [...]
+  `(require-fun :lazy#setup
+    (do ,...)))
+
 
 (fn parse-sym [xs]
   (if (or (in-scope? xs) (not (sym? xs)))
@@ -34,6 +38,7 @@
 {
   : require-fun
   : packer
+  : lazy
   : use!
   : set!
   : g!

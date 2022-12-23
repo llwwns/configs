@@ -1,28 +1,38 @@
-(import-macros {: g! : map!} :hibiscus.vim)
 (require-macros :utils-macros)
+(import-macros {: g! : map!} :hibiscus.vim)
+(g! mapleader "'")
+(g! maplocalleader "'")
 
-(when (not (pcall #(
-  vim.cmd "packadd packer.nvim")))
-    (let [install_path (.. (vim.fn.stdpath "data") "/site/pack/packer/opt/packer.nvim")]
-      (do
-        (when (> (vim.fn.empty (vim.fn.glob install_path)) 0)
-          (vim.cmd (.. "!git clone https://github.com/wbthomason/packer.nvim " install_path)))
-        (vim.cmd "packadd packer.nvim"))))
+(macro use! [name ...]
+  (let [opts [...]]
+    (if (= 0 (length opts))
+      name
+      (let [out [name]]
+        (each [idx val (ipairs opts)]
+          (when (= 1 (% idx 2))
+              (let [nval (. opts (+ idx 1))]
+                (tset out val nval))))
+         out))))
 
-(packer
-  (use! :wbthomason/packer.nvim :opt true)
-  (use! :lukas-reineke/indent-blankline.nvim :setup #(do 
+(let [install_path (.. (vim.fn.stdpath "data") "/lazy/lazy.nvim")]
+  (when (not (vim.loop.fs_stat install_path))
+    (vim.cmd (.. "!git clone https://github.com/folke/lazy.nvim --filter=blob:none --single-branch " install_path)))
+  (vim.opt.runtimepath:prepend install_path))
+
+(require-fun :lazy#setup [
+  (use! :lukas-reineke/indent-blankline.nvim :lazy false :init #(do 
     (g! indent_blankline_char "│")
     (g! indent_blankline_show_current_context true)))
   (use! :tpope/vim-fugitive)
-  (use! :mg979/vim-visual-multi :opt true :keys [
-    ["v" "<c-n>"]
-    ["n" "<c-n>"]
-    ["n" "<c-Up>"]
-    ["n" "<c-Down>"]
-  ] :setup #(g! VM_theme "codedark"))
-  (use! :godlygeek/tabular :opt true :cmd ["Tabularize"])
-  (use! :maksimr/vim-jsbeautify :opt true
+  (use! :tpope/vim-fugitive)
+  (use! :mg979/vim-visual-multi :lazy true :keys [
+    {1 "<c-n>" :mode :v}
+    "<c-n>"
+    "<c-Up>"
+    "<c-Down>"
+  ] :init #(g! VM_theme "codedark"))
+  (use! :godlygeek/tabular :lazy true :cmd ["Tabularize"])
+  (use! :maksimr/vim-jsbeautify :lazy true
     :fn [
       :JsBeautify
       :JsonBeautify
@@ -30,27 +40,27 @@
       :HtmlBeautify
       :CSSBeautify
     ])
-  (use! :tpope/vim-abolish :opt true :cmd [:Abolish :Subvert] :keys [
-    [:n "crs"]
-    [:n "crm"]
-    [:n "crc"]
-    [:n "cru"]
-    [:n "cr-"]
-    [:n "cr."]
-    [:n "cr "]
-    [:n "crt"]
+  (use! :tpope/vim-abolish :lazy true :cmd [:Abolish :Subvert] :keys [
+    "crs"
+    "crm"
+    "crc"
+    "cru"
+    "cr-"
+    "cr."
+    "cr "
+    "crt"
   ])
   (use! :wellle/targets.vim)
-  (use! :mattn/emmet-vim :opt true :keys [["i" "<c-y>"]])
-  (use! :FooSoft/vim-argwrap :opt true :cmd ["ArgWrap"])
+  (use! :mattn/emmet-vim :lazy true :keys {1 "<c-y>" :mode :i})
+  (use! :FooSoft/vim-argwrap :lazy true :cmd ["ArgWrap"])
   ;;(use! :sheerun/vim-polyglot)
   (use! :windwp/windline.nvim
     :config #(require "bubble_custom")
-    :requires "llwwns/nvim-navic")
-  (use! "AndrewRadev/deleft.vim" :opt true :keys [["n" "<leader>dh"]]
-    :setup #(g! deleft_mapping "<leader>dh"))
+    :dependencies "llwwns/nvim-navic")
+  (use! "AndrewRadev/deleft.vim" :lazy true :keys ["<leader>dh"]
+    :init #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
-    :requires [ 
+    :dependencies [ 
       "jose-elias-alvarez/null-ls.nvim"
       "nvim-lua/plenary.nvim"
       ;; "ray-x/lsp_signature.nvim"
@@ -60,9 +70,9 @@
   (use! "llwwns/nvim-navic"
     :config #(require-fun "nvim-navic#setup"))
   (use! "hrsh7th/nvim-cmp"
-    :opt true
+    :lazy true
     :event [:InsertEnter]
-    :requires [
+    :dependencies [
       "hrsh7th/cmp-buffer"
       "hrsh7th/cmp-nvim-lua"
       "hrsh7th/cmp-nvim-lsp"
@@ -73,67 +83,59 @@
     ]
     :config #(require "cmp_init"))
   (use! "hrsh7th/cmp-nvim-lsp")
-  (use! :nvim-lua/lsp_extensions.nvim :opt true :module ["lsp_extensions"])
-  ;; (use! "kyazdani42/nvim-tree.lua"
-  ;;   :requires "kyazdani42/nvim-web-devicons"
-  ;;   :opt true
-  ;;   :module [ "nvim-tree" ]
-  ;;   :config #(require "tree_init"))
+  (use! :nvim-lua/lsp_extensions.nvim :lazy true)
   (use!
     :nvim-neo-tree/neo-tree.nvim
-    :opt true
+    :lazy true
     :ft ["netrw"]
     :cmd [:Neotree]
     :config #(require :neotree_init)
       :branch "v2.x"
-      :requires [
+      :dependencies [
         "nvim-lua/plenary.nvim"
         "kyazdani42/nvim-web-devicons"
         "MunifTanjim/nui.nvim"
       ])
-  (use! :vim-scripts/BufOnly.vim :opt true :cmd ["BOnly"])
-  (use! :dbeniamine/todo.txt-vim :opt true :ft ["todo"])
-  (use! :houtsnip/vim-emacscommandline :setup #(g! EmacsCommandLineSearchCommandLineDisable 1))
+  (use! :vim-scripts/BufOnly.vim :lazy true :cmd ["BOnly"])
+  (use! :dbeniamine/todo.txt-vim :lazy true :ft ["todo"])
+  (use! :houtsnip/vim-emacscommandline :init #(g! EmacsCommandLineSearchCommandLineDisable 1))
   (use! :RRethy/vim-illuminate :config (fn [] 
     (require-fun :illuminate#configure {
       :providers [:regex]
       :delay 0
     })
     (vim.cmd "hi link IlluminatedWordText illuminatedWord")))
-  (use! :junegunn/gv.vim :opt true :cmd ["GV"])
-  (use! :lambdalisue/suda.vim :opt true :cmd ["SudaWrite"])
-  (use! :tyru/eskk.vim :opt true
-    :keys [[ "i" "<c-j>"] ["c" "<c-j>"] ["l" "<c-j>"]]
-    :setup #(g! "eskk#enable_completion" 1))
-  (use! :powerman/vim-plugin-AnsiEsc :opt true :cmd [ "AnsiEsc" ])
+  (use! :junegunn/gv.vim :lazy true :cmd ["GV"])
+  (use! :lambdalisue/suda.vim :lazy true :cmd ["SudaWrite"])
+  (use! :tyru/eskk.vim :lazy true
+    :keys [{1 "<c-j>" :mode :i} {1 "<c-j>" :mode :c} {1 "<c-j>" :mode :l}]
+    :init #(g! "eskk#enable_completion" 1))
+  (use! :powerman/vim-plugin-AnsiEsc :lazy true :cmd [ "AnsiEsc" ])
   ;; use('rhysd/reply.vim')
   (use! :tpope/vim-endwise)
   ;; use { "tomtom/tcomment_vim", opt = true, keys = { { "v", "gc" } } }
-  (use! :numToStr/Comment.nvim
-    :opt true
-    :keys [[ "v" "gc" ] [ "v" "gb" ]]
-    :config #(require-fun :Comment#setup { :extra [] :extended  false }))
-  ;; (use! :machakann/vim-swap :opt true
+  (use! :numToStr/Comment.nvim :lazy true :keys [{1 "gc" :mode :v} {1 "gb" :mode :v}]
+    :config #(require-fun :Comment#setup { :extra [] :extended false }))
+  ;; (use! :machakann/vim-swap :lazy true
   ;;   :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
-  (use! :mechatroner/rainbow_csv :opt true :ft [ "csv" ])
+  (use! :mechatroner/rainbow_csv :lazy true :ft [ "csv" ])
   ;; -- use "google/vim-searchindex"
   ;; -- use('junegunn/fzf', { dir = '~/fzf', ['do'] = './install --all' })
   ;; use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
-  (use! :AndrewRadev/bufferize.vim :opt true :cmd ["Bufferize"])
-  (use! :L3MON4D3/LuaSnip :opt true
-    :module "luasnip"
+  (use! :AndrewRadev/bufferize.vim :lazy true :cmd ["Bufferize"])
+  (use! :L3MON4D3/LuaSnip :lazy true
     :config #(require "luasnip_init"))
-  ;; (use! "luochen1990/rainbow" :setup #(g! rainbow_active 1))
-  (use! :nvim-treesitter/nvim-treesitter
-    :requires [ :p00f/nvim-ts-rainbow ]
+  ;; (use! "luochen1990/rainbow" :init #(g! rainbow_active 1))
+  (use! :llwwns/nvim-treesitter
+    :dependencies [ :p00f/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
   (use! :nvim-treesitter/playground)
   ;; (use! :bluz71/vim-moonfly-colors)
   ;; (use! :dstein64/nvim-scrollview)
   (use! :petertriho/nvim-scrollbar :config #(require-fun :scrollbar#setup))
-  (use! :mbbill/undotree :opt true :cmd "UndotreeToggle")
+  (use! :mbbill/undotree :lazy true :cmd "UndotreeToggle")
   (use! :lewis6991/gitsigns.nvim
-    :requires [ "nvim-lua/plenary.nvim" ]
+    :dependencies [ "nvim-lua/plenary.nvim" ]
     :config (fn []
       (require-fun :gitsigns#setup
         {
@@ -201,7 +203,7 @@
   }))
   (use! :EdenEast/nightfox.nvim)
   (use! "TimUntersberger/neogit"
-    :opt true
+    :lazy true
     :cmd [ "Neogit" ]
     :config #(require-fun :neogit#setup {
         :disable_commit_confirmation true
@@ -237,13 +239,13 @@
           }
         }
       }))
-  (use! :samoshkin/vim-mergetool :opt true :cmd ["MergetoolStart"] :setup #(do
+  (use! :samoshkin/vim-mergetool :lazy true :cmd ["MergetoolStart"] :init #(do
     (g! mergetool_layout "LmR")
     ;; (g! mergetool_prefer_revision "base")
     (g! mergetool_prefer_revision "unmodified")))
-  (use! :phaazon/hop.nvim :opt true :module "hop" :config #(require-fun :hop#setup))
+  (use! :llwwns/hop.nvim :lazy true :config #(require-fun :hop#setup))
   (use! :akinsho/toggleterm.nvim
-    :opt true :cmd [:ToggleTerm]
+    :lazy true :cmd [:ToggleTerm]
     :config #(require-fun :toggleterm#setup {
       :hide_numbers true
       :size #(* (vim.fn.winheight "%") 1.2)
@@ -255,53 +257,32 @@
                    (tset vim.opt_local :relativenumber false)
                    (tset vim.opt_local :winbar ""))
     }))
-  ;; (use! :numtostr/FTerm.nvim :opt true
-  ;;   :module "FTerm"
-  ;;   :config #(require-fun :FTerm#setup {
-  ;;       :dimensions {
-  ;;         :height 0.8
-  ;;         :width 1
-  ;;         :y 1
-  ;;       }
-  ;;     }))
 
   (use! :windwp/nvim-ts-autotag)
   (use! :lewis6991/impatient.nvim)
-  (use! :ii14/lsp-command :opt true :cmd ["Lsp"])
-  (use! :kyazdani42/nvim-web-devicons :opt true
-    :module "nvim-web-devicons")
+  (use! :ii14/lsp-command :lazy true :cmd ["Lsp"])
   (use! "stevearc/dressing.nvim"
     :config #(require-fun :dressing#setup {
         :select {
           :backend ["telescope" "builtin"]
         }
       }))
-  (use! :nyngwang/NeoZoom.lua :opt true :cmd ["NeoZoomToggle"])
-  (use! :ruifm/gitlinker.nvim :opt true
+  (use! :nyngwang/NeoZoom.lua :lazy true :cmd ["NeoZoomToggle"])
+  (use! :ruifm/gitlinker.nvim :lazy true
     :config #(require-fun :gitlinker#setup)
-    :keys [[ "v" "<leader>gy" ] [ "n" "<leader>gy" ]])
+    :keys ["<leader>gy"] {1 "<leader>gy" :mode :v})
   (use! :j-hui/fidget.nvim :config #(require-fun :fidget#setup))
-  (use! :nvim-telescope/telescope.nvim :opt true
-    :requires [
+  (use! :nvim-telescope/telescope.nvim :lazy true
+    :dependencies [
       [ "nvim-lua/plenary.nvim" ]
-      ;; [ "nvim-telescope/telescope-fzy-native.nvim" ]
       [ "natecraddock/telescope-zf-native.nvim" ]
     ]
-    :module [ "telescope" ]
     :config #(require :telescope_init))
-  ;; -- use {
-  ;; --   opt = true,
-  ;; --   "nvim-telescope/telescope-fzy-native.nvim",
-  ;; --   module = { "telescope._extensions" },
-  ;; -- }
-  (use! :natecraddock/telescope-zf-native.nvim
-    :opt true
-    :module [ "telescope._extensions.zf-native" ])
+  (use! :natecraddock/telescope-zf-native.nvim :lazy true)
   (use!
     :sindrets/diffview.nvim
-    :requires "nvim-lua/plenary.nvim"
-    :opt true
-    :module "diffview"
+    :dependencies "nvim-lua/plenary.nvim"
+    :lazy true
     :cmd [
       "DiffviewFileHistory"
       "DiffviewOpen"
@@ -309,25 +290,25 @@
     :config #(require "diffview_init"))
   ;; (use! "EdenEast/nightfox.nvim")
   (use! "MunifTanjim/nui.nvim")
-  (use! "bfredl/nvim-luadev" :opt true
+  (use! "bfredl/nvim-luadev" :lazy true
         :cmd [:Luadev] :config (fn [] 
           (map! [n :noremap] "<leader>ll"  "<Plug>(Luadev-RunLine)")
           (map! [nv :noremap] "<leader>lr"  "<Plug>(Luadev-Run)")
           (map! [n :noremap] "<leader>lw"  "<Plug>(Luadev-RunWord)")
           (map! [i :noremap] "<c-k><c-l>"  "<Plug>(Luadev-Complete)")))
-  (use! "llwwns/tangerine.nvim" :opt true
+  (use! "llwwns/tangerine.nvim" :lazy true
     :ft "fennel"
-    :requires ["udayvir-singh/hibiscus.nvim" ]
+    :dependencies ["udayvir-singh/hibiscus.nvim" ]
     :config #(require-fun :tangerine#setup {
         :compiler {
           :verbose false
           :hooks [ "onsave" ]
         }
       }))
-  ;; (use! "vimpostor/vim-tpipeline" :setup #(g! :tpipeline_cursormoved 1))
-  (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :requires :anuvyklack/keymap-layer.nvim)
+  ;; (use! "vimpostor/vim-tpipeline" :init #(g! :tpipeline_cursormoved 1))
+  (use! :anuvyklack/hydra.nvim :config #(require :hydra_init) :dependencies :anuvyklack/keymap-layer.nvim)
   (use! :ziontee113/icon-picker.nvim 
-    :opt true :cmd [
+    :lazy true :cmd [
       :PickEverything
       :PickIcons
       :PickEmoji
@@ -349,26 +330,18 @@
                                          (notify.setup)
                                          (tset vim :notify notify)))
   (use! :norcalli/nvim-colorizer.lua :config #(require-fun :colorizer#setup))
-  (use! :monaqa/dial.nvim :opt true :keys [
-    ["n" "<Plug>(dial-increment)"]
-    ["n" "<Plug>(dial-decrement)"]
-    ["v" "<Plug>(dial-increment)"]
-    ["v" "<Plug>(dial-decrement)"]
-    ["v" "g<Plug>(dial-increment)"]
-    ["v" "g<Plug>(dial-decrement)"]
-  ] :config #(require :dial_init))
-  (use! :mizlan/iswap.nvim :opt true :module [:iswap] :config 
+  (use! :monaqa/dial.nvim :lazy true :config #(require :dial_init))
+  (use! :mizlan/iswap.nvim :lazy true :config 
     #(require-fun :iswap#setup {:flash_style false :move_cursor true}))
-  (use! :rcarriga/nvim-dap-ui :opt true :module [:dapui])
-  (use! :mfussenegger/nvim-dap :config #(require :dap_init) :opt true :module [:dap])
-  (use! :leoluz/nvim-dap-go :opt true :requires [:mfussenegger/nvim-dap] :module [:dap-go] :config
+  (use! :rcarriga/nvim-dap-ui :lazy true)
+  (use! :mfussenegger/nvim-dap :config #(require :dap_init) :lazy true)
+  (use! :leoluz/nvim-dap-go :lazy true :dependencies [:mfussenegger/nvim-dap] :config
     #(require-fun :dap-go#setup))
   (use! :dstein64/vim-startuptime)
   (use!
     :toppair/peek.nvim
-    :run "deno task --quiet build:fast"
-    :opt true :ft "markdown"
-    :module [:peek]
+    :build "deno task --quiet build:fast"
+    :lazy true :ft "markdown"
     :config #(require-fun :peek#setup {
         :auto_load true
         :close_on_bdelete true
@@ -380,40 +353,4 @@
     :config #(require-fun :colorful-winsep#setup {
       :symbols ["─" "│" "┌" "┐" "└" "┘"]
     }))
-  ;; (use! :samjwill/nvim-unception 
-  ;;       :config (fn [] 
-  ;;         (g! unception_open_buffer_in_new_tab true)))
-  ;;         (g! unception_block_while_host_edits true)))
-  ;; (use! 
-  ;;   :gorbit99/codewindow.nvim
-  ;;   :config (fn []
-  ;;     (let [codewindow (require :codewindow)]
-  ;;       (codewindow.setup)
-  ;;       (codewindow.apply_default_keybinds))))
-  ;; (use! :nvim-neorg/neorg :opt true
-  ;;   :ft "norg"
-  ;;   :run  ":Neorg sync-parsers"
-  ;;   :requires "nvim-treesitter"
-  ;;   :config #(require-fun :neorg#setup { 
-  ;;     :load {
-  ;;       :core.defaults {}
-  ;;       :core.norg.dirman {
-  ;;         :config {
-  ;;           :workspaces { :notes "~/Documents/notes" }
-  ;;         }
-  ;;       }
-  ;;     }
-  ;;   }))
-  ;; (use! "potamides/pantran.nvim" :opt true :module [:pantran]
-  ;;   :config #(require-fun :pantran#setup {
-  ;;     :default_engine :deepl
-  ;;     :default_source "EN-US"
-  ;;     :default_target "JA"
-  ;;   }))
-  ;; (use! :folke/noice.nvim
-  ;;   :config #(require-fun :noice#setup)
-  ;;   :requires [
-  ;;     :MunifTanjim/nui.nvim
-  ;;     :rcarriga/nvim-notify
-  ;;   ])
-)
+])
