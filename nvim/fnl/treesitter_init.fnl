@@ -39,6 +39,11 @@
   }
   :playground {
     :enable true
+    :disable #(not (not vim.b.large_buf))
+  }
+  :endwise {
+    :enable true
+    :disable #(not (not vim.b.large_buf))
   }
   :ensure_installed [
     "bash"
@@ -76,6 +81,7 @@
     "perl"
     "proto"
     "python"
+    "query"
     "regex"
     "ruby"
     "rust"

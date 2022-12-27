@@ -1,18 +1,5 @@
 (require-macros :utils-macros)
 (import-macros {: g! : map!} :hibiscus.vim)
-(g! mapleader "'")
-(g! maplocalleader "'")
-
-(macro use! [name ...]
-  (let [opts [...]]
-    (if (= 0 (length opts))
-      name
-      (let [out [name]]
-        (each [idx val (ipairs opts)]
-          (when (= 1 (% idx 2))
-              (let [nval (. opts (+ idx 1))]
-                (tset out val nval))))
-         out))))
 
 (let [install_path (.. (vim.fn.stdpath "data") "/lazy/lazy.nvim")]
   (when (not (vim.loop.fs_stat install_path))
@@ -32,14 +19,14 @@
     "<c-Down>"
   ] :init #(g! VM_theme "codedark"))
   (use! :godlygeek/tabular :lazy true :cmd ["Tabularize"])
-  (use! :maksimr/vim-jsbeautify :lazy true
-    :fn [
-      :JsBeautify
-      :JsonBeautify
-      :JsxBeautify
-      :HtmlBeautify
-      :CSSBeautify
-    ])
+  ;; (use! :maksimr/vim-jsbeautify :lazy true
+  ;;   :fn [
+  ;;     :JsBeautify
+  ;;     :JsonBeautify
+  ;;     :JsxBeautify
+  ;;     :HtmlBeautify
+  ;;     :CSSBeautify
+  ;;   ])
   (use! :tpope/vim-abolish :lazy true :cmd [:Abolish :Subvert] :keys [
     "crs"
     "crm"
@@ -112,7 +99,7 @@
     :init #(g! "eskk#enable_completion" 1))
   (use! :powerman/vim-plugin-AnsiEsc :lazy true :cmd [ "AnsiEsc" ])
   ;; use('rhysd/reply.vim')
-  (use! :tpope/vim-endwise)
+  ;; (use! :tpope/vim-endwise)
   ;; use { "tomtom/tcomment_vim", opt = true, keys = { { "v", "gc" } } }
   (use! :numToStr/Comment.nvim :lazy true :keys [{1 "gc" :mode :v} {1 "gb" :mode :v}]
     :config #(require-fun :Comment#setup { :extra [] :extended false }))
@@ -126,9 +113,10 @@
   (use! :L3MON4D3/LuaSnip :lazy true
     :config #(require "luasnip_init"))
   ;; (use! "luochen1990/rainbow" :init #(g! rainbow_active 1))
-  (use! :llwwns/nvim-treesitter
+  (use! :nvim-treesitter/nvim-treesitter
     :dependencies [ :p00f/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
+  (use! :RRethy/nvim-treesitter-endwise)
   (use! :nvim-treesitter/playground)
   ;; (use! :bluz71/vim-moonfly-colors)
   ;; (use! :dstein64/nvim-scrollview)
