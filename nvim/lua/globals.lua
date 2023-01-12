@@ -128,4 +128,34 @@ _G.all_special = function()
   end
   return ret
 end
-return _G.all_special
+_G.line_mark = function()
+  local cl = (vim.api.nvim_win_get_cursor(0))[1]
+  if (vim.v.lnum == cl) then
+    return "%l"
+  else
+    return "%r"
+  end
+end
+_G.fold_mark = function()
+  local cl = vim.fn.foldlevel(vim.v.lnum)
+  local pl = vim.fn.foldlevel((vim.v.lnum - 1))
+  local nl = vim.fn.foldlevel((vim.v.lnum + 1))
+  if (cl > pl) then
+    if (vim.fn.foldclosed(vim.v.lnum) == -1) then
+      return "\239\145\188"
+    else
+      return "\239\145\160"
+    end
+  elseif (nl < cl) then
+    return "\239\145\187"
+  elseif (cl > 2) then
+    return "\226\149\145"
+  elseif (cl > 1) then
+    return "\226\148\131"
+  elseif (cl > 0) then
+    return "\226\148\130"
+  else
+    return " "
+  end
+end
+return _G.fold_mark

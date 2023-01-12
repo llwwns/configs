@@ -1,12 +1,12 @@
 (require-macros :hibiscus.vim)
 (require-macros :utils-macros)
 
-(augroup! :numbertoggle
-    [[BufEnter FocusGained InsertLeave] *
-      #(tset vim.opt :relativenumber  true)]
-    [[BufLeave FocusLost InsertEnter] *
-      #(tset vim.opt :relativenumber false)]
-)
+;; (augroup! :numbertoggle
+;;     [[BufEnter FocusGained InsertLeave] *
+;;       #(tset vim.opt :relativenumber true)]
+;;     [[BufLeave FocusLost InsertEnter] *
+;;       #(tset vim.opt :relativenumber false)])
+
 (augroup! :highlight_yank
   [[TextYankPost] *
     #(vim.highlight.on_yank { :higroup "Visual" :timeout 200 })])
@@ -42,8 +42,8 @@
        {:old_mode "i"} (tset vim.opt_local :indentkeys "0{,0},0),0],:,0#,!^F,o,O,e"))])
 
 (augroup! :filetypes
-  [[FileType] * (fn []
-    (tset vim.opt_local :spelloptions :camel))]
+  ;; [[FileType] * (fn []
+  ;;   (tset vim.opt_local :spelloptions :camel))]
   [[FileType] make (fn []
     (tset vim.opt_local :tabstop 8)
     (tset vim.opt_local :expandtab false))]

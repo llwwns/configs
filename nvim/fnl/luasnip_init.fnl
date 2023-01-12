@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(require-macros :utils-macros)
 (local ls (require "luasnip"))
 (local snippet ls.snippet)
 (local text-node ls.text_node)
@@ -138,3 +139,4 @@
 (map! [s] "<c-k>" "<Plug>luasnip-jump-prev")
 ;; (map! [i] "<C-E>" "<Plug>luasnip-next-choice")
 ;; (map! [s] "<C-E>" "<Plug>luasnip-next-choice")
+(require-fun :luasnip.loaders.from_vscode#lazy_load)

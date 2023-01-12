@@ -42,7 +42,8 @@
   ;; (map! [n :buffer :noremap] "gs" "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
   (map! [n :buffer :noremap] "gs" "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
   (map! [n :buffer :noremap] "<leader>rn" "<cmd>Lsp rename<CR>")
-  (map! [nv :buffer :noremap] "<leader>da" "<cmd>Lsp codeaction<CR>")
+  (map! [n :buffer :noremap] "<leader>da" "<cmd>lua vim.lsp.buf.code_action()<CR>")
+  (map! [v :buffer :noremap] "<leader>da" "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>")
 
 	(vim.api.nvim_buf_set_option bufnr "formatexpr" "v:lua.vim.lsp.formatexpr()")
 	(vim.api.nvim_buf_set_option bufnr "omnifunc" "v:lua.vim.lsp.omnifunc")

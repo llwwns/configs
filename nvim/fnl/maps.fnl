@@ -201,6 +201,10 @@
 (map! [n :noremap] "<leader>rp" _G.replace)
 (map! [v :noremap] "P" "\"0p")
 (map! [t :noremap] "<c-\\><c-v>" "<c-\\><c-n>\"+pa")
+(map! [t :noremap] "<c-w>h" "<c-\\><c-n><c-w>h")
+(map! [t :noremap] "<c-w>j" "<c-\\><c-n><c-w>j")
+(map! [t :noremap] "<c-w>k" "<c-\\><c-n><c-w>k")
+(map! [t :noremap] "<c-w>l" "<c-\\><c-n><c-w>l")
 ;;
 ;; (map! [n] "zR" #(require-fun "ufo#openAllFolds"))
 ;; (map! [n] "zM" #(require-fun "ufo#closeAllFolds"))

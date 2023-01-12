@@ -25,11 +25,11 @@ local function on_attach(client, bufnr)
   vim.keymap.set({"n"}, "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "gs", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", {buffer = true, noremap = true, silent = true})
   vim.keymap.set({"n"}, "<leader>rn", "<cmd>Lsp rename<CR>", {buffer = true, noremap = true, silent = true})
-  vim.keymap.set({"n", "v"}, "<leader>da", "<cmd>Lsp codeaction<CR>", {buffer = true, noremap = true, silent = true})
+  vim.keymap.set({"n"}, "<leader>da", "<cmd>lua vim.lsp.buf.code_action()<CR>", {buffer = true, noremap = true, silent = true})
+  vim.keymap.set({"v"}, "<leader>da", "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>", {buffer = true, noremap = true, silent = true})
   vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  do end (require("lsp_signature")).on_attach({floating_window = false})
   if client.server_capabilities.documentSymbolProvider then
     local win = vim.api.nvim_get_current_win()
     local buf = vim.api.nvim_win_get_buf(win)
@@ -71,9 +71,9 @@ end
 local capabilities = (require("cmp_nvim_lsp")).default_capabilities()
 null_ls.setup({sources = {prettierd, null_ls.builtins.formatting.stylua, null_ls.builtins.diagnostics.shellcheck}, on_attach = on_attach, capabilities = capabilities})
 local function setup_lsp(server, opts)
-  local man = lsp[server]
-  man.setup(opts)
-  local try_add = man.manager.try_add
+  local conf = lsp[server]
+  conf.setup(opts)
+  local try_add = conf.manager.try_add
   local function _9_(_241)
     if not vim.b.large_buf then
       return try_add(_241)
@@ -81,7 +81,7 @@ local function setup_lsp(server, opts)
       return nil
     end
   end
-  man.manager["try_add"] = _9_
+  conf.manager["try_add"] = _9_
   return nil
 end
 setup_lsp("clangd", {filetypes = {"c", "cpp", "objc", "objcpp", "cuda"}, on_attach = on_attach_rs, capabilities = capabilities, cmd = {"clangd", "--background-index"}})
@@ -89,7 +89,7 @@ setup_lsp("rust_analyzer", {on_attach = on_attach_rs, ["rust-analyzer.diagnostic
 setup_lsp("tsserver", {on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("package.json"), capabilities = capabilities})
 setup_lsp("denols", {single_file_support = false, on_attach = on_attach_ts, root_dir = lsp.util.root_pattern("deno.json"), init_options = {lint = true}, settings = {["deno.unstable"] = true}, capabilities = capabilities})
 setup_lsp("vimls", {on_attach = on_attach, capabilities = capabilities})
-setup_lsp("jsonls", {on_attach = on_attach, capabilities = capabilities})
+setup_lsp("jsonls", {on_attach = on_attach, capabilities = capabilities, settings = {json = {validate = {enable = true}}}})
 setup_lsp("cssls", {on_attach = on_attach, capabilities = capabilities})
 setup_lsp("html", {on_attach = on_attach, capabilities = capabilities})
 setup_lsp("yamlls", {on_attach = on_attach, capabilities = capabilities})

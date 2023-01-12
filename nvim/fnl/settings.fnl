@@ -66,6 +66,8 @@
   :diff "╱"
   :eob " "
 })
+;; (set! statuscolumn "%=%l%s%C ")
+;; (set! statuscolumn "%=%s%{%v:lua.line_mark()%}%{v:lua.fold_mark()} ")
 (set! laststatus 3)
 (set! cmdheight 0)
 (set! exrc true)
@@ -133,7 +135,7 @@
     (map! [n :noremap] "<A-CR>"
       "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>"))
     (map! [t :noremap] "<c-s-v>" "<c-\\><c-n>\"+pa")
-  (when (= 1 (vim.fn.exists "g:fvim_loaded")) (do
+  (= 1 (vim.fn.exists "g:fvim_loaded") (do
   ; FVimBackgroundOpacity 0.7
     (set! guifont "Sarasa Nerd Font:h18"))))
   ; nnoremap <A-CR> :FVimToggleFullScreen<CR>

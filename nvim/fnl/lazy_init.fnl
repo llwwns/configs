@@ -44,6 +44,7 @@
   (use! :windwp/windline.nvim
     :config #(require "bubble_custom")
     :dependencies "llwwns/nvim-navic")
+  ;; (use! :rebelot/heirline.nvim)
   (use! "AndrewRadev/deleft.vim" :lazy true :keys ["<leader>dh"]
     :init #(g! deleft_mapping "<leader>dh"))
   (use! "neovim/nvim-lspconfig"
@@ -54,8 +55,7 @@
       "llwwns/nvim-navic"
     ]
     :config #(require "lsp_init"))
-  (use! "llwwns/nvim-navic"
-    :config #(require-fun "nvim-navic#setup"))
+  (use! "llwwns/nvim-navic" :config true)
   (use! "hrsh7th/nvim-cmp"
     :lazy true
     :event [:InsertEnter]
@@ -102,7 +102,7 @@
   ;; (use! :tpope/vim-endwise)
   ;; use { "tomtom/tcomment_vim", opt = true, keys = { { "v", "gc" } } }
   (use! :numToStr/Comment.nvim :lazy true :keys [{1 "gc" :mode :v} {1 "gb" :mode :v}]
-    :config #(require-fun :Comment#setup { :extra [] :extended false }))
+    :config { :extra [] :extended false })
   ;; (use! :machakann/vim-swap :lazy true
   ;;   :keys [[ "n" "g<" ] [ "n" "g>" ] [ "n" "gs" ] [ "x" "gs" ]])
   (use! :mechatroner/rainbow_csv :lazy true :ft [ "csv" ])
@@ -111,10 +111,11 @@
   ;; use { "junegunn/fzf.vim", opt = true, cmd = { "Files", "Buffers" } }
   (use! :AndrewRadev/bufferize.vim :lazy true :cmd ["Bufferize"])
   (use! :L3MON4D3/LuaSnip :lazy true
+    :dependencies [:rafamadriz/friendly-snippets]
     :config #(require "luasnip_init"))
   ;; (use! "luochen1990/rainbow" :init #(g! rainbow_active 1))
   (use! :nvim-treesitter/nvim-treesitter
-    :dependencies [ :p00f/nvim-ts-rainbow ]
+    :dependencies [ :mrjones2014/nvim-ts-rainbow ]
     :config #(require "treesitter_init"))
   (use! :RRethy/nvim-treesitter-endwise)
   (use! :nvim-treesitter/playground)
@@ -186,9 +187,10 @@
           :Reference "  "
         }
       }))
-  (use! :folke/tokyonight.nvim :config #(require-fun :tokyonight#setup {
+  (use! :folke/tokyonight.nvim :priority 1000 :config #(require-fun :tokyonight#setup {
       :sidebars [:qf :neo-tree :FTerm :packer]
   }))
+  (use! :rebelot/kanagawa.nvim :lazy true)
   (use! :EdenEast/nightfox.nvim)
   (use! "TimUntersberger/neogit"
     :lazy true
@@ -231,7 +233,7 @@
     (g! mergetool_layout "LmR")
     ;; (g! mergetool_prefer_revision "base")
     (g! mergetool_prefer_revision "unmodified")))
-  (use! :llwwns/hop.nvim :lazy true :config #(require-fun :hop#setup))
+  (use! :llwwns/hop.nvim :lazy true :config true)
   (use! :akinsho/toggleterm.nvim
     :lazy true :cmd [:ToggleTerm]
     :config #(require-fun :toggleterm#setup {
@@ -341,4 +343,5 @@
     :config #(require-fun :colorful-winsep#setup {
       :symbols ["─" "│" "┌" "┐" "└" "┘"]
     }))
+  (use! :m4xshen/autoclose.nvim :lazy true :event [:InsertEnter] :config #(require-fun :autoclose#setup {}))
 ])

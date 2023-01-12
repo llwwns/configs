@@ -91,3 +91,21 @@
     (accumulate [ret true
                      i w (ipairs wins)]
       (and ret (_G.is_special w)))))
+
+
+(fn _G.line_mark []
+  (let [cl (. (vim.api.nvim_win_get_cursor 0) 1)]
+    (if (= vim.v.lnum cl) "%l" "%r")))
+
+(fn _G.fold_mark []
+  (let [cl (vim.fn.foldlevel vim.v.lnum)
+        pl (vim.fn.foldlevel (- vim.v.lnum 1))
+        nl (vim.fn.foldlevel (+ vim.v.lnum 1))]
+    (if
+      (> cl pl)
+        (if (= (vim.fn.foldclosed vim.v.lnum) -1) "" "")
+      (< nl cl) ""
+      (> cl 2) "║"
+      (> cl 1) "┃"
+      (> cl 0) "│"
+      " ")))

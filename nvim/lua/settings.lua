@@ -80,12 +80,12 @@ elseif (1 == vim.fn.exists("neovide")) then
   vim.opt["mouse"] = "a"
   return vim.keymap.set({"n"}, "<A-CR>", "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>", {noremap = true, silent = true})
 elseif vim.keymap.set({"t"}, "<c-s-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true}) then
-  if (1 == vim.fn.exists("g:fvim_loaded")) then
+  local _4_
+  do
     vim.opt["guifont"] = "Sarasa Nerd Font:h18"
-    return nil
-  else
-    return nil
+    _4_ = nil
   end
+  return (function(_1_,_2_,_3_) return (_1_ == _2_) and (_2_ == _3_) end)(1,vim.fn.exists("g:fvim_loaded"),_4_)
 else
   return nil
 end

@@ -11,13 +11,14 @@
 (fn use! [name ...]
   (let [opts [...]]
     (if (= 0 (length opts))
-      `(use ,name)
+      name
       (let [out [name]]
         (each [idx val (ipairs opts)]
           (when (= 1 (% idx 2))
               (let [nval (. opts (+ idx 1))]
                 (tset out val nval))))
-         `(use ,out)))))
+         out))))
+
 
 (fn lazy [...]
   `(require-fun :lazy#setup

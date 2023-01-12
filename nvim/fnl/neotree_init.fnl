@@ -15,4 +15,10 @@
       :visible false
     }
   }
+  :window {
+    :mappings {
+      :y :nop
+      :yy :copy_to_clipboard
+    }
+  }
 })
