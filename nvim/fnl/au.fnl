@@ -118,6 +118,20 @@
   [[FileType] [markdown] (fn []
       (map! [n] "<leader>po" #(require-fun :peek#open))
       (map! [n] "<leader>pc" #(require-fun :peek#close)))]
+
+  [[FileType] [
+    qf
+    help
+    man
+    notify
+    lspinfo
+    spectre_panel
+    startuptime
+    tsplayground
+    PlenaryTestPopup
+  ] (fn [event] 
+    (tset (. vim.bo event.buf) :buflisted false)
+    (vim.keymap.set "n" "q" "<cmd>close<cr>" { :buffer event.buf :silent true }))]
 )
 ;; -- augroups {
 ;; --   filetypes = {

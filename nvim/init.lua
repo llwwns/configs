@@ -1,7 +1,9 @@
 vim.g.polyglot_disabled = { "csv", "ruby" }
 vim.opt.termguicolors = true
-vim.mapleader = "'"
-vim.maplocalleader = "'"
+
+vim.g.mapleader = "'"
+vim.g.maplocalleader = "'"
+
 require "lazy_init"
 require "globals"
 require "settings"

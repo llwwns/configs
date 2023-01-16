@@ -242,4 +242,9 @@ local function _49_()
   end
   return vim.keymap.set({"n"}, "<leader>pc", _51_, {silent = true})
 end
-return vim.api.nvim_create_autocmd({"FileType"}, {callback = _49_, group = augid_19_, pattern = {"markdown"}})
+vim.api.nvim_create_autocmd({"FileType"}, {callback = _49_, group = augid_19_, pattern = {"markdown"}})
+local function _52_(event)
+  vim.bo[event.buf]["buflisted"] = false
+  return vim.keymap.set("n", "q", "<cmd>close<cr>", {buffer = event.buf, silent = true})
+end
+return vim.api.nvim_create_autocmd({"FileType"}, {callback = _52_, group = augid_19_, pattern = {"qf", "help", "man", "notify", "lspinfo", "spectre_panel", "startuptime", "tsplayground", "PlenaryTestPopup"}})
