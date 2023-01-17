@@ -343,5 +343,6 @@
     :config #(require-fun :colorful-winsep#setup {
       :symbols ["─" "│" "┌" "┐" "└" "┘"]
     }))
-  (use! :m4xshen/autoclose.nvim :lazy true :event [:InsertEnter] :config #(require-fun :autoclose#setup {}))
+  (use! :hrsh7th/nvim-insx :lazy true :event [:InsertEnter] :config #(require :insx_init))
+  ;; (use! :m4xshen/autoclose.nvim :lazy true :event [:InsertEnter] :config #(require-fun :autoclose#setup {}))
 ])

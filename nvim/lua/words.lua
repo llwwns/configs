@@ -72,6 +72,7 @@ end
 function source:execute(completion_item, callback)
   callback(completion_item)
 end
+
 ---Register custom source to nvim-cmp.
 require("cmp").register_source("words", source.new())
 
