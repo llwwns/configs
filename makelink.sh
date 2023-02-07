@@ -22,6 +22,7 @@ makelink .config/tmux.conf tmux.conf
 makelink .config/fish/config.fish fish/config.fish
 makelink .config/fish/fishfile fish/fishfile
 makelink .config/rofi rofi
+makelink .config/hypr hypr
 makelink .config/alacritty alacritty
 makelink .config/nvim nvim
 makelink .config/topgrade.toml topgrade.toml
