@@ -137,7 +137,9 @@
 
 
 ;; (map! [nt :noremap] "<c-s>" #(require-fun :FTerm#toggle))
-(map! [nt :noremap] "<c-s>" "<cmd>ToggleTerm<CR>")
+;; (map! [nt :noremap] "<c-s>" "<cmd>ToggleTerm<CR>")
+(map! [nt :noremap] "<c-s>" #(require-fun :toggleterm#toggle 0 (* (vim.api.nvim_win_get_height 0) 0.4)))
+;; (map! [nt :noremap] "<c-s>" #(if (= vim.bo.buftype "terminal") (vim.cmd.NeoTermClose) (vim.cmd.NeoTermOpen)))
 
 (map! [n :noremap] "<leader>gs" "<cmd>Neogit<CR>")
 

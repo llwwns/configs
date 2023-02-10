@@ -8,7 +8,7 @@ do
   do end (vim.opt.runtimepath):prepend(install_path)
 end
 local function _2_()
-  vim.g["indent_blankline_char"] = "\226\148\130"
+  vim.g["indent_blankline_char"] = "\226\150\143"
   vim.g["indent_blankline_show_current_context"] = true
   return nil
 end
@@ -73,78 +73,75 @@ local function _19_()
 end
 local function _20_()
   local function _21_()
-    return (vim.fn.winheight("%") * 1.2)
-  end
-  local function _22_()
     vim.opt_local["spell"] = false
     vim.opt_local["number"] = false
     vim.opt_local["relativenumber"] = false
     vim.opt_local["winbar"] = ""
     return nil
   end
-  return (require("toggleterm")).setup({hide_numbers = true, size = _21_, winbar = {enabled = false}, on_open = _22_})
+  return (require("toggleterm")).setup({hide_numbers = true, winbar = {enabled = false}, on_open = _21_})
 end
-local function _23_()
+local function _22_()
   return (require("dressing")).setup({select = {backend = {"telescope", "builtin"}}})
 end
-local function _24_()
+local function _23_()
   return (require("gitlinker")).setup()
 end
-local function _25_()
+local function _24_()
   return (require("fidget")).setup()
 end
-local function _26_()
+local function _25_()
   return require("telescope_init")
 end
-local function _27_()
+local function _26_()
   return require("diffview_init")
 end
-local function _28_()
+local function _27_()
   vim.keymap.set({"n"}, "<leader>ll", "<Plug>(Luadev-RunLine)", {noremap = true, silent = true})
   vim.keymap.set({"n", "v"}, "<leader>lr", "<Plug>(Luadev-Run)", {noremap = true, silent = true})
   vim.keymap.set({"n"}, "<leader>lw", "<Plug>(Luadev-RunWord)", {noremap = true, silent = true})
   return vim.keymap.set({"i"}, "<c-k><c-l>", "<Plug>(Luadev-Complete)", {noremap = true, silent = true})
 end
-local function _29_()
+local function _28_()
   return (require("tangerine")).setup({compiler = {verbose = false, hooks = {"onsave"}}})
 end
-local function _30_()
+local function _29_()
   return require("hydra_init")
 end
-local function _31_()
+local function _30_()
   return require("icon-picker")
 end
-local function _32_()
+local function _31_()
   return (require("scope")).setup()
 end
-local function _33_()
+local function _32_()
   local notify = require("notify")
   notify.setup()
   do end (vim)["notify"] = notify
   return nil
 end
-local function _34_()
+local function _33_()
   return (require("colorizer")).setup()
 end
-local function _35_()
+local function _34_()
   return require("dial_init")
 end
-local function _36_()
+local function _35_()
   return (require("iswap")).setup({flash_style = false, move_cursor = true})
 end
-local function _37_()
+local function _36_()
   return require("dap_init")
 end
-local function _38_()
+local function _37_()
   return (require("dap-go")).setup()
 end
-local function _39_()
+local function _38_()
   return (require("peek")).setup({auto_load = true, close_on_bdelete = true, syntax = true, theme = "dark", update_on_change = true})
 end
-local function _40_()
+local function _39_()
   return (require("colorful-winsep")).setup({symbols = {"\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\148", "\226\148\152"}})
 end
-local function _41_()
+local function _40_()
   return require("insx_init")
 end
-return (require("lazy")).setup({{init = _2_, lazy = false, "lukas-reineke/indent-blankline.nvim"}, "tpope/vim-fugitive", "tpope/vim-fugitive", {init = _3_, keys = {{mode = "v", "<c-n>"}, "<c-n>", "<c-Up>", "<c-Down>"}, lazy = true, "mg979/vim-visual-multi"}, {cmd = {"Tabularize"}, lazy = true, "godlygeek/tabular"}, {cmd = {"Abolish", "Subvert"}, keys = {"crs", "crm", "crc", "cru", "cr-", "cr.", "cr ", "crt"}, lazy = true, "tpope/vim-abolish"}, "wellle/targets.vim", {keys = {mode = "i", "<c-y>"}, lazy = true, "mattn/emmet-vim"}, {cmd = {"ArgWrap"}, lazy = true, "FooSoft/vim-argwrap"}, {config = _4_, dependencies = "llwwns/nvim-navic", "windwp/windline.nvim"}, {init = _5_, keys = {"<leader>dh"}, lazy = true, "AndrewRadev/deleft.vim"}, {config = _6_, dependencies = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "llwwns/nvim-navic"}, "neovim/nvim-lspconfig"}, {config = true, "llwwns/nvim-navic"}, {config = _7_, dependencies = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/cmp-nvim-lsp-signature-help"}, event = {"InsertEnter"}, lazy = true, "hrsh7th/nvim-cmp"}, "hrsh7th/cmp-nvim-lsp", {lazy = true, "nvim-lua/lsp_extensions.nvim"}, {branch = "v2.x", cmd = {"Neotree"}, config = _8_, dependencies = {"nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons", "MunifTanjim/nui.nvim"}, ft = {"netrw"}, lazy = true, "nvim-neo-tree/neo-tree.nvim"}, {cmd = {"BOnly"}, lazy = true, "vim-scripts/BufOnly.vim"}, {ft = {"todo"}, lazy = true, "dbeniamine/todo.txt-vim"}, {init = _9_, "houtsnip/vim-emacscommandline"}, {config = _10_, "RRethy/vim-illuminate"}, {cmd = {"GV"}, lazy = true, "junegunn/gv.vim"}, {cmd = {"SudaWrite"}, lazy = true, "lambdalisue/suda.vim"}, {init = _11_, keys = {{mode = "i", "<c-j>"}, {mode = "c", "<c-j>"}, {mode = "l", "<c-j>"}}, lazy = true, "tyru/eskk.vim"}, {cmd = {"AnsiEsc"}, lazy = true, "powerman/vim-plugin-AnsiEsc"}, {config = {extra = {}, extended = false}, keys = {{mode = "v", "gc"}, {mode = "v", "gb"}}, lazy = true, "numToStr/Comment.nvim"}, {ft = {"csv"}, lazy = true, "mechatroner/rainbow_csv"}, {cmd = {"Bufferize"}, lazy = true, "AndrewRadev/bufferize.vim"}, {config = _12_, dependencies = {"rafamadriz/friendly-snippets"}, lazy = true, "L3MON4D3/LuaSnip"}, {config = _13_, dependencies = {"mrjones2014/nvim-ts-rainbow"}, "nvim-treesitter/nvim-treesitter"}, "RRethy/nvim-treesitter-endwise", "nvim-treesitter/playground", {config = _14_, "petertriho/nvim-scrollbar"}, {cmd = "UndotreeToggle", lazy = true, "mbbill/undotree"}, {config = _15_, dependencies = {"nvim-lua/plenary.nvim"}, "lewis6991/gitsigns.nvim"}, "kevinhwang91/nvim-bqf", {config = _16_, "onsails/lspkind-nvim"}, {config = _17_, priority = 1000, "folke/tokyonight.nvim"}, {lazy = true, "rebelot/kanagawa.nvim"}, "EdenEast/nightfox.nvim", {cmd = {"Neogit"}, config = _18_, lazy = true, "TimUntersberger/neogit"}, {cmd = {"MergetoolStart"}, init = _19_, lazy = true, "samoshkin/vim-mergetool"}, {config = true, lazy = true, "llwwns/hop.nvim"}, {cmd = {"ToggleTerm"}, config = _20_, lazy = true, "akinsho/toggleterm.nvim"}, "windwp/nvim-ts-autotag", "lewis6991/impatient.nvim", {cmd = {"Lsp"}, lazy = true, "ii14/lsp-command"}, {config = _23_, "stevearc/dressing.nvim"}, {cmd = {"NeoZoomToggle"}, lazy = true, "nyngwang/NeoZoom.lua"}, {config = _24_, keys = {"<leader>gy"}, lazy = true, "ruifm/gitlinker.nvim"}, {config = _25_, "j-hui/fidget.nvim"}, {config = _26_, dependencies = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, lazy = true, "nvim-telescope/telescope.nvim"}, {lazy = true, "natecraddock/telescope-zf-native.nvim"}, {cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _27_, dependencies = "nvim-lua/plenary.nvim", lazy = true, "sindrets/diffview.nvim"}, "MunifTanjim/nui.nvim", {cmd = {"Luadev"}, config = _28_, lazy = true, "bfredl/nvim-luadev"}, {config = _29_, dependencies = {"udayvir-singh/hibiscus.nvim"}, ft = "fennel", lazy = true, "llwwns/tangerine.nvim"}, {config = _30_, dependencies = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"}, {cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _31_, lazy = true, "ziontee113/icon-picker.nvim"}, {config = _32_, "tiagovla/scope.nvim"}, {config = _33_, "rcarriga/nvim-notify"}, {config = _34_, "norcalli/nvim-colorizer.lua"}, {config = _35_, lazy = true, "monaqa/dial.nvim"}, {config = _36_, lazy = true, "mizlan/iswap.nvim"}, {lazy = true, "rcarriga/nvim-dap-ui"}, {config = _37_, lazy = true, "mfussenegger/nvim-dap"}, {config = _38_, dependencies = {"mfussenegger/nvim-dap"}, lazy = true, "leoluz/nvim-dap-go"}, "dstein64/vim-startuptime", {build = "deno task --quiet build:fast", config = _39_, ft = "markdown", lazy = true, "toppair/peek.nvim"}, {config = _40_, "nvim-zh/colorful-winsep.nvim"}, {config = _41_, event = {"InsertEnter"}, lazy = true, "hrsh7th/nvim-insx"}})
+return (require("lazy")).setup({{init = _2_, lazy = false, "lukas-reineke/indent-blankline.nvim"}, "tpope/vim-fugitive", {init = _3_, keys = {{mode = "v", "<c-n>"}, "<c-n>", "<c-Up>", "<c-Down>"}, lazy = true, "mg979/vim-visual-multi"}, {cmd = {"Tabularize"}, lazy = true, "godlygeek/tabular"}, {cmd = {"Abolish", "Subvert"}, keys = {"crs", "crm", "crc", "cru", "cr-", "cr.", "cr ", "crt"}, lazy = true, "tpope/vim-abolish"}, "wellle/targets.vim", {keys = {mode = "i", "<c-y>"}, lazy = true, "mattn/emmet-vim"}, {cmd = {"ArgWrap"}, lazy = true, "FooSoft/vim-argwrap"}, {config = _4_, dependencies = "llwwns/nvim-navic", "windwp/windline.nvim"}, {init = _5_, keys = {"<leader>dh"}, lazy = true, "AndrewRadev/deleft.vim"}, {config = _6_, dependencies = {"jose-elias-alvarez/null-ls.nvim", "nvim-lua/plenary.nvim", "llwwns/nvim-navic"}, "neovim/nvim-lspconfig"}, {config = true, "llwwns/nvim-navic"}, {config = _7_, dependencies = {"hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/cmp-nvim-lsp-signature-help"}, event = {"InsertEnter"}, lazy = true, "hrsh7th/nvim-cmp"}, "hrsh7th/cmp-nvim-lsp", {lazy = true, "nvim-lua/lsp_extensions.nvim"}, {branch = "v2.x", cmd = {"Neotree"}, config = _8_, dependencies = {"nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons", "MunifTanjim/nui.nvim"}, ft = {"netrw"}, lazy = true, "nvim-neo-tree/neo-tree.nvim"}, {cmd = {"BOnly"}, lazy = true, "vim-scripts/BufOnly.vim"}, {ft = {"todo"}, lazy = true, "dbeniamine/todo.txt-vim"}, {init = _9_, "houtsnip/vim-emacscommandline"}, {config = _10_, "RRethy/vim-illuminate"}, {cmd = {"GV"}, lazy = true, "junegunn/gv.vim"}, {cmd = {"SudaWrite"}, lazy = true, "lambdalisue/suda.vim"}, {init = _11_, keys = {{mode = "i", "<c-j>"}, {mode = "c", "<c-j>"}, {mode = "l", "<c-j>"}}, lazy = true, "tyru/eskk.vim"}, {cmd = {"AnsiEsc"}, lazy = true, "powerman/vim-plugin-AnsiEsc"}, {config = {extra = {}, extended = false}, keys = {{mode = "v", "gc"}, {mode = "v", "gb"}}, lazy = true, "numToStr/Comment.nvim"}, {ft = {"csv"}, lazy = true, "mechatroner/rainbow_csv"}, {cmd = {"Bufferize"}, lazy = true, "AndrewRadev/bufferize.vim"}, {config = _12_, dependencies = {"rafamadriz/friendly-snippets"}, lazy = true, "L3MON4D3/LuaSnip"}, {config = _13_, dependencies = {"mrjones2014/nvim-ts-rainbow"}, "nvim-treesitter/nvim-treesitter"}, "RRethy/nvim-treesitter-endwise", "nvim-treesitter/playground", {config = _14_, "petertriho/nvim-scrollbar"}, {cmd = "UndotreeToggle", lazy = true, "mbbill/undotree"}, {config = _15_, dependencies = {"nvim-lua/plenary.nvim"}, "lewis6991/gitsigns.nvim"}, "kevinhwang91/nvim-bqf", {config = _16_, "onsails/lspkind-nvim"}, {config = _17_, priority = 1000, "folke/tokyonight.nvim"}, {lazy = true, "rebelot/kanagawa.nvim"}, "EdenEast/nightfox.nvim", {cmd = {"Neogit"}, config = _18_, lazy = true, "TimUntersberger/neogit"}, {cmd = {"MergetoolStart"}, init = _19_, lazy = true, "samoshkin/vim-mergetool"}, {config = true, lazy = true, "llwwns/hop.nvim"}, {cmd = {"ToggleTerm"}, config = _20_, lazy = true, "akinsho/toggleterm.nvim"}, "windwp/nvim-ts-autotag", "lewis6991/impatient.nvim", {cmd = {"Lsp"}, lazy = true, "ii14/lsp-command"}, {config = _22_, "stevearc/dressing.nvim"}, {cmd = {"NeoZoomToggle"}, lazy = true, "nyngwang/NeoZoom.lua"}, {config = _23_, keys = {"<leader>gy"}, lazy = true, "ruifm/gitlinker.nvim"}, {config = _24_, "j-hui/fidget.nvim"}, {config = _25_, dependencies = {{"nvim-lua/plenary.nvim"}, {"natecraddock/telescope-zf-native.nvim"}}, lazy = true, "nvim-telescope/telescope.nvim"}, {lazy = true, "natecraddock/telescope-zf-native.nvim"}, {cmd = {"DiffviewFileHistory", "DiffviewOpen"}, config = _26_, dependencies = "nvim-lua/plenary.nvim", lazy = true, "sindrets/diffview.nvim"}, "MunifTanjim/nui.nvim", {cmd = {"Luadev"}, config = _27_, lazy = true, "bfredl/nvim-luadev"}, {config = _28_, dependencies = {"udayvir-singh/hibiscus.nvim"}, ft = "fennel", lazy = true, "llwwns/tangerine.nvim"}, {config = _29_, dependencies = "anuvyklack/keymap-layer.nvim", "anuvyklack/hydra.nvim"}, {cmd = {"PickEverything", "PickIcons", "PickEmoji", "PickNerd", "PickSymbols", "PickAltFont", "PickAltFontAndSymbols", "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert", "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert"}, config = _30_, lazy = true, "ziontee113/icon-picker.nvim"}, {config = _31_, "tiagovla/scope.nvim"}, {config = _32_, "rcarriga/nvim-notify"}, {config = _33_, "norcalli/nvim-colorizer.lua"}, {config = _34_, lazy = true, "monaqa/dial.nvim"}, {config = _35_, lazy = true, "mizlan/iswap.nvim"}, {lazy = true, "rcarriga/nvim-dap-ui"}, {config = _36_, lazy = true, "mfussenegger/nvim-dap"}, {config = _37_, dependencies = {"mfussenegger/nvim-dap"}, lazy = true, "leoluz/nvim-dap-go"}, "dstein64/vim-startuptime", {build = "deno task --quiet build:fast", config = _38_, ft = "markdown", lazy = true, "toppair/peek.nvim"}, {config = _39_, "nvim-zh/colorful-winsep.nvim"}, {config = _40_, event = {"InsertEnter"}, lazy = true, "hrsh7th/nvim-insx"}})

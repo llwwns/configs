@@ -8,9 +8,9 @@
 
 (require-fun :lazy#setup [
   (use! :lukas-reineke/indent-blankline.nvim :lazy false :init #(do 
-    (g! indent_blankline_char "│")
+    ;; (g! indent_blankline_char "│")
+    (g! indent_blankline_char "▏")
     (g! indent_blankline_show_current_context true)))
-  (use! :tpope/vim-fugitive)
   (use! :tpope/vim-fugitive)
   (use! :mg979/vim-visual-multi :lazy true :keys [
     {1 "<c-n>" :mode :v}
@@ -238,8 +238,6 @@
     :lazy true :cmd [:ToggleTerm]
     :config #(require-fun :toggleterm#setup {
       :hide_numbers true
-      :size #(* (vim.fn.winheight "%") 1.2)
-      ;; :size 60
       :winbar { :enabled false }
       :on_open (fn []
                    (tset vim.opt_local :spell false)
@@ -278,7 +276,6 @@
       "DiffviewOpen"
     ]
     :config #(require "diffview_init"))
-  ;; (use! "EdenEast/nightfox.nvim")
   (use! "MunifTanjim/nui.nvim")
   (use! "bfredl/nvim-luadev" :lazy true
         :cmd [:Luadev] :config (fn [] 

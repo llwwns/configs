@@ -15,9 +15,12 @@
             ((require :insx.recipe.jump_next) {:jump_pat [(.. "\\%#"
                                                               (esc close)
                                                               "\\zs")]}))
-  (insx.add :<BS>
-            ((require :insx.recipe.delete_pair) {:open_pat (esc open)
-                                                 :close_pat (esc close)})))
+  ;; (insx.add :<BS>
+  ;;           ((require :insx.recipe.delete_pair) {:open_pat (esc open)
+  ;;                                                :close_pat (esc close)}))
+
+  ;; Wrap next token: `(|)func(...)` -> `)` -> `(func(...)|)`
+  (insx.add "<c-f>" ((require :insx.recipe.fast_wrap) {: close})))
 
 ;; Pairs.
 (each [open close (pairs {"(" ")" "[" "]" "{" "}"})]
@@ -43,8 +46,9 @@
   (insx.add :<CR>
             ((require :insx.recipe.fast_break) {:open_pat (esc open)
                                                 :close_pat (esc close)}))
+
   ;; Wrap next token: `(|)func(...)` -> `)` -> `(func(...)|)`
-  (insx.add "<C-;>" ((require :insx.recipe.fast_wrap) {: close})))
+  (insx.add "<c-f>" ((require :insx.recipe.fast_wrap) {: close})))
 
 ;; Remove HTML Tag: `<div>|</div>` -> `<BS>` -> `|`
 (insx.add :<BS>
