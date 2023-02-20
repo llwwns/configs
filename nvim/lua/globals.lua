@@ -1,4 +1,3 @@
--- :fennel:generated
 local function bufwidth()
   local width = vim.fn.winwidth(0)
   local wo = vim.wo
@@ -11,10 +10,10 @@ local function bufwidth()
   local foldwidth = wo.foldcolumn
   local signwidth
   do
-    local _2_ = wo.signcolumn
-    if (_2_ == "yes") then
+    local sc = wo.signcolumn
+    if (sc == "yes") then
       signwidth = 2
-    elseif (_2_ == "auto") then
+    elseif (sc == "auto") then
       local signs = vim.fn.execute(string.format("sign place buffer=%d", vim.fn.bufnr("")))
       if (#vim.fn.split(signs, "\n") > 2) then
         signwidth = 2
@@ -22,7 +21,7 @@ local function bufwidth()
         signwidth = 0
       end
     elseif true then
-      local _ = _2_
+      local _ = sc
       signwidth = 0
     else
       signwidth = nil
@@ -30,6 +29,7 @@ local function bufwidth()
   end
   return (width - (numwidth + foldwidth + signwidth))
 end
+
 _G.foldtext = function()
   local fs = vim.api.nvim_get_vvar("foldstart")
   local fe = vim.api.nvim_get_vvar("foldend")
@@ -38,6 +38,7 @@ _G.foldtext = function()
   local lineCount = string.format("[%d lines]-----", ((fe - fs) + 1))
   return (line .. string.rep("-", (winSize - vim.fn.strdisplaywidth(line) - vim.fn.strdisplaywidth(lineCount))) .. lineCount)
 end
+
 _G.foldtext2 = function()
   if vim.o.diff then
     return _G.foldtext()
@@ -49,23 +50,12 @@ _G.foldtext2 = function()
     return (ls .. "..." .. vim.fn.trim(le))
   end
 end
-_G.toggleNvimTree = function()
-  local nt = require("nvim-tree")
-  local view = require("nvim-tree.view")
-  if not view.is_visible then
-    if (function(_6_,_7_,_8_) return (_6_ == _7_) and (_7_ == _8_) end)(vim.fn.expand,"%:p","") then
-      return nt.open()
-    else
-      return nt.find_file(true)
-    end
-  else
-    return view.close()
-  end
-end
+
 _G.replace = function()
   local w = vim.fn.expand("<cword>")
-  return vim.cmd(("call feedkeys(\":%s/" .. w .. "/" .. w .. "/g\\<Left>\\<Left>\")"))
+  vim.cmd(("call feedkeys(\":%s/" .. w .. "/" .. w .. "/g\\<Left>\\<Left>\")"))
 end
+
 _G.tomlFold = function()
   local line = vim.fn.getline(vim.v.lnum)
   if ((line == "") or (line:byte() == ("["):byte())) then
@@ -74,37 +64,36 @@ _G.tomlFold = function()
     return "1"
   end
 end
+
 _G.showDocumentation = function()
-  local _12_ = vim.bo.filetype
-  if (_12_ == "vim") then
-    return vim.cmd(("h " .. vim.fn.expand("<cword>")))
-  elseif true then
-    local _ = _12_
-    return vim.lsp.buf.hover()
+  if (ft == vim.bo.filetype) then
+    vim.cmd(("h " .. vim.fn.expand("<cword>")))
   else
-    return nil
+    vim.lsp.buf.hover()
   end
 end
+
 _G.dump = function(...)
-  local objects = vim.tbl_map(vim.inspect, {...})
+  local objects = vim.tbl_map(vim.inspect, { ... })
   return print(unpack(objects))
 end
+
 _G.toggle_format = function()
   if vim.b.format_on_save then
-    vim.b["format_on_save"] = false
-    return vim.notify("turn off auto format")
+    vim.b.format_on_save = false
+    vim.notify("turn off auto format")
   else
-    vim.b["format_on_save"] = true
-    return vim.notify("turn on auto format")
+    vim.b.format_on_save = true
+    vim.notify("turn on auto format")
   end
 end
+
 _G.lsp_format = function()
   if (vim.b.format_on_save and not vim.b.large_buf) then
-    return vim.lsp.buf.format()
-  else
-    return nil
+    vim.lsp.buf.format()
   end
 end
+
 local function is_floating(win)
   local cfg = vim.api.nvim_win_get_config(win)
   if ((cfg.relative > "") or cfg.external) then
@@ -113,47 +102,54 @@ local function is_floating(win)
     return false
   end
 end
+
 _G.is_special = function(window)
-  local function _17_()
-    local buf = vim.api.nvim_win_get_buf(window)
-    return vim.tbl_contains({"dapui_watches", "dap-repl", "qf", "neo-tree", "DiffViewFiles"}, vim.api.nvim_buf_get_option(buf, "filetype"))
-  end
-  return (is_floating(window) or _17_())
+  local buf = vim.api.nvim_win_get_buf(window)
+  return is_floating(window) or vim.tbl_contains({
+        "dapui_watches", "dap-repl", "qf", "neo-tree", "DiffViewFiles",
+      }, vim.api.nvim_buf_get_option(buf, "filetype"))
 end
+
 _G.all_special = function()
   local wins = vim.api.nvim_tabpage_list_wins(0)
-  local ret = true
-  for i, w in ipairs(wins) do
-    ret = (ret and _G.is_special(w))
+  for _, w in ipairs(wins) do
+    if not _G.is_special(w) then
+      return false
+    end
   end
-  return ret
+  return true
 end
+
 _G.line_mark = function()
-  local cl = (vim.api.nvim_win_get_cursor(0))[1]
-  if (vim.v.lnum == cl) then
-    return "%l"
+  if vim.wo.number then
+    if (vim.v.relnum == 0) then
+      return "%l"
+    else
+      return "%r"
+    end
   else
-    return "%r"
+    return ""
   end
 end
+
 _G.fold_mark = function()
   local cl = vim.fn.foldlevel(vim.v.lnum)
   local pl = vim.fn.foldlevel((vim.v.lnum - 1))
   local nl = vim.fn.foldlevel((vim.v.lnum + 1))
-  if (cl > pl) then
+  if ((cl > pl) and (nl == cl)) then
     if (vim.fn.foldclosed(vim.v.lnum) == -1) then
-      return "\239\145\188"
+      return ""
     else
-      return "\239\145\160"
+      return ""
     end
-  elseif (nl < cl) then
-    return "\239\145\187"
+  elseif ((nl < cl) and (pl == cl)) then
+    return ""
   elseif (cl > 2) then
-    return "\226\149\145"
+    return "┃"
   elseif (cl > 1) then
-    return "\226\148\131"
+    return "║"
   elseif (cl > 0) then
-    return "\226\148\130"
+    return "│"
   else
     return " "
   end

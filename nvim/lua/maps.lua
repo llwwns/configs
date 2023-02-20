@@ -1,265 +1,235 @@
--- :fennel:generated
-vim.g["mapleader"] = "'"
-vim.g["maplocalleader"] = "'"
-vim.keymap.set({"n"}, "<c-q>", "<cmd>q<CR>", {silent = false})
-local function _1_()
+local map = vim.keymap.set
+
+vim.g.mapleader = "'"
+vim.g.maplocalleader = "'"
+
+map("n", "<c-q>", "<cmd>q<CR>", { silent = false })
+
+map("n", "<c-e>", function()
   if (vim.fn.win_gettype() ~= "command") then
-    return (require("telescope.builtin")).buffers({sort_lastused = true, sort_mru = true})
-  else
-    return nil
+    require("telescope.builtin").buffers({ sort_lastused = true, sort_mru = true })
   end
-end
-vim.keymap.set({"n"}, "<c-e>", _1_, {silent = true})
-local function _3_()
+end, { silent = true })
+
+
+map("n", "<c-p>", function()
   if (vim.fn.win_gettype() ~= "command") then
-    return (require("telescope.builtin")).find_files()
-  else
-    return nil
+    require("telescope.builtin").find_files()
   end
-end
-vim.keymap.set({"n"}, "<c-p>", _3_, {silent = true})
-local function _5_()
+end, { silent = true })
+
+
+map("n", "<leader>sw", function()
   if (vim.fn.win_gettype() ~= "command") then
-    return (require("telescope.builtin")).git_branches()
-  else
-    return nil
+    require("telescope.builtin").git_branches()
   end
-end
-vim.keymap.set({"n"}, "<leader>sw", _5_, {silent = true})
-vim.keymap.set({"n"}, "<leader><tab>", "<cmd>Neotree toggle reveal=true<CR>", {silent = false})
-vim.keymap.set({"n", "v"}, "k", "v:count == 0 ? 'gk' : 'k'", {expr = true, noremap = true, silent = false})
-vim.keymap.set({"n", "v"}, "j", "v:count == 0 ? 'gj' : 'j'", {expr = true, noremap = true, silent = false})
-vim.keymap.set({"n"}, "<PageUp>", "<c-u>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<PageDown>", "<c-d>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<up>", "<c-y>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<down>", "<c-e>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<left>", "zH", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<right>", "zL", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<c-f>", ":Sub/", {noremap = true, silent = true})
-vim.keymap.set({"n", "i"}, "<c-w>z", "<cmd>NeoZoomToggle<CR>", {silent = true})
-local function _7_()
+end, { silent = true })
+
+map("n", "<leader><tab>", "<cmd>Neotree toggle reveal=true<CR>", { silent = false })
+
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, noremap = true, silent = false })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, noremap = true, silent = false })
+
+map("n", "<PageUp>", "<c-u>", { noremap = true, silent = true })
+map("n", "<PageDown>", "<c-d>", { noremap = true, silent = true })
+
+map("n", "<up>", "<c-y>", { noremap = true, silent = true })
+map("n", "<down>", "<c-e>", { noremap = true, silent = true })
+map("n", "<left>", "zH", { noremap = true, silent = true })
+map("n", "<right>", "zL", { noremap = true, silent = true })
+
+map("n", "<c-f>", ":Sub/", { noremap = true, silent = true })
+
+map({ "n", "i" }, "<c-w>z", "<cmd>NeoZoomToggle<CR>", { silent = true })
+
+
+map({ "n", "v", "o" }, "<leader>w", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_words({direction = hint.HintDirection.AFTER_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>w", _7_, {silent = true})
-local function _8_()
+  hop.hint_words({ direction = hint.HintDirection.AFTER_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>b", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_words({direction = hint.HintDirection.BEFORE_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>b", _8_, {silent = true})
-local function _9_()
+  hop.hint_words({ direction = hint.HintDirection.BEFORE_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>e", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_patterns({direction = hint.HintDirection.AFTER_CURSOR}, "\\w\\>")
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>e", _9_, {silent = true})
-local function _10_()
+  hop.hint_patterns({ direction = hint.HintDirection.AFTER_CURSOR }, "\\w\\>")
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>ge", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_patterns({direction = hint.HintDirection.BEFORE_CURSOR}, "\\w\\>")
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>ge", _10_, {silent = true})
-local function _11_()
+  hop.hint_patterns({ direction = hint.HintDirection.BEFORE_CURSOR }, "\\w\\>")
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>f", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_char1({direction = hint.HintDirection.AFTER_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>f", _11_, {silent = true})
-local function _12_()
+  hop.hint_char1({ direction = hint.HintDirection.AFTER_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>F", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_char1({direction = hint.HintDirection.BEFORE_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>F", _12_, {silent = true})
-local function _13_()
+  hop.hint_char1({ direction = hint.HintDirection.BEFORE_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>j", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_lines({direction = hint.HintDirection.AFTER_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>j", _13_, {silent = true})
-local function _14_()
+  hop.hint_lines({ direction = hint.HintDirection.AFTER_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>k", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_lines({direction = hint.HintDirection.BEFORE_CURSOR})
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>k", _14_, {silent = true})
-local function _15_()
+  hop.hint_lines({ direction = hint.HintDirection.BEFORE_CURSOR })
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>'", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_patterns({}, "[\"']")
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>'", _15_, {silent = true})
-local function _16_()
+  hop.hint_patterns({}, "[\"']")
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>[", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_patterns({}, "[\\[(<{]")
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>[", _16_, {silent = true})
-local function _17_()
+  hop.hint_patterns({}, "[\\[(<{]")
+end, { silent = true })
+
+map({ "n", "v", "o" }, "<leader>]", function()
   local hop = require("hop")
   local hint = require("hop.hint")
-  return hop.hint_patterns({}, "[\\])>}]")
-end
-vim.keymap.set({"n", "v", "o"}, "<leader>]", _17_, {silent = true})
-local function _18_()
-  return (require("hop")).hint_char2()
-end
-vim.keymap.set({"n", "v", "o"}, "s", _18_, {silent = true})
-local function _19_()
-  return (require("hop")).hint_char2()
-end
-vim.keymap.set({"o"}, "z", _19_, {silent = true})
-vim.keymap.set({"n"}, "<leader>a", "<cmd>ArgWrap<CR>", {noremap = true, silent = true})
-vim.keymap.set({"c"}, "w!!", ":SudaWrite", {silent = true})
-vim.keymap.set({"n"}, "<Leader>m", "<Plug>(git-messenger)", {silent = true})
-vim.keymap.set({"n"}, "[,", ":Tab /,<CR>", {silent = true})
-vim.keymap.set({"v"}, "[,", ":'<,'>Tab /,<CR>", {silent = true})
-vim.keymap.set({"n"}, "<Leader>t", ":Ttoggle<CR>", {silent = true})
-vim.keymap.set({"v"}, "<Leader>r", ":TREPLSendSelection<CR>", {silent = true})
-vim.keymap.set({"n"}, "<leader>u", "<cmd>UndotreeToggle<CR>", {silent = true})
-vim.keymap.set({"n"}, "K", _G.showDocumentation, {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", {silent = true})
-local function _20_()
-  return (require("toggleterm")).toggle(0, (vim.api.nvim_win_get_height(0) * 0.4))
-end
-vim.keymap.set({"n", "t"}, "<c-s>", _20_, {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<leader>gs", "<cmd>Neogit<CR>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<leader>tf", _G.toggle_format, {noremap = true, silent = true})
-local function _21_()
+  hop.hint_patterns({}, "[\\])>}]")
+end, { silent = true })
+
+map({ "n", "v", "o" }, "s", function()
+  require("hop").hint_char2()
+end, { silent = true })
+
+map({ "o" }, "z", function()
+  require("hop").hint_char2()
+end, { silent = true })
+
+map("n", "<leader>a", "<cmd>ArgWrap<CR>", { noremap = true, silent = true })
+
+map({ "c" }, "w!!", ":SudaWrite", { silent = true })
+
+map("n", "<Leader>m", "<Plug>(git-messenger)", { silent = true })
+
+map("n", "[,", ":Tab /,<CR>", { silent = true })
+map("v", "[,", ":'<,'>Tab /,<CR>", { silent = true })
+
+-- map("v", "<Leader>r", ":TREPLSendSelection<CR>", { silent = true })
+--
+map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { silent = true })
+
+map("n", "K", _G.showDocumentation, { noremap = true, silent = true })
+
+map("n", "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", { silent = true })
+
+map({ "n", "t" }, "<c-s>", function()
+  require("toggleterm").toggle(0, (vim.api.nvim_win_get_height(0) * 0.4))
+end, { noremap = true, silent = true })
+
+map("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true, silent = true })
+
+map("n", "<leader>tf", _G.toggle_format, { noremap = true, silent = true })
+
+map("n", "]c", function()
   if vim.wo.diff then
     return "]c"
   else
     return "<cmd>lua require('gitsigns').next_hunk({navigation_message=false})<CR>"
   end
-end
-vim.keymap.set({"n"}, "]c", _21_, {expr = true, noremap = true, silent = true})
-local function _23_()
+end, { expr = true, noremap = true, silent = true })
+
+map("n", "[c", function()
   if vim.wo.diff then
     return "[c"
   else
     return "<cmd>lua require('gitsigns').prev_hunk({navigation_message=false})<CR>"
   end
+end, { expr = true, noremap = true, silent = true })
+
+-- Actions
+map({ "n", "v" }, "<leader>hs", function() require("gitsigns").stage_hunk() end, { silent = true })
+map({ "n", "v" }, "<leader>hr", function() require("gitsigns").reset_hunk() end, { silent = true })
+map("n", "<leader>hS", function() require("gitsigns").stage_buffer() end, { silent = true })
+map("n", "<leader>hu", function() require("gitsigns").undo_stage_hunk() end, { silent = true })
+map("n", "<leader>hR", function() require("gitsigns").reset_buffer() end, { silent = true })
+map("n", "<leader>hp", function() require("gitsigns").preview_hunk() end, { silent = true })
+map("n", "<leader>hb", function() require("gitsigns").blame_line({ full = true }) end,
+  { silent = true })
+map("n", "<leader>tb", function() require("gitsigns").toggle_current_line_blame() end,
+  { silent = true })
+map("n", "<leader>td", function() require("gitsigns").toggle_deleted() end, { silent = true })
+map("n", "<leader>hD", function() require("gitsigns").diffthis("~") end, { silent = true })
+
+map("n", "<leader>hd", "<cmd>Gdiff<CR>", { silent = true })
+
+map("n", "crp", "crcvU", { silent = true })
+
+map("n", "<leader>dq", vim.diagnostic.setqflist, { silent = true })
+map("n", "<leader>dl", vim.diagnostic.setloclist, { silent = true })
+
+map("i", "<c-a>", "<home>", { noremap = true, silent = true })
+map("i", "<c-e>", "<end>", { noremap = true, silent = true })
+
+map("n", "<leader>lu", "<cmd>Lazy update<CR>", { silent = false })
+map("n", "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", { silent = false })
+map("n", "<leader>rp", _G.replace, { noremap = true, silent = true })
+
+map("v", "P", "\"0p", { noremap = true, silent = true })
+map("t", "<c-\\><c-v>", "<c-\\><c-n>\"+pa", { noremap = true, silent = true })
+map("t", "<c-w>h", "<c-\\><c-n><c-w>h", { noremap = true, silent = true })
+map("t", "<c-w>j", "<c-\\><c-n><c-w>j", { noremap = true, silent = true })
+map("t", "<c-w>k", "<c-\\><c-n><c-w>k", { noremap = true, silent = true })
+map("t", "<c-w>l", "<c-\\><c-n><c-w>l", { noremap = true, silent = true })
+map("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true, silent = false })
+map("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true, silent = false })
+map("v", "<C-a>", require("dial.map").inc_visual() .. "gv", { noremap = true, silent = false })
+map("v", "<C-x>", require("dial.map").dec_visual() .. "gv", { noremap = true, silent = false })
+map("v", "g<C-a>", require("dial.map").inc_gvisual() .. "gv", { noremap = true, silent = false })
+map("v", "g<C-x>", require("dial.map").dec_gvisual() .. "gv", { noremap = true, silent = false })
+
+map("n", "g<", function() require("iswap").iswap_node_with("left") end, { silent = true })
+map("n", "g>", function() require("iswap").iswap_node_with("right") end, { silent = true })
+map({ "n", "x" }, "<leader>s", function() require("iswap").iswap_node_with() end, { silent = true })
+
+map("i", "<c-r>", "<c-r><c-o>", { noremap = true, silent = true })
+
+map("n", "gp", "`[v`]", { noremap = true, silent = true })
+
+map("n", "<leader>yy", function()
+  vim.fn.setreg("+", string.gsub(vim.fn.expand("%"), ".*%.git/[%w%d]+/", ""))
+end, { silent = true })
+
+local function map_pairs(m, cmd)
+  local upper = m:gsub(".", string.upper)
+  map("n", "]" .. m, "<cmd>" .. cmd .. "next<CR>", {})
+  map("n", "[" .. m, "<cmd>" .. cmd .. "previous<CR>", {})
+  map("n", "[" .. upper, "<cmd>" .. cmd .. "first<CR>", {})
+  map("n", "]" .. upper, "<cmd>" .. cmd .. "last<CR>", {})
 end
-vim.keymap.set({"n"}, "[c", _23_, {expr = true, noremap = true, silent = true})
-local function _25_()
-  return (require("gitsigns")).stage_hunk()
-end
-vim.keymap.set({"n", "v"}, "<leader>hs", _25_, {silent = true})
-local function _26_()
-  return (require("gitsigns")).reset_hunk()
-end
-vim.keymap.set({"n", "v"}, "<leader>hr", _26_, {silent = true})
-local function _27_()
-  return (require("gitsigns")).stage_buffer()
-end
-vim.keymap.set({"n"}, "<leader>hS", _27_, {silent = true})
-local function _28_()
-  return (require("gitsigns")).undo_stage_hunk()
-end
-vim.keymap.set({"n"}, "<leader>hu", _28_, {silent = true})
-local function _29_()
-  return (require("gitsigns")).reset_buffer()
-end
-vim.keymap.set({"n"}, "<leader>hR", _29_, {silent = true})
-local function _30_()
-  return (require("gitsigns")).preview_hunk()
-end
-vim.keymap.set({"n"}, "<leader>hp", _30_, {silent = true})
-local function _31_()
-  return (require("gitsigns")).blame_line({full = true})
-end
-vim.keymap.set({"n"}, "<leader>hb", _31_, {silent = true})
-local function _32_()
-  return (require("gitsigns")).toggle_current_line_blame()
-end
-vim.keymap.set({"n"}, "<leader>tb", _32_, {silent = true})
-local function _33_()
-  return (require("gitsigns")).toggle_deleted()
-end
-vim.keymap.set({"n"}, "<leader>td", _33_, {silent = true})
-local function _34_()
-  return (require("gitsigns")).diffthis("~")
-end
-vim.keymap.set({"n"}, "<leader>hD", _34_, {silent = true})
-vim.keymap.set({"n"}, "<leader>hd", "<cmd>Gdiff<CR>", {silent = true})
-vim.keymap.set({"n"}, "crp", "crcvU", {silent = true})
-vim.keymap.set({"n"}, "]d", vim.diagnostic.goto_next, {silent = true})
-vim.keymap.set({"n"}, "[d", vim.diagnostic.goto_prev, {silent = true})
-vim.keymap.set({"n"}, "<leader>dq", vim.diagnostic.setqflist, {silent = true})
-vim.keymap.set({"n"}, "<leader>dl", vim.diagnostic.setloclist, {silent = true})
-do
-  vim.keymap.set({"n"}, "]a", "<cmd>next<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[a", "<cmd>previous<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[A", "<cmd>first<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]A", "<cmd>last<CR>", {silent = true})
-end
-do
-  vim.keymap.set({"n"}, "]t", "<cmd>tabnext<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[t", "<cmd>tabprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[T", "<cmd>tabfirst<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]T", "<cmd>tablast<CR>", {silent = true})
-end
-do
-  vim.keymap.set({"n"}, "]q", "<cmd>cnext<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[q", "<cmd>cprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[Q", "<cmd>cfirst<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]Q", "<cmd>clast<CR>", {silent = true})
-end
-do
-  vim.keymap.set({"n"}, "]l", "<cmd>lnext<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[l", "<cmd>lprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[L", "<cmd>lfirst<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]L", "<cmd>llast<CR>", {silent = true})
-end
-do
-  vim.keymap.set({"n"}, "]b", "<cmd>bnext<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[b", "<cmd>bprevious<CR>", {silent = true})
-  vim.keymap.set({"n"}, "[B", "<cmd>bfirst<CR>", {silent = true})
-  vim.keymap.set({"n"}, "]B", "<cmd>blast<CR>", {silent = true})
-end
-local function _35_()
-  return (require("illuminate")).goto_next_reference()
-end
-vim.keymap.set({"n"}, "]w", _35_, {silent = true})
-local function _36_()
-  return (require("illuminate")).goto_prev_reference()
-end
-vim.keymap.set({"n"}, "[w", _36_, {silent = true})
-vim.keymap.set({"i"}, "<c-a>", "<home>", {noremap = true, silent = true})
-vim.keymap.set({"i"}, "<c-e>", "<end>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<leader>ps", "<cmd>PackerSync<CR>", {silent = false})
-vim.keymap.set({"n"}, "<leader>pc", "<cmd>PackerCompile<CR>", {silent = false})
-vim.keymap.set({"n"}, "<leader>sc", "<cmd>source ~/.config/nvim/init.lua<CR>", {silent = false})
-vim.keymap.set({"n"}, "<leader>rp", _G.replace, {noremap = true, silent = true})
-vim.keymap.set({"v"}, "P", "\"0p", {noremap = true, silent = true})
-vim.keymap.set({"t"}, "<c-\\><c-v>", "<c-\\><c-n>\"+pa", {noremap = true, silent = true})
-vim.keymap.set({"t"}, "<c-w>h", "<c-\\><c-n><c-w>h", {noremap = true, silent = true})
-vim.keymap.set({"t"}, "<c-w>j", "<c-\\><c-n><c-w>j", {noremap = true, silent = true})
-vim.keymap.set({"t"}, "<c-w>k", "<c-\\><c-n><c-w>k", {noremap = true, silent = true})
-vim.keymap.set({"t"}, "<c-w>l", "<c-\\><c-n><c-w>l", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "<C-a>", (require("dial.map")).inc_normal(), {noremap = true, silent = false})
-vim.keymap.set({"n"}, "<C-x>", (require("dial.map")).dec_normal(), {noremap = true, silent = false})
-vim.keymap.set({"v"}, "<C-a>", ((require("dial.map")).inc_visual() .. "gv"), {noremap = true, silent = false})
-vim.keymap.set({"v"}, "<C-x>", ((require("dial.map")).dec_visual() .. "gv"), {noremap = true, silent = false})
-vim.keymap.set({"v"}, "g<C-a>", ((require("dial.map")).inc_gvisual() .. "gv"), {noremap = true, silent = false})
-vim.keymap.set({"v"}, "g<C-x>", ((require("dial.map")).dec_gvisual() .. "gv"), {noremap = true, silent = false})
-local function _37_()
-  return (require("iswap")).iswap_node_with("left")
-end
-vim.keymap.set({"n"}, "g<", _37_, {silent = true})
-local function _38_()
-  return (require("iswap")).iswap_node_with("right")
-end
-vim.keymap.set({"n"}, "g>", _38_, {silent = true})
-local function _39_()
-  return (require("iswap")).iswap_node_with()
-end
-vim.keymap.set({"n", "x"}, "<leader>s", _39_, {silent = true})
-vim.keymap.set({"i"}, "<c-r>", "<c-r><c-o>", {noremap = true, silent = true})
-vim.keymap.set({"n"}, "gp", "`[v`]", {noremap = true, silent = true})
-local function _40_()
-  return vim.fn.setreg("+", string.gsub(vim.fn.expand("%"), ".*%.git/[%w%d]+/", ""))
-end
-return vim.keymap.set({"n"}, "<leader>yy", _40_, {silent = true})
+map_pairs("a", "")
+map_pairs("t", "tab")
+map_pairs("q", "c")
+map_pairs("l", "l")
+-- map_pairs("b", "b")
+
+map("n", "]d", vim.diagnostic.goto_next, { silent = true })
+map("n", "[d", vim.diagnostic.goto_prev, { silent = true })
+
+map("n", "]w", function() require("illuminate").goto_next_reference() end, { silent = true })
+map("n", "[w", function() require("illuminate").goto_prev_reference() end, { silent = true })
+map("n", "]b", "<cmd>BufferNext<CR>", { silent = true })
+map("n", "[b", "<cmd>BufferPrevious<CR>", { silent = true })
+map("n", "]B", "<cmd>BufferLast<CR>", { silent = true })
+map("n", "[B", "<cmd>BufferFirst<CR>", { silent = true })

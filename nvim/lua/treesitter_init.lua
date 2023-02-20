@@ -1,21 +1,96 @@
--- :fennel:generated
-(require("nvim-treesitter.parsers")).get_parser_configs()["cue"] = {install_info = {url = "https://github.com/eonpatapon/tree-sitter-cue", files = {"src/parser.c", "src/scanner.c"}, branch = "main"}, filetype = "cue"}
-local function _1_()
+require("nvim-treesitter.parsers").get_parser_configs()["cue"] = {
+  install_info = {
+    url = "https://github.com/eonpatapon/tree-sitter-cue",
+    files = { "src/parser.c", "src/scanner.c" },
+    branch = "main",
+  },
+  filetype = "cue",
+}
+
+local function is_large_buf()
   return not not vim.b.large_buf
 end
-local function _2_()
-  return not not vim.b.large_buf
-end
-local function _3_()
-  return not not vim.b.large_buf
-end
-local function _4_()
-  return not not vim.b.large_buf
-end
-local function _5_()
-  return not not vim.b.large_buf
-end
-local function _6_()
-  return not not vim.b.large_buf
-end
-return (require("nvim-treesitter.configs")).setup({highlight = {enable = true, additional_vim_regex_highlighting = false, disable = _1_}, indent = {enable = true, disable = _2_}, rainbow = {enable = true, extended_mode = true, max_file_lines = 10000, disable = _3_}, autotag = {enable = true, disable = _4_}, incremental_selection = {enable = false, keymaps = {init_selection = "<CR>", scope_incremental = "<CR>", node_incremental = "<TAB>", node_decremental = "<S-TAB>"}}, playground = {enable = true, disable = _5_}, endwise = {enable = true, disable = _6_}, ensure_installed = {"bash", "c", "c_sharp", "cmake", "comment", "cpp", "css", "cue", "dart", "dockerfile", "dot", "elixir", "elm", "erlang", "fennel", "fish", "go", "gomod", "graphql", "haskell", "heex", "html", "java", "javascript", "jsdoc", "json", "kotlin", "lua", "make", "markdown", "ninja", "ocaml", "perl", "proto", "python", "query", "regex", "ruby", "rust", "sql", "toml", "tsx", "typescript", "yaml"}})
+return (require("nvim-treesitter.configs")).setup({
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+    disable = is_large_buf,
+  },
+  indent = {
+    enable = true,
+    disable = is_large_buf
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = 10000,
+    disable = is_large_buf,
+  },
+  autotag = {
+    enable = true,
+    disable = is_large_buf,
+  },
+  incremental_selection = {
+    enable = false,
+    keymaps = {
+      init_selection = "<CR>",
+      scope_incremental = "<CR>",
+      node_incremental = "<TAB>",
+      node_decremental = "<S-TAB>",
+    }
+  },
+  playground = {
+    enable = true,
+    disable = is_large_buf,
+  },
+  endwise = {
+    enable = true,
+    disable = is_large_buf,
+  },
+  ensure_installed = {
+    "bash",
+    "c",
+    "c_sharp",
+    "cmake",
+    "comment",
+    "cpp",
+    "css",
+    "cue",
+    "dart",
+    "dockerfile",
+    "dot",
+    "elixir",
+    "elm",
+    "erlang",
+    "fennel",
+    "fish",
+    "go",
+    "gomod",
+    "graphql",
+    "haskell",
+    "heex",
+    "html",
+    "java",
+    "javascript",
+    "jsdoc",
+    "json",
+    "kotlin",
+    "lua",
+    "make",
+    "markdown",
+    "ninja",
+    "ocaml",
+    "perl",
+    "proto",
+    "python",
+    "query",
+    "regex",
+    "ruby",
+    "rust",
+    "sql",
+    "toml",
+    "tsx",
+    "typescript",
+    "yaml",
+  }
+})

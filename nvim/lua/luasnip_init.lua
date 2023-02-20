@@ -1,29 +1,98 @@
--- :fennel:generated
 local ls = require("luasnip")
-local snippet = ls.snippet
-local text_node = ls.text_node
-local snippet_node = ls.snippet_node
+local s = ls.snippet
+local t = ls.text_node
+local sn = ls.snippet_node
 local isn = ls.indent_snippet_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
-local dynamic_node = ls.dynamic_node
+local d = ls.dynamic_node
 local events = require("luasnip.util.events")
 local l = (require("luasnip.extras")).l
 local postfix = (require("luasnip.extras.postfix")).postfix
-local function _1_(_241, _242)
-  return snippet_node(nil, {text_node({("errors.Wrap(" .. _242.env.POSTFIX_MATCH .. ", \"")}), i(1), text_node({"\")"})})
-end
-local function _2_(_241, _242)
-  return snippet_node(nil, {text_node({(_242.env.POSTFIX_MATCH .. " = make(")}), i(1), text_node({")"})})
-end
-ls.add_snippets("go", {snippet("err", {text_node({"if err != nil {", "\9return "}), i(0), text_node({"", "}"})}), snippet("erris", {text_node({"errors.Is("}), i(1, "err"), text_node({", "}), i(2), text_node({")"}), i(0)}), snippet("wrap", {text_node({"errors.Wrap(err, \""}), i(0), text_node({"\")"})}), postfix(".wrap", dynamic_node(1, _1_)), postfix(".make", dynamic_node(1, _2_)), snippet("for", {text_node({"for "}), i(1), text_node({", "}), i(2), text_node({" := range "}), i(3), text_node({" {", "\9"}), i(0), text_node({"", "}"})})})
-local function _3_(_241, _242)
-  return snippet_node(nil, {text_node({("sort(" .. _242.env.POSTFIX_MATCH .. ".begin(), " .. _242.env.POSTFIX_MATCH .. ".end());")})})
-end
-ls.add_snippets("cpp", {snippet("main", {text_node({"#include<iostream>", "", "using namespace std;", "", "int main() {", "    "}), i(0), text_node({"", "}"})}), snippet("leetcode", {text_node({"#include<iostream>", "#include<algorithm>", "#include<vector>", "#include<stack>", "#include<array>", "#include<queue>", "", "using namespace std;", "", ""}), i(0), text_node({"", "", "int main() {", "    ", "}"})}), postfix(".sort", dynamic_node(1, _3_))})
-vim.keymap.set({"i"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
-vim.keymap.set({"s"}, "<c-l>", "<Plug>luasnip-expand-or-jump", {silent = true})
-vim.keymap.set({"i"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
-vim.keymap.set({"s"}, "<c-k>", "<Plug>luasnip-jump-prev", {silent = true})
-return (require("luasnip.loaders.from_vscode")).lazy_load()
+
+ls.add_snippets("go",
+  {
+    s("err", {
+      t({ "if err != nil {", "\9return " }),
+      i(0),
+      t({ "", "}" }),
+    }),
+    s("erris", {
+      t({ "errors.Is(" }),
+      i(1, "err"),
+      t({ ", " }),
+      i(2),
+      t({ ")" }),
+      i(0),
+    }),
+    s("wrap", {
+      t({ "errors.Wrap(err, \"" }),
+      i(0),
+      t({ "\")" }),
+    }),
+    postfix(".wrap", d(1, function(args, parent)
+      return sn(nil, {
+        t({ ("errors.Wrap(" .. parent.env.POSTFIX_MATCH .. ", \"") }),
+        i(1),
+        t({ "\")" }),
+      })
+    end)),
+    postfix(".make", d(1, function(args, parent)
+      return sn(nil, {
+        t({ (parent.env.POSTFIX_MATCH .. " = make(") }),
+        i(1),
+        t({ ")" }),
+      })
+    end)),
+    s("for", {
+      t({ "for " }), i(1), t({ ", " }), i(2), t({ " := range " }), i(3), t({ " {", "\9" }),
+      i(0),
+      t({ "", "}" }),
+    }) })
+
+ls.add_snippets("cpp",
+  {
+    s("main", { t({
+      "#include<iostream>",
+      "",
+      "using namespace std;",
+      "",
+      "int main() {",
+      "    " }),
+      i(0),
+      t({ "", "}" }),
+    }),
+    s("leetcode", { t({
+      "#include<iostream>",
+      "#include<algorithm>",
+      "#include<vector>",
+      "#include<stack>",
+      "#include<array>",
+      "#include<queue>",
+      "",
+      "using namespace std;",
+      "",
+      "",
+    }), i(0), t({
+      "",
+      "",
+      "int main() {",
+      "    ",
+      "}",
+    }) }),
+    postfix(".sort", d(1, function(args, parent)
+      return sn(nil,
+        {
+          t({
+            ("sort(" .. parent.env.POSTFIX_MATCH .. ".begin(), " .. parent.env.POSTFIX_MATCH .. ".end());"),
+          })
+        })
+    end)) })
+
+vim.keymap.set({ "i" }, "<c-l>", "<Plug>luasnip-expand-or-jump", { silent = true })
+vim.keymap.set({ "s" }, "<c-l>", "<Plug>luasnip-expand-or-jump", { silent = true })
+vim.keymap.set({ "i" }, "<c-k>", "<Plug>luasnip-jump-prev", { silent = true })
+vim.keymap.set({ "s" }, "<c-k>", "<Plug>luasnip-jump-prev", { silent = true })
+
+require("luasnip.loaders.from_vscode").lazy_load()

@@ -1,5 +1,8 @@
 local source = { words = nil, max_words = 7, path = vim.fn.stdpath "config" .. "/words" }
 
+---@param str string
+---@param delimiter string
+---@return string[]
 local function split(str, delimiter)
   local result = {}
   local from = 1
@@ -76,6 +79,9 @@ end
 ---Register custom source to nvim-cmp.
 require("cmp").register_source("words", source.new())
 
+---@param tbl string[]
+---@param str string
+---@return integer
 local function lower_bound(tbl, str)
   local l = 1
   local r = #tbl + 1
@@ -90,6 +96,9 @@ local function lower_bound(tbl, str)
   return r
 end
 
+---@param str string
+---@param pre string
+---@return boolean
 local function starts_with(str, pre)
   if #str < #pre then
     return false
@@ -97,6 +106,10 @@ local function starts_with(str, pre)
   return str:sub(1, #pre) == pre
 end
 
+---@param tbl string[]
+---@param str string
+---@param maxc integer
+---@param next function
 local function getlist(tbl, str, maxc, next)
   if #str < 4 then
     return
@@ -114,6 +127,8 @@ local function getlist(tbl, str, maxc, next)
   end
 end
 
+---@param req string
+---@return { items: { label: string }[], isIncomplete: boolean }[]
 function source:get_items(req)
   if not self.words then
     return { items = {}, isIncomplete = true }
@@ -122,10 +137,10 @@ function source:get_items(req)
     local s, t = req:find "%u+$"
     local word = req:sub(s, t)
     local prefix = req:sub(1, s - 1)
-    results = {}
+    local results = {}
     getlist(self.words, word:gsub("%w*", string.lower), self.max_words, function(label)
       table.insert(results, {
-        label = prefix .. label:gsub("%w*", string.upper),
+          label = prefix .. label:gsub("%w*", string.upper),
       })
     end)
 
@@ -139,7 +154,9 @@ function source:get_items(req)
       lower = true
       word = word:gsub("^.", string.lower)
     end
-    results = {}
+    ---@type { label: string }[]
+    local results = {}
+    ---@param label string
     getlist(self.words, word, self.max_words, function(label)
       if lower then
         label = label:gsub("^.", string.upper)
