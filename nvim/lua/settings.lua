@@ -67,10 +67,10 @@ vim.opt.spellfile = (vim.fn.stdpath("config") .. "/spell/en.utf-8.add")
 
 vim.opt.diffopt = "internal,filler,algorithm:patience,indent-heuristic,closeoff,linematch:120"
 
-vim.fn.sign_define("DiagnosticSignError", { text = "\239\129\151", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "\239\129\177", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "\239\129\154", texthl = "DiagnosticSignHint" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "\239\129\153", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 
 vim.g.mapleader = "'"
 vim.g.maplocalleader = "'"

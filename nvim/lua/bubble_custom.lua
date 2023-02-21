@@ -203,7 +203,11 @@ return windline.setup({
     ---- ADD MORE COLOR HERE ----
         colors
   end,
-  statuslines = { default, explorer, quickfix },
+  statuslines = {
+    default,
+    -- explorer,
+    quickfix,
+  },
   -- tabline = {
   --   template = {
   --     -- this use a highlight color a text will replace by tab name
