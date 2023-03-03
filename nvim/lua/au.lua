@@ -1,4 +1,4 @@
---- @param definitions { [string]: any[] }
+--- @param definitions { [string]: (string|{callback?: function, pattern: string, command?:string })[] }
 local function augroups(definitions)
   for group_name, definition in pairs(definitions) do
     vim.api.nvim_create_augroup(group_name, { clear = true })
@@ -27,9 +27,9 @@ augroups {
         if (ok and stats and (stats.size > 1000000)) then
           vim.b["large_buf"] = true
           vim.cmd("syntax off")
-          vim.cmd("IlluminatePauseBuf")
-          vim.cmd("IndentBlanklineDisable")
-          vim.cmd("NoMatchParen")
+          vim.cmd.IlluminatePauseBuf()
+          vim.cmd.IndentBlanklineDisable()
+          vim.cmd.NoMatchParen()
           vim.opt_local.foldmethod = "manual"
           vim.opt_local.spell = false
         else
@@ -61,9 +61,9 @@ augroups {
         end
         if (_G.is_special(vim.api.nvim_get_current_win()) and _G.all_special()) then
           local id = _G.__latest_id
-          return vim.defer_fn(function()
+          vim.defer_fn(function()
             if (id == _G.__latest_id) then
-              return vim.cmd("q")
+              vim.cmd.quit()
             end
           end, 0)
         end

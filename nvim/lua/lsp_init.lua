@@ -29,7 +29,11 @@ local function on_attach(client, bufnr)
       client.server_capabilities.documentFormattingProvider
       and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
   then
-    vim.cmd "autocmd BufWritePre <buffer> lua lsp_format()"
+    vim.api.nvim_create_autocmd(
+      "BufWritePre", {
+      callback = _G.lsp_format,
+      buffer = 0,
+    })
   else
   end
   map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
@@ -227,6 +231,7 @@ setup_lsp("lua_ls", {
     },
   },
 })
+
 _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_active_clients())
 end

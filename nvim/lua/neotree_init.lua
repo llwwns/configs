@@ -7,6 +7,9 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSig
 
 return (require("neo-tree")).setup({
   close_if_last_window = false,
+  source_selector = {
+    winbar = true,
+  },
   filesystem = {
     follow_current_file = true,
     hijack_netrw_behavior = "open_default",

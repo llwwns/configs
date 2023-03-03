@@ -27,7 +27,9 @@ return (require("lazy")).setup({
     init = function() vim.g.VM_theme = "codedark" end
   },
   {
-    "godlygeek/tabular", lazy = true, cmd = { "Tabularize", }
+    "godlygeek/tabular",
+    lazy = true,
+    cmd = { "Tabularize", },
   },
   {
     "tpope/vim-abolish",
@@ -48,7 +50,7 @@ return (require("lazy")).setup({
   },
   {
     "windwp/windline.nvim",
-    config = function() require("bubble_custom") end,
+    config = function() require('wlsample.vscode').change_color("#1d1d2d") end,
   },
   { "utilyre/barbecue.nvim",
     dependencies = {
@@ -62,6 +64,7 @@ return (require("lazy")).setup({
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {
       auto_hide = true,
+      animation = false,
     }
   },
   {
@@ -116,7 +119,6 @@ return (require("lazy")).setup({
   {
     "RRethy/vim-illuminate", config = function()
     require("illuminate").configure({ providers = { "regex" }, delay = 0 })
-    vim.cmd("hi link IlluminatedWordText illuminatedWord")
   end,
   },
   { "junegunn/gv.vim", lazy = true, cmd = { "GV" } },
@@ -152,7 +154,7 @@ return (require("lazy")).setup({
   {
     "nvim-treesitter/nvim-treesitter",
     config = function() require("treesitter_init") end,
-    dependencies = { "mrjones2014/nvim-ts-rainbow" },
+    dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
   },
   "RRethy/nvim-treesitter-endwise",
   "nvim-treesitter/playground",
@@ -216,7 +218,10 @@ return (require("lazy")).setup({
       }
     })
   end },
-  { "folke/tokyonight.nvim", opts = { sidebars = { "qf", "neo-tree", "FTerm", "packer" } }, priority = 1000 },
+  { "folke/tokyonight.nvim", opts = {
+    sidebars = { "qf", "neo-tree", "FTerm", "packer" },
+    transparent = true,
+  }, priority = 1000 },
   "EdenEast/nightfox.nvim",
   { "rebelot/kanagawa.nvim", lazy = true },
   {
@@ -368,13 +373,5 @@ return (require("lazy")).setup({
     config = function() require("insx_init") end,
     event = { "InsertEnter" },
     lazy = true,
-  },
-  {
-    "giusgad/pets.nvim",
-    config = true,
-    dependencies = {
-      "edluffy/hologram.nvim",
-      "MunifTanjim/nui.nvim",
-    }
   },
 })
