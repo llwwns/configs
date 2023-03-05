@@ -112,7 +112,7 @@ augroups {
     },
     {
       "FileType", {
-      pattern = { "lua", "ruby" },
+      pattern = { "lua" },
       callback = function()
         if vim.b.large_buf then
           return
@@ -120,6 +120,20 @@ augroups {
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
         vim.b.format_on_save = true
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = { "ruby" },
+      callback = function()
+        if vim.b.large_buf then
+          return
+        end
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.b.format_on_save = true
+        vim.keymap.set("n", "<leader>cr", "<cmd>!ruby %<CR>", { buffer = true, silent = false })
       end,
     }
     },
