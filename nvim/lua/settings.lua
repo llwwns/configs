@@ -81,8 +81,9 @@ vim.g.vim_json_conceal = 0
 vim.g.vim_markdown_conceal = 0
 vim.g.vim_markdown_conceal_code_blocks = 0
 
-vim.g.tokyonight_style = "night"
-vim.cmd.colorscheme "tokyonight-night"
+-- vim.g.tokyonight_style = "night"
+-- vim.cmd.colorscheme "tokyonight-night"
+vim.cmd.colorscheme "kanagawa"
 
 vim.opt.foldminlines = 1
 vim.opt.foldtext = "v:lua.foldtext2()"

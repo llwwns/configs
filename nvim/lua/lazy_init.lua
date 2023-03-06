@@ -48,9 +48,16 @@ return (require("lazy")).setup({
     lazy = true,
     cmd = { "ArgWrap" },
   },
+  -- {
+  --   "windwp/windline.nvim",
+  --   config = function() require('wlsample.vscode').change_color("#1d1d2d") end,
+  -- },
   {
-    "windwp/windline.nvim",
-    config = function() require('wlsample.vscode').change_color("#1d1d2d") end,
+    "rebelot/heirline.nvim",
+    config = function() require("heirline_init") end,
+    dependencies = {
+      "rebelot/kanagawa.nvim",
+    }
   },
   { "utilyre/barbecue.nvim",
     dependencies = {
@@ -168,19 +175,19 @@ return (require("lazy")).setup({
         numhl = true,
         signs = {
           add = {
-            hl = "GitGutterAdd", text = "+", numhl = "GitGutterAdd",
+            hl = "GitSignsAdd", text = "+", numhl = "GitSignsAdd",
           },
           change = {
-            hl = "GitGutterChange", text = "~", numhl = "GitGutterChange",
+            hl = "GitSignsChange", text = "~", numhl = "GitSignsChange",
           },
           delete = {
-            hl = "GitGutterDelete", text = "_", numhl = "GitGutterDelete",
+            hl = "GitSignsDelete", text = "_", numhl = "GitSignsDelete",
           },
           topdelete = {
-            hl = "GitGutterDelete", text = "‾", numhl = "GitGutterDelete",
+            hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDelete",
           },
           changedelete = {
-            hl = "GitGutterChange", text = "~", numhl = "GitGutterChange",
+            hl = "GitSignsChange", text = "~", numhl = "GitSignsChange",
           } }
       })
       require("scrollbar.handlers.gitsigns").setup()
@@ -218,12 +225,12 @@ return (require("lazy")).setup({
       }
     })
   end },
-  { "folke/tokyonight.nvim", opts = {
-    sidebars = { "qf", "neo-tree", "FTerm", "packer" },
-    transparent = true,
-  }, priority = 1000 },
-  "EdenEast/nightfox.nvim",
-  { "rebelot/kanagawa.nvim", lazy = true },
+  -- { "folke/tokyonight.nvim", opts = {
+  --   sidebars = { "qf", "neo-tree", "FTerm", "packer" },
+  --   transparent = true,
+  -- }, priority = 1000 },
+  -- "EdenEast/nightfox.nvim",
+  { "rebelot/kanagawa.nvim", priority = 1000 },
   {
     "TimUntersberger/neogit",
     lazy = true,
