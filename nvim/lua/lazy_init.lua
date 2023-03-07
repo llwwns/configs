@@ -67,13 +67,6 @@ return (require("lazy")).setup({
     name = "barbecue",
     opts = { show_navic = true },
   },
-  { 'romgrk/barbar.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    opts = {
-      auto_hide = true,
-      animation = false,
-    }
-  },
   {
     "AndrewRadev/deleft.vim",
     lazy = true,
