@@ -229,3 +229,10 @@ map("n", "[d", vim.diagnostic.goto_prev, { silent = true })
 
 map("n", "]w", function() require("illuminate").goto_next_reference() end, { silent = true })
 map("n", "[w", function() require("illuminate").goto_prev_reference() end, { silent = true })
+-- map("n", "]b", "<cmd>BufferNext<CR>", { silent = true })
+-- map("n", "[b", "<cmd>BufferPrevious<CR>", { silent = true })
+-- map("n", "]B", "<cmd>BufferLast<CR>", { silent = true })
+-- map("n", "[B", "<cmd>BufferFirst<CR>", { silent = true })
+
+map("n", "<leader>mo", "<cmd>MindOpenMain<CR>", { silent = true })
+map("n", "<leader>mc", "<cmd>MindClose<CR>", { silent = true })

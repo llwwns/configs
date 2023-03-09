@@ -24,60 +24,7 @@ end
 --   }
 -- end
 --
-local function on_attach(client, bufnr)
-  if
-      client.server_capabilities.documentFormattingProvider
-      and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
-  then
-    vim.api.nvim_create_autocmd(
-      "BufWritePre", {
-      callback = _G.lsp_format,
-      buffer = 0,
-    })
-  else
-  end
-  map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  -- map("n", "gs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { buffer = true, noremap = true, silent = true })
-  map(
-    "n",
-    "gs",
-    "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",
-    { buffer = true, noremap = true, silent = true }
-  )
-  map("n", "<leader>rn", "<cmd>Lsp rename<CR>", { buffer = true, noremap = true, silent = true })
-  map("n", "<leader>da", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-    { buffer = true, noremap = true, silent = true })
-  map(
-    "v",
-    "<leader>da",
-    "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>",
-    { buffer = true, noremap = true, silent = true }
-  )
-  vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
-  vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-  vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
-  -- client.server_capabilities["documentHighlightProvider"] = false
 
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  else
-  end
-  if not _G.lsp_clients then
-    _G["lsp_clients"] = {}
-  else
-  end
-  _G.lsp_clients[bufnr] = client
-  return nil
-end
 local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
   local path = (require "null-ls.utils").path
@@ -85,26 +32,25 @@ local function on_attach_ts(client, bufnr)
     client.server_capabilities["documentFormattingProvider"] = false
   else
   end
-  return on_attach(client, bufnr)
 end
+
 local function on_attach_eslint(client, bufnr)
   client.server_capabilities["documentFormattingProvider"] = false
-  return on_attach(client, bufnr)
 end
 
-local function on_attach_rs(client, bufnr)
-  on_attach(client, bufnr)
-  local augid = vim.api.nvim_create_augroup("inlayHint", { clear = true })
-  return vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter", "InsertLeave" }, {
-    callback = function()
-      return (require "lsp_extensions").inlay_hints { enabled = { "ChainingHint", "TypeHint" } }
-    end,
-    group = augid,
-    pattern = "*.rs",
-  })
-end
-
-local capabilities = (require "cmp_nvim_lsp").default_capabilities()
+-- local function on_attach_rs(client, bufnr)
+--   on_attach(client, bufnr)
+--   local augid = vim.api.nvim_create_augroup("inlayHint", { clear = true })
+--   return vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter", "InsertLeave" }, {
+--     callback = function()
+--       return (require "lsp_extensions").inlay_hints { enabled = { "ChainingHint", "TypeHint" } }
+--     end,
+--     group = augid,
+--     pattern = "*.rs",
+--   })
+-- end
+--
+local capabilities = require "cmp_nvim_lsp".default_capabilities()
 
 null_ls.setup {
   sources = {
@@ -114,13 +60,15 @@ null_ls.setup {
     -- eslint_d
     -- null-ls.builtins.code_actions.gitsigns
   },
-  on_attach = on_attach,
+  -- on_attach = on_attach,
   capabilities = capabilities,
 }
 
-local function setup_lsp(server, opts)
+function _G.setup_lsp(server, opts)
   local conf = lsp[server]
-  conf.setup(opts)
+  conf.setup(vim.tbl_extend("force", {
+    capabilities = capabilities,
+  }, opts))
   local try_add = conf.manager.try_add
   conf.manager["try_add"] = function(cnf)
     if not vim.b.large_buf then
@@ -131,22 +79,18 @@ end
 
 setup_lsp("clangd", {
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-  on_attach = on_attach_rs,
-  capabilities = capabilities,
   cmd = { "clangd", "--background-index" },
 })
 setup_lsp("rust_analyzer", {
-  on_attach = on_attach_rs,
-  ["rust-analyzer.diagnostics.enable"] = true,
-  ["rust-analyzer.checkOnSave.enable"] = true,
-  capabilities = capabilities,
+      ["rust-analyzer.diagnostics.enable"] = true,
+      ["rust-analyzer.checkOnSave.enable"] = true,
 })
 setup_lsp(
   "tsserver",
   {
+    single_file_support = false,
     on_attach = on_attach_ts,
     root_dir = lsp.util.root_pattern "package.json",
-    capabilities = capabilities
   }
 )
 setup_lsp("denols", {
@@ -155,14 +99,11 @@ setup_lsp("denols", {
   root_dir = lsp.util.root_pattern "deno.json",
   init_options = { lint = true },
   settings = { ["deno.unstable"] = true },
-  capabilities = capabilities,
 })
-setup_lsp("vimls", { on_attach = on_attach, capabilities = capabilities })
+setup_lsp("vimls", {})
 setup_lsp(
   "jsonls",
   {
-    on_attach = on_attach,
-    capabilities = capabilities,
     settings = {
       json = {
         validate = {
@@ -172,33 +113,28 @@ setup_lsp(
     }
   }
 )
-setup_lsp("cssls", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("html", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("yamlls", { on_attach = on_attach, capabilities = capabilities })
+setup_lsp("cssls", {})
+setup_lsp("html", {})
+setup_lsp("yamlls", {})
 setup_lsp(
   "eslint",
   {
     on_attach = on_attach_eslint,
     root_dir = lsp.util.root_pattern "package.json",
-    capabilities = capabilities
   }
 )
 setup_lsp("zls", { on_attach = on_attach, capabilities = capabilities })
 setup_lsp("gopls", {
   cmd_env = { GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es" },
-  capabilities = capabilities,
   codelens = { ["upgrade.dependency"] = false },
   deepCompletion = false,
-  on_attach = on_attach,
 })
-setup_lsp("erlangls", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("tailwindcss", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("hls", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("marksman", { on_attach = on_attach, capabilities = capabilities })
-setup_lsp("elixirls", { cmd = { "elixir-ls" }, on_attach = on_attach, capabilities = capabilities })
+setup_lsp("erlangls", {})
+setup_lsp("tailwindcss", {})
+setup_lsp("hls", {})
+setup_lsp("marksman", {})
+setup_lsp("elixirls", { cmd = { "elixir-ls" } })
 setup_lsp("lua_ls", {
-  on_attach = on_attach,
-  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {

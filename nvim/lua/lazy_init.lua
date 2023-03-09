@@ -1,7 +1,7 @@
 local install_path = (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(install_path) then
   vim.cmd("!git clone https://github.com/folke/lazy.nvim --filter=blob:none --single-branch " ..
-  install_path)
+    install_path)
 end
 
 (vim.opt.runtimepath):prepend(install_path)
@@ -59,7 +59,8 @@ return (require("lazy")).setup({
       "rebelot/kanagawa.nvim",
     }
   },
-  { "utilyre/barbecue.nvim",
+  {
+    "utilyre/barbecue.nvim",
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
@@ -82,7 +83,8 @@ return (require("lazy")).setup({
       "SmiteshP/nvim-navic",
     }
   },
-  { "hrsh7th/nvim-cmp",
+  {
+    "hrsh7th/nvim-cmp",
     lazy = true,
     event = { "InsertEnter" },
     config = function() require("cmp_init") end,
@@ -98,7 +100,8 @@ return (require("lazy")).setup({
   },
   "hrsh7th/cmp-nvim-lsp",
   { "nvim-lua/lsp_extensions.nvim", lazy = true },
-  { "nvim-neo-tree/neo-tree.nvim",
+  {
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
     lazy = true,
     ft = { "netrw" },
@@ -117,13 +120,15 @@ return (require("lazy")).setup({
     init = function() vim.g.EmacsCommandLineSearchCommandLineDisable = 1 end,
   },
   {
-    "RRethy/vim-illuminate", config = function()
-    require("illuminate").configure({ providers = { "regex" }, delay = 0 })
-  end,
+    "RRethy/vim-illuminate",
+    config = function()
+      require("illuminate").configure({ providers = { "regex" }, delay = 0 })
+    end,
   },
   { "junegunn/gv.vim", lazy = true, cmd = { "GV" } },
   { "lambdalisue/suda.vim", lazy = true, cmd = { "SudaWrite" } },
-  { "tyru/eskk.vim",
+  {
+    "tyru/eskk.vim",
     init = function() vim.g["eskk#enable_completion"] = 1 end,
     lazy = true,
     keys = {
@@ -143,6 +148,9 @@ return (require("lazy")).setup({
     "mechatroner/rainbow_csv",
     lazy = true,
     ft = { "csv", "tsv" },
+    init = function()
+      vim.g.disable_rainbow_hover = 1
+    end
   },
   { "AndrewRadev/bufferize.vim", lazy = true, cmd = { "Bufferize" } },
   {
@@ -181,43 +189,48 @@ return (require("lazy")).setup({
           },
           changedelete = {
             hl = "GitSignsChange", text = "~", numhl = "GitSignsChange",
-          } }
+          }
+        }
       })
       require("scrollbar.handlers.gitsigns").setup()
-    end },
+    end
+  },
   "kevinhwang91/nvim-bqf",
-  { "onsails/lspkind-nvim", config = function()
-    return (require("lspkind")).init({
-      mode = "text_symbol",
-      symbol_map = {
-        Text = "  ",
-        Method = "  ",
-        Function = "  ",
-        Constructor = "  ",
-        Variable = "  ",
-        Class = "  ",
-        Interface = "  ",
-        Module = "  ",
-        Property = "  ",
-        Unit = "  ",
-        Value = "  ",
-        Enum = "  ",
-        Keyword = "  ",
-        Snippet = "  ",
-        Color = "  ",
-        File = "  ",
-        Folder = "  ",
-        EnumMember = "  ",
-        Constant = "  ",
-        Struct = "  ",
-        Field = "  ",
-        TypeParameter = "  ",
-        Event = "  ",
-        Operator = "  ",
-        Reference = "  ",
-      }
-    })
-  end },
+  {
+    "onsails/lspkind-nvim",
+    config = function()
+      return (require("lspkind")).init({
+        mode = "text_symbol",
+        symbol_map = {
+          Text = "  ",
+          Method = "  ",
+          Function = "  ",
+          Constructor = "  ",
+          Variable = "  ",
+          Class = "  ",
+          Interface = "  ",
+          Module = "  ",
+          Property = "  ",
+          Unit = "  ",
+          Value = "  ",
+          Enum = "  ",
+          Keyword = "  ",
+          Snippet = "  ",
+          Color = "  ",
+          File = "  ",
+          Folder = "  ",
+          EnumMember = "  ",
+          Constant = "  ",
+          Struct = "  ",
+          Field = "  ",
+          TypeParameter = "  ",
+          Event = "  ",
+          Operator = "  ",
+          Reference = "  ",
+        }
+      })
+    end
+  },
   -- { "folke/tokyonight.nvim", opts = {
   --   sidebars = { "qf", "neo-tree", "FTerm", "packer" },
   --   transparent = true,
@@ -329,11 +342,14 @@ return (require("lazy")).setup({
     config = function() require("icon-picker") end,
   },
   { "tiagovla/scope.nvim", config = true },
-  { "rcarriga/nvim-notify", config = function()
-    local notify = require("notify")
-    notify.setup()
-    vim.notify = notify
-  end },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      local notify = require("notify")
+      notify.setup()
+      vim.notify = notify
+    end
+  },
   { "norcalli/nvim-colorizer.lua", config = true },
   { "monaqa/dial.nvim", config = function() require("dial_init") end, lazy = true },
   { "mizlan/iswap.nvim", lazy = true, opts = { flash_style = false, move_cursor = true } },
@@ -343,7 +359,8 @@ return (require("lazy")).setup({
     lazy = true,
     config = function() require("dap_init") end,
   },
-  { "leoluz/nvim-dap-go",
+  {
+    "leoluz/nvim-dap-go",
     config = true,
     dependencies = { "mfussenegger/nvim-dap" },
     lazy = true,
@@ -374,4 +391,25 @@ return (require("lazy")).setup({
     event = { "InsertEnter" },
     lazy = true,
   },
+  {
+    'phaazon/mind.nvim',
+    branch = 'v2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = true,
+    lazy = true,
+    cmd = { "MindOpenMain" },
+  },
+  {
+    'vimwiki/vimwiki',
+    lazy = true,
+    keys = { "<leader>ww" },
+    init = function()
+      vim.g.vimwiki_conceallevel = 0
+      vim.g.vimwiki_list = { { path = '~/Documents/vimwiki/wiki' } }
+      vim.g.vimwiki_global_ext = 0
+      vim.g.wiki = {
+        nested_syntaxes = { "bash", "json", "fish", "sql" }
+      }
+    end
+  }
 })

@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 --- @param definitions { [string]: (string|{callback?: function, pattern: string, command?:string })[] }
 local function augroups(definitions)
   for group_name, definition in pairs(definitions) do
@@ -73,14 +75,17 @@ augroups {
   },
   visualmode = {
     {
-      "ModeChanged", { callback = function()
-      local evt = vim.v.event
-      if ((type(evt) == "table") and (evt.new_mode == "i") and (evt.old_mode == "")) then
-        vim.opt_local.indentkeys = ""
-      elseif ((type(evt) == "table") and (evt.old_mode == "i")) then
-        vim.opt_local.indentkeys = "0{,0},0),0],:,0#,!^F,o,O,e"
-      end
-    end, pattern = "*" }
+      "ModeChanged", {
+      callback = function()
+        local evt = vim.v.event
+        if ((type(evt) == "table") and (evt.new_mode == "i") and (evt.old_mode == "")) then
+          vim.opt_local.indentkeys = ""
+        elseif ((type(evt) == "table") and (evt.old_mode == "i")) then
+          vim.opt_local.indentkeys = "0{,0},0),0],:,0#,!^F,o,O,e"
+        end
+      end,
+      pattern = "*"
+    }
     }
   },
   filetypes2 = {
@@ -254,11 +259,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
-        vim.opt_local.cmdheight = 1
         vim.keymap.set("n", "[c", "<cmd>RainbowAlign<CR>", { buffer = true, silent = false })
         vim.keymap.set("n", "]c", "<cmd>RainbowShrink<CR>", { buffer = true, silent = false })
       end,
-    }
+    },
     },
     {
       { "BufNewFile", "BufRead" }, {
@@ -326,5 +330,83 @@ augroups {
       end,
     }
     },
+    {
+      "FileType", {
+      pattern = "neorepl",
+      callback = function()
+        require('cmp').setup.buffer({ enabled = false })
+        vim.b.indent_blankline_enabled = false
+      end,
+    }
+    },
   },
+  lsp = {
+    {
+      "LspAttach", {
+      callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        -- client.server_capabilities.semanticTokensProvider = {}
+        if client.server_capabilities.completionProvider then
+          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+        end
+        if client.server_capabilities.definitionProvider then
+          vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+        end
+        if
+            client.server_capabilities.documentFormattingProvider
+            and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
+        then
+          vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr"
+          vim.api.nvim_create_autocmd(
+            "BufWritePre", {
+              callback = _G.lsp_format,
+              buffer = 0,
+            })
+        end
+        map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        -- map("n", "gs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { buffer = true, noremap = true, silent = true })
+        map(
+          "n",
+          "gs",
+          "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",
+          { buffer = true, noremap = true, silent = true }
+        )
+        map("n", "<leader>rn", "<cmd>Lsp rename<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map("n", "<leader>da", "<cmd>lua vim.lsp.buf.code_action()<CR>",
+          { buffer = true, noremap = true, silent = true })
+        map(
+          "v",
+          "<leader>da",
+          "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>",
+          { buffer = true, noremap = true, silent = true }
+        )
+        -- client.server_capabilities["documentHighlightProvider"] = false
+
+        if client.server_capabilities.documentSymbolProvider then
+          require "nvim-navic".attach(client, bufnr)
+        end
+        return nil
+      end
+    }
+    },
+    {
+      "LspDetach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        vim.cmd("setlocal tagfunc< omnifunc<")
+      end
+    }
+    }
+  }
 }
