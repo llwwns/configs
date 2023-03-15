@@ -117,7 +117,8 @@ map({ "o" }, "z", function()
   require("hop").hint_char2()
 end, { silent = true })
 
-map("n", "<leader>a", "<cmd>ArgWrap<CR>", { noremap = true, silent = true })
+-- map("n", "<leader>a", "<cmd>ArgWrap<CR>", { noremap = true, silent = true })
+map("n", "<leader>a", function() require('treesj').toggle() end, { noremap = true, silent = true })
 
 map({ "c" }, "w!!", ":SudaWrite", { silent = true })
 

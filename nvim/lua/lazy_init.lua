@@ -43,11 +43,16 @@ return (require("lazy")).setup({
     lazy = true,
     keys = { mode = "i", "<c-y>" },
   },
-  {
-    "FooSoft/vim-argwrap",
-    lazy = true,
-    cmd = { "ArgWrap" },
-  },
+  -- {
+  --   "FooSoft/vim-argwrap",
+  --   lazy = true,
+  --   cmd = { "ArgWrap" },
+  --   init = function()
+  --     vim.g.argwrap_padded_braces = "{"
+  --     vim.g.argwrap_tail_comma = true
+  --   end,
+  -- },
+  { "Wansmer/treesj", lazy = true, use_default_keymaps = false, max_join_length = 512 },
   -- {
   --   "windwp/windline.nvim",
   --   config = function() require('wlsample.vscode').change_color("#1d1d2d") end,
@@ -242,6 +247,7 @@ return (require("lazy")).setup({
     lazy = true,
     cmd = { "Neogit" },
     opts = {
+      use_magit_keybindings = true,
       disable_commit_confirmation = true,
       integrations = { diffview = true },
       signs = { section = { "", "" }, item = { "", "" }, hunk = { "", "" } },
@@ -402,11 +408,13 @@ return (require("lazy")).setup({
   {
     'vimwiki/vimwiki',
     lazy = true,
-    keys = { "<leader>ww" },
+    keys = { "<leader>vww" },
     init = function()
       vim.g.vimwiki_conceallevel = 0
       vim.g.vimwiki_list = { { path = '~/Documents/vimwiki/wiki' } }
       vim.g.vimwiki_global_ext = 0
+      -- vim.g.vimwiki_key_mappings = { global = 0 }
+      vim.g.vimwiki_map_prefix = '<leader>vw'
       vim.g.wiki = {
         nested_syntaxes = { "bash", "json", "fish", "sql" }
       }

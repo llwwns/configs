@@ -82,8 +82,8 @@ setup_lsp("clangd", {
   cmd = { "clangd", "--background-index" },
 })
 setup_lsp("rust_analyzer", {
-      ["rust-analyzer.diagnostics.enable"] = true,
-      ["rust-analyzer.checkOnSave.enable"] = true,
+  ["rust-analyzer.diagnostics.enable"] = true,
+  ["rust-analyzer.checkOnSave.enable"] = true,
 })
 setup_lsp(
   "tsserver",
@@ -115,7 +115,7 @@ setup_lsp(
 )
 setup_lsp("cssls", {})
 setup_lsp("html", {})
-setup_lsp("yamlls", {})
+setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
   "eslint",
   {

@@ -69,7 +69,7 @@ local ViMode = {
       no = "N?",
       nov = "N?",
       noV = "N?",
-          ["no\22"] = "N?",
+      ["no\22"] = "N?",
       niI = "Ni",
       niR = "Nr",
       niV = "Nv",
@@ -78,11 +78,11 @@ local ViMode = {
       vs = "Vs",
       V = "V_",
       Vs = "Vs",
-          ["\22"] = "^V",
-          ["\22s"] = "^V",
+      ["\22"] = "^V",
+      ["\22s"] = "^V",
       s = "S",
       S = "S_",
-          ["\19"] = "^S",
+      ["\19"] = "^S",
       i = "I",
       ic = "Ic",
       ix = "Ix",
@@ -96,8 +96,8 @@ local ViMode = {
       cv = "Ex",
       r = "...",
       rm = "M",
-          ["r?"] = "?",
-          ["!"] = "!",
+      ["r?"] = "?",
+      ["!"] = "!",
       t = "T",
     },
     mode_colors = {
@@ -105,14 +105,14 @@ local ViMode = {
       i = "green",
       v = "cyan",
       V = "cyan",
-          ["\22"] = "cyan",
+      ["\22"] = "cyan",
       c = "orange",
       s = "purple",
       S = "purple",
-          ["\19"] = "purple",
+      ["\19"] = "purple",
       R = "orange",
       r = "orange",
-          ["!"] = "red",
+      ["!"] = "red",
       t = "red",
     }
   },
@@ -327,19 +327,21 @@ local Diagnostics = {
   {
     provider = function(self)
       -- 0 is just another output, we can decide to print it or not!
-      return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+      return self.errors > 0 and
+          (self.error_icon .. self.errors .. ((self.warnings > 0 or self.info > 0 or self.hints > 0) and " " or ""))
     end,
     hl = { fg = "diag_error" },
   },
   {
     provider = function(self)
-      return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+      return self.warnings > 0 and
+          (self.warn_icon .. self.warnings .. ((self.info > 0 or self.hints > 0) and " " or ""))
     end,
     hl = { fg = "diag_warn" },
   },
   {
     provider = function(self)
-      return self.info > 0 and (self.info_icon .. self.info .. " ")
+      return self.info > 0 and (self.info_icon .. self.info .. (self.hints > 0 and " " or ""))
     end,
     hl = { fg = "diag_info" },
   },

@@ -1,12 +1,18 @@
-local insx = require("insx")
-local esc = insx.helper.regex.esc
--- local endwise = require("insx.recipe.endwise")
+local kit = require('insx.kit')
+local insx = require('insx')
+local esc = require('insx.helper.regex').esc
 
---- @class standard
 local standard = {}
 
+---@param config? insx.preset.standard.Config
+function standard.setup(config)
+  config = config or {}
+  standard.setup_insert_mode(config)
+  standard.setup_cmdline_mode(config)
+end
 
-function standard.setup_insert_mode()
+---@param config insx.preset.standard.Config
+function standard.setup_insert_mode(config)
   -- quotes
   for _, quote in ipairs({ '"', "'", '`' }) do
     -- jump_out
@@ -22,34 +28,20 @@ function standard.setup_insert_mode()
     -- auto_pair
     insx.add(
       quote,
-      insx.with(
-        require('insx.recipe.auto_pair')({
-          open = quote,
-          close = quote,
-          ignore_pat = quote == [[']] and {
-            [[\\\%#]],
-            [[\a\%#]],
-          } or {
-            [[\\\%#]],
-          },
-        }),
-        {
-          enabled = function(enabled, ctx)
-            return enabled(ctx) and not insx.helper.syntax.in_string_or_comment()
-          end,
-        }
-      )
+      require('insx.recipe.auto_pair').strings({
+        open = quote,
+        close = quote,
+      })
     )
 
     -- delete_pair
-    -- insx.add(
-    --   '<BS>',
-    --   require('insx.recipe.delete_pair')({
-    --     open_pat = esc(quote),
-    --     close_pat = esc(quote),
-    --     ignore_pat = ([[\\%s\%%#]]):format(esc(quote)),
-    --   })
-    -- )
+    insx.add(
+      '<BS>',
+      require('insx.recipe.delete_pair').strings({
+        open_pat = esc(quote),
+        close_pat = esc(quote),
+      })
+    )
   end
 
   -- pairs
@@ -57,7 +49,6 @@ function standard.setup_insert_mode()
     ['('] = ')',
     ['['] = ']',
     ['{'] = '}',
-    -- ['<'] = '>',
   }) do
     -- jump_out
     insx.add(
@@ -88,38 +79,44 @@ function standard.setup_insert_mode()
     )
 
     -- spacing
-    insx.add(
-      '<Space>',
-      require('insx.recipe.pair_spacing').increase({
-        open_pat = esc(open),
-        close_pat = esc(close),
-      })
-    )
-    insx.add(
-      '<BS>',
-      require('insx.recipe.pair_spacing').decrease({
-        open_pat = esc(open),
-        close_pat = esc(close),
-      })
-    )
+    if kit.get(config, { 'spacing', 'enabled' }, true) then
+      insx.add(
+        '<Space>',
+        require('insx.recipe.pair_spacing').increase({
+          open_pat = esc(open),
+          close_pat = esc(close),
+        })
+      )
+      insx.add(
+        '<BS>',
+        require('insx.recipe.pair_spacing').decrease({
+          open_pat = esc(open),
+          close_pat = esc(close),
+        })
+      )
+    end
 
     -- fast_break
-    insx.add(
-      '<CR>',
-      require('insx.recipe.fast_break')({
-        open_pat = esc(open),
-        close_pat = esc(close),
-        split = true,
-      })
-    )
+    if kit.get(config, { 'fast_break', 'enabled' }, true) then
+      insx.add(
+        '<CR>',
+        require('insx.recipe.fast_break')({
+          open_pat = esc(open),
+          close_pat = esc(close),
+          split = kit.get(config, { 'fast_break', 'split' }, true),
+        })
+      )
+    end
 
     -- fast_wrap
-    insx.add(
-      '<C-]>',
-      require('insx.recipe.fast_wrap')({
-        close = close,
-      })
-    )
+    if kit.get(config, { 'fast_wrap', 'enabled' }, true) then
+      insx.add(
+        '<C-]>',
+        require('insx.recipe.fast_wrap')({
+          close = close,
+        })
+      )
+    end
   end
 
   -- tags.
@@ -132,15 +129,21 @@ function standard.setup_insert_mode()
   )
 end
 
-function standard.setup_cmdline_mode()
+---@param config insx.preset.standard.Config
+function standard.setup_cmdline_mode(config)
+  if not kit.get(config, { 'cmdline', 'enabled' }, false) then
+    return
+  end
+
   -- quotes
   for _, quote in ipairs({ '"', "'", '`' }) do
     -- jump_out
     insx.add(
       quote,
-      require('insx.recipe.universal.jump_out')({
-        close = quote,
-        ignore_pat = [[\\\%#]],
+      require('insx.recipe.jump_next')({
+        jump_pat = {
+          [[\\\@<!\%#]] .. esc(quote) .. [[\zs]],
+        },
       }),
       { mode = 'c' }
     )
@@ -148,29 +151,22 @@ function standard.setup_cmdline_mode()
     -- auto_pair
     insx.add(
       quote,
-      require('insx.recipe.universal.auto_pair')({
+      require('insx.recipe.auto_pair').strings({
         open = quote,
         close = quote,
-        ignore_pat = quote == [[']] and {
-          [[\\\%#]],
-          [[\a\%#]],
-        } or {
-          [[\\\%#]],
-        },
       }),
       { mode = 'c' }
     )
 
     -- delete_pair
-    insx.add(
-      '<BS>',
-      require('insx.recipe.universal.delete_pair')({
-        open = quote,
-        close = quote,
-        ignore_pat = [[\\]] .. esc(quote) .. [[\%#]],
-      }),
-      { mode = 'c' }
-    )
+    -- insx.add(
+    --   '<BS>',
+    --   require('insx.recipe.delete_pair').strings({
+    --     open_pat = esc(quote),
+    --     close_pat = esc(quote),
+    --   }),
+    --   { mode = 'c' }
+    -- )
   end
 
   -- pairs
@@ -178,13 +174,14 @@ function standard.setup_cmdline_mode()
     ['('] = ')',
     ['['] = ']',
     ['{'] = '}',
-    ['<'] = '>',
   }) do
     -- jump_out
     insx.add(
       close,
-      require('insx.recipe.universal.jump_out')({
-        close = close,
+      require('insx.recipe.jump_next')({
+        jump_pat = {
+          [[\%#]] .. esc(close) .. [[\zs]],
+        },
       }),
       { mode = 'c' }
     )
@@ -192,7 +189,7 @@ function standard.setup_cmdline_mode()
     -- auto_pair
     insx.add(
       open,
-      require('insx.recipe.universal.auto_pair')({
+      require('insx.recipe.auto_pair')({
         open = open,
         close = close,
       }),
@@ -202,14 +199,13 @@ function standard.setup_cmdline_mode()
     -- delete_pair
     insx.add(
       '<BS>',
-      require('insx.recipe.universal.delete_pair')({
-        open = open,
-        close = close,
+      require('insx.recipe.delete_pair')({
+        open_pat = esc(open),
+        close_pat = esc(close),
       }),
       { mode = 'c' }
     )
   end
 end
 
-standard.setup_insert_mode()
-standard.setup_cmdline_mode()
+standard.setup({})
