@@ -132,15 +132,27 @@ return (require("lazy")).setup({
   },
   { "junegunn/gv.vim", lazy = true, cmd = { "GV" } },
   { "lambdalisue/suda.vim", lazy = true, cmd = { "SudaWrite" } },
+  -- {
+  --   "tyru/eskk.vim",
+  --   init = function() vim.g["eskk#enable_completion"] = 1 end,
+  --   lazy = true,
+  --   keys = {
+  --     { mode = "i", "<c-j>" },
+  --     { mode = "c", "<c-j>" },
+  --     { mode = "l", "<c-j>" },
+  --   },
+  -- },
   {
-    "tyru/eskk.vim",
-    init = function() vim.g["eskk#enable_completion"] = 1 end,
+    "vim-skk/skkeleton",
+    dependencies = { "vim-denops/denops.vim" },
     lazy = true,
     keys = {
-      { mode = "i", "<c-j>" },
-      { mode = "c", "<c-j>" },
-      { mode = "l", "<c-j>" },
+      { mode = "i", "<Plug>(skkeleton-enable)" },
+      { mode = "c", "<Plug>(skkeleton-enable)" },
     },
+    config = function()
+      vim.fn["skkeleton#config"]({ showCandidatesCount = 1 })
+    end
   },
   { "powerman/vim-plugin-AnsiEsc", lazy = true, cmd = { "AnsiEsc" } },
   {

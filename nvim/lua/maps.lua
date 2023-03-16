@@ -237,3 +237,5 @@ map("n", "[w", function() require("illuminate").goto_prev_reference() end, { sil
 
 map("n", "<leader>mo", "<cmd>MindOpenMain<CR>", { silent = true })
 map("n", "<leader>mc", "<cmd>MindClose<CR>", { silent = true })
+
+map({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-enable)")
