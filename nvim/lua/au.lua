@@ -162,7 +162,7 @@ augroups {
     },
     {
       "FileType", {
-      pattern = { "cpp", "c" },
+      pattern = { "cpp" },
       callback = function()
         vim.opt_local.tabstop = 4
         if vim.b.large_buf then
@@ -173,6 +173,23 @@ augroups {
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++17 -g3 % <CR>",
           { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++17 -g3 % && ./a.out <CR>",
+          { buffer = true, silent = false })
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = { "c" },
+      callback = function()
+        vim.opt_local.tabstop = 4
+        if vim.b.large_buf then
+          return
+        end
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.keymap.set("n", "<leader>cm", "<cmd>!clang -g3 % <CR>",
+          { buffer = true, silent = false })
+        vim.keymap.set("n", "<leader>cr", "<cmd>!clang -g3 % && ./a.out <CR>",
           { buffer = true, silent = false })
       end,
     }
@@ -308,6 +325,21 @@ augroups {
           { silent = true })
         vim.keymap.set("n", "<leader>pc", function() return (require("peek")).close() end,
           { silent = true })
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = "vimwiki",
+      callback = function()
+        vim.opt_local.foldmethod = "marker"
+        vim.api.nvim_create_autocmd(
+          "BufWritePre", {
+            callback = function()
+              vim.cmd.Vimwiki2HTML()
+            end,
+            buffer = 0,
+          })
       end,
     }
     },

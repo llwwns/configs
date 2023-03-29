@@ -430,6 +430,7 @@ return (require("lazy")).setup({
       vim.g.wiki = {
         nested_syntaxes = { "bash", "json", "fish", "sql" }
       }
+      vim.g.vimwiki_folding = "custom"
     end
   }
 })
