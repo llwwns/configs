@@ -30,7 +30,8 @@ vim.opt.expandtab = true
 vim.opt.autoindent = false
 vim.opt.updatetime = 10000
 vim.opt.signcolumn = "yes"
-vim.opt.inccommand = "nosplit"
+-- vim.opt.inccommand = "nosplit"
+vim.opt.inccommand = ""
 vim.opt.formatoptions = (vim.opt.formatoptions - { "c", "r", "o" })
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 18
@@ -40,7 +41,7 @@ vim.opt.wrap = false
 vim.opt.display = "lastline"
 vim.opt.pumheight = 10
 vim.opt.list = true
-vim.opt.listchars = { eol = "\194\172", tab = "| ", extends = "\194\187", precedes = "\194\171" }
+vim.opt.listchars = { eol = "¬", tab = "| ", extends = "»", precedes = "«" }
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.shortmess = "atToOFcA"
 vim.opt.sessionoptions = { "blank", "curdir", "folds", "tabpages" }

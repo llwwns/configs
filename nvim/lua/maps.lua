@@ -177,8 +177,15 @@ map("n", "<leader>hd", "<cmd>Gdiff<CR>", { silent = true })
 
 map("n", "crp", "crcvU", { silent = true })
 
-map("n", "<leader>dq", vim.diagnostic.setqflist, { silent = true })
-map("n", "<leader>dl", vim.diagnostic.setloclist, { silent = true })
+map("n", "<leader>dq",
+  function()
+    vim.diagnostic.setqflist({ severity = { min = vim.diagnostic.severity.WARN } })
+  end,
+  { silent = true })
+map("n", "<leader>dl", function()
+  vim.diagnostic.setloclist({ severity = { min = vim.diagnostic.severity.WARN } })
+end
+, { silent = true })
 
 map("i", "<c-a>", "<home>", { noremap = true, silent = true })
 map("i", "<c-e>", "<end>", { noremap = true, silent = true })

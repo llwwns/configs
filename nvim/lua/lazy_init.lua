@@ -212,7 +212,14 @@ return (require("lazy")).setup({
       require("scrollbar.handlers.gitsigns").setup()
     end
   },
-  "kevinhwang91/nvim-bqf",
+  {
+    "kevinhwang91/nvim-bqf",
+    opts = {
+      preview = {
+        delay_syntax = -1,
+      },
+    },
+  },
   {
     "onsails/lspkind-nvim",
     config = function()
