@@ -16,7 +16,14 @@ return (require("lazy")).setup({
       vim.g.indent_blankline_show_current_context = true
     end
   },
-  "tpope/vim-fugitive",
+  {
+    "tpope/vim-fugitive",
+    lazy = true,
+    cmd = {
+      "Git",
+      "Gdiffsplit",
+    }
+  },
   {
     "mg979/vim-visual-multi",
     lazy = true,
@@ -307,7 +314,6 @@ return (require("lazy")).setup({
     },
   },
   "windwp/nvim-ts-autotag",
-  "lewis6991/impatient.nvim",
   { "ii14/lsp-command", lazy = true, cmd = { "Lsp" } },
   { "stevearc/dressing.nvim", opts = { select = { backend = { "telescope", "builtin" } } } },
   { cmd = { "NeoZoomToggle" }, config = true, lazy = true, "nyngwang/NeoZoom.lua" },
@@ -390,7 +396,7 @@ return (require("lazy")).setup({
     dependencies = { "mfussenegger/nvim-dap" },
     lazy = true,
   },
-  "dstein64/vim-startuptime",
+  { "dstein64/vim-startuptime", lazy = true, cmd = { "StartupTime" } },
   {
     "toppair/peek.nvim",
     build = "deno task --quiet build:fast",
@@ -439,5 +445,5 @@ return (require("lazy")).setup({
       }
       vim.g.vimwiki_folding = "custom"
     end
-  }
+  },
 })

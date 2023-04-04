@@ -1,6 +1,6 @@
 ; extends
 
-(namespace_definition name: (identifier) @spell)
+(namespace_definition name: (namespace_identifier) @spell)
 
 (class_specifier name: (type_identifier) @spell)
 (struct_specifier name: (type_identifier) @spell)

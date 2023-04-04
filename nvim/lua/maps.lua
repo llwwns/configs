@@ -200,12 +200,18 @@ map("t", "<c-w>h", "<c-\\><c-n><c-w>h", { noremap = true, silent = true })
 map("t", "<c-w>j", "<c-\\><c-n><c-w>j", { noremap = true, silent = true })
 map("t", "<c-w>k", "<c-\\><c-n><c-w>k", { noremap = true, silent = true })
 map("t", "<c-w>l", "<c-\\><c-n><c-w>l", { noremap = true, silent = true })
-map("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true, silent = false })
-map("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true, silent = false })
-map("v", "<C-a>", require("dial.map").inc_visual() .. "gv", { noremap = true, silent = false })
-map("v", "<C-x>", require("dial.map").dec_visual() .. "gv", { noremap = true, silent = false })
-map("v", "g<C-a>", require("dial.map").inc_gvisual() .. "gv", { noremap = true, silent = false })
-map("v", "g<C-x>", require("dial.map").dec_gvisual() .. "gv", { noremap = true, silent = false })
+map("n", "<C-a>", function() return require("dial.map").inc_normal() end,
+{ expr = true, noremap = true, silent = false })
+map("n", "<C-x>", function() return require("dial.map").dec_normal() end,
+{ expr = true, noremap = true, silent = false })
+map("v", "<C-a>", function() return require("dial.map").inc_visual() .. "gv" end,
+{ expr = true, noremap = true, silent = false })
+map("v", "<C-x>", function() return require("dial.map").dec_visual() .. "gv" end,
+{ expr = true, noremap = true, silent = false })
+map("v", "g<C-a>", function() return require("dial.map").inc_gvisual() .. "gv" end,
+{ expr = true, noremap = true, silent = false })
+map("v", "g<C-x>", function() return require("dial.map").dec_gvisual() .. "gv" end,
+{ expr = true, noremap = true, silent = false })
 
 map("n", "g<", function() require("iswap").iswap_node_with("left") end, { silent = true })
 map("n", "g>", function() require("iswap").iswap_node_with("right") end, { silent = true })
