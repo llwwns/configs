@@ -78,7 +78,10 @@ return (require("lazy")).setup({
       "nvim-tree/nvim-web-devicons",
     },
     name = "barbecue",
-    opts = { show_navic = true },
+    opts = {
+      show_navic = true,
+      create_autocmd = false,
+    },
   },
   {
     "AndrewRadev/deleft.vim",
@@ -299,19 +302,13 @@ return (require("lazy")).setup({
   },
   { "llwwns/hop.nvim", lazy = true, config = true },
   {
-    "akinsho/toggleterm.nvim",
+    "rebelot/terminal.nvim",
     lazy = true,
-    cmd = { "ToggleTerm" },
     opts = {
-      hide_numbers = true,
-      winbar = { enabled = false },
-      on_open = function()
-        vim.opt_local["spell"] = false
-        vim.opt_local["number"] = false
-        vim.opt_local["relativenumber"] = false
-        vim.opt_local["winbar"] = ""
-      end,
-    },
+      cmd = { vim.o.shell },
+      autoclose = true,
+      layout = { open_cmd = "botright new" },
+    }
   },
   "windwp/nvim-ts-autotag",
   { "ii14/lsp-command", lazy = true, cmd = { "Lsp" } },

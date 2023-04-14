@@ -378,7 +378,7 @@ augroups {
       callback = function(args)
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
-        -- client.server_capabilities.semanticTokensProvider = {}
+        client.server_capabilities.semanticTokensProvider = nil
         if client.server_capabilities.completionProvider then
           vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
         end
@@ -438,6 +438,42 @@ augroups {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         vim.cmd("setlocal tagfunc< omnifunc<")
       end
+    }
+    },
+  },
+  terminal = {
+    { "TermOpen", {
+      callback = function()
+        vim.opt_local.spell = false
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.winbar = ""
+        vim.opt_local.signcolumn = "no"
+        vim.opt_local.winhighlight = "Normal:NormalFloat"
+        vim.opt_local.buflisted = false
+        vim.opt_local.filetype = "toggleterm"
+      end
+    }
+    },
+    { { "WinEnter", "BufWinEnter", "TermOpen" }, {
+      callback = function(args)
+        if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
+          vim.cmd.startinsert()
+        end
+      end
+    }
+    }
+  },
+  babecue = {
+    {
+      {
+        "WinResized",
+        "Filetype",
+        "CursorMoved",
+        "InsertLeave",
+        -- "BufModifiedSet",
+      }, {
+      callback = function() require("barbecue.ui").update() end
     }
     }
   }
