@@ -407,25 +407,17 @@ return (require("lazy")).setup({
     ft = "markdown",
     lazy = true,
   },
-  {
-    "nvim-zh/colorful-winsep.nvim",
-    opts = {
-      symbols = { "─", "│", "┌", "┐", "└", "┘" },
-    },
-  },
+  -- {
+  --   "nvim-zh/colorful-winsep.nvim",
+  --   opts = {
+  --     symbols = { "─", "│", "┌", "┐", "└", "┘" },
+  --   },
+  -- },
   {
     "hrsh7th/nvim-insx",
     config = function() require("insx_init") end,
     event = { "InsertEnter" },
     lazy = true,
-  },
-  {
-    'phaazon/mind.nvim',
-    branch = 'v2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = true,
-    lazy = true,
-    cmd = { "MindOpenMain" },
   },
   {
     'vimwiki/vimwiki',

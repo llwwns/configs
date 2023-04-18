@@ -3,7 +3,7 @@ local cmp = require("cmp")
 local mapping = cmp.mapping.preset.insert({
   ["<C-p>"] = cmp.mapping.select_prev_item(),
   ["<C-n>"] = cmp.mapping.select_next_item(),
-  ["<C-u>"] = cmp.mapping.scroll_docs( -4),
+  ["<C-u>"] = cmp.mapping.scroll_docs(-4),
   ["<C-d>"] = cmp.mapping.scroll_docs(4),
   ["<C-Space>"] = cmp.mapping.complete(),
   ["<C-e>"] = cmp.mapping.close(),
@@ -33,7 +33,8 @@ cmp.setup({
     { name = "words", max_item_count = 7 },
   },
   preselect = cmp.PreselectMode.None,
-  formatting = { fields = { "kind", "abbr", "menu" },
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
       local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry,
         vim_item)
@@ -41,7 +42,8 @@ cmp.setup({
       kind["kind"] = (" " .. strings[1] .. " ")
       kind["menu"] = ("    (" .. strings[2] .. ")")
       return kind
-    end },
+    end
+  },
   completion = {
     keyword_length = 2,
   },

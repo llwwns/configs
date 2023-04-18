@@ -136,7 +136,19 @@ map("n", "K", _G.showDocumentation, { noremap = true, silent = true })
 map("n", "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", { silent = true })
 
 map({ "n", "t" }, "<c-s>", function()
-  require("toggleterm").toggle(0, (vim.api.nvim_win_get_height(0) * 0.4))
+  if not _G.__term then
+    _G.__term = require("terminal").terminal:new({
+      layout = { open_cmd = "botright vertical new" },
+      cmd = { "fish" },
+      autoclose = true,
+    })
+  end
+  _G.__term:toggle(
+    {
+      open_cmd = "botright " ..
+          math.max(1, math.ceil(vim.api.nvim_win_get_height(0) * 0.4)) .. " new"
+    }, false)
+  -- require("toggleterm").toggle(0, (vim.api.nvim_win_get_height(0) * 0.4))
 end, { noremap = true, silent = true })
 
 map("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true, silent = true })
@@ -201,17 +213,17 @@ map("t", "<c-w>j", "<c-\\><c-n><c-w>j", { noremap = true, silent = true })
 map("t", "<c-w>k", "<c-\\><c-n><c-w>k", { noremap = true, silent = true })
 map("t", "<c-w>l", "<c-\\><c-n><c-w>l", { noremap = true, silent = true })
 map("n", "<C-a>", function() return require("dial.map").inc_normal() end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 map("n", "<C-x>", function() return require("dial.map").dec_normal() end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 map("v", "<C-a>", function() return require("dial.map").inc_visual() .. "gv" end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 map("v", "<C-x>", function() return require("dial.map").dec_visual() .. "gv" end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 map("v", "g<C-a>", function() return require("dial.map").inc_gvisual() .. "gv" end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 map("v", "g<C-x>", function() return require("dial.map").dec_gvisual() .. "gv" end,
-{ expr = true, noremap = true, silent = false })
+  { expr = true, noremap = true, silent = false })
 
 map("n", "g<", function() require("iswap").iswap_node_with("left") end, { silent = true })
 map("n", "g>", function() require("iswap").iswap_node_with("right") end, { silent = true })

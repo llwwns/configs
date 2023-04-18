@@ -8,4 +8,4 @@ db.json
 history.json
 nvim/.netrwhist
 fish/fish_variables
-nvim/plugin/packer_compiled.lua
+nvim/lazy-lock.json
