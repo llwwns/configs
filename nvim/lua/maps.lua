@@ -14,7 +14,7 @@ end, { silent = true })
 
 map("n", "<c-p>", function()
   if (vim.fn.win_gettype() ~= "command") then
-    require("telescope.builtin").find_files()
+    require("telescope.builtin").find_files({ hidden = true })
   end
 end, { silent = true })
 
