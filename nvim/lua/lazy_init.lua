@@ -435,4 +435,8 @@ return (require("lazy")).setup({
       vim.g.vimwiki_folding = "custom"
     end
   },
+  {
+    "folke/neodev.nvim",
+    config = true,
+  },
 })

@@ -105,9 +105,13 @@ end
 
 _G.is_special = function(window)
   local buf = vim.api.nvim_win_get_buf(window)
-  return is_floating(window) or vim.tbl_contains({
+  return is_floating(window) or
+      vim.tbl_contains({
         "dapui_watches", "dap-repl", "qf", "neo-tree", "DiffViewFiles",
       }, vim.api.nvim_buf_get_option(buf, "filetype"))
+      or vim.tbl_contains({
+        "terminal"
+      }, vim.api.nvim_buf_get_option(buf, "buftype"))
 end
 
 _G.all_special = function()
