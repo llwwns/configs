@@ -97,10 +97,13 @@ if (vim.fn.exists("gnvim") == 1) then
   vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
   vim.opt.guicursor = (vim.o.guicursor .. ",a:blinkon0")
 elseif (vim.fn.exists("neovide") == 1) then
-  vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
-  vim.g.neovide_cursor_animation_length = 0
+  -- vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
+  vim.opt.guifont = "Cascadia Code:h9.5"
+  vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_length = 0.1
   vim.g.neovide_scroll_animation_length = 0
+  vim.g.neovide_transparency = 0.9
+  vim.g.transparency = 0.9
   vim.opt.mouse = "a"
   vim.keymap.set({ "n" }, "<A-CR>",
     "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>",

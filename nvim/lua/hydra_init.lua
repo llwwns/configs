@@ -8,7 +8,7 @@ Hydra({
     { "h", "5zh" },
     { "l", "5zl", { desc = "←/→" } },
     { "H", "zH" },
-    { "L", "zL",  { desc = "half screen ←/→" } },
+    { "L", "zL", { desc = "half screen ←/→" } },
   },
 })
 
@@ -25,12 +25,15 @@ return Hydra({
   body = "<leader>d",
   config = { color = "pink" },
   heads = {
-    { "b", function() require("dap").toggle_breakpoint() end },
-    { "B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end },
+    { "bb", function() require("dap").toggle_breakpoint() end },
+    { "bc", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end },
+    { "bh",
+      function() require("dap").set_breakpoint(nil, vim.fn.input('Hit count: ')) end },
+    { "bl",
+      function() require("dap").set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
     { "c", function() require("dap").continue() end },
     { "n", function() require("dap").step_over() end },
     { "i", function() require("dap").step_into() end },
     { "o", function() return require("dap").step_out() end },
   },
 })
-

@@ -192,7 +192,6 @@ return (require("lazy")).setup({
     dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
   },
   "RRethy/nvim-treesitter-endwise",
-  "nvim-treesitter/playground",
   { "petertriho/nvim-scrollbar", config = true },
   { "mbbill/undotree", lazy = true, cmd = "UndotreeToggle" },
   {
@@ -270,7 +269,13 @@ return (require("lazy")).setup({
   --   transparent = true,
   -- }, priority = 1000 },
   -- "EdenEast/nightfox.nvim",
-  { "rebelot/kanagawa.nvim", priority = 1000 },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    -- opts = {
+    --   transparent = true,
+    -- }
+  },
   {
     "TimUntersberger/neogit",
     lazy = true,
@@ -317,10 +322,13 @@ return (require("lazy")).setup({
   {
     "ruifm/gitlinker.nvim",
     lazy = true,
-    keys = { "<leader>gy" },
+    keys = {
+      "<leader>gy",
+      { mode = "v", "<leader>gy" },
+    },
     config = true,
   },
-  { "j-hui/fidget.nvim", config = true },
+  { "j-hui/fidget.nvim", config = true, tag = "legacy" },
   {
     "nvim-telescope/telescope.nvim",
     config = function() require("telescope_init") end,
@@ -374,7 +382,7 @@ return (require("lazy")).setup({
     "rcarriga/nvim-notify",
     config = function()
       local notify = require("notify")
-      notify.setup()
+      notify.setup({ background_colour = "#1F1F28" })
       vim.notify = notify
     end
   },
@@ -413,12 +421,12 @@ return (require("lazy")).setup({
   --     symbols = { "─", "│", "┌", "┐", "└", "┘" },
   --   },
   -- },
-  {
-    "hrsh7th/nvim-insx",
-    config = function() require("insx_init") end,
-    event = { "InsertEnter" },
-    lazy = true,
-  },
+  -- {
+  --   "hrsh7th/nvim-insx",
+  --   config = function() require("insx_init") end,
+  --   event = { "InsertEnter" },
+  --   lazy = true,
+  -- },
   {
     'vimwiki/vimwiki',
     lazy = true,
@@ -430,7 +438,7 @@ return (require("lazy")).setup({
       -- vim.g.vimwiki_key_mappings = { global = 0 }
       vim.g.vimwiki_map_prefix = '<leader>vw'
       vim.g.wiki = {
-        nested_syntaxes = { "bash", "json", "fish", "sql" }
+        nested_syntaxes = { "bash", "json", "fish", "sql", "go", "javascript", "typescript" }
       }
       vim.g.vimwiki_folding = "custom"
     end
@@ -438,5 +446,11 @@ return (require("lazy")).setup({
   {
     "folke/neodev.nvim",
     config = true,
+  },
+  {
+    "dmmulroy/tsc.nvim",
+    lazy = true,
+    config = true,
+    cmd = { "TSC" }
   },
 })
