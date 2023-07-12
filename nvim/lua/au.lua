@@ -396,6 +396,9 @@ augroups {
               buffer = 0,
             })
         end
+        if vim.lsp.buf.inlay_hint and client.server_capabilities.inlayHintProvider then
+          vim.lsp.buf.inlay_hint(bufnr, true)
+        end
         map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
           { buffer = true, noremap = true, silent = true })
         map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>",

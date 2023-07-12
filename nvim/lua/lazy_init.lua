@@ -305,7 +305,7 @@ return (require("lazy")).setup({
       vim.g.mergetool_prefer_revision = "unmodified"
     end,
   },
-  { "llwwns/hop.nvim", lazy = true, config = true },
+  { "smoka7/hop.nvim", lazy = true, config = true },
   {
     "rebelot/terminal.nvim",
     lazy = true,
