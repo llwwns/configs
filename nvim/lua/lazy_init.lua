@@ -7,14 +7,31 @@ end
 (vim.opt.runtimepath):prepend(install_path)
 
 return (require("lazy")).setup({
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   lazy = false,
+  --   init = function()
+  --     -- vim.g.indent_blankline_char = "│"
+  --     vim.g.indent_blankline_char = "▏"
+  --     vim.g.indent_blankline_show_current_context = true
+  --   end
+  -- },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    lazy = false,
-    init = function()
-      -- vim.g.indent_blankline_char = "│"
-      vim.g.indent_blankline_char = "▏"
-      vim.g.indent_blankline_show_current_context = true
-    end
+    "shellRaining/hlchunk.nvim",
+    event = { "UIEnter" },
+    opts = {
+      chunk = {
+        enable = true,
+        style = "#7fb4ca",
+      },
+      line_num = {
+        enable = false,
+        style = "#957fb8",
+      },
+      blank = {
+        enable = false,
+      },
+    },
   },
   {
     "tpope/vim-fugitive",
@@ -93,7 +110,7 @@ return (require("lazy")).setup({
     "neovim/nvim-lspconfig",
     config = function() require("lsp_init") end,
     dependencies = {
-      "jose-elias-alvarez/null-ls.nvim",
+      -- "jose-elias-alvarez/null-ls.nvim",
       "nvim-lua/plenary.nvim",
       "SmiteshP/nvim-navic",
     }
@@ -117,7 +134,7 @@ return (require("lazy")).setup({
   { "nvim-lua/lsp_extensions.nvim", lazy = true },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     lazy = true,
     ft = { "netrw" },
     cmd = { "Neotree" },
@@ -290,8 +307,8 @@ return (require("lazy")).setup({
         unstaged = { folded = false },
         untracked = { folded = false },
         stashes = { folded = true },
-        unpulled = { folded = true },
-        unmerged = { folded = true },
+        unpulled = { folded = true, hidden = true },
+        unmerged = { folded = true, hidden = true },
         recent = { folded = true },
       },
     },

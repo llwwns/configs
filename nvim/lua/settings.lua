@@ -101,7 +101,7 @@ elseif (vim.fn.exists("neovide") == 1) then
   vim.opt.guifont = "Cascadia Code:h9.5"
   vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_length = 0.1
-  vim.g.neovide_scroll_animation_length = 0
+  vim.g.neovide_scroll_animation_length = 0.2
   vim.g.neovide_transparency = 0.9
   vim.g.transparency = 0.9
   vim.opt.mouse = "a"
@@ -111,3 +111,4 @@ elseif (vim.fn.exists("neovide") == 1) then
 elseif vim.keymap.set({ "t" }, "<c-s-v>", "<c-\\><c-n>\"+pa", { noremap = true, silent = true }) then
   vim.opt.guifont = "Sarasa Nerd Font:h18"
 end
+-- vim.opt.statuscolumn="%=%s%{%v:lua.line_mark()%}%{v:lua.fold_mark()} "

@@ -2,19 +2,19 @@ local lsp = require "lspconfig"
 local configs = require "lspconfig/configs"
 local util = require "lspconfig/util"
 local navic = require "nvim-navic"
-local null_ls = require "null-ls"
+-- local null_ls = require "null-ls"
 local map = vim.keymap.set
 require("neodev").setup({})
 
-local function prettierd()
-  local project_local_bin = "node_modules/.bin/prettier"
-  local utils = (require "null-ls.utils").make_conditional_utils()
-  if utils.root_has_file ".prettierrc" then
-    return null_ls.builtins.formatting.prettierd.with {
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "sh" },
-    }
-  end
-end
+-- local function prettierd()
+--   local project_local_bin = "node_modules/.bin/prettier"
+--   local utils = (require "null-ls.utils").make_conditional_utils()
+--   if utils.root_has_file ".prettierrc" then
+--     return null_ls.builtins.formatting.prettierd.with {
+--       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "sh" },
+--     }
+--   end
+-- end
 
 -- local function eslint_d()
 --   return null_ls.builtins.diagnostics.eslint_d.with {
@@ -53,17 +53,17 @@ end
 --
 local capabilities = require "cmp_nvim_lsp".default_capabilities()
 
-null_ls.setup {
-  sources = {
-    prettierd,
-    -- null_ls.builtins.formatting.stylua,
-    null_ls.builtins.diagnostics.shellcheck,
-    -- eslint_d
-    -- null-ls.builtins.code_actions.gitsigns
-  },
-  -- on_attach = on_attach,
-  capabilities = capabilities,
-}
+-- null_ls.setup {
+--   sources = {
+--     prettierd,
+--     -- null_ls.builtins.formatting.stylua,
+--     null_ls.builtins.diagnostics.shellcheck,
+--     -- eslint_d
+--     -- null-ls.builtins.code_actions.gitsigns
+--   },
+--   -- on_attach = on_attach,
+--   capabilities = capabilities,
+-- }
 
 function _G.setup_lsp(server, opts)
   local conf = lsp[server]
@@ -77,6 +77,8 @@ function _G.setup_lsp(server, opts)
     end
   end
 end
+
+vim.lsp.set_log_level("ERROR")
 
 setup_lsp("clangd", {
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
@@ -115,11 +117,15 @@ setup_lsp(
   }
 )
 setup_lsp("cssls", {})
+setup_lsp("stylelint_lsp", {
+  filetypes = { "css" }
+})
 setup_lsp("html", {})
 setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
   "eslint",
   {
+    settings = { format = false },
     on_attach = on_attach_eslint,
     root_dir = lsp.util.root_pattern "package.json",
   }
@@ -169,6 +175,10 @@ setup_lsp("lua_ls", {
       },
     },
   },
+})
+setup_lsp("efm", {
+  init_options = { documentFormatting = true },
+  filetypes = { 'javascript', 'sh', 'typescript', 'typescriptreact' },
 })
 
 _G.stop_lsp = function()

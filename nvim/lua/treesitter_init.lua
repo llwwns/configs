@@ -22,7 +22,7 @@ return (require("nvim-treesitter.configs")).setup({
   },
   rainbow = {
     enable = true,
-    extended_mode = true,
+    extended_mode = false,
     max_file_lines = 10000,
     disable = is_large_buf,
   },
@@ -38,10 +38,6 @@ return (require("nvim-treesitter.configs")).setup({
       node_incremental = "<TAB>",
       node_decremental = "<S-TAB>",
     }
-  },
-  playground = {
-    enable = true,
-    disable = is_large_buf,
   },
   endwise = {
     enable = true,
