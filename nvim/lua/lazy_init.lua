@@ -110,7 +110,7 @@ return (require("lazy")).setup({
     "neovim/nvim-lspconfig",
     config = function() require("lsp_init") end,
     dependencies = {
-      -- "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
       "nvim-lua/plenary.nvim",
       "SmiteshP/nvim-navic",
     }
