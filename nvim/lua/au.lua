@@ -307,7 +307,24 @@ augroups {
     },
     {
       "FileType", {
-      pattern = { "sh", "fish" },
+      pattern = { "sh", "bash" },
+      callback = function()
+        if vim.b.large_buf then
+          return
+        end
+        vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+          callback = function()
+            require("lint").try_lint()
+          end,
+        })
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = { "fish" },
       callback = function()
         if vim.b.large_buf then
           return
@@ -367,8 +384,23 @@ augroups {
       pattern = "neorepl",
       callback = function()
         require('cmp').setup.buffer({ enabled = false })
-        vim.b.indent_blankline_enabled = false
+        -- vim.b.indent_blankline_enabled = false
       end,
+    }
+    },
+  },
+  format = {
+    { "BufWritePre", {
+      callback = function(args)
+        if (vim.b.format_on_save and
+              not vim.b.large_buf and
+              not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")) then
+          require("conform").format({
+            bufnr = args.buf,
+            lsp_fallback = true,
+          })
+        end
+      end
     }
     },
   },
@@ -385,17 +417,17 @@ augroups {
         if client.server_capabilities.definitionProvider then
           vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
         end
-        if
-            client.server_capabilities.documentFormattingProvider
-            and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
-        then
-          vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr"
-          vim.api.nvim_create_autocmd(
-            "BufWritePre", {
-              callback = _G.lsp_format,
-              buffer = 0,
-            })
-        end
+        -- if
+        --     client.server_capabilities.documentFormattingProvider
+        --     and not vim.regex("\\vfugitive:\\/\\/"):match_str(vim.fn.expand "%")
+        -- then
+        --   vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr"
+        --   vim.api.nvim_create_autocmd(
+        --     "BufWritePre", {
+        --       callback = _G.lsp_format,
+        --       buffer = 0,
+        --     })
+        -- end
         if vim.lsp.buf.inlay_hint and client.server_capabilities.inlayHintProvider then
           vim.lsp.buf.inlay_hint(bufnr, true)
         end
@@ -480,4 +512,20 @@ augroups {
     }
     }
   }
+  -- eskk = {
+  --   {
+  --     "eskk-enable-pre", {
+  --     callback = function()
+  --       vim.opt_local.cmdheight = 1
+  --     end
+  --   }
+  --   },
+  --   {
+  --     "eskk-disable-pre", {
+  --     callback = function()
+  --       vim.opt_local.cmdheight = 1
+  --     end
+  --   }
+  --   },
+  -- },
 }

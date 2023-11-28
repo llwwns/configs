@@ -98,7 +98,7 @@ if (vim.fn.exists("gnvim") == 1) then
   vim.opt.guicursor = (vim.o.guicursor .. ",a:blinkon0")
 elseif (vim.fn.exists("neovide") == 1) then
   -- vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
-  vim.opt.guifont = "Cascadia Code:h9.5"
+  vim.opt.guifont = "Cascadia Code PL:h9.5"
   vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_length = 0.1
   vim.g.neovide_scroll_animation_length = 0.2

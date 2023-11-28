@@ -93,19 +93,16 @@ end, { silent = true })
 
 map({ "n", "v", "o" }, "<leader>'", function()
   local hop = require("hop")
-  local hint = require("hop.hint")
   hop.hint_patterns({}, "[\"']")
 end, { silent = true })
 
 map({ "n", "v", "o" }, "<leader>[", function()
   local hop = require("hop")
-  local hint = require("hop.hint")
   hop.hint_patterns({}, "[\\[(<{]")
 end, { silent = true })
 
 map({ "n", "v", "o" }, "<leader>]", function()
   local hop = require("hop")
-  local hint = require("hop.hint")
   hop.hint_patterns({}, "[\\])>}]")
 end, { silent = true })
 
@@ -143,11 +140,9 @@ map({ "n", "t" }, "<c-s>", function()
       autoclose = true,
     })
   end
-  _G.__term:toggle(
-    {
-      open_cmd = "botright " ..
-          math.max(1, math.ceil(vim.api.nvim_win_get_height(0) * 0.4)) .. " new"
-    }, false)
+  _G.__term:toggle({
+    open_cmd = "botright " .. math.max(1, math.ceil(vim.api.nvim_win_get_height(0) * 0.4)) .. " new",
+  }, false)
   -- require("toggleterm").toggle(0, (vim.api.nvim_win_get_height(0) * 0.4))
 end, { noremap = true, silent = true })
 
@@ -264,3 +259,23 @@ map("n", "<leader>mo", "<cmd>MindOpenMain<CR>", { silent = true })
 map("n", "<leader>mc", "<cmd>MindClose<CR>", { silent = true })
 
 map({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-enable)")
+
+map("n", "<leader>z", function() require("zen-mode").toggle() end, { silent = true })
+
+-- improved-search
+vim.keymap.set({ "n", "x", "o" }, "n", function() require("improved-search").stable_next() end)
+
+vim.keymap.set({ "n", "x", "o" }, "N", function() require("improved-search").stable_previous() end)
+
+-- Search current word without moving.
+vim.keymap.set("n", "!", function() require("improved-search").current_word() end)
+
+-- Search selected text in visual mode
+vim.keymap.set("x", "!", function() require("improved-search").in_place() end) -- search selection without moving
+
+vim.keymap.set("x", "*", function() require("improved-search").forward() end)  -- search selection forward
+
+vim.keymap.set("x", "#", function() require("improved-search").backward() end) -- search selection backward
+
+-- Search by motion in place
+vim.keymap.set("n", "|", function() require("improved-search").in_place() end)

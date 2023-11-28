@@ -110,10 +110,18 @@ return (require("lazy")).setup({
     "neovim/nvim-lspconfig",
     config = function() require("lsp_init") end,
     dependencies = {
-      "nvimtools/none-ls.nvim",
+      -- "nvimtools/none-ls.nvim",
       "nvim-lua/plenary.nvim",
       "SmiteshP/nvim-navic",
     }
+  },
+  {
+    "stevearc/conform.nvim",
+    config = function() require "conform_init" end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    config = function() require "lint_init" end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -206,7 +214,7 @@ return (require("lazy")).setup({
   {
     "nvim-treesitter/nvim-treesitter",
     config = function() require("treesitter_init") end,
-    dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
+    -- dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
   },
   "RRethy/nvim-treesitter-endwise",
   { "petertriho/nvim-scrollbar", config = true },
@@ -453,7 +461,7 @@ return (require("lazy")).setup({
       vim.g.vimwiki_list = { { path = '~/Documents/vimwiki/wiki' } }
       vim.g.vimwiki_global_ext = 0
       -- vim.g.vimwiki_key_mappings = { global = 0 }
-      vim.g.vimwiki_map_prefix = '<leader>vw'
+      vim.g.vimwiki_map_prefix = "<leader>vw"
       vim.g.wiki = {
         nested_syntaxes = { "bash", "json", "fish", "sql", "go", "javascript", "typescript" }
       }
@@ -469,5 +477,18 @@ return (require("lazy")).setup({
     lazy = true,
     config = true,
     cmd = { "TSC" }
+  },
+  {
+    "folke/zen-mode.nvim",
+    lazy = true,
+    opts = {
+      window = {
+        width = 160,
+      },
+    },
+  },
+  {
+    "backdround/improved-search.nvim",
+    lazy = true,
   },
 })

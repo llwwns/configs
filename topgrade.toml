@@ -1,3 +1,4 @@
+[misc]
 # Additional git repositories to pull
 #git_repos = [
 #    "~/src/*/",
@@ -8,14 +9,15 @@
 # predefined_git_repos = false
 
 # Disable specific steps - same options as the command line flag
-disable = ["vim", "stack", "pipx", "pip3", "firmware", "containers", "tldr", "julia", "yarn"]
+# disable = ["self_update", "vim", "stack", "pipx", "pip3", "firmware", "containers", "tldr", "julia", "yarn", "pnpm", "vscode"]
+only = ["system", "rustup", "flatpak", "cargo", "pnpm", "vim", "vscode"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
 
 # Do not ask to retry failed steps (default: false)
 no_retry = true
-display_preamble = false
+# display_preamble = false
 
 # Run inside tmux
 #run_in_tmux = true

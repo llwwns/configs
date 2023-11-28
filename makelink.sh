@@ -20,7 +20,7 @@ makelink .inputrc   .inputrc
 makelink .config/tig/.tigrc .tigrc
 makelink .config/tmux.conf tmux.conf
 makelink .config/fish/config.fish fish/config.fish
-makelink .config/fish/fishfile fish/fishfile
+makelink .config/fish/fish_plugins fish/fish_plugins
 makelink .config/rofi rofi
 makelink .config/hypr hypr
 makelink .config/alacritty alacritty

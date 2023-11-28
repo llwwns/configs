@@ -1,20 +1,20 @@
 local lsp = require "lspconfig"
-local configs = require "lspconfig/configs"
-local util = require "lspconfig/util"
-local navic = require "nvim-navic"
-local null_ls = require "null-ls"
+-- local configs = require "lspconfig/configs"
+-- local util = require "lspconfig/util"
+-- local navic = require "nvim-navic"
+-- local null_ls = require "null-ls"
 local map = vim.keymap.set
 require("neodev").setup({})
 
-local function prettierd()
-  local project_local_bin = "node_modules/.bin/prettier"
-  local utils = (require "null-ls.utils").make_conditional_utils()
-  if utils.root_has_file ".prettierrc" then
-    return null_ls.builtins.formatting.prettierd.with {
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "sh" },
-    }
-  end
-end
+-- local function prettierd()
+--   local project_local_bin = "node_modules/.bin/prettier"
+--   local utils = (require "null-ls.utils").make_conditional_utils()
+--   if utils.root_has_file ".prettierrc" then
+--     return null_ls.builtins.formatting.prettierd.with {
+--       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "sh" },
+--     }
+--   end
+-- end
 
 -- local function eslint_d()
 --   return null_ls.builtins.diagnostics.eslint_d.with {
@@ -28,7 +28,7 @@ end
 
 local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
-  local path = (require "null-ls.utils").path
+  local path = require("path")
   if path.exists(path.join(root, ".prettierrc")) then
     client.server_capabilities["documentFormattingProvider"] = false
   else
@@ -53,17 +53,17 @@ end
 --
 local capabilities = require "cmp_nvim_lsp".default_capabilities()
 
-null_ls.setup {
-  sources = {
-    prettierd,
-    -- null_ls.builtins.formatting.stylua,
-    null_ls.builtins.diagnostics.shellcheck,
-    -- eslint_d
-    -- null-ls.builtins.code_actions.gitsigns
-  },
-  -- on_attach = on_attach,
-  capabilities = capabilities,
-}
+-- null_ls.setup {
+--   sources = {
+--     prettierd,
+--     -- null_ls.builtins.formatting.stylua,
+--     null_ls.builtins.diagnostics.shellcheck,
+--     -- eslint_d
+--     -- null-ls.builtins.code_actions.gitsigns
+--   },
+--   -- on_attach = on_attach,
+--   capabilities = capabilities,
+-- }
 
 function _G.setup_lsp(server, opts)
   local conf = lsp[server]
@@ -117,6 +117,7 @@ setup_lsp(
   }
 )
 setup_lsp("cssls", {})
+setup_lsp("cssmodules_ls", {})
 setup_lsp("stylelint_lsp", {
   filetypes = { "css" }
 })
@@ -125,7 +126,7 @@ setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
   "eslint",
   {
-    settings = { format = false },
+    settings = { format = true },
     on_attach = on_attach_eslint,
     root_dir = lsp.util.root_pattern "package.json",
   }
@@ -179,6 +180,20 @@ setup_lsp("lua_ls", {
 -- setup_lsp("efm", {
 --   init_options = { documentFormatting = true },
 --   filetypes = { 'javascript', 'sh', 'typescript', 'typescriptreact' },
+--   -- filetypes = { 'sh' },
+-- })
+
+-- setup_lsp("emmet_ls", {
+--   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss",
+--     "svelte", "pug", "typescriptreact", "vue" },
+--   init_options = {
+--     html = {
+--       options = {
+--         -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+--         ["bem.enabled"] = true,
+--       },
+--     },
+--   }
 -- })
 
 _G.stop_lsp = function()

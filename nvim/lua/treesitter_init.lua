@@ -11,6 +11,7 @@ local function is_large_buf()
   return not not vim.b.large_buf
 end
 return (require("nvim-treesitter.configs")).setup({
+  sync_install = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -20,12 +21,12 @@ return (require("nvim-treesitter.configs")).setup({
     enable = true,
     disable = is_large_buf
   },
-  rainbow = {
-    enable = true,
-    extended_mode = false,
-    max_file_lines = 10000,
-    disable = is_large_buf,
-  },
+  -- rainbow = {
+  --   enable = true,
+  --   extended_mode = false,
+  --   max_file_lines = 10000,
+  --   disable = is_large_buf,
+  -- },
   autotag = {
     enable = true,
     disable = is_large_buf,

@@ -26,9 +26,9 @@ local function setup_colors()
     diag_error = get_highlight("DiagnosticError").fg,
     diag_hint = get_highlight("DiagnosticHint").fg,
     diag_info = get_highlight("DiagnosticInfo").fg,
-    git_del = get_highlight("diffDeleted").fg,
-    git_add = get_highlight("diffAdded").fg,
-    git_change = get_highlight("diffChanged").fg,
+    git_del = get_highlight("GitSignsDelete").fg,
+    git_add = get_highlight("GitSignsAdd").fg,
+    git_change = get_highlight("GitSignsChange").fg,
   }
 end
 require('heirline').load_colors(setup_colors())
@@ -54,7 +54,7 @@ local ViMode = {
     if not self.once then
       vim.api.nvim_create_autocmd("ModeChanged", {
         pattern = "*:*o",
-        command = 'redrawstatus'
+        command = "redrawstatus",
       })
       self.once = true
     end
@@ -114,7 +114,7 @@ local ViMode = {
       r = "orange",
       ["!"] = "red",
       t = "red",
-    }
+    },
   },
   -- We can now access the value of mode() that, by now, would have been
   -- computed by `init()` and use it to index our strings dictionary.
@@ -129,7 +129,7 @@ local ViMode = {
   -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
-    return { fg = self.mode_colors[mode], bold = true, }
+    return { fg = self.mode_colors[mode], bold = true }
   end,
   -- Re-evaluate the component only on ModeChanged event!
   -- This is not required in any way, but it's there, and it's a small
@@ -159,7 +159,7 @@ local FileIcon = {
   end,
   hl = function(self)
     return { fg = self.icon_color }
-  end
+  end,
 }
 
 local FileName = {
@@ -167,7 +167,9 @@ local FileName = {
     -- first, trim the pattern relative to the current directory. For other
     -- options, see :h filename-modifers
     local filename = vim.fn.fnamemodify(self.filename, ":.")
-    if filename == "" then return "[No Name]" end
+    if filename == "" then
+      return "[No Name]"
+    end
     -- now, if the filename would occupy more than 1/4th of the available
     -- space, we trim the file path to its initials
     -- See Flexible Components section below for dynamic truncation
@@ -211,11 +213,12 @@ local FileNameModifer = {
 }
 
 -- let's add the children to our FileNameBlock component
-FileNameBlock = utils.insert(FileNameBlock,
+FileNameBlock = utils.insert(
+  FileNameBlock,
   FileIcon,
   utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
   FileFlags,
-  { provider = '%<' }                      -- this means that the statusline is cut here when there's not enough space
+  { provider = "%<" }                      -- this means that the statusline is cut here when there's not enough space
 )
 
 local FileType = {
@@ -227,22 +230,22 @@ local FileType = {
 
 local FileEncoding = {
   provider = function()
-    local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc -- :h 'enc'
-    return enc ~= 'utf-8' and enc:upper()
-  end
+    local enc = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc -- :h 'enc'
+    return enc ~= "utf-8" and enc:upper()
+  end,
 }
 
 local FileFormat = {
   provider = function()
     local fmt = vim.bo.fileformat
-    return fmt ~= 'unix' and fmt:upper()
-  end
+    return fmt ~= "unix" and fmt:upper()
+  end,
 }
 
 local FileSize = {
   provider = function()
     -- stackoverflow, compute human readable file size
-    local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
+    local suffix = { "b", "k", "M", "G", "T", "P", "E" }
     local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
     fsize = (fsize < 0 and 0) or fsize
     if fsize < 1024 then
@@ -250,7 +253,7 @@ local FileSize = {
     end
     local i = math.floor((math.log(fsize) / math.log(1024)))
     return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
-  end
+  end,
 }
 
 local FileLastModified = {
@@ -258,7 +261,7 @@ local FileLastModified = {
   provider = function()
     local ftime = vim.fn.getftime(vim.api.nvim_buf_get_name(0))
     return (ftime > 0) and os.date("%c", ftime)
-  end
+  end,
 }
 
 local Ruler = {
@@ -272,7 +275,7 @@ local Ruler = {
 -- I take no credits for this! :lion:
 local ScrollBar = {
   static = {
-    sbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' }
+    sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
     -- Another variant, because the more choice the better.
     -- sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
   },
@@ -287,14 +290,14 @@ local ScrollBar = {
 
 local LSPActive = {
   condition = conditions.lsp_attached,
-  update = { 'LspAttach', 'LspDetach' },
+  update = { "LspAttach", "LspDetach" },
   -- You can keep it simple,
   -- provider = " [LSP]",
 
   -- Or complicate things a bit and get the servers names
   provider = function()
     local names = {}
-    for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+    for i, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
       table.insert(names, server.name)
     end
     return " [" .. table.concat(names, " ") .. "]"
@@ -371,14 +374,14 @@ local Git = {
     provider = function(self)
       return " " .. self.status_dict.head
     end,
-    hl = { bold = true }
+    hl = { bold = true },
   },
   -- You could handle delimiters, icons and counts similar to Diagnostics
   {
     condition = function(self)
       return self.has_changes
     end,
-    provider = "("
+    provider = "(",
   },
   {
     provider = function(self)
@@ -446,7 +449,7 @@ local SpecialStatusline = {
   FileType,
   Space,
   HelpFileName,
-  Align
+  Align,
 }
 
 local TerminalName = {
