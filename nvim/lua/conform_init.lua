@@ -1,5 +1,5 @@
 local util = require "conform.util"
-local prettier_configs = util.root_file {
+local prettier_files = {
   ".prettierrc",
   ".prettierrc.json",
   ".prettierrc.yml",
@@ -11,15 +11,26 @@ local prettier_configs = util.root_file {
   "prettier.config.js",
   "prettier.config.cjs",
 }
-local prettier_cwd = require("conform.formatters.prettier").cwd
+local prettier_root = { unpack(prettier_files) }
+prettier_root[#prettier_root + 1] = "package.json"
+
+local root_file = function(files, ctx)
+  local found = vim.fs.find(files, { upward = true, path = ctx.dirname })[1]
+  if found then
+    return vim.fs.dirname(found)
+  end
+  return nil
+end
 
 require("conform").setup {
   formatters = {
     prettierd = {
       condition = function(ctx)
-        local cfg = prettier_configs(ctx)
-        return cfg and cfg == prettier_cwd(ctx)
+        local config = root_file(prettier_files, ctx)
+        return config and config == root_file(prettier_root, ctx)
       end,
+      cwd = require("conform.util").root_file(prettier_root),
+
     },
     -- prettier = {
     --   condition = function(ctx)
