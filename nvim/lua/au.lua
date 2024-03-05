@@ -30,7 +30,7 @@ augroups {
           vim.b["large_buf"] = true
           vim.cmd("syntax off")
           vim.cmd.IlluminatePauseBuf()
-          -- vim.cmd.IndentBlanklineDisable()
+          vim.cmd.IBLDisable()
           vim.cmd.NoMatchParen()
           vim.opt_local.foldmethod = "manual"
           vim.opt_local.spell = false

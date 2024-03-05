@@ -7,32 +7,45 @@ end
 (vim.opt.runtimepath):prepend(install_path)
 
 return (require("lazy")).setup({
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   lazy = false,
-  --   init = function()
-  --     -- vim.g.indent_blankline_char = "│"
-  --     vim.g.indent_blankline_char = "▏"
-  --     vim.g.indent_blankline_show_current_context = true
-  --   end
-  -- },
   {
-    "shellRaining/hlchunk.nvim",
-    event = { "UIEnter" },
-    opts = {
-      chunk = {
-        enable = true,
-        style = "#7fb4ca",
-      },
-      line_num = {
-        enable = false,
-        style = "#957fb8",
-      },
-      blank = {
-        enable = false,
-      },
-    },
+    "lukas-reineke/indent-blankline.nvim",
+    lazy = false,
+    config = function()
+      require("ibl").setup({
+        indent = {
+          char = "│"
+        },
+        scope = {
+          enabled = true,
+          show_start = false,
+        },
+      })
+    end,
   },
+  -- {
+  --   "shellRaining/hlchunk.nvim",
+  --   event = { "UIEnter" },
+  --   opts = {
+  --     chunk = {
+  --       enable = true,
+  --       style = "#7fb4ca",
+  --       chars = {
+  --         horizontal_line = "─",
+  --         vertical_line = "│",
+  --         left_top = "┌",
+  --         left_bottom = "└",
+  --         right_arrow = "─",
+  --       },
+  --     },
+  --     line_num = {
+  --       enable = false,
+  --       style = "#957fb8",
+  --     },
+  --     blank = {
+  --       enable = false,
+  --     },
+  --   },
+  -- },
   {
     "tpope/vim-fugitive",
     lazy = true,
@@ -117,6 +130,7 @@ return (require("lazy")).setup({
   },
   {
     "stevearc/conform.nvim",
+    tag = "stable",
     config = function() require "conform_init" end,
   },
   {
@@ -169,7 +183,33 @@ return (require("lazy")).setup({
   { "lambdalisue/suda.vim", lazy = true, cmd = { "SudaWrite" } },
   -- {
   --   "tyru/eskk.vim",
-  --   init = function() vim.g["eskk#enable_completion"] = 1 end,
+  --   init = function()
+  --     vim.g["eskk#enable_completion"] = 1
+  --     -- vim.g["eskk#server"] = {
+  --     --   host = 'localhost',
+  --     --   port = 1178,
+  --     --   encoding = 'euc-jp',
+  --     --   timeout = 1000,
+  --     --   type = 'dictionary',
+  --     -- }
+  --     vim.g["eskk#show_candidates_count"] = 1
+  --   end,
+  --   config = function()
+  --     g = vim.api.nvim_create_augroup("skk", { clear = true })
+  --     vim.api.nvim_create_autocmd("User eskk-enable-pre", {
+  --       callback = function()
+  --         vim.opt_local.cmdheight = 1
+  --       end,
+  --       group = g,
+  --     })
+  --     -- vim.api.nvim_create_autocmd("User eskk-disable-post", {
+  --     --   callback = function()
+  --     --     vim.notify("disable")
+  --     --     vim.opt_local.cmdheight = 0
+  --     --   end,
+  --     --   group = g,
+  --     -- })
+  --   end,
   --   lazy = true,
   --   keys = {
   --     { mode = "i", "<c-j>" },
@@ -186,8 +226,11 @@ return (require("lazy")).setup({
       { mode = "c", "<Plug>(skkeleton-enable)" },
     },
     config = function()
-      vim.fn["skkeleton#config"]({ showCandidatesCount = 1 })
-    end
+      vim.fn["skkeleton#config"]({
+        showCandidatesCount = 1,
+        globalDictionaries = { { "~/configs/SKK-JISYO.L", "euc-jp" } },
+      })
+    end,
   },
   { "powerman/vim-plugin-AnsiEsc", lazy = true, cmd = { "AnsiEsc" } },
   {
