@@ -345,7 +345,7 @@ return (require("lazy")).setup({
     -- }
   },
   {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     lazy = true,
     cmd = { "Neogit" },
     opts = {

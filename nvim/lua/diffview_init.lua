@@ -13,9 +13,11 @@ require("diffview").setup {
     fold_open = "",
   },
   file_panel = {
-    position = "left",
-    width = 35,
-    height = 10,
+    win_config = {
+      position = "left",
+      width = 35,
+      height = 10,
+    },
     listing_style = "tree",
     tree_options = {
       flatten_dirs = true,
@@ -23,16 +25,31 @@ require("diffview").setup {
     },
   },
   file_history_panel = {
-    position = "bottom",
-    width = 35,
-    height = 16,
+    win_config = {
+      position = "left",
+      width = 45,
+      height = 16,
+      -- position = "bottom",
+    },
     log_options = {
-      max_count = 256,
-      follow = false,
-      all = false,
-      merges = false,
-      no_merges = false,
-      reverse = false,
+      git = {
+        single_file = {
+          max_count = 256,
+          follow = false,
+          all = false,
+          merges = false,
+          no_merges = false,
+          reverse = false,
+        },
+        multi_file = {
+          max_count = 128,
+          follow = false,
+          all = false,
+          merges = false,
+          no_merges = false,
+          reverse = false,
+        },
+      },
     },
   },
   default_args = {

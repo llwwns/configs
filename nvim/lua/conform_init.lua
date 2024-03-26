@@ -25,7 +25,7 @@ end
 require("conform").setup {
   formatters = {
     prettierd = {
-      condition = function(ctx)
+      condition = function(self, ctx)
         local config = root_file(prettier_files, ctx)
         return config and config == root_file(prettier_root, ctx)
       end,
