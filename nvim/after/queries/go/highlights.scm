@@ -23,10 +23,10 @@
   name: (identifier) @function @spell)
 
 (method_declaration
-  name: (field_identifier) @method @spell)
+  name: (field_identifier) @function.method @spell)
 
-(method_spec 
-  name: (field_identifier) @method @spell) 
+(method_elem 
+  name: (field_identifier) @function.method @spell) 
 
 ; struct
 (field_declaration name: (field_identifier) @field @spell)

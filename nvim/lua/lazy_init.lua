@@ -233,12 +233,12 @@ return (require("lazy")).setup({
     end,
   },
   { "powerman/vim-plugin-AnsiEsc", lazy = true, cmd = { "AnsiEsc" } },
-  {
-    "numToStr/Comment.nvim",
-    lazy = true,
-    keys = { { mode = "v", "gc" }, { mode = "v", "gb" } },
-    opts = { extra = {}, extended = false },
-  },
+  -- {
+  --   "numToStr/Comment.nvim",
+  --   lazy = true,
+  --   keys = { { mode = "v", "gc" }, { mode = "v", "gb" } },
+  --   opts = { extra = {}, extended = false },
+  -- },
   {
     "mechatroner/rainbow_csv",
     lazy = true,
@@ -351,16 +351,29 @@ return (require("lazy")).setup({
     opts = {
       use_magit_keybindings = true,
       disable_commit_confirmation = true,
-      integrations = { diffview = true },
+      integrations = {
+        telescope = true,
+        diffview = true,
+      },
       signs = { section = { "", "" }, item = { "", "" }, hunk = { "", "" } },
       sections = {
-        staged = { folded = false },
         unstaged = { folded = false },
         untracked = { folded = false },
+        staged = { folded = false },
         stashes = { folded = true },
         unpulled = { folded = true, hidden = true },
         unmerged = { folded = true, hidden = true },
         recent = { folded = true },
+      },
+      mappings = {
+        status = {
+          ["<c-a>"] = "StageAll",
+          ["<c-s>"] = false,
+          ["[c"] = "GoToPreviousHunkHeader",
+          ["]c"] = "GoToNextHunkHeader",
+          -- ["[s"] = "OpenOrScrollDown",
+          -- ["]s"] = "OpenOrScrollUp",
+        },
       },
     },
   },
@@ -445,7 +458,7 @@ return (require("lazy")).setup({
     },
     config = function() require("icon-picker") end,
   },
-  { "tiagovla/scope.nvim", config = true },
+  -- { "tiagovla/scope.nvim", config = true },
   {
     "rcarriga/nvim-notify",
     config = function()
@@ -457,7 +470,7 @@ return (require("lazy")).setup({
   { "norcalli/nvim-colorizer.lua", config = true },
   { "monaqa/dial.nvim", config = function() require("dial_init") end, lazy = true },
   { "mizlan/iswap.nvim", lazy = true, opts = { flash_style = false, move_cursor = true } },
-  { "rcarriga/nvim-dap-ui", lazy = true },
+  { "rcarriga/nvim-dap-ui", lazy = true, dependencies = { "nvim-neotest/nvim-nio" } },
   {
     "mfussenegger/nvim-dap",
     lazy = true,
@@ -534,4 +547,14 @@ return (require("lazy")).setup({
     "backdround/improved-search.nvim",
     lazy = true,
   },
+  {
+    "jdrupal-dev/parcel.nvim",
+    lazy = true,
+    dependencies = {
+      "phelipetls/jsonpath.nvim",
+    },
+    opts = {},
+    ft = { "json", "toml" },
+  },
+  { 'yorickpeterse/nvim-tree-pairs', config = true, }
 })

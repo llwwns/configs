@@ -51,28 +51,28 @@ augroups {
   --     "TermOpen", { pattern = "*", command = "IndentBlanklineDisable" }
   --   },
   -- },
-  autoclose = {
-    {
-      "WinEnter", {
-      pattern = "*",
-      callback = function()
-        if _G.__latest_id then
-          _G.__latest_id = _G.__latest_id + 1
-        else
-          _G.__latest_id = 1
-        end
-        if (_G.is_special(vim.api.nvim_get_current_win()) and _G.all_special()) then
-          local id = _G.__latest_id
-          vim.defer_fn(function()
-            if (id == _G.__latest_id) then
-              vim.cmd.quit()
-            end
-          end, 0)
-        end
-      end,
-    }
-    }
-  },
+  -- autoclose = {
+  --   {
+  --     "WinEnter", {
+  --     pattern = "*",
+  --     callback = function()
+  --       if _G.__latest_id then
+  --         _G.__latest_id = _G.__latest_id + 1
+  --       else
+  --         _G.__latest_id = 1
+  --       end
+  --       if (_G.is_special(vim.api.nvim_get_current_win()) and _G.all_special()) then
+  --         local id = _G.__latest_id
+  --         vim.defer_fn(function()
+  --           if (id == _G.__latest_id) then
+  --             vim.cmd.quit()
+  --           end
+  --         end, 0)
+  --       end
+  --     end,
+  --   }
+  --   }
+  -- },
   visualmode = {
     {
       "ModeChanged", {
