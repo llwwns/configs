@@ -467,7 +467,7 @@ return (require("lazy")).setup({
       vim.notify = notify
     end
   },
-  { "norcalli/nvim-colorizer.lua", config = true },
+  { "NvChad/nvim-colorizer.lua", config = true },
   { "monaqa/dial.nvim", config = function() require("dial_init") end, lazy = true },
   { "mizlan/iswap.nvim", lazy = true, opts = { flash_style = false, move_cursor = true } },
   { "rcarriga/nvim-dap-ui", lazy = true, dependencies = { "nvim-neotest/nvim-nio" } },
@@ -557,4 +557,5 @@ return (require("lazy")).setup({
     ft = { "json", "toml" },
   },
   { 'yorickpeterse/nvim-tree-pairs', config = true, }
+  { 'yorickpeterse/nvim-tree-pairs', config = true, },
 })

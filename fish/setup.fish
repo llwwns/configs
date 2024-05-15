@@ -28,12 +28,12 @@ set -xU FZF_DEFAULT_COMMAND fd
 set -xU FZF_FIND_FILE_COMMAND fd
 set -xU FZF_CTRL_T_COMMAND fd
 
-set -U fifc_keybinding \cn
-zoxide init fish | source
-funcsave __zoxide_pwd
-funcsave __zoxide_cd_internal
-funcsave __zoxide_cd
-funcsave __zoxide_z_complete
-funcsave __zoxide_zi
-funcsave z
-funcsave zi
+#set -U fifc_keybinding \cn
+#zoxide init fish | source
+#funcsave __zoxide_pwd
+#funcsave __zoxide_cd_internal
+#funcsave __zoxide_cd
+#funcsave __zoxide_z_complete
+#funcsave __zoxide_zi
+#funcsave z
+#funcsave zi
