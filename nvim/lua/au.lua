@@ -410,12 +410,17 @@ augroups {
       callback = function(args)
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
-        client.server_capabilities.semanticTokensProvider = nil
-        if client.server_capabilities.completionProvider then
-          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+        if not client then
+          return
         end
-        if client.server_capabilities.definitionProvider then
-          vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+        if client.server_capabilities then
+          client.server_capabilities.semanticTokensProvider = nil
+          if client.server_capabilities.completionProvider then
+            vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+          end
+          if client.server_capabilities.definitionProvider then
+            vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+          end
         end
         -- if
         --     client.server_capabilities.documentFormattingProvider
@@ -460,7 +465,7 @@ augroups {
         )
         -- client.server_capabilities["documentHighlightProvider"] = false
 
-        if client.server_capabilities.documentSymbolProvider then
+        if client.server_capabilities and client.server_capabilities.documentSymbolProvider then
           require "nvim-navic".attach(client, bufnr)
         end
         return nil

@@ -5,6 +5,13 @@ $git_branch\
 $character\
 """
 
+right_format="""
+$cmd_duration\
+$env_var\
+$aws\
+"""
+
+
 add_newline = false
 
 [character]
@@ -26,3 +33,13 @@ format = "[$hostname](red) "
 [git_branch]
 symbol = ""
 format = "( [$symbol$branch](blue))"
+
+[aws]
+format="([$profile](yellow) )"
+
+[cmd_duration]
+format = "([$duration](red) )"
+
+[env_var]
+variable = "current_docker"
+format = "([$env_value](blue) )"

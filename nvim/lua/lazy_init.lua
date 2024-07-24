@@ -124,7 +124,7 @@ return (require("lazy")).setup({
     config = function() require("lsp_init") end,
     dependencies = {
       -- "nvimtools/none-ls.nvim",
-      "nvim-lua/plenary.nvim",
+      -- "nvim-lua/plenary.nvim",
       "SmiteshP/nvim-navic",
     }
   },
@@ -264,25 +264,25 @@ return (require("lazy")).setup({
   { "mbbill/undotree", lazy = true, cmd = "UndotreeToggle" },
   {
     "lewis6991/gitsigns.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    -- dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("gitsigns").setup({
         numhl = true,
         signs = {
           add = {
-            hl = "GitSignsAdd", text = "+", numhl = "GitSignsAdd",
+            text = "+",
           },
           change = {
-            hl = "GitSignsChange", text = "~", numhl = "GitSignsChange",
+            text = "~",
           },
           delete = {
-            hl = "GitSignsDelete", text = "_", numhl = "GitSignsDelete",
+            text = "_",
           },
           topdelete = {
-            hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDelete",
+            text = "‾",
           },
           changedelete = {
-            hl = "GitSignsChange", text = "~", numhl = "GitSignsChange",
+            text = "~",
           }
         }
       })
@@ -371,8 +371,8 @@ return (require("lazy")).setup({
           ["<c-s>"] = false,
           ["[c"] = "GoToPreviousHunkHeader",
           ["]c"] = "GoToNextHunkHeader",
-          -- ["[s"] = "OpenOrScrollDown",
-          -- ["]s"] = "OpenOrScrollUp",
+          ["[s"] = "OpenOrScrollDown",
+          ["]s"] = "OpenOrScrollUp",
         },
       },
     },

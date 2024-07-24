@@ -2,7 +2,7 @@ local dap = require("dap")
 
 dap.adapters["lldb"] = {
   type = "executable",
-  command = "/usr/bin/lldb-vscode",
+  command = "/usr/bin/lldb-dap",
   name = "lldb",
 }
 
@@ -24,7 +24,8 @@ dap.configurations["cpp"] = {
     program = "./a.out",
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
-    args = {} } }
+    args = {}
+  } }
 
 dap.configurations["ruby"] = {
   {
@@ -51,9 +52,9 @@ dapui.setup({
     {
       elements = {
         { id = "breakpoints", size = 0.25 },
-        { id = "stacks",      size = 0.25 },
-        { id = "watches",     size = 0.25 },
-        { id = "scopes",      size = 0.25 },
+        { id = "stacks", size = 0.25 },
+        { id = "watches", size = 0.25 },
+        { id = "scopes", size = 0.25 },
       },
       size = 60,
       position = "left",

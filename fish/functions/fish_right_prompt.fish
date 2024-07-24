@@ -23,10 +23,10 @@ function fish_right_prompt
 #     set -l venv_name (basename "$VIRTUAL_ENV")
 #     echo -sn "$color$venv_name$color_normal "
 #   end
-  set -lx STARSHIP_CONFIG ~/configs/starship-r.toml
+  set -lx STARSHIP_CONFIG ~/configs/starship.toml
   set -l exit_code $status
   set -l starship_duration "$CMD_DURATION$cmd_duration"
   set -lx current_docker $current_docker
   set -lx AWS_PREFIX ""
-  starship prompt --status=$exit_code --cmd-duration=$starship_duration --jobs=(count (jobs -p))
+  starship prompt --right --status=$exit_code --cmd-duration=$starship_duration --jobs=(count (jobs -p))
 end
