@@ -89,7 +89,7 @@ setup_lsp("rust_analyzer", {
   ["rust-analyzer.checkOnSave.enable"] = true,
 })
 setup_lsp(
-  "tsserver",
+  "vtsls",
   {
     single_file_support = false,
     on_attach = on_attach_ts,
@@ -126,8 +126,12 @@ setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
   "eslint",
   {
-    settings = { format = true },
     on_attach = on_attach_eslint,
+    settings = {
+      experimental = {
+        useFlatConfig = false,
+      }
+    },
     root_dir = lsp.util.root_pattern "package.json",
   }
 )

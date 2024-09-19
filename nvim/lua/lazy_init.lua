@@ -556,5 +556,5 @@ return (require("lazy")).setup({
     opts = {},
     ft = { "json", "toml" },
   },
-  { 'yorickpeterse/nvim-tree-pairs', config = true, },
+  { 'yorickpeterse/nvim-tree-pairs', config = true },
 })

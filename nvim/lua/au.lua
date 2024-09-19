@@ -170,9 +170,9 @@ augroups {
         end
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-        vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++20 -g3 % <CR>",
+        vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++20 -lfmt -g3 % <CR>",
           { buffer = true, silent = false })
-        vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++20 -g3 % && ./a.out <CR>",
+        vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++20 -lfmt -g3 % && ./a.out <CR>",
           { buffer = true, silent = false })
       end,
     }

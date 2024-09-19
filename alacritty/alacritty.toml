@@ -47,7 +47,7 @@ unfocused_hollow = true
 TERM = "xterm-256color"
 
 [font]
-size = 10
+size = 11
 # offset = { x = 0, y = 0 }
 # glyph_offset = { x = 0, y = 0 }
 # normal = { family = "Cascadia Code", style = "Regular" }
@@ -56,9 +56,57 @@ size = 10
 
 offset = { x = 0, y = 0 }
 glyph_offset = { x = 0, y = 0 }
-normal = { family = "CommitMono", style = "Regular" }
-bold = { family = "CommitMono", style = "Bold" }
-italic = { family = "CommitMono", style = "Italic" }
+# normal = { family = "Px437 ToshibaSat 8x14", style = "Regular" }
+# bold = { family = "Px437 ToshibaSat 8x14", style = "Bold" }
+# italic = { family = "Px437 ToshibaSat 8x14", style = "Italic" }
+# normal = { family = "CommitMono", style = "Regular" }
+# bold = { family = "CommitMono", style = "Bold" }
+# italic = { family = "CommitMono", style = "Italic" }
+normal = { family = "0xProto", style = "Regular" }
+bold = { family = "0xProto", style = "Bold" }
+italic = { family = "0xProto", style = "Italic" }
+# normal = { family = "MonoLisa", style = "Book" }
+# bold = { family = "MonoLisa", style = "Medium" }
+# italic = { family = "MonoLisa", style = "Book Italic" }
+# normal = { family = "Monego", style = "Regular" }
+# bold = { family = "Monego", style = "Bold" }
+# italic = { family = "Monego", style = "Italic" }
+
+# offset = { x = 0, y = -1 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Geist Mono", style = "Regular" }
+# bold = { family = "Geist Mono", style = "Bold" }
+# italic = { family = "Geist Mono", style = "Italic" }
+#
+# offset = { x = 0, y = -3 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Intel One Mono", style = "Regular" }
+# bold = { family = "Intel One Mono", style = "Bold" }
+# italic = { family = "Intel One Mono", style = "Italic" }
+#
+# offset = { x = 0, y = -1 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Dank Mono", style = "Regular" }
+# bold = { family = "Dank Mono", style = "Bold" }
+# italic = { family = "Dank Mono", style = "Italic" }
+#
+# offset = { x = 0, y = -2 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Maple Mono", style = "Regular" }
+# bold = { family = "Maple Mono", style = "Bold" }
+# italic = { family = "Maple Mono", style = "Italic" }
+#
+# offset = { x = 0, y = -1 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Operator Mono", style = "Book" }
+# bold = { family = "Operator Mono", style = "Medium" }
+# italic = { family = "Operator Mono", style = "Book Italic" }
+
+# offset = { x = 0, y = -4 }
+# glyph_offset = { x = 0, y = 0 }
+# normal = { family = "Space Mono", style = "Regular" }
+# bold = { family = "Space Mono", style = "Bold" }
+# italic = { family = "Space Mono", style = "Italic" }
 
 [[keyboard.bindings]]
 action = "Paste"

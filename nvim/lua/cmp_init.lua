@@ -11,6 +11,10 @@ local mapping = cmp.mapping.preset.insert({
 })
 
 cmp.setup({
+  performance = {
+    debounce = 0,
+    throttle = 0,
+  },
   snippet = {
     expand = function(args) return (require("luasnip")).lsp_expand(args.body) end,
   },
