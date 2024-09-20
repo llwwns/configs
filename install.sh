@@ -51,6 +51,7 @@ git config --global alias.mg merge
 git config --global alias.sw switch
 git config --global alias.re restore
 git config --global alias.gh "log --oneline --graph"
+git config --global alias.lcl "clone --filter=blob:none --single-branch"
 
 git config --global oh-my-zsh.hide-dirty 1
 
@@ -67,6 +68,7 @@ git config --global credential.helper store
 git config --global rebase.autosquash true
 git config --global rebase.autostash true
 
+git config --global fetch.showForcedUpdates true
 
 
 # mkdir -p ~/.config/nvim/

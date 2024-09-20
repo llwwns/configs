@@ -170,6 +170,7 @@ augroups {
         end
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++20 -lfmt -g3 % <CR>",
           { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>cr", "<cmd>!clang++ -std=c++20 -lfmt -g3 % && ./a.out <CR>",
@@ -187,6 +188,7 @@ augroups {
         end
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang -g3 % <CR>",
           { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>cr", "<cmd>!clang -g3 % && ./a.out <CR>",
@@ -204,6 +206,7 @@ augroups {
         end
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local["commentstring"] = "// %s"
         vim.b["format_on_save"] = true
       end,
     }
@@ -246,6 +249,23 @@ augroups {
         vim.opt_local["foldmethod"] = "expr"
         vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
         vim.b["format_on_save"] = true
+        vim.opt_local["commentstring"] = "// %s"
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = { "css" },
+      callback = function()
+        vim.opt_local["commentstring"] = "/* %s */"
+      end,
+    }
+    },
+    {
+      "FileType", {
+      pattern = { "jsonc" },
+      callback = function()
+        vim.opt_local["commentstring"] = "// %s"
       end,
     }
     },
