@@ -271,6 +271,14 @@ augroups {
     },
     {
       "FileType", {
+      pattern = { "xml" },
+      callback = function()
+        vim.opt_local["commentstring"] = "<!-- %s -->"
+      end,
+    }
+    },
+    {
+      "FileType", {
       pattern = "autohotkey",
       callback = function()
         vim.opt_local["tabstop"] = 4

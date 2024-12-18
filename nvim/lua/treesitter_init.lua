@@ -27,10 +27,6 @@ return (require("nvim-treesitter.configs")).setup({
   --   max_file_lines = 10000,
   --   disable = is_large_buf,
   -- },
-  autotag = {
-    enable = true,
-    disable = is_large_buf,
-  },
   incremental_selection = {
     enable = false,
     keymaps = {

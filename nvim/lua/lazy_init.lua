@@ -396,7 +396,7 @@ return (require("lazy")).setup({
       layout = { open_cmd = "botright new" },
     }
   },
-  "windwp/nvim-ts-autotag",
+  { "windwp/nvim-ts-autotag", config = true },
   { "ii14/lsp-command", lazy = true, cmd = { "Lsp" } },
   { "stevearc/dressing.nvim", opts = { select = { backend = { "telescope", "builtin" } } } },
   { cmd = { "NeoZoomToggle" }, config = true, lazy = true, "nyngwang/NeoZoom.lua" },

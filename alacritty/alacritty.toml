@@ -1,3 +1,4 @@
+[general]
 live_config_reload = true
 
 [colors]
@@ -62,9 +63,9 @@ glyph_offset = { x = 0, y = 0 }
 # normal = { family = "CommitMono", style = "Regular" }
 # bold = { family = "CommitMono", style = "Bold" }
 # italic = { family = "CommitMono", style = "Italic" }
-normal = { family = "0xProto", style = "Regular" }
-bold = { family = "0xProto", style = "Bold" }
-italic = { family = "0xProto", style = "Italic" }
+normal = { family = "0xProto Nerd Font", style = "Regular" }
+bold = { family = "0xProto Nerd Font", style = "Bold" }
+italic = { family = "0xProto Nerd Font", style = "Italic" }
 # normal = { family = "MonoLisa", style = "Book" }
 # bold = { family = "MonoLisa", style = "Medium" }
 # italic = { family = "MonoLisa", style = "Book Italic" }
