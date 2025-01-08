@@ -27,3 +27,5 @@ makelink .config/alacritty alacritty
 makelink .config/nvim nvim
 makelink .config/topgrade.toml topgrade.toml
 makelink .config/starship.toml starship.toml
+makelink .config/ghostty ghostty
+makelink .config/btop btop

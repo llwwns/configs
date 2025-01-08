@@ -5,7 +5,6 @@ if not vim.loop.fs_stat(install_path) then
 end
 
 (vim.opt.runtimepath):prepend(install_path)
-
 return (require("lazy")).setup({
   {
     "lukas-reineke/indent-blankline.nvim",

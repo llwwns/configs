@@ -44,7 +44,7 @@ cmp.setup({
         vim_item)
       local strings = vim.split(kind.kind, "%s+", { trimempty = true })
       kind["kind"] = (" " .. strings[1] .. " ")
-      kind["menu"] = ("    (" .. (strings[2] or "") .. ")")
+      kind["menu"] = strings[2] or ""
       return kind
     end
   },
