@@ -1,0 +1,1 @@
+/home/li/MEGAsync/Library/wezterm.lua

@@ -1,0 +1,76 @@
+[
+  // {
+  //   "bindings": {
+  //     "ctrl-[": "menu::Cancel"
+  //   }
+  // },
+  // {
+  //   "context": "Editor",
+  //   "bindings": {
+  //     "ctrl-[": "editor::Cancel"
+  //   }
+  // },
+  // {
+  //   "context": "BufferSearchBar",
+  //   "bindings": {
+  //     "ctrl-[": "buffer_search::Dismiss"
+  //   }
+  // },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-p": "file_finder::Toggle",
+      "ctrl-s": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePrevItem"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-e": "tab_switcher::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "g r": "editor::FindAllReferences",
+      "' r n": "editor::Rename",
+      "' tab": "workspace::ToggleLeftDock",
+      "ctrl-q": "pane::CloseActiveItem",
+      "' d a": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "' tab": "workspace::ToggleLeftDock",
+      "y y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "a": "workspace::NewFile",
+      "A": "project_panel::NewDirectory",
+      "d": null,
+      "d d": "project_panel::Delete",
+      "x": "project_panel::Cut"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "ctrl-w l": "workspace::ActivateNextPane",
+      "ctrl-d": "vim::ScrollDown",
+      "ctrl-u": "vim::ScrollUp"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  }
+]

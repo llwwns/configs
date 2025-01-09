@@ -18,7 +18,7 @@ makelink .inputrc   .inputrc
 # makelink .ycm_extra_conf.py .ycm_extra_conf.py
 # makelink .xmonad .xmonad
 makelink .config/tig/.tigrc .tigrc
-makelink .config/tmux.conf tmux.conf
+makelink .config/tmux/tmux.conf tmux.conf
 makelink .config/fish/config.fish fish/config.fish
 makelink .config/fish/fish_plugins fish/fish_plugins
 makelink .config/rofi rofi
@@ -29,3 +29,9 @@ makelink .config/topgrade.toml topgrade.toml
 makelink .config/starship.toml starship.toml
 makelink .config/ghostty ghostty
 makelink .config/btop btop
+makelink .config/kitty kitty
+makelink .config/wezterm wezterm
+makelink .config/paru paru
+makelink .config/clangd clangd
+makelink .config/zathura zathura
+makelink .config/zed zed
