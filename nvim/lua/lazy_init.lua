@@ -152,6 +152,62 @@ return (require("lazy")).setup({
     },
   },
   "hrsh7th/cmp-nvim-lsp",
+
+  -- { 'saghen/blink.compat', config = true },
+  -- {
+  --   'saghen/blink.cmp',
+  --   dependencies = {
+  --     -- add source
+  --     { "dmitmel/cmp-digraphs" },
+  --   },
+  --   version = 'v0.*',
+  --   dependencies = { 'L3MON4D3/LuaSnip' },
+  --   config = function()
+  --     require("words");
+  --     require("blink.cmp").setup {
+  --       keymap = { preset = 'default' },
+  --       highlight = {
+  --         use_nvim_cmp_as_default = true,
+  --       },
+  --       sources = {
+  --         default = {
+  --           -- remember to enable your providers here
+  --           enabled_providers = { 'lsp', 'path', 'buffer', 'words', 'luasnip' }
+  --         },
+  --
+  --         providers = {
+  --           -- create provider
+  --           words = {
+  --             name = 'words',
+  --             module = 'blink.compat.source',
+  --
+  --             -- all blink.cmp source config options work as normal:
+  --             score_offset = -3,
+  --
+  --             opts = {
+  --               -- this table is passed directly to the proxied completion source
+  --               -- as the `option` field in nvim-cmp's source config
+  --
+  --               -- this is an option from cmp-digraphs
+  --               cache_digraphs_on_start = true,
+  --             }
+  --           }
+  --         }
+  --       },
+  --       snippets = {
+  --         expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+  --         active = function(filter)
+  --           if filter and filter.direction then
+  --             return require('luasnip').jumpable(filter.direction)
+  --           end
+  --           return require('luasnip').in_snippet()
+  --         end,
+  --         jump = function(direction) require('luasnip').jump(direction) end,
+  --       },
+  --     }
+  --   end,
+  -- },
+
   { "nvim-lua/lsp_extensions.nvim", lazy = true },
   {
     "nvim-neo-tree/neo-tree.nvim",
