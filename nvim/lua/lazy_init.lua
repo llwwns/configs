@@ -95,7 +95,7 @@ return (require("lazy")).setup({
   -- },
   {
     "rebelot/heirline.nvim",
-    config = function() require("heirline_init") end,
+    config = function() require("heirline_init3") end,
     dependencies = {
       "rebelot/kanagawa.nvim",
     }
@@ -408,7 +408,7 @@ return (require("lazy")).setup({
     },
     config = true,
   },
-  { "j-hui/fidget.nvim", config = true, tag = "legacy" },
+  -- { "j-hui/fidget.nvim", config = true, tag = "legacy" },
   {
     "nvim-telescope/telescope.nvim",
     config = function() require("telescope_init") end,
@@ -423,9 +423,6 @@ return (require("lazy")).setup({
     "sindrets/diffview.nvim",
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
     config = function() require("diffview_init") end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
     lazy = true,
   },
   "MunifTanjim/nui.nvim",
@@ -466,7 +463,11 @@ return (require("lazy")).setup({
       vim.notify = notify
     end
   },
-  { "NvChad/nvim-colorizer.lua", config = true },
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    config = true,
+  },
   { "monaqa/dial.nvim", config = function() require("dial_init") end, lazy = true },
   { "mizlan/iswap.nvim", lazy = true, opts = { flash_style = false, move_cursor = true } },
   { "rcarriga/nvim-dap-ui", lazy = true, dependencies = { "nvim-neotest/nvim-nio" } },
@@ -534,26 +535,16 @@ return (require("lazy")).setup({
     cmd = { "TSC" }
   },
   {
-    "folke/zen-mode.nvim",
-    lazy = true,
-    opts = {
-      window = {
-        width = 160,
-      },
-    },
-  },
-  {
     "backdround/improved-search.nvim",
     lazy = true,
   },
   {
-    "jdrupal-dev/parcel.nvim",
+    "zeioth/heirline-components.nvim",
     lazy = true,
-    dependencies = {
-      "phelipetls/jsonpath.nvim",
-    },
-    opts = {},
-    ft = { "json", "toml" },
   },
-  { 'yorickpeterse/nvim-tree-pairs', config = true },
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+  },
 })
