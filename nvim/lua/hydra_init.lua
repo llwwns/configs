@@ -35,5 +35,6 @@ return Hydra({
     { "n", function() require("dap").step_over() end },
     { "i", function() require("dap").step_into() end },
     { "o", function() return require("dap").step_out() end },
+    { "t", function() require("dap").terminate() end },
   },
 })

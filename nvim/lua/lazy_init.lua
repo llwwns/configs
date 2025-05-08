@@ -153,57 +153,28 @@ return (require("lazy")).setup({
   },
   "hrsh7th/cmp-nvim-lsp",
 
-  -- { 'saghen/blink.compat', config = true },
+  -- { 'saghen/blink.compat', config = true, lazy = true },
   -- {
   --   'saghen/blink.cmp',
-  --   dependencies = {
-  --     -- add source
-  --     { "dmitmel/cmp-digraphs" },
-  --   },
   --   version = 'v0.*',
-  --   dependencies = { 'L3MON4D3/LuaSnip' },
+  --   dependencies = { 'L3MON4D3/LuaSnip', 'saghen/blink.compat' },
   --   config = function()
   --     require("words");
   --     require("blink.cmp").setup {
   --       keymap = { preset = 'default' },
-  --       highlight = {
-  --         use_nvim_cmp_as_default = true,
-  --       },
+  --       signature = { enabled = true },
   --       sources = {
   --         default = {
-  --           -- remember to enable your providers here
-  --           enabled_providers = { 'lsp', 'path', 'buffer', 'words', 'luasnip' }
+  --           'lsp', 'path', 'buffer', 'words', 'snippets', "cmdline"
   --         },
-  --
   --         providers = {
-  --           -- create provider
   --           words = {
   --             name = 'words',
   --             module = 'blink.compat.source',
-  --
-  --             -- all blink.cmp source config options work as normal:
-  --             score_offset = -3,
-  --
-  --             opts = {
-  --               -- this table is passed directly to the proxied completion source
-  --               -- as the `option` field in nvim-cmp's source config
-  --
-  --               -- this is an option from cmp-digraphs
-  --               cache_digraphs_on_start = true,
-  --             }
   --           }
   --         }
   --       },
-  --       snippets = {
-  --         expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
-  --         active = function(filter)
-  --           if filter and filter.direction then
-  --             return require('luasnip').jumpable(filter.direction)
-  --           end
-  --           return require('luasnip').in_snippet()
-  --         end,
-  --         jump = function(direction) require('luasnip').jump(direction) end,
-  --       },
+  --       snippets = { preset = 'luasnip' },
   --     }
   --   end,
   -- },
@@ -403,34 +374,7 @@ return (require("lazy")).setup({
     "NeogitOrg/neogit",
     lazy = true,
     cmd = { "Neogit" },
-    opts = {
-      use_magit_keybindings = true,
-      disable_commit_confirmation = true,
-      integrations = {
-        telescope = true,
-        diffview = true,
-      },
-      signs = { section = { "", "" }, item = { "", "" }, hunk = { "", "" } },
-      sections = {
-        unstaged = { folded = false },
-        untracked = { folded = false },
-        staged = { folded = false },
-        stashes = { folded = true },
-        unpulled = { folded = true, hidden = true },
-        unmerged = { folded = true, hidden = true },
-        recent = { folded = true },
-      },
-      mappings = {
-        status = {
-          ["<c-a>"] = "StageAll",
-          ["<c-s>"] = false,
-          ["[c"] = "GoToPreviousHunkHeader",
-          ["]c"] = "GoToNextHunkHeader",
-          ["[s"] = "OpenOrScrollDown",
-          ["]s"] = "OpenOrScrollUp",
-        },
-      },
-    },
+    config = function() require("neogit_init") end,
   },
   {
     "samoshkin/vim-mergetool",
@@ -495,9 +439,9 @@ return (require("lazy")).setup({
     end,
   },
   {
-    "anuvyklack/hydra.nvim",
+    "nvimtools/hydra.nvim",
     config = function() require("hydra_init") end,
-    dependencies = "anuvyklack/keymap-layer.nvim",
+    -- dependencies = "anuvyklack/keymap-layer.nvim",
   },
   {
     "ziontee113/icon-picker.nvim",
@@ -597,6 +541,16 @@ return (require("lazy")).setup({
   {
     "zeioth/heirline-components.nvim",
     lazy = true,
+  },
+  {
+    "jdrupal-dev/parcel.nvim",
+    lazy = true,
+    dependencies = {
+      "phelipetls/jsonpath.nvim",
+    },
+    opts = { default_enabled = false },
+    cmd = { "ParcelToggle" },
+    ft = { "json", "toml" },
   },
   {
     "folke/ts-comments.nvim",

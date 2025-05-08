@@ -65,13 +65,13 @@ _G.tomlFold = function()
   end
 end
 
-_G.showDocumentation = function()
-  if (ft == vim.bo.filetype) then
-    vim.cmd(("h " .. vim.fn.expand("<cword>")))
-  else
-    vim.lsp.buf.hover()
-  end
-end
+-- _G.showDocumentation = function()
+--   if (ft == vim.bo.filetype) then
+--     vim.cmd(("h " .. vim.fn.expand("<cword>")))
+--   else
+--     vim.lsp.buf.hover()
+--   end
+-- end
 
 _G.dump = function(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
@@ -105,6 +105,9 @@ end
 
 _G.is_special = function(window)
   local buf = vim.api.nvim_win_get_buf(window)
+  -- local tab = vim.api.nvim_get_current_tabpage()
+  -- return is_floating(window) or
+  --     (not vim.bo[buf].buflisted and not vim.tbl_contains(require("scope.core").cache[tab] or {}, buf))
   return is_floating(window) or
       vim.tbl_contains({
         "dapui_watches", "dap-repl", "qf", "neo-tree", "DiffViewFiles",

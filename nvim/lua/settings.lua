@@ -112,3 +112,16 @@ elseif vim.keymap.set({ "t" }, "<c-s-v>", "<c-\\><c-n>\"+pa", { noremap = true, 
   vim.opt.guifont = "Sarasa Nerd Font:h18"
 end
 -- vim.opt.statuscolumn="%=%s%{%v:lua.line_mark()%}%{v:lua.fold_mark()} "
+
+vim.diagnostic.config({
+  virtual_text = true,
+  virtual_lines = {
+    current_line = true,
+  },
+  update_in_insert = false,
+})
+
+vim.g._ts_force_sync_parsing = true
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}

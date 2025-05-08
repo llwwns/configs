@@ -15,7 +15,7 @@ require("diffview").setup {
   file_panel = {
     win_config = {
       position = "left",
-      width = 35,
+      width = 25,
       height = 10,
     },
     listing_style = "tree",

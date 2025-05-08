@@ -123,7 +123,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.b.format_on_save = true
       end,
     }
@@ -136,7 +136,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.b.format_on_save = true
         vim.keymap.set("n", "<leader>cr", "<cmd>!ruby %<CR>", { buffer = true, silent = false })
       end,
@@ -151,7 +151,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.keymap.set("n", "<leader>cr", "<cmd>!go run %<CR>", { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>td", function()
           require("dap-go").debug_test()
@@ -169,7 +169,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++23 -stdlib=libc++ -g3 % <CR>",
           { buffer = true, silent = false })
@@ -188,7 +188,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang -g3 % <CR>",
           { buffer = true, silent = false })
@@ -206,7 +206,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.b["format_on_save"] = true
       end,
@@ -220,7 +220,7 @@ augroups {
           return
         end
         vim.opt_local["foldmethod"] = "expr"
-        vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+        vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
         vim.keymap.set("n", "[j", function() vim.cmd("%!prettier --parser json") end,
           { buffer = true, silent = false })
         vim.keymap.set("n", "]j", function() return vim.cmd("%!jq -c") end,
@@ -236,7 +236,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       end,
     }
     },
@@ -248,7 +248,7 @@ augroups {
           return
         end
         vim.opt_local["foldmethod"] = "expr"
-        vim.opt_local["foldexpr"] = "nvim_treesitter#foldexpr()"
+        vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
         vim.b["format_on_save"] = true
         vim.opt_local["commentstring"] = "// %s"
       end,
@@ -330,7 +330,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       end,
     }
     },
@@ -347,7 +347,7 @@ augroups {
           end,
         })
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       end,
     }
     },
@@ -359,7 +359,7 @@ augroups {
           return
         end
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       end,
     }
     },
@@ -412,7 +412,7 @@ augroups {
       "FileType", {
       pattern = "neorepl",
       callback = function()
-        require('cmp').setup.buffer({ enabled = false })
+        -- require('cmp').setup.buffer({ enabled = false })
         -- vim.b.indent_blankline_enabled = false
       end,
     }
@@ -465,33 +465,33 @@ augroups {
         if vim.lsp.buf.inlay_hint and client.server_capabilities.inlayHintProvider then
           vim.lsp.buf.inlay_hint(bufnr, true)
         end
-        map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",
-          { buffer = true, noremap = true, silent = true })
+        -- map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
         -- map("n", "gs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { buffer = true, noremap = true, silent = true })
         map(
           "n",
-          "gs",
+          "gO",
           "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",
           { buffer = true, noremap = true, silent = true }
         )
-        map("n", "<leader>rn", "<cmd>Lsp rename<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map("n", "<leader>da", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-          { buffer = true, noremap = true, silent = true })
-        map(
-          "v",
-          "<leader>da",
-          "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>",
-          { buffer = true, noremap = true, silent = true }
-        )
+        -- map("n", "<leader>rn", "<cmd>Lsp rename<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map("n", "<leader>da", "<cmd>lua vim.lsp.buf.code_action()<CR>",
+        --   { buffer = true, noremap = true, silent = true })
+        -- map(
+        --   "v",
+        --   "<leader>da",
+        --   "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>",
+        --   { buffer = true, noremap = true, silent = true }
+        -- )
         -- client.server_capabilities["documentHighlightProvider"] = false
 
         if client.server_capabilities and client.server_capabilities.documentSymbolProvider then
@@ -545,7 +545,27 @@ augroups {
       callback = function() require("barbecue.ui").update() end
     }
     }
-  }
+  },
+  cmdheight = {
+    {
+      "RecordingEnter", { callback = function()
+      if vim.o.cmdheight == 0 then
+        vim.g.cmdheight_zero = true
+        vim.opt.cmdheight = 1
+      end
+    end,
+    }
+    },
+    {
+      "RecordingLeave", { callback = function()
+      if vim.g.cmdheight_zero then
+        vim.opt.cmdheight = 0
+        vim.g.cmdheight_zero = false
+      end
+    end
+    }
+    },
+  },
   -- eskk = {
   --   {
   --     "eskk-enable-pre", {

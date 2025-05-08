@@ -128,8 +128,6 @@ map("v", "[,", ":'<,'>Tab /,<CR>", { silent = true })
 --
 map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { silent = true })
 
-map("n", "K", _G.showDocumentation, { noremap = true, silent = true })
-
 map("n", "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", { silent = true })
 
 map({ "n", "t" }, "<c-s>", function()
@@ -232,31 +230,9 @@ map("n", "<leader>yy", function()
   vim.fn.setreg("+", string.gsub(vim.fn.expand("%"), ".*%.git/[%w%d]+/", ""))
 end, { silent = true })
 
-local function map_pairs(m, cmd)
-  local upper = m:gsub(".", string.upper)
-  map("n", "]" .. m, "<cmd>" .. cmd .. "next<CR>", {})
-  map("n", "[" .. m, "<cmd>" .. cmd .. "previous<CR>", {})
-  map("n", "[" .. upper, "<cmd>" .. cmd .. "first<CR>", {})
-  map("n", "]" .. upper, "<cmd>" .. cmd .. "last<CR>", {})
-end
-map_pairs("a", "")
-map_pairs("t", "tab")
-map_pairs("q", "c")
-map_pairs("l", "l")
-map_pairs("b", "b")
-
-map("n", "]d", vim.diagnostic.goto_next, { silent = true })
-map("n", "[d", vim.diagnostic.goto_prev, { silent = true })
-
 map("n", "]w", function() require("illuminate").goto_next_reference() end, { silent = true })
 map("n", "[w", function() require("illuminate").goto_prev_reference() end, { silent = true })
--- map("n", "]b", "<cmd>BufferNext<CR>", { silent = true })
--- map("n", "[b", "<cmd>BufferPrevious<CR>", { silent = true })
--- map("n", "]B", "<cmd>BufferLast<CR>", { silent = true })
--- map("n", "[B", "<cmd>BufferFirst<CR>", { silent = true })
 
-map("n", "<leader>mo", "<cmd>MindOpenMain<CR>", { silent = true })
-map("n", "<leader>mc", "<cmd>MindClose<CR>", { silent = true })
 map("n", "<leader>tc", function() vim.cmd.tabclose() end, { silent = true })
 
 map({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-enable)")
