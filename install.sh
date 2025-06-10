@@ -13,7 +13,6 @@ git config --global pager.show delta
 git config --global interactive.diffFilter delta --diff-highlight
 
 git config --global delta.navigate true
-git config --global delta.navigate true
 git config --global delta.features "side-by-side line-numbers decorations"
 git config --global delta.plus-style 'syntax "#283B4D"'
 git config --global delta.minus-style 'syntax "#3F2D3D"'
@@ -70,6 +69,7 @@ git config --global rebase.autostash true
 
 git config --global fetch.showForcedUpdates true
 
+git config --global tag.sort version:refname
 
 # mkdir -p ~/.config/nvim/
 # echo "source ~/.vimrc" > ~/.config/nvim/init.vim

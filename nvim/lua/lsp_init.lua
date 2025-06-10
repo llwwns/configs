@@ -127,6 +127,18 @@ setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
   "eslint",
   {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+      "vue",
+      "svelte",
+      "astro",
+      "json",
+    },
     on_attach = on_attach_eslint,
     settings = {
       experimental = {

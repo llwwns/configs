@@ -531,7 +531,14 @@ return (require("lazy")).setup({
   {
     "dmmulroy/tsc.nvim",
     lazy = true,
-    config = true,
+    opts = {
+      flags = {
+        noEmit = true,
+        pretty = "false",
+        -- watch = true,
+      },
+      bin_path = os.getenv("HOME") .. "/.local/share/pnpm/tsgo"
+    },
     cmd = { "TSC" }
   },
   {
@@ -556,5 +563,16 @@ return (require("lazy")).setup({
     "folke/ts-comments.nvim",
     opts = {},
     event = "VeryLazy",
+  },
+  -- "vim-denops/denops.vim",
+  -- "vim-denops/denops-helloworld.vim",
+  {
+    "github/copilot.vim",
+    lazy = true,
+    cmd = { "Copilot" },
+  },
+  {
+    "dundalek/bloat.nvim",
+    cmd = "Bloat",
   },
 })
