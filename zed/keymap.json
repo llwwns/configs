@@ -39,11 +39,11 @@
   {
     "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
-      "g r": "editor::FindAllReferences",
-      "' r n": "editor::Rename",
+      "g r r": "editor::FindAllReferences",
+      "g r n": "editor::Rename",
       "' tab": "workspace::ToggleLeftDock",
       "ctrl-q": "pane::CloseActiveItem",
-      "' d a": "editor::ToggleCodeActions"
+      "g r a": "editor::ToggleCodeActions"
     }
   },
   {
