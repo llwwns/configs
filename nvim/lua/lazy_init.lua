@@ -6,20 +6,33 @@ end
 
 (vim.opt.runtimepath):prepend(install_path)
 return (require("lazy")).setup({
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   lazy = false,
+  --   config = function()
+  --     require("ibl").setup({
+  --       indent = {
+  --         char = "│"
+  --       },
+  --       scope = {
+  --         enabled = true,
+  --         show_start = false,
+  --       },
+  --     })
+  --   end,
+  -- },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    lazy = false,
-    config = function()
-      require("ibl").setup({
-        indent = {
-          char = "│"
-        },
-        scope = {
-          enabled = true,
-          show_start = false,
-        },
-      })
-    end,
+    'saghen/blink.indent',
+    --- @module 'blink.indent'
+    --- @type blink.indent.Config
+    opts = {
+      static = {
+        char = '│',
+      },
+      scope = {
+        char = '│',
+      },
+    },
   },
   -- {
   --   "shellRaining/hlchunk.nvim",
@@ -566,13 +579,26 @@ return (require("lazy")).setup({
   },
   -- "vim-denops/denops.vim",
   -- "vim-denops/denops-helloworld.vim",
-  {
-    "github/copilot.vim",
-    lazy = true,
-    cmd = { "Copilot" },
-  },
+  -- {
+  --   "github/copilot.vim",
+  --   lazy = true,
+  --   cmd = { "Copilot" },
+  -- },
   {
     "dundalek/bloat.nvim",
     cmd = "Bloat",
   },
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    config = function()
+      require("tiny-inline-diagnostic").setup()
+    end,
+  },
+  -- {
+  --   "ethersync/ethersync-nvim",
+  --   keys = { { "<leader>j", "<cmd>EthersyncJumpToCursor<cr>" } },
+  --   lazy = false,
+  -- }
 })

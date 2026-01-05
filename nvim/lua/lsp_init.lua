@@ -1,9 +1,8 @@
-local lsp = require "lspconfig"
+-- local lsp = require "lspconfig"
 -- local configs = require "lspconfig/configs"
 -- local util = require "lspconfig/util"
 -- local navic = require "nvim-navic"
 -- local null_ls = require "null-ls"
-local map = vim.keymap.set
 require("neodev").setup({})
 
 -- local function prettierd()
@@ -25,11 +24,24 @@ require("neodev").setup({})
 --   }
 -- end
 --
+local prettier_files = {
+  ".prettierrc",
+  ".prettierrc.json",
+  ".prettierrc.yml",
+  ".prettierrc.yaml",
+  ".prettierrc.json5",
+  ".prettierrc.js",
+  ".prettierrc.cjs",
+  ".prettierrc.toml",
+  "prettier.config.js",
+  "prettier.config.cjs",
+}
 
 local function on_attach_ts(client, bufnr)
   local root = client.config.root_dir
   local path = require("path")
-  if path.exists(path.join(root, ".prettierrc")) then
+  -- if path.exists(path.join(root, ".prettierrc")) then
+  if not not vim.fs.root(root, prettier_files) then
     client.server_capabilities["documentFormattingProvider"] = false
   else
   end
@@ -67,19 +79,24 @@ local capabilities = require "cmp_nvim_lsp".default_capabilities()
 -- }
 
 function _G.setup_lsp(server, opts)
-  local conf = lsp[server]
-  conf.setup(vim.tbl_extend("force", {
+  -- local conf = lsp[server]
+  -- conf.setup(vim.tbl_extend("force", {
+  vim.lsp.config(server, vim.tbl_extend("force", {
     capabilities = capabilities,
   }, opts))
-  local try_add = conf.manager.try_add
-  conf.manager["try_add"] = function(cnf)
-    if not vim.b.large_buf then
-      return try_add(cnf)
-    end
-  end
+  vim.lsp.enable(server)
+  -- local try_add = conf.manager.try_add
+  -- conf.manager["try_add"] = function(cnf)
+  --   if not vim.b.large_buf then
+  --     return try_add(cnf)
+  --   end
+  -- end
+  -- vim.lsp.config(server, vim.tbl_extend("force", {
+  --   capabilities = capabilities,
+  -- }, opts))
 end
 
-vim.lsp.set_log_level("ERROR")
+-- vim.lsp.set_log_level("ERROR")
 
 setup_lsp("clangd", {
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
@@ -94,16 +111,19 @@ setup_lsp(
   {
     single_file_support = false,
     on_attach = on_attach_ts,
-    root_dir = lsp.util.root_pattern "package.json",
+    -- root_dir = lsp.util.root_pattern "package.json",
+    root_markers = { "package.json" },
   }
 )
-setup_lsp("denols", {
-  single_file_support = false,
-  on_attach = on_attach_ts,
-  root_dir = lsp.util.root_pattern "deno.json",
-  init_options = { lint = true },
-  settings = { ["deno.unstable"] = true },
-})
+-- setup_lsp("denols", {
+--   single_file_support = false,
+--   on_attach = on_attach_ts,
+--   -- root_dir = lsp.util.root_pattern "deno.json",
+--   root_markers = { "deno.json" },
+--   init_options = { lint = true },
+--   settings = { ["deno.unstable"] = true },
+-- })
+
 setup_lsp("vimls", {})
 setup_lsp(
   "jsonls",
@@ -118,10 +138,10 @@ setup_lsp(
   }
 )
 setup_lsp("cssls", {})
-setup_lsp("cssmodules_ls", {})
-setup_lsp("stylelint_lsp", {
-  filetypes = { "css" }
-})
+-- setup_lsp("cssmodules_ls", {})
+-- setup_lsp("stylelint_lsp", {
+--   filetypes = { "css" }
+-- })
 setup_lsp("html", {})
 setup_lsp("yamlls", { settings = { yaml = { keyOrdering = false } } })
 setup_lsp(
@@ -145,10 +165,13 @@ setup_lsp(
         useFlatConfig = false,
       }
     },
-    root_dir = lsp.util.root_pattern "package.json",
+    -- root_dir = lsp.util.root_pattern "package.json",
+    root_markers = { "package.json" },
   }
 )
-setup_lsp("zls", { on_attach = on_attach, capabilities = capabilities })
+-- setup_lsp("zls", { on_attach = on_attach, capabilities = capabilities })
+setup_lsp("zls", { capabilities = capabilities })
+
 setup_lsp("gopls", {
   cmd_env = { GOFLAGS = "-tags=debug,test_mysql,wireinject,test_es" },
   codelens = { ["upgrade.dependency"] = false },
@@ -214,9 +237,13 @@ setup_lsp("lua_ls", {
 -- })
 
 _G.stop_lsp = function()
-  return vim.lsp.stop_client(vim.lsp.get_active_clients())
+  return vim.lsp.stop_client(vim.lsp.get_clients())
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false })
 vim.diagnostic.config({ update_in_insert = false })
+
+
+vim.lsp.enable("copilot")
+vim.lsp.inline_completion.enable(true)

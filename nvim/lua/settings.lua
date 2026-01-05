@@ -114,10 +114,11 @@ end
 -- vim.opt.statuscolumn="%=%s%{%v:lua.line_mark()%}%{v:lua.fold_mark()} "
 
 vim.diagnostic.config({
-  virtual_text = true,
-  virtual_lines = {
-    current_line = true,
-  },
+  underline = true,
+  virtual_text = false,
+  -- virtual_lines = {
+  --   current_line = false,
+  -- },
   update_in_insert = false,
 })
 
