@@ -113,17 +113,20 @@ return (require("lazy")).setup({
       "rebelot/kanagawa.nvim",
     }
   },
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   name = "barbecue",
+  --   opts = {
+  --     show_navic = true,
+  --     create_autocmd = false,
+  --   },
+  -- },
   {
-    "utilyre/barbecue.nvim",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    name = "barbecue",
-    opts = {
-      show_navic = true,
-      create_autocmd = false,
-    },
+    'Bekaboo/dropbar.nvim',
   },
   {
     "AndrewRadev/deleft.vim",
@@ -479,7 +482,7 @@ return (require("lazy")).setup({
   {
     "catgoose/nvim-colorizer.lua",
     event = "BufReadPre",
-    config = true,
+    opts = { options = {} },
   },
   { "monaqa/dial.nvim", config = function() require("dial_init") end, lazy = true },
   { "mizlan/iswap.nvim", lazy = true, opts = { flash_style = false, move_cursor = true } },

@@ -52,7 +52,7 @@ git config --global alias.re restore
 git config --global alias.gh "log --oneline --graph"
 git config --global alias.lcl "clone --filter=blob:none --single-branch"
 
-git config --global oh-my-zsh.hide-dirty 1
+# git config --global oh-my-zsh.hide-dirty 1
 
 git config --global pull.ff only
 

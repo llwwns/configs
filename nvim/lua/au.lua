@@ -30,7 +30,8 @@ augroups {
           vim.b["large_buf"] = true
           vim.cmd("syntax off")
           vim.cmd.IlluminatePauseBuf()
-          vim.cmd.IBLDisable()
+          -- vim.cmd.IBLDisable()
+          vim.b.indent_guide = false
           vim.cmd.NoMatchParen()
           vim.opt_local.foldmethod = "manual"
           vim.opt_local.spell = false
@@ -497,6 +498,14 @@ augroups {
         if client.server_capabilities and client.server_capabilities.documentSymbolProvider then
           require "nvim-navic".attach(client, bufnr)
         end
+        if client.name == "copilot" then
+          vim.lsp.inline_completion.enable(true, { client_id = client.id })
+          vim.keymap.set('i', '<tab>', function()
+            if not vim.lsp.inline_completion.get() then
+              return '<tab>'
+            end
+          end, { expr = true, buffer = true })
+        end
         return nil
       end
     }
@@ -533,19 +542,19 @@ augroups {
     }
     }
   },
-  babecue = {
-    {
-      {
-        "WinResized",
-        "Filetype",
-        "CursorMoved",
-        "InsertLeave",
-        -- "BufModifiedSet",
-      }, {
-      callback = function() require("barbecue.ui").update() end
-    }
-    }
-  },
+  -- babecue = {
+  --   {
+  --     {
+  --       "WinResized",
+  --       "Filetype",
+  --       "CursorMoved",
+  --       "InsertLeave",
+  --       -- "BufModifiedSet",
+  --     }, {
+  --     callback = function() require("barbecue.ui").update() end
+  --   }
+  --   }
+  -- },
   cmdheight = {
     {
       "RecordingEnter", { callback = function()

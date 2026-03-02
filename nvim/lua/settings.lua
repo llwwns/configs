@@ -104,6 +104,10 @@ elseif (vim.fn.exists("neovide") == 1) then
   vim.g.neovide_scroll_animation_length = 0
   vim.g.neovide_transparency = 0.9
   vim.g.transparency = 0.9
+  vim.g.neovide_opacity = 1
+  -- vim.g.neovide_normal_opacity = 1
+  vim.g.neovide_progress_bar_enabled = true
+  vim.opt.linespace = -4
   vim.opt.mouse = "a"
   vim.keymap.set({ "n" }, "<A-CR>",
     "<cmd>execute('let g:neovide_fullscreen = !g:neovide_fullscreen')<CR>",
