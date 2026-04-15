@@ -126,7 +126,9 @@ map("v", "[,", ":'<,'>Tab /,<CR>", { silent = true })
 
 -- map("v", "<Leader>r", ":TREPLSendSelection<CR>", { silent = true })
 --
-map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { silent = true })
+-- map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { silent = true })
+vim.cmd.packadd("nvim.undotree")
+map("n", "<leader>u", require("undotree").open, { silent = true })
 
 map("n", "<C-\\>", ":tab split<CR>:exec('tag '.expand('<cword>'))<CR>", { silent = true })
 

@@ -240,8 +240,8 @@ _G.stop_lsp = function()
   return vim.lsp.stop_client(vim.lsp.get_clients())
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false })
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+--     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false })
 vim.diagnostic.config({ update_in_insert = false })
 
 

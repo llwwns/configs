@@ -298,6 +298,8 @@ return (require("lazy")).setup({
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    branch = "main",
     config = function() require("treesitter_init") end,
     -- dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
   },

@@ -123,8 +123,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.b.format_on_save = true
       end,
     }
@@ -136,8 +138,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.b.format_on_save = true
         vim.keymap.set("n", "<leader>cr", "<cmd>!ruby %<CR>", { buffer = true, silent = false })
       end,
@@ -151,8 +155,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.keymap.set("n", "<leader>cr", "<cmd>!go run %<CR>", { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>td", function()
           require("dap-go").debug_test()
@@ -169,8 +175,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++23 -stdlib=libc++ -g3 % <CR>",
           { buffer = true, silent = false })
@@ -188,8 +196,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang -g3 % <CR>",
           { buffer = true, silent = false })
@@ -206,8 +216,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.opt_local["commentstring"] = "// %s"
         vim.b["format_on_save"] = true
       end,
@@ -220,8 +232,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local["foldmethod"] = "expr"
         vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.keymap.set("n", "[j", function() vim.cmd("%!prettier --parser json") end,
           { buffer = true, silent = false })
         vim.keymap.set("n", "]j", function() return vim.cmd("%!jq -c") end,
@@ -236,8 +250,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     }
     },
@@ -248,8 +264,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local["foldmethod"] = "expr"
         vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.b["format_on_save"] = true
         vim.opt_local["commentstring"] = "// %s"
       end,
@@ -330,8 +348,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     }
     },
@@ -347,8 +367,10 @@ augroups {
             require("lint").try_lint()
           end,
         })
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     }
     },
@@ -359,8 +381,10 @@ augroups {
         if vim.b.large_buf then
           return
         end
+        vim.treesitter.start()
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     }
     },
