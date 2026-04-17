@@ -36,3 +36,4 @@ makelink .config/clangd clangd
 makelink .config/zathura zathura
 makelink .config/zed zed
 makelink .config/fuzzel fuzzel
+makelink .editorconfig .editorconfig
