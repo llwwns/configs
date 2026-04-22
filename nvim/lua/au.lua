@@ -11,6 +11,22 @@ local function augroups(definitions)
   end
 end
 
+local function with_small_buf(callback)
+  return function(...)
+    if vim.b.large_buf then
+      return
+    end
+    return callback(...)
+  end
+end
+
+local function setup_treesitter()
+  vim.treesitter.start()
+  vim.opt_local.foldmethod = "expr"
+  vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+  vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+end
+
 augroups {
   highlight_yank = {
     {
@@ -89,14 +105,30 @@ augroups {
     }
     }
   },
-  filetypes2 = {
+  filetypes = {
     {
       "FileType", {
-      pattern = "make",
-      callback = function()
-        vim.opt_local.tabstop = 8
-        vim.opt_local.expandtab = false
-      end,
+      pattern = {
+        "lua",
+        "ruby",
+        "go",
+        "cpp",
+        "c",
+        "rust",
+        "json",
+        "toml",
+        "yaml",
+        "javascript",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "proto",
+        "sh",
+        "bash",
+        "fish",
+        "odin",
+      },
+      callback = with_small_buf(setup_treesitter),
     }
     },
     {
@@ -109,168 +141,90 @@ augroups {
     },
     {
       "FileType", {
-      pattern = "nginx",
-      callback = function()
-        vim.opt_local.tabstop = 4
-        vim.opt_local.expandtab = false
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = { "lua" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      pattern = {
+        "lua",
+        "ruby",
+        "go",
+        "rust",
+        "javascript",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "odin",
+      },
+      callback = with_small_buf(function()
         vim.b.format_on_save = true
-      end,
+      end),
     }
     },
     {
       "FileType", {
       pattern = { "ruby" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.b.format_on_save = true
+      callback = with_small_buf(function()
         vim.keymap.set("n", "<leader>cr", "<cmd>!ruby %<CR>", { buffer = true, silent = false })
-      end,
+      end),
     }
     },
     {
       "FileType", {
       pattern = "go",
-      callback = function()
-        vim.opt_local.expandtab = false
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      callback = with_small_buf(function()
         vim.keymap.set("n", "<leader>cr", "<cmd>!go run %<CR>", { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>td", function()
           require("dap-go").debug_test()
         end, { silent = true })
-        vim.b.format_on_save = true
-      end,
+      end),
+    }
+    },
+    {
+      "FileType", {
+      pattern = {
+        "cpp",
+        "c",
+        "rust",
+        "javascript",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "jsonc",
+      },
+      callback = with_small_buf(function()
+        vim.opt_local["commentstring"] = "// %s"
+      end),
     }
     },
     {
       "FileType", {
       pattern = { "cpp" },
-      callback = function()
-        vim.opt_local.tabstop = 4
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.opt_local["commentstring"] = "// %s"
+      callback = with_small_buf(function()
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang++ -std=c++23 -stdlib=libc++ -g3 % <CR>",
           { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>cr",
           "<cmd>!clang++ -std=c++23 -stdlib=libc++ -g3 % && ./a.out <CR>",
           { buffer = true, silent = false })
-      end,
+      end),
     }
     },
     {
       "FileType", {
       pattern = { "c" },
-      callback = function()
-        vim.opt_local.tabstop = 4
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.opt_local["commentstring"] = "// %s"
+      callback = with_small_buf(function()
         vim.keymap.set("n", "<leader>cm", "<cmd>!clang -g3 % <CR>",
           { buffer = true, silent = false })
         vim.keymap.set("n", "<leader>cr", "<cmd>!clang -g3 % && ./a.out <CR>",
           { buffer = true, silent = false })
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = "rust",
-      callback = function()
-        vim.opt_local.tabstop = 4
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.opt_local["commentstring"] = "// %s"
-        vim.b["format_on_save"] = true
-      end,
+      end),
     }
     },
     {
       "FileType", {
       pattern = "json",
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local["foldmethod"] = "expr"
-        vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      callback = with_small_buf(function()
         vim.keymap.set("n", "[j", function() vim.cmd("%!prettier --parser json") end,
           { buffer = true, silent = false })
         vim.keymap.set("n", "]j", function() return vim.cmd("%!jq -c") end,
           { buffer = true, silent = false })
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = { "toml", "yaml" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = { "javascript", "javascript.jsx", "typescript", "typescriptreact" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local["foldmethod"] = "expr"
-        vim.opt_local["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.b["format_on_save"] = true
-        vim.opt_local["commentstring"] = "// %s"
-      end,
+      end),
     }
     },
     {
@@ -283,25 +237,9 @@ augroups {
     },
     {
       "FileType", {
-      pattern = { "jsonc" },
-      callback = function()
-        vim.opt_local["commentstring"] = "// %s"
-      end,
-    }
-    },
-    {
-      "FileType", {
       pattern = { "xml" },
       callback = function()
         vim.opt_local["commentstring"] = "<!-- %s -->"
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = "autohotkey",
-      callback = function()
-        vim.opt_local["tabstop"] = 4
       end,
     }
     },
@@ -343,49 +281,14 @@ augroups {
     },
     {
       "FileType", {
-      pattern = "proto",
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    }
-    },
-    {
-      "FileType", {
       pattern = { "sh", "bash" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
+      callback = with_small_buf(function()
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
           callback = function()
             require("lint").try_lint()
           end,
         })
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    }
-    },
-    {
-      "FileType", {
-      pattern = { "fish" },
-      callback = function()
-        if vim.b.large_buf then
-          return
-        end
-        vim.treesitter.start()
-        vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
+      end),
     }
     },
     {
