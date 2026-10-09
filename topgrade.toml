@@ -11,7 +11,9 @@
 # Disable specific steps - same options as the command line flag
 # disable = ["self_update", "vim", "stack", "pipx", "pip3", "firmware", "containers", "tldr", "julia", "yarn", "pnpm", "vscode"]
 # only = ["system", "rustup", "flatpak", "cargo", "pnpm", "vim", "vscode"]
-only = ["system", "flatpak", "cargo", "pnpm", "vim", "vscode"]
+# only = ["system", "flatpak", "cargo", "pnpm", "vim", "vscode"]
+# only = ["system", "cargo", "pnpm", "vim", "vscode"]
+only = ["system", "cargo", "pnpm"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]

@@ -8,20 +8,48 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "terminal": {
+    "font_size": 14.0,
+    "font_family": "0xProto Nerd Font"
+  },
+  "buffer_line_height": "standard",
+  "edit_predictions": {
+    "provider": "none"
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry",
+      "env": {
+        "CODEX_API_KEY": "sk-hi-2Pv0YudAODpidmHB6Dw"
+      }
+    }
+  },
   "base_keymap": "SublimeText",
   "buffer_font_family": "0xProto",
-  "buffer_font_weight": 200,
+  "buffer_font_weight": 200.0,
+  "buffer_font_fallbacks": ["IBM Plex Sans JP"],
   "cursor_blink": false,
   "vim_mode": true,
-  "features": {
-    "inline_completion_provider": "none"
-  },
   "ui_font_size": 17,
-  "buffer_font_size": 14,
+  "buffer_font_size": 15.0,
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Kanagawa Wave - No Italics"
+    "dark": "Kanagawa Wave"
   },
   "use_autoclose": false,
   "experimental.theme_overrides": {
@@ -36,5 +64,5 @@
       "enabled": false
     }
   },
-  "relative_line_numbers": true
+  "relative_line_numbers": "enabled"
 }

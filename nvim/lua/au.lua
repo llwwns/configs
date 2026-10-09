@@ -30,7 +30,9 @@ end
 augroups {
   highlight_yank = {
     {
-      "TextYankPost", {
+      -- { "TextYankPost", "TextPutPost" }, {
+      { "TextYankPost" }, {
+      -- callback = function() vim.hl.hl_op({ higroup = "Visual", timeout = 200 }) end,
       callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 200 }) end,
       pattern = "*",
     } },
@@ -127,6 +129,7 @@ augroups {
         "bash",
         "fish",
         "odin",
+        "c3",
       },
       callback = with_small_buf(setup_treesitter),
     }

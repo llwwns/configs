@@ -22,15 +22,18 @@ require("conform").setup {
         return not not config and config == vim.fs.root(ctx.dirname, prettier_root)
       end,
       cwd = require("conform.util").root_file(prettier_root),
-
     },
   },
   formatters_by_ft = {
     -- lua = { "stylua" },
-    javascript = { "prettierd" },
-    javascriptreact = { "prettierd" },
-    typescript = { "prettierd" },
-    typescriptreact = { "prettierd" },
+    -- javascript = { "prettierd" },
+    -- javascriptreact = { "prettierd" },
+    -- typescript = { "prettierd" },
+    -- typescriptreact = { "prettierd" },
+    javascript = { "biome" },
+    javascriptreact = { "biome" },
+    typescript = { "biome" },
+    typescriptreact = { "biome" },
     css = { "prettierd" },
   },
 }

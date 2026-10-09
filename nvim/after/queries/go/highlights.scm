@@ -1,15 +1,19 @@
 ; extends
+
+; comment
+(comment) @spell
+
 ; type
 (type_alias name: (type_identifier) @spell)
 (type_spec name: (type_identifier) @type.definition @spell)
 
 ; variable
-(short_var_declaration 
+(short_var_declaration
   left: (expression_list
-          (identifier) @spell)) 
+          (identifier) @spell))
 (const_spec
   name: (identifier) @spell)
-(var_spec 
+(var_spec
   name: (identifier) @spell)
 
 ; label
@@ -25,8 +29,11 @@
 (method_declaration
   name: (field_identifier) @function.method @spell)
 
-(method_elem 
-  name: (field_identifier) @function.method @spell) 
+(method_elem
+  name: (field_identifier) @function.method @spell)
 
 ; struct
 (field_declaration name: (field_identifier) @field @spell)
+
+; string literal
+(interpreted_string_literal (interpreted_string_literal_content) @spell)

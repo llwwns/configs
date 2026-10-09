@@ -1,12 +1,12 @@
 font-family = 0xProto Nerd Font
 font-feature = -dlig
-font-size = 11
+font-size = 16
 
 theme = Kanagawa Wave
 
-gtk-titlebar = false
+gtk-titlebar = true
 gtk-wide-tabs = false
-gtk-adwaita = true
+# gtk-adwaita = true
 
 background-opacity = 0.9
 

@@ -49,4 +49,6 @@ require('nvim-treesitter').install {
   "tsx",
   "typescript",
   "yaml",
+--  "odin",
+--  "c3",
 }

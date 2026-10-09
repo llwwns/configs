@@ -13,19 +13,28 @@ indent_size = 2
 
 [*.go]
 indent_style = tab
+tab_width = 4
 
 [*.odin]
 indent_style = tab
+tab_width = 4
 
 [Makefile]
 indent_style = tab
 indent_size = 8
+
+[nginx.conf]
+indent_style = tab
+tab_width = 4
 
 [*.json]
 indent_style = space
 indent_size = 2
 
 [*.cpp]
+indent_size = 4
+
+[*.c3]
 indent_size = 4
 
 [*.rs]

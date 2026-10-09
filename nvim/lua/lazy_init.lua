@@ -6,34 +6,34 @@ end
 
 (vim.opt.runtimepath):prepend(install_path)
 return (require("lazy")).setup({
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   lazy = false,
-  --   config = function()
-  --     require("ibl").setup({
-  --       indent = {
-  --         char = "│"
-  --       },
-  --       scope = {
-  --         enabled = true,
-  --         show_start = false,
-  --       },
-  --     })
-  --   end,
-  -- },
   {
-    'saghen/blink.indent',
-    --- @module 'blink.indent'
-    --- @type blink.indent.Config
-    opts = {
-      static = {
-        char = '│',
-      },
-      scope = {
-        char = '│',
-      },
-    },
+    "lukas-reineke/indent-blankline.nvim",
+    lazy = false,
+    config = function()
+      require("ibl").setup({
+        indent = {
+          char = "│"
+        },
+        scope = {
+          enabled = true,
+          show_start = false,
+        },
+      })
+    end,
   },
+  -- {
+  --   'saghen/blink.indent',
+  --   --- @module 'blink.indent'
+  --   --- @type blink.indent.Config
+  --   opts = {
+  --     static = {
+  --       char = '│',
+  --     },
+  --     scope = {
+  --       char = '│',
+  --     },
+  --   },
+  -- },
   -- {
   --   "shellRaining/hlchunk.nvim",
   --   event = { "UIEnter" },
@@ -66,6 +66,16 @@ return (require("lazy")).setup({
       "Gdiffsplit",
     }
   },
+  -- {
+  --   "colomb8/mc-cavallo.nvim",
+  --   opts = {
+  --     keymaps = {
+  --       start = '<C-n>',     -- Normal and Visual mode
+  --       skip = '<C-s>',      -- Normal mode
+  --       exit = '<C-q><C-q>', -- Normal, Visual and Insert mode
+  --     },
+  --   },
+  -- },
   {
     "mg979/vim-visual-multi",
     lazy = true,
@@ -210,7 +220,7 @@ return (require("lazy")).setup({
     },
   },
   { "vim-scripts/BufOnly.vim", lazy = true, cmd = { "BOnly" } },
-  { "dbeniamine/todo.txt-vim", ft = { "todo" }, lazy = true },
+  -- { "dbeniamine/todo.txt-vim", ft = { "todo" }, lazy = true },
   {
     "houtsnip/vim-emacscommandline",
     init = function() vim.g.EmacsCommandLineSearchCommandLineDisable = 1 end,
@@ -259,21 +269,21 @@ return (require("lazy")).setup({
   --     { mode = "l", "<c-j>" },
   --   },
   -- },
-  {
-    "vim-skk/skkeleton",
-    dependencies = { "vim-denops/denops.vim" },
-    lazy = true,
-    keys = {
-      { mode = "i", "<Plug>(skkeleton-enable)" },
-      { mode = "c", "<Plug>(skkeleton-enable)" },
-    },
-    config = function()
-      vim.fn["skkeleton#config"]({
-        showCandidatesCount = 1,
-        globalDictionaries = { { "~/configs/SKK-JISYO.L", "euc-jp" } },
-      })
-    end,
-  },
+  -- {
+  --   "vim-skk/skkeleton",
+  --   dependencies = { "vim-denops/denops.vim" },
+  --   lazy = true,
+  --   keys = {
+  --     { mode = "i", "<Plug>(skkeleton-enable)" },
+  --     { mode = "c", "<Plug>(skkeleton-enable)" },
+  --   },
+  --   config = function()
+  --     vim.fn["skkeleton#config"]({
+  --       showCandidatesCount = 1,
+  --       globalDictionaries = { { "~/configs/SKK-JISYO.L", "euc-jp" } },
+  --     })
+  --   end,
+  -- },
   { "powerman/vim-plugin-AnsiEsc", lazy = true, cmd = { "AnsiEsc" } },
   -- {
   --   "numToStr/Comment.nvim",
@@ -296,12 +306,17 @@ return (require("lazy")).setup({
     config = function() require("luasnip_init") end,
     dependencies = { "rafamadriz/friendly-snippets" },
   },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   lazy = false,
+  --   branch = "main",
+  --   config = function() require("treesitter_init") end,
+  --   -- dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
+  -- },
   {
-    "nvim-treesitter/nvim-treesitter",
+    "arborist-ts/arborist.nvim",
     lazy = false,
-    branch = "main",
-    config = function() require("treesitter_init") end,
-    -- dependencies = { "https://gitlab.com/HiPhish/nvim-ts-rainbow2" },
+    config = function() require("arborist_init") end,
   },
   "RRethy/nvim-treesitter-endwise",
   { "petertriho/nvim-scrollbar", config = true },
@@ -404,6 +419,102 @@ return (require("lazy")).setup({
     end,
   },
   { "smoka7/hop.nvim", lazy = true, config = true },
+  -- {
+  --   "FluxxField/smart-motion.nvim",
+  --   -- opts = {
+  --   --   presets = {
+  --   --     -- words = true,     -- w, b, e, ge
+  --   --     -- lines = true,     -- j, k
+  --   --     -- search = true,    -- s, f, F, t, T, ;, ,, gs
+  --   --     -- delete = true,    -- d, dt, dT, rdw, rdl
+  --   --     -- yank = true,      -- y, yt, yT, ryw, ryl
+  --   --     -- change = true,    -- c, ct, cT
+  --   --     -- paste = true,     -- p, P
+  --   --     -- treesitter = true, -- ]], [[, ]c, [c, ]b, [b, daa, caa, yaa, dfn, cfn, yfn, saa
+  --   --     -- diagnostics = true, -- ]d, [d, ]e, [e
+  --   --     -- git = true,       -- ]g, [g
+  --   --     -- quickfix = true,  -- ]q, [q, ]l, [l
+  --   --     -- marks = true,     -- g', gm
+  --   --     -- misc = true,      -- . (repeat), gmd, gmy
+  --   --   },
+  --   -- },
+  --   config = function()
+  --     local sm = require("smart-motion")
+  --     sm.setup({ presets = {} })
+  --     sm.motions.register("<leader>w", {
+  --       collector = "lines",
+  --       extractor = "words",
+  --       filter = "filter_words_after_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("<leader>b", {
+  --       collector = "lines",
+  --       extractor = "words",
+  --       filter = "filter_words_before_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("<leader>e", {
+  --       collector = "lines",
+  --       extractor = "words",
+  --       filter = "filter_words_after_cursor",
+  --       visualizer = "hint_end",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("<leader>ge", {
+  --       collector = "lines",
+  --       extractor = "words",
+  --       filter = "filter_words_before_cursor",
+  --       visualizer = "hint_end",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("<leader>j", {
+  --       collector = "lines",
+  --       extractor = "lines",
+  --       filter = "filter_lines_after_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("<leader>k", {
+  --       collector = "lines",
+  --       extractor = "lines",
+  --       filter = "filter_lines_before_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("s", {
+  --       collector = "lines",
+  --       extractor = "text_search_2_char",
+  --       filter = "filter_words_after_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --     sm.motions.register("S", {
+  --       collector = "lines",
+  --       extractor = "text_search_2_char",
+  --       filter = "filter_words_before_cursor",
+  --       visualizer = "hint_start",
+  --       action = "jump",
+  --       map = true,
+  --       modes = { "n", "v", "o" },
+  --     })
+  --   end
+  -- },
   {
     "rebelot/terminal.nvim",
     lazy = true,
@@ -444,34 +555,34 @@ return (require("lazy")).setup({
     lazy = true,
   },
   "MunifTanjim/nui.nvim",
-  {
-    "bfredl/nvim-luadev",
-    lazy = true,
-    cmd = { "Luadev" },
-    config = function()
-      vim.keymap.set("n", "<leader>ll", "<Plug>(Luadev-RunLine)", { noremap = true, silent = true })
-      vim.keymap.set({ "n", "v" }, "<leader>lr", "<Plug>(Luadev-Run)",
-        { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>lw", "<Plug>(Luadev-RunWord)", { noremap = true, silent = true })
-      vim.keymap.set("i", "<c-k><c-l>", "<Plug>(Luadev-Complete)", { noremap = true, silent = true })
-    end,
-  },
-  {
-    "nvimtools/hydra.nvim",
-    config = function() require("hydra_init") end,
-    -- dependencies = "anuvyklack/keymap-layer.nvim",
-  },
-  {
-    "ziontee113/icon-picker.nvim",
-    lazy = true,
-    cmd = {
-      "PickEverything", "PickIcons", "PickEmoji", "PickNerd",
-      "PickSymbols", "PickAltFont", "PickAltFontAndSymbols",
-      "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert",
-      "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert",
-    },
-    config = function() require("icon-picker") end,
-  },
+  -- {
+  --   "bfredl/nvim-luadev",
+  --   lazy = true,
+  --   cmd = { "Luadev" },
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>ll", "<Plug>(Luadev-RunLine)", { noremap = true, silent = true })
+  --     vim.keymap.set({ "n", "v" }, "<leader>lr", "<Plug>(Luadev-Run)",
+  --       { noremap = true, silent = true })
+  --     vim.keymap.set("n", "<leader>lw", "<Plug>(Luadev-RunWord)", { noremap = true, silent = true })
+  --     vim.keymap.set("i", "<c-k><c-l>", "<Plug>(Luadev-Complete)", { noremap = true, silent = true })
+  --   end,
+  -- },
+  -- {
+  --   "nvimtools/hydra.nvim",
+  --   config = function() require("hydra_init") end,
+  --   -- dependencies = "anuvyklack/keymap-layer.nvim",
+  -- },
+  -- {
+  --   "ziontee113/icon-picker.nvim",
+  --   lazy = true,
+  --   cmd = {
+  --     "PickEverything", "PickIcons", "PickEmoji", "PickNerd",
+  --     "PickSymbols", "PickAltFont", "PickAltFontAndSymbols",
+  --     "PickEverythingInsert", "PickIconsInsert", "PickEmojiInsert",
+  --     "PickNerdInsert", "PickSymbolsInsert", "PickAltFontInsert", "PickAltFontAndSymbolsInsert",
+  --   },
+  --   config = function() require("icon-picker") end,
+  -- },
   -- { "tiagovla/scope.nvim", config = true },
   {
     "rcarriga/nvim-notify",
@@ -494,26 +605,26 @@ return (require("lazy")).setup({
     lazy = true,
     config = function() require("dap_init") end,
   },
-  {
-    "leoluz/nvim-dap-go",
-    config = true,
-    dependencies = { "mfussenegger/nvim-dap" },
-    lazy = true,
-  },
+  -- {
+  --   "leoluz/nvim-dap-go",
+  --   config = true,
+  --   dependencies = { "mfussenegger/nvim-dap" },
+  --   lazy = true,
+  -- },
   { "dstein64/vim-startuptime", lazy = true, cmd = { "StartupTime" } },
-  {
-    "toppair/peek.nvim",
-    build = "deno task --quiet build:fast",
-    opts = {
-      auto_load = true,
-      close_on_bdelete = true,
-      syntax = true,
-      theme = "dark",
-      update_on_change = true,
-    },
-    ft = "markdown",
-    lazy = true,
-  },
+  -- {
+  --   "toppair/peek.nvim",
+  --   build = "deno task --quiet build:fast",
+  --   opts = {
+  --     auto_load = true,
+  --     close_on_bdelete = true,
+  --     syntax = true,
+  --     theme = "dark",
+  --     update_on_change = true,
+  --   },
+  --   ft = "markdown",
+  --   -- lazy = true,
+  -- },
   -- {
   --   "nvim-zh/colorful-winsep.nvim",
   --   opts = {
@@ -526,39 +637,39 @@ return (require("lazy")).setup({
   --   event = { "InsertEnter" },
   --   lazy = true,
   -- },
-  {
-    'vimwiki/vimwiki',
-    lazy = true,
-    keys = { "<leader>vww" },
-    init = function()
-      vim.g.vimwiki_conceallevel = 0
-      vim.g.vimwiki_list = { { path = '~/Documents/vimwiki/wiki' } }
-      vim.g.vimwiki_global_ext = 0
-      -- vim.g.vimwiki_key_mappings = { global = 0 }
-      vim.g.vimwiki_map_prefix = "<leader>vw"
-      vim.g.wiki = {
-        nested_syntaxes = { "bash", "json", "fish", "sql", "go", "javascript", "typescript" }
-      }
-      vim.g.vimwiki_folding = "custom"
-    end
-  },
-  {
-    "folke/neodev.nvim",
-    config = true,
-  },
-  {
-    "dmmulroy/tsc.nvim",
-    lazy = true,
-    opts = {
-      flags = {
-        noEmit = true,
-        pretty = "false",
-        -- watch = true,
-      },
-      bin_path = os.getenv("HOME") .. "/.local/share/pnpm/tsgo"
-    },
-    cmd = { "TSC" }
-  },
+  -- {
+  --   'vimwiki/vimwiki',
+  --   lazy = true,
+  --   keys = { "<leader>vww" },
+  --   init = function()
+  --     vim.g.vimwiki_conceallevel = 0
+  --     vim.g.vimwiki_list = { { path = '~/Documents/vimwiki/wiki' } }
+  --     vim.g.vimwiki_global_ext = 0
+  --     -- vim.g.vimwiki_key_mappings = { global = 0 }
+  --     vim.g.vimwiki_map_prefix = "<leader>vw"
+  --     vim.g.wiki = {
+  --       nested_syntaxes = { "bash", "json", "fish", "sql", "go", "javascript", "typescript" }
+  --     }
+  --     vim.g.vimwiki_folding = "custom"
+  --   end
+  -- },
+  -- {
+  --   "folke/neodev.nvim",
+  --   config = true,
+  -- },
+  -- {
+  --   "dmmulroy/tsc.nvim",
+  --   lazy = true,
+  --   opts = {
+  --     flags = {
+  --       noEmit = true,
+  --       pretty = "false",
+  --       -- watch = true,
+  --     },
+  --     bin_path = os.getenv("HOME") .. "/.local/share/pnpm/tsgo"
+  --   },
+  --   cmd = { "TSC" }
+  -- },
   {
     "backdround/improved-search.nvim",
     lazy = true,
@@ -589,10 +700,14 @@ return (require("lazy")).setup({
   --   lazy = true,
   --   cmd = { "Copilot" },
   -- },
-  {
-    "dundalek/bloat.nvim",
-    cmd = "Bloat",
-  },
+  -- {
+  --   "dundalek/bloat.nvim",
+  --   cmd = "Bloat",
+  -- },
+  -- {
+  --   "esmuellert/vscode-diff.nvim",
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  -- },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
@@ -602,8 +717,32 @@ return (require("lazy")).setup({
     end,
   },
   -- {
+  --   "ramilito/kubectl.nvim",
+  --   -- lazy = true,
+  --   -- use a release tag to download pre-built binaries
+  --   version = "2.*",
+  --   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+  --   -- dependencies = "saghen/blink.download",
+  --   opts = {},
+  -- },
+  -- {
   --   "ethersync/ethersync-nvim",
   --   keys = { { "<leader>j", "<cmd>EthersyncJumpToCursor<cr>" } },
   --   lazy = false,
   -- }
+  -- {
+  --   "olimorris/codecompanion.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function() require("codecompanion_init") end,
+  -- },
+  -- "github-main-user/lytmode.nvim",
+  -- lazy = false,
+  -- priority = 1000,
+  -- config = function()
+  --   require('lytmode').setup()
+  -- end,
+  -- "AlexvZyl/nordic.nvim",
 })

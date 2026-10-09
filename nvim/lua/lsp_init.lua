@@ -3,7 +3,7 @@
 -- local util = require "lspconfig/util"
 -- local navic = require "nvim-navic"
 -- local null_ls = require "null-ls"
-require("neodev").setup({})
+-- require("neodev").setup({})
 
 -- local function prettierd()
 --   local project_local_bin = "node_modules/.bin/prettier"
@@ -178,7 +178,7 @@ setup_lsp("gopls", {
   deepCompletion = false,
 })
 setup_lsp("erlangls", {})
-setup_lsp("tailwindcss", {})
+-- setup_lsp("tailwindcss", {})
 setup_lsp("hls", {})
 setup_lsp("marksman", {})
 setup_lsp("elixirls", { cmd = { "elixir-ls" } })
@@ -217,6 +217,11 @@ setup_lsp("lua_ls", {
     },
   },
 })
+-- setup_lsp("ols", {})
+-- setup_lsp("c3_lsp", {})
+-- setup_lsp("buf_ls", {})
+-- setup_lsp("pylsp", {})
+setup_lsp("biome", {})
 -- setup_lsp("efm", {
 --   init_options = { documentFormatting = true },
 --   filetypes = { 'javascript', 'sh', 'typescript', 'typescriptreact' },
@@ -245,5 +250,5 @@ end
 vim.diagnostic.config({ update_in_insert = false })
 
 
-vim.lsp.enable("copilot")
+-- vim.lsp.enable("copilot")
 vim.lsp.inline_completion.enable(true)

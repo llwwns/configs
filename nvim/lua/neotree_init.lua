@@ -11,7 +11,9 @@ return (require("neo-tree")).setup({
     winbar = true,
   },
   filesystem = {
-    follow_current_file = true,
+    follow_current_file = {
+      enabled = true,
+    },
     hijack_netrw_behavior = "open_default",
     filtered_items = {
       visible = false,

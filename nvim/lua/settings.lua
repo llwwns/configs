@@ -85,6 +85,7 @@ vim.g.vim_markdown_conceal_code_blocks = 0
 -- vim.g.tokyonight_style = "night"
 -- vim.cmd.colorscheme "tokyonight-night"
 vim.cmd.colorscheme "kanagawa"
+-- vim.cmd.colorscheme "nordic"
 
 vim.opt.foldminlines = 1
 vim.opt.foldtext = "v:lua.foldtext2()"
