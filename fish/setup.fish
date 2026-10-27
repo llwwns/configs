@@ -24,8 +24,8 @@ mkdir -p  $HOME/.deno/bin
 fish_add_path -U $HOME/.deno/bin
 mkdir -p  $GOPATH/bin
 fish_add_path -U $GOPATH/bin
-mkdir -p  $PNPM_HOME
-fish_add_path -U $PNPM_HOME
+mkdir -p  $PNPM_HOME/bin
+fish_add_path -U $PNPM_HOME/bin
 mkdir -p  $ASDF_DATA_DIR/shims
 fish_add_path -U $ASDF_DATA_DIR/shims
 

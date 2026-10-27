@@ -131,3 +131,4 @@ vim.g._ts_force_sync_parsing = true
 vim.g.markdown_fenced_languages = {
   "ts=typescript"
 }
+vim.g.scrollbar_v2_notice = false

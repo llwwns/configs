@@ -73,7 +73,7 @@ git config --global tag.sort version:refname
 
 # mkdir -p ~/.config/nvim/
 # echo "source ~/.vimrc" > ~/.config/nvim/init.vim
-wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
+xh --download http://openlab.jp/skk/dic/SKK-JISYO.L.gz
 gzip -d SKK-JISYO.L.gz
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
